@@ -180,6 +180,26 @@
   .mid-cta .cta:hover { background: #f5f5f7; }
   .mid-cta .cta.ghost { color: #fff; background: transparent; }
   .mid-cta .cta.ghost:hover { background: transparent; text-decoration: underline; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 980px; margin: 0 auto; }
+  @media (max-width: 720px) { .compare-grid { grid-template-columns: 1fr; } }
+  .compare-col { background: var(--surface-2); border-radius: 22px; padding: 36px 32px; }
+  .compare-col.chipshark { background: #1d1d1f; color: #fff; }
+  .compare-col .col-label { font-size: 12px; font-weight: 500; letter-spacing: 0; margin: 0 0 4px; color: var(--ink-3); text-transform: none; }
+  .compare-col.chipshark .col-label { color: #6e6e73; }
+  .compare-col h3 { margin: 0 0 24px; font-size: 24px; font-weight: 600; letter-spacing: -0.022em; }
+  .compare-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  .compare-col li { font-size: 15px; line-height: 1.47; letter-spacing: -0.009em; padding-left: 28px; position: relative; color: var(--ink-2); }
+  .compare-col.chipshark li { color: #d2d2d7; }
+  .compare-col li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--line-2);
+  }
+  .compare-col.chipshark li::before {
+    background: var(--accent);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='12 4 7 10 4 7'/%3E%3C/svg%3E");
+    background-size: 16px 16px; background-repeat: no-repeat;
+  }
   .enterprise-row { display: flex; justify-content: center; margin-bottom: 22px; }
   .enterprise-note { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: var(--surface-2); border-radius: 980px; font-size: 13px; color: var(--ink-2); letter-spacing: -0.009em; }
   .enterprise-note::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); }
@@ -379,6 +399,38 @@
     <div class="compliance-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       <div><h4>Return policy</h4><p>Any part that fails incoming inspection is returned for full refund within 30 days of receipt.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section" id="compare"><div class="wrap">
+  <span class="eyebrow">How we compare</span>
+  <h2>Different, by design.</h2>
+  <p class="lead">We're not a stocking distributor and we don't try to be. We're the sourcing partner you call when the authorized channel is dry and you need an answer today — not a vendor-onboarding gate.</p>
+  <div class="compare-grid">
+    <div class="compare-col chipshark">
+      <p class="col-label">ChipShark</p>
+      <h3>Built for speed.</h3>
+      <ul>
+        <li>24-hour quote turnaround, stated on every page</li>
+        <li>No account, no portal, no onboarding — one form</li>
+        <li>Supplier tier disclosed on every quote</li>
+        <li>Every RFQ gets a human read, not a scraper hit</li>
+        <li>Line-down? One business-hour response</li>
+        <li>Modern tooling, transparent pricing, operator-run</li>
+      </ul>
+    </div>
+    <div class="compare-col">
+      <p class="col-label">Legacy brokers</p>
+      <h3>Built for the catalog era.</h3>
+      <ul>
+        <li>Response times vary — 48 to 72 hours is common</li>
+        <li>Vendor setup, W-9, references required up front</li>
+        <li>Opaque sourcing with bundled margins</li>
+        <li>Sales reps sitting between you and the sourcing desk</li>
+        <li>Emergency RFQs handled on the same queue as the rest</li>
+        <li>Portals and processes that feel ten years old</li>
+      </ul>
     </div>
   </div>
 </div></section>
