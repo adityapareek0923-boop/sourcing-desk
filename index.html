@@ -5,23 +5,25 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ChipShark — Hard-to-find electronic components</title>
 <meta name="description" content="Obsolete, EOL, long-lead-time electronic components sourced by a former procurement lead. Submit an RFQ, get a sourced quote within 24 hours.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230071e3'/%3E%3Ctext x='16' y='22' font-family='-apple-system,sans-serif' font-size='17' font-weight='600' fill='white' text-anchor='middle'%3ESD%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d1d1f'/%3E%3Ctext x='16' y='22' font-family='-apple-system,sans-serif' font-size='15' font-weight='600' fill='white' text-anchor='middle'%3ECS%3C/text%3E%3C/svg%3E">
 <style>
   :root {
-    --bg: #fbfbfd;
+    --bg: #ffffff;
     --surface: #ffffff;
     --surface-2: #f5f5f7;
     --ink: #1d1d1f;
     --ink-2: #424245;
-    --ink-3: #6e6e73;
+    --ink-3: #86868b;
     --line: #d2d2d7;
+    --line-2: #e8e8ed;
     --accent: #0071e3;
+    --accent-hover: #0077ed;
     --accent-ink: #ffffff;
     --ok: #30861a;
     --warn: #8a4a0b;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg:#000; --surface:#1c1c1e; --surface-2:#2c2c2e; --ink:#f5f5f7; --ink-2:#d2d2d7; --ink-3:#86868b; --line:#38383a; }
+    :root { --bg:#000; --surface:#000; --surface-2:#1d1d1f; --ink:#f5f5f7; --ink-2:#a1a1a6; --ink-3:#6e6e73; --line:#1d1d1f; --line-2:#262628; --accent:#2997ff; --accent-hover:#4ba9ff; }
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -29,131 +31,148 @@
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
     background: var(--bg); color: var(--ink);
     -webkit-font-smoothing: antialiased;
-    line-height: 1.47;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.47059;
+    letter-spacing: -0.003em;
   }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+  .wrap-wide { max-width: 1200px; margin: 0 auto; padding: 0 22px; }
   nav {
     position: sticky; top: 0; z-index: 10;
     backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
     background: color-mix(in srgb, var(--bg) 72%, transparent);
     border-bottom: 0.5px solid var(--line);
   }
-  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 48px; font-size: 14px; }
-  .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: -0.01em; }
-  .brand-mark { width: 22px; height: 22px; border-radius: 5px; background: var(--accent); display: inline-flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 600; letter-spacing: 0.3px; }
-  .links a { color: var(--ink-2); text-decoration: none; margin-left: 22px; font-size: 13px; }
-  .links a:hover { color: var(--ink); }
-  .hero { padding: 80px 0 56px; text-align: center; }
+  nav .wrap-wide { display: flex; align-items: center; justify-content: space-between; height: 44px; font-size: 12px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; letter-spacing: -0.014em; }
+  .brand-mark { width: 24px; height: 24px; border-radius: 6px; background: var(--ink); display: inline-flex; align-items: center; justify-content: center; color: var(--bg); font-size: 11px; font-weight: 600; letter-spacing: 0.3px; }
+  .links a { color: var(--ink); text-decoration: none; margin-left: 24px; font-size: 12px; opacity: 0.88; }
+  .links a:hover { opacity: 1; }
+  .hero { padding: 120px 0 100px; text-align: center; }
+  .hero .eyebrow { display: inline-block; font-size: 12px; font-weight: 500; color: var(--accent); letter-spacing: 0; margin: 0 0 14px; }
   .hero h1 {
-    font-size: clamp(38px, 5.5vw, 60px); line-height: 1.08;
-    letter-spacing: -0.025em; font-weight: 600; margin: 0 0 18px;
+    font-size: clamp(42px, 6.4vw, 80px); line-height: 1.05;
+    letter-spacing: -0.035em; font-weight: 600; margin: 0 0 20px;
   }
-  .hero p { font-size: clamp(17px, 1.8vw, 21px); color: var(--ink-2); max-width: 640px; margin: 0 auto 28px; }
+  .hero p { font-size: clamp(19px, 1.8vw, 24px); color: var(--ink-2); max-width: 680px; margin: 0 auto 36px; line-height: 1.38; letter-spacing: -0.009em; font-weight: 400; }
   .cta {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--accent); color: var(--accent-ink);
-    padding: 12px 22px; border-radius: 980px;
-    font-size: 15px; font-weight: 500; text-decoration: none;
-    transition: opacity .12s ease;
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--accent); color: #fff;
+    padding: 12px 24px; border-radius: 980px;
+    font-size: 17px; font-weight: 400; text-decoration: none;
+    letter-spacing: -0.022em;
+    transition: background-color .18s ease;
   }
-  .cta:hover { opacity: 0.92; }
-  .cta.ghost { background: transparent; color: var(--accent); border: 0.5px solid var(--accent); margin-left: 8px; }
+  .cta:hover { background: var(--accent-hover); }
+  .cta.ghost { background: transparent; color: var(--accent); padding: 12px 0; margin-left: 20px; }
+  .cta.ghost:hover { background: transparent; text-decoration: underline; }
   .trust-strip {
     border-top: 0.5px solid var(--line);
-    border-bottom: 0.5px solid var(--line);
-    padding: 20px 0;
+    padding: 32px 0;
     background: var(--surface-2);
   }
-  .trust-strip .wrap { display: flex; justify-content: center; align-items: center; gap: 32px; flex-wrap: wrap; font-size: 13px; color: var(--ink-2); }
-  .trust-item { display: flex; align-items: center; gap: 8px; }
-  .trust-item svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; }
-  .section { padding: 64px 0; border-top: 0.5px solid var(--line); }
-  .section h2 { font-size: clamp(26px, 3.5vw, 38px); letter-spacing: -0.02em; font-weight: 600; margin: 0 0 12px; text-align: center; }
-  .section .lead { color: var(--ink-2); text-align: center; max-width: 640px; margin: 0 auto 40px; font-size: 17px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .trust-strip .wrap { display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap; font-size: 14px; color: var(--ink-2); letter-spacing: -0.014em; }
+  .trust-item { display: flex; align-items: center; gap: 10px; }
+  .trust-item svg { width: 18px; height: 18px; color: var(--ink); opacity: 0.6; flex-shrink: 0; }
+  .section { padding: 110px 0; }
+  .section + .section { border-top: 0.5px solid var(--line); }
+  .section .eyebrow { display: block; font-size: 13px; font-weight: 500; color: var(--accent); text-align: center; margin: 0 0 10px; letter-spacing: 0; }
+  .section h2 { font-size: clamp(32px, 4.5vw, 56px); letter-spacing: -0.03em; font-weight: 600; margin: 0 0 18px; text-align: center; line-height: 1.07; }
+  .section .lead { color: var(--ink-2); text-align: center; max-width: 680px; margin: 0 auto 64px; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.38; letter-spacing: -0.009em; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
   .card {
-    background: var(--surface); border-radius: 18px; padding: 26px 24px;
-    border: 0.5px solid var(--line);
+    background: var(--surface-2); border-radius: 22px; padding: 36px 32px;
+    border: none;
+    transition: transform .25s ease;
   }
-  .card h3 { margin: 0 0 8px; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
-  .card p { margin: 0; color: var(--ink-2); font-size: 14px; }
-  .icon-box { width: 36px; height: 36px; border-radius: 9px; background: color-mix(in srgb, var(--accent) 10%, transparent); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 14px; }
-  .icon-box svg { width: 20px; height: 20px; color: var(--accent); }
-  .steps { counter-reset: step; max-width: 760px; margin: 0 auto; }
-  .step { display: flex; gap: 18px; padding: 20px 0; border-bottom: 0.5px solid var(--line); }
+  .card:hover { transform: translateY(-2px); }
+  .card h3 { margin: 0 0 10px; font-size: 24px; font-weight: 600; letter-spacing: -0.022em; line-height: 1.17; }
+  .card p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.47; letter-spacing: -0.012em; }
+  .icon-box { width: 44px; height: 44px; border-radius: 12px; background: var(--surface); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+  .icon-box svg { width: 22px; height: 22px; color: var(--ink); stroke-width: 1.5; }
+  .steps { counter-reset: step; max-width: 820px; margin: 0 auto; }
+  .step { display: grid; grid-template-columns: 44px 1fr; gap: 24px; padding: 28px 0; border-bottom: 0.5px solid var(--line); align-items: start; }
   .step:last-child { border-bottom: none; }
   .step .num {
     counter-increment: step;
-    flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
-    background: var(--accent); color: var(--accent-ink);
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid var(--line);
+    color: var(--ink);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 600; font-size: 14px;
+    font-weight: 500; font-size: 15px;
+    margin-top: 2px;
   }
   .step .num::before { content: counter(step); }
-  .step h4 { margin: 4px 0 4px; font-size: 16px; font-weight: 600; }
-  .step p { margin: 0; color: var(--ink-2); font-size: 14px; }
-  .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start; }
-  @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; gap: 24px; } }
-  .about-body p { font-size: 16px; color: var(--ink-2); line-height: 1.65; margin: 0 0 14px; }
+  .step h4 { margin: 2px 0 6px; font-size: 20px; font-weight: 500; letter-spacing: -0.019em; }
+  .step p { margin: 0; color: var(--ink-2); font-size: 16px; line-height: 1.47; letter-spacing: -0.009em; }
+  .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 56px; align-items: start; max-width: 980px; margin: 0 auto; }
+  @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .about-body p { font-size: 19px; color: var(--ink-2); line-height: 1.47; letter-spacing: -0.012em; margin: 0 0 20px; }
   .about-body p strong { color: var(--ink); font-weight: 500; }
-  .about-card { background: var(--surface); border: 0.5px solid var(--line); border-radius: 14px; padding: 22px; }
-  .about-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-3); margin-bottom: 6px; }
-  .about-card .value { font-size: 16px; font-weight: 500; margin-bottom: 16px; }
+  .about-card { background: var(--surface-2); border-radius: 18px; padding: 32px 28px; }
+  .about-card .label { font-size: 12px; letter-spacing: 0; color: var(--ink-3); margin-bottom: 6px; font-weight: 500; }
+  .about-card .value { font-size: 17px; font-weight: 400; margin-bottom: 24px; letter-spacing: -0.014em; line-height: 1.3; }
   .about-card .value:last-child { margin-bottom: 0; }
-  .compliance-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; max-width: 820px; margin: 0 auto; }
-  .compliance-item { display: flex; gap: 12px; padding: 16px; background: var(--surface); border: 0.5px solid var(--line); border-radius: 12px; }
-  .compliance-item svg { width: 18px; height: 18px; color: var(--ok); flex-shrink: 0; margin-top: 2px; }
-  .compliance-item h4 { margin: 0 0 4px; font-size: 14px; font-weight: 500; }
-  .compliance-item p { margin: 0; font-size: 13px; color: var(--ink-2); }
-  .faq { max-width: 760px; margin: 0 auto; }
-  .faq details { border-bottom: 0.5px solid var(--line); padding: 18px 0; }
+  .compliance-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; max-width: 980px; margin: 0 auto; }
+  .compliance-item { display: flex; gap: 14px; padding: 24px; background: var(--surface-2); border-radius: 16px; }
+  .compliance-item svg { width: 20px; height: 20px; color: var(--ink); flex-shrink: 0; margin-top: 2px; stroke-width: 2; }
+  .compliance-item h4 { margin: 0 0 4px; font-size: 17px; font-weight: 500; letter-spacing: -0.014em; }
+  .compliance-item p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.47; letter-spacing: -0.009em; }
+  .faq { max-width: 820px; margin: 0 auto; }
+  .faq details { border-bottom: 0.5px solid var(--line); padding: 24px 0; }
   .faq details:last-child { border-bottom: none; }
-  .faq summary { font-size: 16px; font-weight: 500; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+  .faq summary { font-size: 19px; font-weight: 500; letter-spacing: -0.019em; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: '+'; font-size: 22px; color: var(--ink-3); font-weight: 300; transition: transform .15s ease; }
+  .faq summary::after { content: '+'; font-size: 24px; color: var(--ink-3); font-weight: 300; transition: transform .2s ease; }
   .faq details[open] summary::after { content: '−'; }
-  .faq .answer { margin-top: 12px; color: var(--ink-2); font-size: 15px; line-height: 1.6; }
-  form { max-width: 640px; margin: 0 auto; background: var(--surface); border: 0.5px solid var(--line); border-radius: 18px; padding: 30px; }
+  .faq .answer { margin-top: 14px; color: var(--ink-2); font-size: 17px; line-height: 1.47; letter-spacing: -0.012em; }
+  form { max-width: 680px; margin: 0 auto; background: var(--surface-2); border-radius: 22px; padding: 40px; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
-  label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-2); margin: 16px 0 6px; }
+  label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-2); margin: 18px 0 6px; letter-spacing: -0.004em; }
   label:first-child { margin-top: 0; }
   input, textarea, select {
-    width: 100%; padding: 11px 13px; font-size: 15px;
-    background: var(--bg); color: var(--ink);
-    border: 0.5px solid var(--line); border-radius: 10px;
+    width: 100%; padding: 13px 15px; font-size: 15px;
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 12px;
     font-family: inherit;
-    transition: border-color .12s ease, box-shadow .12s ease;
+    transition: border-color .18s ease;
   }
   input:focus, textarea:focus, select:focus {
     outline: none; border-color: var(--accent);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
   }
-  textarea { resize: vertical; min-height: 90px; }
+  textarea { resize: vertical; min-height: 100px; }
   button[type=submit] {
-    margin-top: 22px; width: 100%;
-    background: var(--accent); color: var(--accent-ink);
-    border: none; padding: 13px; font-size: 15px; font-weight: 500;
+    margin-top: 28px; width: 100%;
+    background: var(--accent); color: #fff;
+    border: none; padding: 14px; font-size: 17px; font-weight: 400;
     border-radius: 980px; cursor: pointer;
+    letter-spacing: -0.022em;
+    transition: background-color .18s ease;
   }
-  button[type=submit]:hover { opacity: 0.92; }
-  button[type=submit]:disabled { opacity: 0.6; cursor: not-allowed; }
-  .ok-msg { display: none; text-align: center; padding: 28px; background: color-mix(in srgb, var(--ok) 10%, transparent); border-radius: 14px; color: var(--ok); font-weight: 500; max-width: 640px; margin: 0 auto; }
+  button[type=submit]:hover { background: var(--accent-hover); }
+  button[type=submit]:disabled { opacity: 0.5; cursor: not-allowed; }
+  .ok-msg { display: none; text-align: center; padding: 36px; background: var(--surface-2); border-radius: 22px; color: var(--ink); max-width: 680px; margin: 0 auto; }
   .ok-msg.show { display: block; }
-  footer { padding: 40px 0 32px; color: var(--ink-3); font-size: 13px; border-top: 0.5px solid var(--line); }
-  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 28px; margin-bottom: 24px; }
-  @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; gap: 20px; } }
-  .footer-grid h5 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-2); font-weight: 500; }
-  .footer-grid a { color: var(--ink-3); text-decoration: none; display: block; margin-bottom: 4px; }
-  .footer-grid a:hover { color: var(--ink); }
-  .footer-brand { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
-  .footer-brand-sub { color: var(--ink-3); line-height: 1.5; }
-  .footer-bottom { border-top: 0.5px solid var(--line); padding-top: 16px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .ok-msg .check { width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .ok-msg h3 { margin: 0 0 8px; font-size: 24px; font-weight: 500; letter-spacing: -0.022em; }
+  .ok-msg p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.47; }
+  footer { padding: 56px 0 40px; color: var(--ink-3); font-size: 12px; border-top: 0.5px solid var(--line); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+  @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; gap: 28px; } }
+  .footer-grid h5 { margin: 0 0 12px; font-size: 12px; color: var(--ink); font-weight: 500; letter-spacing: -0.004em; }
+  .footer-grid a { color: var(--ink-3); text-decoration: none; display: block; margin-bottom: 8px; font-size: 12px; }
+  .footer-grid a:hover { text-decoration: underline; }
+  .footer-brand { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+  .footer-brand-sub { color: var(--ink-3); line-height: 1.5; font-size: 12px; }
+  .footer-bottom { border-top: 0.5px solid var(--line); padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; }
 </style>
 </head>
 <body>
 
-<nav><div class="wrap">
+<nav><div class="wrap-wide">
   <div class="brand"><span class="brand-mark">CS</span>ChipShark</div>
   <div class="links">
     <a href="#how">How it works</a>
@@ -164,29 +183,33 @@
 </div></nav>
 
 <section class="hero"><div class="wrap">
-  <h1>Can't find the part?<br>We'll find it for you.</h1>
-  <p>Obsolete, EOL, allocated, long-lead-time electronic components — sourced through a vetted global network. Quote back within 24 hours.</p>
-  <a href="#rfq" class="cta">Submit an RFQ →</a>
-  <a href="#how" class="cta ghost">How it works</a>
+  <p class="eyebrow">Independent components sourcing</p>
+  <h1>Hard to find.<br>Found by tomorrow.</h1>
+  <p>Obsolete, EOL, allocated, long-lead-time semiconductors — sourced through a vetted global network. Quote back within 24 hours.</p>
+  <div>
+    <a href="#rfq" class="cta">Submit an RFQ ›</a>
+    <a href="#how" class="cta ghost">Learn more ›</a>
+  </div>
 </div></section>
 
-<section class="trust-strip"><div class="wrap">
+<section class="trust-strip"><div class="wrap-wide">
   <div class="trust-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
     <span>Built by a former procurement lead</span>
   </div>
   <div class="trust-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
     <span>Counterfeit mitigation protocol</span>
   </div>
   <div class="trust-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
     <span>24-hour quote turnaround</span>
   </div>
 </div></section>
 
 <section class="section" id="why"><div class="wrap">
-  <h2>Built for the parts nobody else has.</h2>
+  <span class="eyebrow">Why ChipShark</span>
+  <h2>Built for the parts<br>nobody else has.</h2>
   <p class="lead">When DigiKey says "out of stock" and Mouser says "26 weeks," you need someone who picks up the phone.</p>
   <div class="grid-3">
     <div class="card">
@@ -214,7 +237,8 @@
 </div></section>
 
 <section class="section" id="how"><div class="wrap">
-  <h2>How it works</h2>
+  <span class="eyebrow">The process</span>
+  <h2>How it works.</h2>
   <p class="lead">No account to create. No subscription. You pay only when you accept a quote.</p>
   <div class="steps">
     <div class="step"><div class="num"></div><div><h4>Submit your RFQ</h4><p>Part number, quantity, target price, needed-by date. One form, under a minute.</p></div></div>
@@ -225,8 +249,9 @@
 </div></section>
 
 <section class="section" id="about"><div class="wrap">
+  <span class="eyebrow">About</span>
   <h2>Who's behind this.</h2>
-  <p class="lead">Procurement isn't a side-hustle for us. It's the day job.</p>
+  <p class="lead">Procurement isn't a side-hustle. It's the day job.</p>
   <div class="about-grid">
     <div class="about-body">
       <p>ChipShark is run by <strong>Aditya Pareek</strong>, former <strong>Head of Procurement and Program Manager at Therm-X of California</strong> — a precision thermal manufacturer serving semiconductor, aerospace, and medical OEMs.</p>
@@ -245,7 +270,8 @@
 </div></section>
 
 <section class="section" id="standards"><div class="wrap">
-  <h2>What we check before we quote.</h2>
+  <span class="eyebrow">Vetting checklist</span>
+  <h2>What we check<br>before we quote.</h2>
   <p class="lead">The counterfeit-risk read isn't a buzzword. Here's the actual checklist.</p>
   <div class="compliance-list">
     <div class="compliance-item">
@@ -276,8 +302,9 @@
 </div></section>
 
 <section class="section" id="faq"><div class="wrap">
-  <h2>FAQ</h2>
-  <p class="lead">The questions buyers ask us first.</p>
+  <span class="eyebrow">FAQ</span>
+  <h2>Questions buyers ask first.</h2>
+  <p class="lead">The honest answers, up front.</p>
   <div class="faq">
     <details>
       <summary>What's your minimum order?</summary>
@@ -311,10 +338,15 @@
 </div></section>
 
 <section class="section" id="rfq"><div class="wrap">
-  <h2>Submit an RFQ</h2>
-  <p class="lead">Tell us what you need. We'll come back within 24 business hours.</p>
+  <span class="eyebrow">Request a quote</span>
+  <h2>Tell us what you need.</h2>
+  <p class="lead">We'll come back within 24 business hours.</p>
 
-  <div class="ok-msg" id="ok">✓ RFQ received. We'll come back within 24 business hours at the email you provided. For line-down urgency, email us directly at adityapareek0923@gmail.com for an immediate reply.</div>
+  <div class="ok-msg" id="ok">
+    <div class="check"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h3>RFQ received.</h3>
+    <p>We'll come back within 24 business hours at the email you provided. For line-down urgency, email <a href="mailto:hello@chipsharksupply.com" style="color:var(--accent);text-decoration:none;">hello@chipsharksupply.com</a> for an immediate reply.</p>
+  </div>
 
   <form id="rfq-form">
     <div class="row">
@@ -374,7 +406,7 @@
   </form>
 </div></section>
 
-<footer><div class="wrap">
+<footer><div class="wrap-wide">
   <div class="footer-grid">
     <div>
       <div class="footer-brand">ChipShark</div>
@@ -382,7 +414,7 @@
     </div>
     <div>
       <h5>Contact</h5>
-      <a href="mailto:adityapareek0923@gmail.com">adityapareek0923@gmail.com</a>
+      <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a>
       <a href="#rfq">Submit RFQ</a>
     </div>
     <div>
@@ -393,7 +425,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 ChipShark</span>
+    <span>Copyright © 2026 ChipShark. All rights reserved.</span>
     <span>Not affiliated with any manufacturer listed.</span>
   </div>
 </div></footer>

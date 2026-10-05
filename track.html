@@ -5,24 +5,25 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Track your RFQ — ChipShark</title>
 <meta name="description" content="Track the status of your component sourcing request.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230071e3'/%3E%3Ctext x='16' y='22' font-family='-apple-system,sans-serif' font-size='17' font-weight='600' fill='white' text-anchor='middle'%3ECS%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d1d1f'/%3E%3Ctext x='16' y='22' font-family='-apple-system,sans-serif' font-size='15' font-weight='600' fill='white' text-anchor='middle'%3ECS%3C/text%3E%3C/svg%3E">
 <style>
   :root {
-    --bg: #fbfbfd;
+    --bg: #ffffff;
     --surface: #ffffff;
     --surface-2: #f5f5f7;
     --ink: #1d1d1f;
     --ink-2: #424245;
-    --ink-3: #6e6e73;
+    --ink-3: #86868b;
     --line: #d2d2d7;
     --accent: #0071e3;
+    --accent-hover: #0077ed;
     --accent-ink: #ffffff;
     --ok: #30861a;
     --warn: #8a4a0b;
     --err: #c21818;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg:#000; --surface:#1c1c1e; --surface-2:#2c2c2e; --ink:#f5f5f7; --ink-2:#d2d2d7; --ink-3:#86868b; --line:#38383a; }
+    :root { --bg:#000; --surface:#000; --surface-2:#1d1d1f; --ink:#f5f5f7; --ink-2:#a1a1a6; --ink-3:#6e6e73; --line:#1d1d1f; --accent:#2997ff; }
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -42,15 +43,15 @@
   }
   nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 48px; font-size: 14px; }
   .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
-  .brand-mark { width: 22px; height: 22px; border-radius: 5px; background: var(--accent); display: inline-flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 600; letter-spacing: 0.3px; }
+  .brand-mark { width: 24px; height: 24px; border-radius: 6px; background: var(--ink); display: inline-flex; align-items: center; justify-content: center; color: var(--bg); font-size: 11px; font-weight: 600; letter-spacing: 0.3px; }
   .links a { color: var(--ink-2); text-decoration: none; margin-left: 20px; font-size: 13px; }
   .links a:hover { color: var(--ink); }
 
-  main { padding: 56px 0; }
-  h1 { font-size: 32px; letter-spacing: -0.02em; font-weight: 600; margin: 0 0 8px; }
-  .lede { color: var(--ink-3); font-size: 15px; margin: 0 0 36px; }
+  main { padding: 80px 0 56px; }
+  h1 { font-size: clamp(36px, 5vw, 56px); letter-spacing: -0.035em; font-weight: 600; margin: 0 0 10px; line-height: 1.07; }
+  .lede { color: var(--ink-3); font-size: 17px; margin: 0 0 44px; letter-spacing: -0.012em; }
 
-  .card { background: var(--surface); border: 0.5px solid var(--line); border-radius: 16px; padding: 28px; margin-bottom: 20px; }
+  .card { background: var(--surface-2); border-radius: 22px; padding: 36px; margin-bottom: 20px; }
 
   /* ID input (when no ?id= in URL) */
   .id-form label { display: block; font-size: 13px; color: var(--ink-2); margin-bottom: 8px; }
@@ -62,8 +63,8 @@
     letter-spacing: 0.3px;
   }
   .id-form input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--accent); color: var(--accent-ink); padding: 12px 22px; border-radius: 980px; font-size: 15px; font-weight: 500; text-decoration: none; border: none; cursor: pointer; }
-  .btn:hover { opacity: .92; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 980px; font-size: 17px; font-weight: 400; text-decoration: none; border: none; cursor: pointer; letter-spacing: -0.022em; transition: background-color .18s ease; }
+  .btn:hover { background: var(--accent-hover); }
   .btn:disabled { opacity: .5; cursor: not-allowed; }
 
   /* Status display */
