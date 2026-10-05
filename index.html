@@ -172,6 +172,16 @@
   .form-helper { font-size: 13px; color: var(--ink-3); margin: 8px 0 0; letter-spacing: -0.009em; line-height: 1.4; }
   .form-helper a { color: var(--accent); text-decoration: none; }
   .form-helper a:hover { text-decoration: underline; }
+  .bom-upload { display: block; margin-top: 10px; padding: 18px; border: 1.5px dashed var(--line); border-radius: 14px; text-align: center; cursor: pointer; transition: background-color .15s, border-color .15s; }
+  .bom-upload:hover, .bom-upload.drag { background: var(--surface); border-color: var(--accent); }
+  .bom-upload input { display: none; }
+  .bom-upload-label { font-size: 14px; color: var(--ink-2); display: block; letter-spacing: -0.009em; }
+  .bom-upload-label strong { color: var(--accent); font-weight: 500; }
+  .bom-upload-hint { font-size: 12px; color: var(--ink-3); margin-top: 4px; display: block; }
+  .bom-status { margin-top: 10px; padding: 10px 14px; background: var(--surface); border-radius: 10px; font-size: 13px; color: var(--ink-2); display: none; line-height: 1.5; letter-spacing: -0.004em; }
+  .bom-status.show { display: block; }
+  .bom-status.ok { color: var(--ok); background: color-mix(in srgb, var(--ok) 8%, var(--surface)); }
+  .bom-status.err { color: #c21818; background: color-mix(in srgb, #c21818 7%, var(--surface)); }
   .mpn-wrap { position: relative; }
   .mpn-wrap .powered { position: absolute; right: 14px; top: 14px; font-size: 11px; color: var(--ink-3); letter-spacing: 0; pointer-events: none; opacity: 0; transition: opacity .15s ease; }
   .mpn-wrap.has-focus .powered { opacity: 1; }
@@ -572,7 +582,13 @@
       <span class="powered">Search powered by Mouser</span>
       <div class="suggestions" id="mpn-suggestions" role="listbox"></div>
     </div>
-    <p class="form-helper">Have a BOM? Paste up to 20 lines here. For larger BOMs email <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a> with a CSV or Excel file — faster for both of us.</p>
+    <label class="bom-upload" id="bom-drop">
+      <input type="file" id="bom-file" accept=".csv,.tsv,.xlsx,.xls">
+      <span class="bom-upload-label">📎 <strong>Upload a BOM</strong> or drag &amp; drop a file here</span>
+      <span class="bom-upload-hint">CSV, XLSX, XLS — we auto-detect the part-number column (up to 500 lines)</span>
+    </label>
+    <div class="bom-status" id="bom-status"></div>
+    <p class="form-helper">For BOMs over 500 lines, email <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a> with the file attached.</p>
 
     <div class="row">
       <div>
@@ -755,6 +771,117 @@
     const frag = currentFragment();
     if (frag.length < 3) { hideSugg(); return; }
     suggTimer = setTimeout(() => doSearch(frag), 280);
+  });
+
+  // ---- BOM upload (CSV / XLSX) ----
+  const bomInput = document.getElementById('bom-file');
+  const bomDrop = document.getElementById('bom-drop');
+  const bomStatus = document.getElementById('bom-status');
+  let xlsxReady = false;
+
+  function setBomStatus(msg, type) {
+    bomStatus.textContent = msg;
+    bomStatus.className = 'bom-status show' + (type ? ' ' + type : '');
+  }
+  function hideBomStatus() { bomStatus.className = 'bom-status'; }
+
+  function loadXlsx() {
+    if (xlsxReady) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+      s.onload = () => { xlsxReady = true; resolve(); };
+      s.onerror = () => reject(new Error('Could not load XLSX parser'));
+      document.head.appendChild(s);
+    });
+  }
+
+  // MPN heuristic: starts alphanumeric, >=4 chars, contains at least one letter,
+  // only alphanumeric + - _ . / , no spaces
+  function looksLikeMpn(v) {
+    const t = String(v == null ? '' : v).trim();
+    if (t.length < 4 || t.length > 80) return false;
+    if (!/^[A-Za-z0-9][A-Za-z0-9\-_.\/+]*$/.test(t)) return false;
+    if (!/[A-Za-z]/.test(t)) return false;
+    return true;
+  }
+  function detectMpnColumn(rows, headerRow) {
+    // Prefer an explicit header hint if present
+    if (headerRow && headerRow.length) {
+      for (let c = 0; c < headerRow.length; c++) {
+        if (/^\s*(mpn|mfr\s*p\/?n|manufacturer\s*part(\s*(no|number|#))?|part\s*(no\.?|number|#)|p\/?n)\s*$/i.test(headerRow[c])) {
+          return { idx: c, score: 999 };
+        }
+      }
+    }
+    if (!rows.length) return { idx: -1, score: 0 };
+    const cols = Math.max(...rows.map(r => r.length));
+    let best = { idx: -1, score: 0 };
+    for (let c = 0; c < cols; c++) {
+      let hits = 0;
+      for (let r = 0; r < rows.length; r++) {
+        if (looksLikeMpn(rows[r][c])) hits++;
+      }
+      if (hits > best.score) best = { idx: c, score: hits };
+    }
+    return best;
+  }
+
+  async function handleBomFile(file) {
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) { setBomStatus('File too large (max 10 MB). Email the BOM instead.', 'err'); return; }
+    setBomStatus('Reading ' + file.name + '…');
+    try {
+      await loadXlsx();
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, { type: 'array', codepage: 65001 });
+      const sheetName = wb.SheetNames[0];
+      if (!sheetName) { setBomStatus('No sheets found in that file.', 'err'); return; }
+      const sheet = wb.Sheets[sheetName];
+      const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false, defval: '' });
+      if (!rows.length) { setBomStatus('That file looked empty.', 'err'); return; }
+
+      // Detect header row: if first row looks like header words OR has no MPN-like values
+      const firstRow = (rows[0] || []).map(c => String(c || '').trim());
+      const headerLooking = firstRow.some(c => /^(mpn|part|qty|quantity|description|mfr|manufacturer|designator|footprint|value|package|p\/?n)/i.test(c));
+      const firstRowHasMpn = firstRow.some(c => looksLikeMpn(c));
+      const treatAsHeader = headerLooking || !firstRowHasMpn;
+      const headerRow = treatAsHeader ? firstRow : [];
+      const dataRows = treatAsHeader ? rows.slice(1) : rows;
+
+      const { idx: mpnCol, score } = detectMpnColumn(dataRows, headerRow);
+      if (mpnCol === -1 || score < 2) {
+        setBomStatus('Couldn’t find a column that looks like part numbers. Paste MPNs above or email the file to hello@chipsharksupply.com.', 'err');
+        return;
+      }
+
+      const mpns = dataRows
+        .map(r => String(r[mpnCol] == null ? '' : r[mpnCol]).trim())
+        .filter(m => looksLikeMpn(m));
+      const unique = [...new Set(mpns)].slice(0, 500);
+      if (!unique.length) { setBomStatus('No valid part numbers detected.', 'err'); return; }
+
+      mpnEl.value = unique.join('\n');
+      mpnEl.dispatchEvent(new Event('input', { bubbles: true }));
+      hideSugg();
+      const sheetLabel = wb.SheetNames.length > 1 ? ' (sheet 1 of ' + wb.SheetNames.length + ')' : '';
+      const colLabel = headerRow[mpnCol] ? ' from column "' + headerRow[mpnCol] + '"' : '';
+      const truncated = mpns.length > 500 ? ' (first 500 shown; remaining ' + (mpns.length - 500) + ' not loaded)' : '';
+      setBomStatus('✓ Loaded ' + unique.length + ' unique part numbers' + colLabel + sheetLabel + truncated + '. Review the list above, then submit.', 'ok');
+      mpnEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      setBomStatus('Couldn’t parse that file: ' + (err && err.message ? err.message : err) + '. Try CSV or XLSX.', 'err');
+    }
+  }
+
+  bomInput.addEventListener('change', (e) => handleBomFile(e.target.files && e.target.files[0]));
+  ['dragover', 'dragenter'].forEach(ev => bomDrop.addEventListener(ev, (e) => { e.preventDefault(); bomDrop.classList.add('drag'); }));
+  ['dragleave'].forEach(ev => bomDrop.addEventListener(ev, () => bomDrop.classList.remove('drag')));
+  bomDrop.addEventListener('drop', (e) => {
+    e.preventDefault();
+    bomDrop.classList.remove('drag');
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    handleBomFile(f);
   });
 </script>
 
