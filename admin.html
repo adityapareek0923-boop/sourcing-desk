@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ChipShark — Admin</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d1d1f'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='17' font-weight='600' fill='white' text-anchor='middle'%3ESD%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='0' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
 <style>
   :root { --bg:#ffffff; --surface:#fff; --surface-2:#f5f5f7; --ink:#1d1d1f; --ink-2:#424245; --ink-3:#86868b; --line:#d2d2d7; --accent:#0071e3; --accent-hover:#0077ed; --ok:#30861a; --warn:#8a4a0b; --danger:#c0392b; }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
   .topbar { position: sticky; top:0; z-index: 10; background: color-mix(in srgb, var(--bg) 80%, transparent); backdrop-filter: blur(20px); border-bottom: 0.5px solid var(--line); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
   .topbar .brand { display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; }
-  .brand-mark { width:24px; height:24px; border-radius:6px; background: var(--ink); color:var(--bg); display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; }
+  .brand-mark { width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center; color: var(--ink); }
+  .brand-mark svg { width:26px; height:26px; display:block; }
   .topbar .user { font-size: 12px; color: var(--ink-3); }
   .topbar button { background: transparent; border: 0.5px solid var(--line); border-radius: 20px; padding: 6px 12px; font-size: 12px; color: var(--ink-2); cursor: pointer; margin-left: 10px; }
   .topbar button:hover { background: var(--surface-2); }
@@ -53,8 +54,16 @@
   .rfq-field pre { margin: 0; font-family: inherit; white-space: pre-wrap; }
   .rfq-actions { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .rfq-actions select { background: var(--bg); color: var(--ink); border: 0.5px solid var(--line); border-radius: 8px; padding: 5px 10px; font-size: 12px; font-family: inherit; }
-  .rfq-actions a { font-size: 12px; color: var(--accent); text-decoration: none; padding: 5px 10px; border: 0.5px solid var(--accent); border-radius: 8px; }
-  .rfq-actions a:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .rfq-actions a, .rfq-actions button.ghost { font-size: 12px; color: var(--accent); text-decoration: none; padding: 5px 10px; border: 0.5px solid var(--accent); border-radius: 8px; background: transparent; cursor: pointer; font-family: inherit; }
+  .rfq-actions a:hover, .rfq-actions button.ghost:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .quote-form { margin-top: 12px; padding: 14px; background: color-mix(in srgb, var(--accent) 5%, transparent); border: 0.5px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 10px; display: grid; grid-template-columns: 140px 1fr auto; gap: 8px; align-items: center; }
+  @media (max-width: 640px) { .quote-form { grid-template-columns: 1fr; } }
+  .quote-form input { background: var(--bg); color: var(--ink); border: 0.5px solid var(--line); border-radius: 7px; padding: 7px 10px; font-size: 13px; font-family: inherit; width: 100%; }
+  .quote-form input:focus { outline: none; border-color: var(--accent); }
+  .quote-form button.save { background: var(--accent); color: #fff; border: none; border-radius: 7px; padding: 7px 14px; font-size: 13px; cursor: pointer; font-family: inherit; }
+  .quote-form button.save:hover { background: var(--accent-hover); }
+  .quote-form button.save:disabled { opacity: 0.5; cursor: not-allowed; }
+  .quote-form .saved { font-size: 12px; color: var(--ok); margin-left: 8px; }
   .empty { text-align: center; padding: 60px 20px; color: var(--ink-3); font-size: 14px; }
   .loading { text-align: center; padding: 60px 20px; color: var(--ink-3); font-size: 13px; }
 </style>
@@ -71,7 +80,7 @@
 
 <div id="app-view" style="display:none">
   <div class="topbar">
-    <div class="brand"><span class="brand-mark">CS</span>ChipShark · Admin</div>
+    <div class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg></span>ChipShark · Admin</div>
     <div>
       <span class="user" id="user-email"></span>
       <button id="refresh-btn">Refresh</button>
@@ -172,6 +181,11 @@
             </select>
             <a href="mailto:${esc(r.email)}?subject=Quote%20for%20RFQ%20%23${r.id.slice(0,8)}&body=Hi%20${encodeURIComponent(r.name.split(' ')[0])}%2C%0A%0AThanks%20for%20your%20RFQ.%20Here's%20what%20we%20found%3A%0A%0A">Email quote</a>
           </div>
+          <div class="quote-form" data-id="${r.id}">
+            <input class="qamt" placeholder="Quote total (USD, e.g. 1250.00)" value="${r.quote_amount_cents != null ? (r.quote_amount_cents/100).toFixed(2) : ''}" inputmode="decimal">
+            <input class="qlink" placeholder="Stripe Payment Link URL" value="${esc(r.stripe_payment_link || '')}">
+            <div style="display:flex;align-items:center;gap:4px;"><button class="save" data-id="${r.id}">Save quote</button><span class="saved" data-id="${r.id}"></span></div>
+          </div>
         </div>
       `;
     }).join('');
@@ -182,6 +196,37 @@
         const { error } = await sb.from('rfqs').update({ status: value }).eq('id', id);
         if (error) alert('Update failed: ' + error.message);
         else { const r = allRfqs.find(x => x.id === id); if (r) r.status = value; renderStats(); }
+      });
+    });
+    list.querySelectorAll('.quote-form .save').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = e.target.dataset.id;
+        const form = e.target.closest('.quote-form');
+        const amtStr = form.querySelector('.qamt').value.trim().replace(/[$,\s]/g, '');
+        const link = form.querySelector('.qlink').value.trim();
+        const saved = form.querySelector('.saved');
+        if (!amtStr && !link) { saved.textContent = 'Enter at least an amount or link.'; saved.style.color = 'var(--danger)'; return; }
+        const amtNum = amtStr ? parseFloat(amtStr) : null;
+        if (amtStr && (isNaN(amtNum) || amtNum < 0)) { saved.textContent = 'Invalid amount.'; saved.style.color = 'var(--danger)'; return; }
+        if (link && !/^https?:\/\//.test(link)) { saved.textContent = 'Link must start with https://'; saved.style.color = 'var(--danger)'; return; }
+        btn.disabled = true; saved.textContent = 'Saving…'; saved.style.color = 'var(--ink-3)';
+        const patch = {
+          quote_amount_cents: amtNum != null ? Math.round(amtNum * 100) : null,
+          quote_currency: amtNum != null ? 'USD' : null,
+          stripe_payment_link: link || null,
+          status: 'quoted',
+        };
+        const { error } = await sb.from('rfqs').update(patch).eq('id', id);
+        btn.disabled = false;
+        if (error) { saved.textContent = 'Save failed: ' + error.message; saved.style.color = 'var(--danger)'; }
+        else {
+          saved.textContent = '✓ Saved · status → quoted';
+          saved.style.color = 'var(--ok)';
+          const r = allRfqs.find(x => x.id === id);
+          if (r) { r.quote_amount_cents = patch.quote_amount_cents; r.quote_currency = patch.quote_currency; r.stripe_payment_link = patch.stripe_payment_link; r.status = 'quoted'; }
+          renderStats();
+          setTimeout(() => { if (saved.textContent.startsWith('✓')) renderList(); }, 1500);
+        }
       });
     });
   }
