@@ -101,21 +101,23 @@
   .card p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.47; letter-spacing: -0.012em; }
   .icon-box { width: 44px; height: 44px; border-radius: 12px; background: var(--surface); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px; }
   .icon-box svg { width: 22px; height: 22px; color: var(--ink); stroke-width: 1.5; }
-  .steps { counter-reset: step; max-width: 820px; margin: 0 auto; }
-  .step { display: grid; grid-template-columns: 44px 1fr; gap: 24px; padding: 28px 0; border-bottom: 0.5px solid var(--line); align-items: start; }
-  .step:last-child { border-bottom: none; }
-  .step .num {
-    counter-increment: step;
-    width: 34px; height: 34px; border-radius: 50%;
-    border: 1.5px solid var(--line);
-    color: var(--ink);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 500; font-size: 15px;
-    margin-top: 2px;
+  .timeline-vert { max-width: 820px; margin: 0 auto; position: relative; padding-left: 130px; }
+  .timeline-vert::before { content: ''; position: absolute; left: 102px; top: 32px; bottom: 32px; width: 2px; background: var(--line); }
+  .tl-stage { position: relative; padding: 22px 0 26px 36px; }
+  .tl-stage::before { content: ''; position: absolute; left: -36px; top: 32px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 2px solid var(--line); z-index: 1; transition: all .18s ease; }
+  .tl-stage:hover::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 5px rgba(0,113,227,0.12); }
+  .tl-time { position: absolute; left: -130px; top: 30px; width: 86px; text-align: right; font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 13px; font-weight: 500; color: var(--ink-3); letter-spacing: 0.3px; }
+  .tl-title { margin: 0 0 6px; font-size: 20px; font-weight: 500; letter-spacing: -0.019em; color: var(--ink); line-height: 1.2; }
+  .tl-body { margin: 0 0 12px; font-size: 15px; color: var(--ink-2); line-height: 1.5; letter-spacing: -0.009em; }
+  .tl-receive { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 10px; background: var(--surface-2); border-radius: 980px; font-size: 12px; color: var(--ink-2); letter-spacing: -0.004em; }
+  .tl-receive svg { width: 13px; height: 13px; color: var(--accent); flex-shrink: 0; }
+  @media (max-width: 640px) {
+    .timeline-vert { padding-left: 48px; }
+    .timeline-vert::before { left: 20px; }
+    .tl-stage { padding: 18px 0 22px 24px; }
+    .tl-stage::before { left: -18px; }
+    .tl-time { position: static; display: inline-block; margin-bottom: 6px; text-align: left; width: auto; padding: 3px 10px; background: var(--surface-2); border-radius: 980px; font-size: 12px; }
   }
-  .step .num::before { content: counter(step); }
-  .step h4 { margin: 2px 0 6px; font-size: 20px; font-weight: 500; letter-spacing: -0.019em; }
-  .step p { margin: 0; color: var(--ink-2); font-size: 16px; line-height: 1.47; letter-spacing: -0.009em; }
   .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 56px; align-items: start; max-width: 980px; margin: 0 auto; }
   @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
   .about-body p { font-size: 19px; color: var(--ink-2); line-height: 1.47; letter-spacing: -0.012em; margin: 0 0 20px; }
@@ -365,14 +367,46 @@
 </div></section>
 
 <section class="section" id="how"><div class="wrap">
-  <span class="eyebrow">The process</span>
-  <h2>How it works.</h2>
-  <p class="lead">No account to create. No subscription. You pay only when you accept a quote.</p>
-  <div class="steps">
-    <div class="step"><div class="num"></div><div><h4>Submit your RFQ</h4><p>Part number, quantity, target price, needed-by date. One form, under a minute.</p></div></div>
-    <div class="step"><div class="num"></div><div><h4>We hunt it down</h4><p>We work the global network — authorized distributors, OEM excess, independent brokers in US, EU, and Asia.</p></div></div>
-    <div class="step"><div class="num"></div><div><h4>You get a quote</h4><p>Within 24 hours: price, availability, lead time, supplier tier, and a counterfeit-risk read. No obligation.</p></div></div>
-    <div class="step"><div class="num"></div><div><h4>Accept and ship</h4><p>Approve the quote and we handle procurement, inspection, and shipping to your dock. Payment by wire or ACH; cards available on request.</p></div></div>
+  <span class="eyebrow">What to expect</span>
+  <h2>From BOM to shipment.</h2>
+  <p class="lead">A clock-by-clock view of what happens after you submit. Our side, your side. No black box.</p>
+  <div class="timeline-vert">
+    <div class="tl-stage">
+      <div class="tl-time">0h</div>
+      <h4 class="tl-title">RFQ received</h4>
+      <p class="tl-body">BOM parsed, urgency flags auto-detected, sourcing lead assigned. Everything timestamped from this moment.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Confirmation email with live tracking link</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">1h</div>
+      <h4 class="tl-title">Line-down triage</h4>
+      <p class="tl-body">Urgent requests jump the queue. We're on the phone with vetted partners within the hour for allocated or shortage parts.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call-back from us on anything we need clarified</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">4h</div>
+      <h4 class="tl-title">Supplier shortlist</h4>
+      <p class="tl-body">Two to three vetted sources identified per line. Supplier tier, date codes, lead times, and provenance verified before quoting.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Interim read on any parts we can't source</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">24h</div>
+      <h4 class="tl-title">Quote delivered</h4>
+      <p class="tl-body">Full quote with unit price, lead time, supplier tier, and counterfeit-risk read on every line. No obligation.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg>Quote email with Accept-and-pay button</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">48h</div>
+      <h4 class="tl-title">Payment &amp; PO issuance</h4>
+      <p class="tl-body">Accept the quote → payment cleared → POs issued to suppliers that day. The physical sourcing clock starts here.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Payment receipt + PO confirmation</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">5–10d</div>
+      <h4 class="tl-title">Inspection &amp; ship</h4>
+      <p class="tl-body">Incoming inspection on arrival (visual, docs, date-code match). Consolidated shipping to your dock with full traceability package.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Shipment notification + CoC and inspection docs</span>
+    </div>
   </div>
 </div></section>
 
