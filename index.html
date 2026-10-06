@@ -589,6 +589,7 @@
   </div>
 
   <form id="rfq-form">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <div class="row">
       <div>
         <label for="name">Your name *</label>
@@ -694,6 +695,7 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting…';
     const fd = new FormData(form);
+    if (fd.get('website')) { ok.classList.add('show'); form.style.display = 'none'; return; } // honeypot: bots fill hidden field; fake success, no insert
     const payload = {
       name: fd.get('name'),
       company: fd.get('company'),
@@ -723,12 +725,12 @@
         ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else {
         const err = await res.text();
-        alert('Submission failed: ' + err);
+        alert(/rate_limited/.test(err) ? 'We are receiving a lot of requests right now. Please try again in a little while, or email hello@chipsharksupply.com.' : 'We could not submit your request. Please check the form and try again, or email hello@chipsharksupply.com.');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit RFQ →';
       }
     } catch (err) {
-      alert('Network error. Please try again or email adityapareek0923@gmail.com directly.');
+      alert('Network error. Please try again or email hello@chipsharksupply.com directly.');
       submitBtn.disabled = false;
       submitBtn.textContent = 'Submit RFQ →';
     }
