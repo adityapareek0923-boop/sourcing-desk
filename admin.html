@@ -14,8 +14,12 @@
   .topbar .brand { display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; }
   .brand-mark { width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center; color: var(--ink); }
   .brand-mark svg { width:26px; height:26px; display:block; }
+  .topbar .right { display:flex; align-items:center; gap:10px; }
   .topbar .user { font-size: 12px; color: var(--ink-3); }
-  .topbar button { background: transparent; border: 0.5px solid var(--line); border-radius: 20px; padding: 6px 12px; font-size: 12px; color: var(--ink-2); cursor: pointer; margin-left: 10px; }
+  .topbar .live { display:inline-flex; align-items:center; gap:6px; font-size:11px; color: var(--ink-3); padding: 4px 10px; background: var(--surface-2); border-radius: 20px; }
+  .topbar .live .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .topbar button { background: transparent; border: 0.5px solid var(--line); border-radius: 20px; padding: 6px 12px; font-size: 12px; color: var(--ink-2); cursor: pointer; }
   .topbar button:hover { background: var(--surface-2); }
   .login { max-width: 400px; margin: 100px auto; padding: 32px; background: var(--surface); border: 0.5px solid var(--line); border-radius: 18px; }
   .login h1 { font-size: 22px; margin: 0 0 6px; font-weight: 600; letter-spacing: -0.01em; }
@@ -31,23 +35,34 @@
   .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 24px; }
   .stat { background: var(--surface); border: 0.5px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .stat.urgent-alive { border-color: var(--danger); background: color-mix(in srgb, var(--danger) 6%, var(--surface)); }
   .stat .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); margin-bottom: 4px; }
   .stat .value { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
-  .filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-  .chip { padding: 6px 12px; border-radius: 20px; border: 0.5px solid var(--line); font-size: 12px; cursor: pointer; background: var(--surface); color: var(--ink-2); }
+  .filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+  .chip { padding: 6px 12px; border-radius: 20px; border: 0.5px solid var(--line); font-size: 12px; cursor: pointer; background: var(--surface); color: var(--ink-2); font-family: inherit; }
   .chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .filters .sep { color: var(--ink-3); font-size: 11px; margin: 0 4px; }
+  .section-head { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-3); margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
+  .section-head.priority { color: var(--danger); }
+  .section-head .count { background: var(--surface-2); color: var(--ink-2); padding: 1px 7px; border-radius: 10px; font-weight: 500; letter-spacing: 0; }
+  .section-head.priority .count { background: color-mix(in srgb, var(--danger) 15%, transparent); color: var(--danger); }
   .rfq-list { display: flex; flex-direction: column; gap: 10px; }
   .rfq { background: var(--surface); border: 0.5px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+  .rfq.urgent-new { border-color: var(--danger); border-left-width: 3px; background: color-mix(in srgb, var(--danger) 2.5%, var(--surface)); }
+  .rfq.just-arrived { animation: slide-in 0.5s ease-out; }
+  @keyframes slide-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
   .rfq-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; flex-wrap: wrap; }
   .rfq-head .who { font-size: 15px; font-weight: 500; margin: 0 0 2px; }
   .rfq-head .meta { font-size: 12px; color: var(--ink-3); }
+  .rfq-head .meta a { color: var(--ink-3); text-decoration: none; }
+  .rfq-head .meta a:hover { color: var(--accent); text-decoration: underline; }
   .rfq-head .time { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
   .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 500; margin-left: 6px; }
   .b-new { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
   .b-quoted { background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); }
   .b-won { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
   .b-lost { background: color-mix(in srgb, var(--ink-3) 20%, transparent); color: var(--ink-3); }
-  .b-urgent { background: color-mix(in srgb, var(--danger) 15%, transparent); color: var(--danger); }
+  .b-urgent { background: var(--danger); color: #fff; }
   .rfq-body { margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 20px; font-size: 13px; }
   .rfq-field .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); margin-bottom: 2px; }
   .rfq-field .value { color: var(--ink); word-break: break-word; }
@@ -66,6 +81,12 @@
   .quote-form .saved { font-size: 12px; color: var(--ok); margin-left: 8px; }
   .empty { text-align: center; padding: 60px 20px; color: var(--ink-3); font-size: 14px; }
   .loading { text-align: center; padding: 60px 20px; color: var(--ink-3); font-size: 13px; }
+  .toast-stack { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+  .toast { background: var(--surface); border: 0.5px solid var(--line); border-radius: 12px; padding: 12px 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); font-size: 13px; max-width: 320px; animation: toast-in 0.3s ease; }
+  .toast.urgent { border-color: var(--danger); border-left-width: 3px; }
+  .toast .t-title { font-weight: 500; margin-bottom: 2px; }
+  .toast .t-sub { font-size: 12px; color: var(--ink-3); }
+  @keyframes toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
@@ -81,7 +102,8 @@
 <div id="app-view" style="display:none">
   <div class="topbar">
     <div class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg></span>ChipShark · Admin</div>
-    <div>
+    <div class="right">
+      <span class="live" id="live-indicator" title="Realtime connection to database"><span class="dot"></span><span id="live-text">Live</span></span>
       <span class="user" id="user-email"></span>
       <button id="refresh-btn">Refresh</button>
       <button id="logout-btn">Log out</button>
@@ -95,11 +117,14 @@
       <button class="chip" data-filter="quoted">Quoted</button>
       <button class="chip" data-filter="won">Won</button>
       <button class="chip" data-filter="lost">Lost</button>
+      <span class="sep">·</span>
       <button class="chip" data-filter="urgent">Urgent only</button>
     </div>
     <div id="rfq-list" class="rfq-list"></div>
   </div>
 </div>
+
+<div class="toast-stack" id="toasts"></div>
 
 <script type="module">
   import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -138,67 +163,122 @@
 
   let currentFilter = 'all';
   let allRfqs = [];
+  let justArrivedIds = new Set();
+
+  function isUrgentNew(r) {
+    const status = r.status || 'new';
+    const urg = (r.urgency || '').toLowerCase();
+    return status === 'new' && (urg.includes('urgent') || urg.includes('line down') || urg.includes('critical'));
+  }
+
+  function priorityBucket(r) {
+    if (isUrgentNew(r)) return 0;                             // Priority queue
+    if ((r.status || 'new') === 'new') return 1;              // Normal new
+    return 2;                                                 // Quoted / won / lost
+  }
+
+  function sortRows(rows) {
+    return [...rows].sort((a, b) => {
+      const pa = priorityBucket(a), pb = priorityBucket(b);
+      if (pa !== pb) return pa - pb;
+      return new Date(b.created_at) - new Date(a.created_at);
+    });
+  }
+
+  function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function rowHtml(r) {
+    const status = r.status || 'new';
+    const urgent = isUrgentNew(r);
+    const d = new Date(r.created_at);
+    const hoursAgo = (Date.now() - d) / 3600000;
+    const timeAgo = hoursAgo < 1
+      ? Math.max(1, Math.round(hoursAgo * 60)) + 'm ago'
+      : hoursAgo < 24
+        ? Math.round(hoursAgo) + 'h ago'
+        : d.toLocaleDateString();
+    const justArrived = justArrivedIds.has(r.id);
+    const classes = ['rfq'];
+    if (urgent) classes.push('urgent-new');
+    if (justArrived) classes.push('just-arrived');
+    const phoneLink = r.phone ? ` · <a href="tel:${esc(r.phone.replace(/[^0-9+]/g,''))}">${esc(r.phone)}</a>` : '';
+    return `
+      <div class="${classes.join(' ')}" data-rfq-id="${r.id}">
+        <div class="rfq-head">
+          <div>
+            <p class="who">${esc(r.name)} · ${esc(r.company)}
+              <span class="badge b-${status}">${status}</span>
+              ${urgent ? '<span class="badge b-urgent">URGENT</span>' : ''}
+            </p>
+            <p class="meta"><a href="mailto:${esc(r.email)}">${esc(r.email)}</a>${phoneLink}</p>
+          </div>
+          <div class="time">${timeAgo}</div>
+        </div>
+        <div class="rfq-body">
+          <div class="rfq-field"><div class="label">Part number(s)</div><pre class="value">${esc(r.mpn)}</pre></div>
+          <div class="rfq-field"><div class="label">Quantity</div><div class="value">${esc(r.qty)}</div></div>
+          <div class="rfq-field"><div class="label">Target price</div><div class="value">${esc(r.target || '—')}</div></div>
+          <div class="rfq-field"><div class="label">Needed by</div><div class="value">${esc(r.needed_by)}</div></div>
+          <div class="rfq-field"><div class="label">Urgency</div><div class="value">${esc(r.urgency)}</div></div>
+          ${r.notes ? `<div class="rfq-field" style="grid-column:1/-1"><div class="label">Notes</div><pre class="value">${esc(r.notes)}</pre></div>` : ''}
+        </div>
+        <div class="rfq-actions">
+          <select data-id="${r.id}" class="status-sel">
+            <option value="new"${status==='new'?' selected':''}>new</option>
+            <option value="quoted"${status==='quoted'?' selected':''}>quoted</option>
+            <option value="won"${status==='won'?' selected':''}>won</option>
+            <option value="lost"${status==='lost'?' selected':''}>lost</option>
+          </select>
+          <a href="mailto:${esc(r.email)}?subject=Quote%20for%20RFQ%20%23${r.id.slice(0,8)}&body=Hi%20${encodeURIComponent((r.name || '').split(' ')[0])}%2C%0A%0AThanks%20for%20your%20RFQ.%20Here's%20what%20we%20found%3A%0A%0A">Email quote</a>
+          <a href="/track.html?id=${r.id}" target="_blank">View buyer page</a>
+        </div>
+        <div class="quote-form" data-id="${r.id}">
+          <input class="qamt" placeholder="Quote total (USD, e.g. 1250.00)" value="${r.quote_amount_cents != null ? (r.quote_amount_cents/100).toFixed(2) : ''}" inputmode="decimal">
+          <input class="qlink" placeholder="Stripe Payment Link URL" value="${esc(r.stripe_payment_link || '')}">
+          <div style="display:flex;align-items:center;gap:4px;"><button class="save" data-id="${r.id}">Save quote</button><span class="saved" data-id="${r.id}"></span></div>
+        </div>
+      </div>
+    `;
+  }
 
   function renderList() {
     const list = document.getElementById('rfq-list');
-    let rows = allRfqs;
-    if (currentFilter === 'urgent') rows = rows.filter(r => r.urgency && r.urgency.toLowerCase().includes('urgent'));
+    let rows = sortRows(allRfqs);
+    if (currentFilter === 'urgent') rows = rows.filter(r => (r.urgency || '').toLowerCase().match(/urgent|line down|critical/));
     else if (currentFilter !== 'all') rows = rows.filter(r => (r.status || 'new') === currentFilter);
+
     if (!rows.length) { list.innerHTML = '<div class="empty">No RFQs match this filter.</div>'; return; }
-    list.innerHTML = rows.map(r => {
-      const status = r.status || 'new';
-      const isUrgent = r.urgency && r.urgency.toLowerCase().includes('urgent');
-      const d = new Date(r.created_at);
-      const timeAgo = ((Date.now() - d) / 3600000) < 24
-        ? Math.round((Date.now() - d) / 3600000) + 'h ago'
-        : d.toLocaleDateString();
-      return `
-        <div class="rfq">
-          <div class="rfq-head">
-            <div>
-              <p class="who">${esc(r.name)} · ${esc(r.company)}
-                <span class="badge b-${status}">${status}</span>
-                ${isUrgent ? '<span class="badge b-urgent">URGENT</span>' : ''}
-              </p>
-              <p class="meta">${esc(r.email)}${r.phone ? ' · ' + esc(r.phone) : ''}</p>
-            </div>
-            <div class="time">${timeAgo}</div>
-          </div>
-          <div class="rfq-body">
-            <div class="rfq-field"><div class="label">Part number(s)</div><pre class="value">${esc(r.mpn)}</pre></div>
-            <div class="rfq-field"><div class="label">Quantity</div><div class="value">${esc(r.qty)}</div></div>
-            <div class="rfq-field"><div class="label">Target price</div><div class="value">${esc(r.target || '—')}</div></div>
-            <div class="rfq-field"><div class="label">Needed by</div><div class="value">${esc(r.needed_by)}</div></div>
-            <div class="rfq-field"><div class="label">Urgency</div><div class="value">${esc(r.urgency)}</div></div>
-            ${r.notes ? `<div class="rfq-field" style="grid-column:1/-1"><div class="label">Notes</div><pre class="value">${esc(r.notes)}</pre></div>` : ''}
-          </div>
-          <div class="rfq-actions">
-            <select data-id="${r.id}" class="status-sel">
-              <option value="new"${status==='new'?' selected':''}>new</option>
-              <option value="quoted"${status==='quoted'?' selected':''}>quoted</option>
-              <option value="won"${status==='won'?' selected':''}>won</option>
-              <option value="lost"${status==='lost'?' selected':''}>lost</option>
-            </select>
-            <a href="mailto:${esc(r.email)}?subject=Quote%20for%20RFQ%20%23${r.id.slice(0,8)}&body=Hi%20${encodeURIComponent(r.name.split(' ')[0])}%2C%0A%0AThanks%20for%20your%20RFQ.%20Here's%20what%20we%20found%3A%0A%0A">Email quote</a>
-          </div>
-          <div class="quote-form" data-id="${r.id}">
-            <input class="qamt" placeholder="Quote total (USD, e.g. 1250.00)" value="${r.quote_amount_cents != null ? (r.quote_amount_cents/100).toFixed(2) : ''}" inputmode="decimal">
-            <input class="qlink" placeholder="Stripe Payment Link URL" value="${esc(r.stripe_payment_link || '')}">
-            <div style="display:flex;align-items:center;gap:4px;"><button class="save" data-id="${r.id}">Save quote</button><span class="saved" data-id="${r.id}"></span></div>
-          </div>
-        </div>
-      `;
-    }).join('');
-    list.querySelectorAll('.status-sel').forEach(sel => {
+
+    const urgentRows = rows.filter(isUrgentNew);
+    const otherRows = rows.filter(r => !isUrgentNew(r));
+
+    let html = '';
+    if (urgentRows.length && currentFilter !== 'urgent' && currentFilter === 'all') {
+      html += `<div class="section-head priority">⚡ Priority queue <span class="count">${urgentRows.length}</span></div>`;
+      html += urgentRows.map(rowHtml).join('');
+      if (otherRows.length) {
+        html += `<div class="section-head">All other RFQs <span class="count">${otherRows.length}</span></div>`;
+        html += otherRows.map(rowHtml).join('');
+      }
+    } else {
+      html += rows.map(rowHtml).join('');
+    }
+    list.innerHTML = html;
+    justArrivedIds.clear();
+    wireRowHandlers();
+  }
+
+  function wireRowHandlers() {
+    document.querySelectorAll('.status-sel').forEach(sel => {
       sel.addEventListener('change', async (e) => {
         const id = e.target.dataset.id;
         const value = e.target.value;
         const { error } = await sb.from('rfqs').update({ status: value }).eq('id', id);
         if (error) alert('Update failed: ' + error.message);
-        else { const r = allRfqs.find(x => x.id === id); if (r) r.status = value; renderStats(); }
+        else { const r = allRfqs.find(x => x.id === id); if (r) r.status = value; renderStats(); renderList(); }
       });
     });
-    list.querySelectorAll('.quote-form .save').forEach(btn => {
+    document.querySelectorAll('.quote-form .save').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const id = e.target.dataset.id;
         const form = e.target.closest('.quote-form');
@@ -236,17 +316,15 @@
     const newCount = allRfqs.filter(r => (r.status || 'new') === 'new').length;
     const quoted = allRfqs.filter(r => r.status === 'quoted').length;
     const won = allRfqs.filter(r => r.status === 'won').length;
-    const urgent = allRfqs.filter(r => r.urgency && r.urgency.toLowerCase().includes('urgent') && (r.status || 'new') === 'new').length;
+    const urgent = allRfqs.filter(isUrgentNew).length;
     document.getElementById('stats').innerHTML = `
-      <div class="stat"><div class="label">Total RFQs</div><div class="value">${total}</div></div>
+      <div class="stat ${urgent ? 'urgent-alive' : ''}"><div class="label">⚡ Urgent open</div><div class="value" style="color: ${urgent ? 'var(--danger)' : 'inherit'}">${urgent}</div></div>
       <div class="stat"><div class="label">Open (new)</div><div class="value">${newCount}</div></div>
-      <div class="stat"><div class="label">Urgent open</div><div class="value" style="color: ${urgent ? 'var(--danger)' : 'inherit'}">${urgent}</div></div>
       <div class="stat"><div class="label">Quoted</div><div class="value">${quoted}</div></div>
       <div class="stat"><div class="label">Won</div><div class="value">${won}</div></div>
+      <div class="stat"><div class="label">Total RFQs</div><div class="value">${total}</div></div>
     `;
   }
-
-  function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
   async function loadRfqs() {
     document.getElementById('rfq-list').innerHTML = '<div class="loading">Loading RFQs…</div>';
@@ -254,6 +332,59 @@
     if (error) { document.getElementById('rfq-list').innerHTML = '<div class="empty">Error: ' + esc(error.message) + '</div>'; return; }
     allRfqs = data || [];
     renderStats(); renderList();
+  }
+
+  function showToast(title, sub, urgent) {
+    const stack = document.getElementById('toasts');
+    const el = document.createElement('div');
+    el.className = 'toast' + (urgent ? ' urgent' : '');
+    el.innerHTML = `<div class="t-title">${urgent ? '⚡ ' : ''}${esc(title)}</div><div class="t-sub">${esc(sub)}</div>`;
+    stack.appendChild(el);
+    setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => el.remove(), 400); }, urgent ? 10000 : 5000);
+  }
+
+  function playPing() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(880, ctx.currentTime);
+      o.frequency.setValueAtTime(1320, ctx.currentTime + 0.12);
+      g.gain.setValueAtTime(0, ctx.currentTime);
+      g.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.02);
+      g.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(); o.stop(ctx.currentTime + 0.4);
+    } catch (e) { /* no audio ok */ }
+  }
+
+  function subscribeRealtime() {
+    const liveText = document.getElementById('live-text');
+    const liveDot = document.querySelector('#live-indicator .dot');
+    sb.channel('rfqs-admin')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'rfqs' }, (payload) => {
+        const r = payload.new;
+        if (allRfqs.some(x => x.id === r.id)) return;
+        allRfqs.unshift(r);
+        justArrivedIds.add(r.id);
+        renderStats(); renderList();
+        const urg = isUrgentNew(r);
+        showToast(
+          `${r.name} · ${r.company}`,
+          `${(r.mpn || '').split(/\s+/)[0]} · qty ${r.qty}`,
+          urg
+        );
+        if (urg) playPing();
+      })
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'rfqs' }, (payload) => {
+        const r = payload.new;
+        const idx = allRfqs.findIndex(x => x.id === r.id);
+        if (idx !== -1) { allRfqs[idx] = r; renderStats(); renderList(); }
+      })
+      .subscribe((status) => {
+        if (status === 'SUBSCRIBED') { liveText.textContent = 'Live'; liveDot.style.background = 'var(--ok)'; }
+        else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') { liveText.textContent = 'Offline'; liveDot.style.background = 'var(--ink-3)'; }
+      });
   }
 
   document.querySelectorAll('.chip').forEach(c => {
@@ -275,6 +406,7 @@
       appView.style.display = 'block';
       document.getElementById('user-email').textContent = session.user.email;
       await loadRfqs();
+      subscribeRealtime();
     }
   }
   init();
