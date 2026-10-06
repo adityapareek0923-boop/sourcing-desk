@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Procurement glossary — ChipShark</title>
+<meta name="description" content="A plain-English glossary of electronic-component procurement terms: EOL, obsolete, allocation, broker, franchise distributor, lead time, counterfeit, lot code, date code, and more.">
+<link rel="canonical" href="https://chipsharksupply.com/glossary.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='0' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
+<style>
+  :root{--bg:#fff;--surface-2:#f5f5f7;--ink:#1d1d1f;--ink-2:#424245;--ink-3:#86868b;--line:#d2d2d7;--accent:#0071e3}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6}
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  nav{position:sticky;top:0;z-index:10;backdrop-filter:saturate(180%) blur(20px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:0.5px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:48px;font-size:14px}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:600;letter-spacing:-0.01em;color:var(--ink);text-decoration:none}
+  .brand-mark svg{width:26px;height:26px;display:block}
+  .links a{color:var(--ink-2);text-decoration:none;margin-left:20px;font-size:13px}
+  main{padding:64px 0 56px}
+  h1{font-size:clamp(36px,5vw,56px);letter-spacing:-0.035em;font-weight:600;margin:0 0 10px;line-height:1.07}
+  .lede{color:var(--ink-3);font-size:17px;margin:0 0 44px;letter-spacing:-0.012em}
+  dl{display:grid;grid-template-columns:200px 1fr;gap:18px 32px;margin:0}
+  dt{font-weight:600;color:var(--ink);font-size:16px;letter-spacing:-0.012em}
+  dd{margin:0;color:var(--ink-2);font-size:16px}
+  dd + dt{border-top:0.5px solid var(--line);padding-top:18px;margin-top:4px}
+  dt{border-top:0.5px solid var(--line);padding-top:18px}
+  dl > dt:first-of-type{border-top:none;padding-top:0}
+  @media (max-width:640px){ dl{grid-template-columns:1fr;gap:4px 0} dd{margin-bottom:14px;padding-bottom:14px;border-bottom:0.5px solid var(--line)} dt{border-top:none;padding-top:0;margin-top:14px} }
+  a{color:var(--accent);text-decoration:none}
+  footer{border-top:0.5px solid var(--line);padding:40px 0;margin-top:60px;font-size:13px;color:var(--ink-3)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer a{color:var(--ink-3);margin-right:16px}
+  .cta{margin:48px 0;padding:28px;background:var(--surface-2);border-radius:16px;text-align:center}
+  .cta a.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 24px;border-radius:980px;font-weight:400}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"DefinedTermSet","name":"ChipShark procurement glossary","inDefinedTermSet":"https://chipsharksupply.com/glossary.html"}
+</script>
+</head>
+<body>
+<nav><div class="wrap">
+<a href="/" class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg></span>ChipShark</a>
+<div class="links"><a href="/">Home</a><a href="/#rfq">New RFQ</a></div>
+</div></nav>
+<main class="wrap">
+<h1>Procurement glossary</h1>
+<p class="lede">The vocabulary of electronic-component sourcing, in plain English. If you're new to brokering, start here.</p>
+
+<dl>
+<dt>EOL (End of Life)</dt>
+<dd>A manufacturer has announced the part will no longer be produced after a specified date. OEMs typically get a last-time-buy window of 6–12 months. After that, remaining stock lives at distributors, independent brokers, or the manufacturer's own excess channel.</dd>
+
+<dt>NRND</dt>
+<dd>Not Recommended for New Designs. The manufacturer still produces the part but is discouraging new designs around it — usually a precursor to EOL. Existing products using an NRND part should start migration planning.</dd>
+
+<dt>Obsolete</dt>
+<dd>The part is no longer manufactured by anyone. Stock only exists at brokers, surplus channels, or scrapped boards.</dd>
+
+<dt>Lead time</dt>
+<dd>The gap between placing a purchase order and the parts arriving. Normal is 8–16 weeks for most ICs. "Allocation" lead times stretch to 40+ weeks. "Line-down" buyers can't wait — that's where brokers come in.</dd>
+
+<dt>Allocation</dt>
+<dd>When demand for a part exceeds the manufacturer's supply, the manufacturer rations stock among its franchised distributors on a formula. Spot-market prices spike 2–10× during allocation.</dd>
+
+<dt>Spot market</dt>
+<dd>The non-franchised secondary market where excess inventory moves between brokers, OEMs, and contract manufacturers. Prices are not published; every lot is negotiated.</dd>
+
+<dt>Broker (independent distributor)</dt>
+<dd>A trader who buys from the spot market and sells to OEMs. Brokers are not franchised distributors — meaning they don't have a direct supply agreement with the manufacturer. ChipShark is a broker.</dd>
+
+<dt>Franchise distributor</dt>
+<dd>A distributor with a direct supply contract from the manufacturer. Digi-Key, Mouser, Arrow, Avnet, Future are the big ones. If a franchise distributor has stock, buy there first — it's authentic and cheapest. Brokers exist for everything they can't supply.</dd>
+
+<dt>RFQ (Request for Quote)</dt>
+<dd>A buyer's inquiry: here are the part numbers, quantities, and required dates — how much and how fast? A broker responds with price, lead time, supplier tier, and any inspection notes.</dd>
+
+<dt>MPN (Manufacturer Part Number)</dt>
+<dd>The manufacturer's unique identifier for the part. Different from distributor part numbers. STM32F407VGT6 is an MPN; a distributor might sell the same part under STM32F407VGT6TR (reel) or STM32F407VGT6CT (cut tape).</dd>
+
+<dt>Lot code / date code</dt>
+<dd>Printed on each part or reel: identifies when and where the manufacturer produced that batch. Buyers often spec "no date codes older than 2 years" to avoid storage-degraded parts. Date codes also help trace counterfeits.</dd>
+
+<dt>Counterfeit</dt>
+<dd>A part sold as something it isn't — remarked, reconditioned, cloned, or outright fake. Prevention: three-tier vetting (supplier screening + Certificate of Conformance + physical inspection). See our <a href="/counterfeit-policy.html">counterfeit policy</a>.</dd>
+
+<dt>CoC (Certificate of Conformance)</dt>
+<dd>A document from the supplier declaring the parts match the specification. Minimum paperwork for any broker transaction. ChipShark attaches one to every shipment.</dd>
+
+<dt>IDEA / ERAI</dt>
+<dd>Trade bodies that maintain blacklists of bad brokers and counterfeit lots. The Independent Distributors of Electronics Association (IDEA) and Electronic Resellers Association International (ERAI). Reputable brokers are members and file reports.</dd>
+
+<dt>AS6081 / AS6171</dt>
+<dd>SAE industry standards for counterfeit-detection and avoidance in the aerospace/defense supply chain. AS6081 covers independent distributors; AS6171 covers test methodology. Buying from an AS6081-certified broker is baseline for mil/aero work.</dd>
+
+<dt>DFARS / ITAR / RoHS</dt>
+<dd>DFARS (Defense Federal Acquisition Regulation Supplement) and ITAR (International Traffic in Arms Regulations) govern U.S. defense procurement. RoHS (Restriction of Hazardous Substances) governs EU consumer electronics. Any one of these as a requirement constrains your supply chain significantly — mention them on your RFQ.</dd>
+
+<dt>Reel / cut tape / tube / tray / loose</dt>
+<dd>Packaging. SMD parts come on reels (3,000 pieces typical) or cut tape (any quantity, cut from a reel). ICs come in trays, tubes, or loose. Different packaging is sometimes a different distributor SKU — same MPN, different price per piece.</dd>
+
+<dt>MOQ (Minimum Order Quantity)</dt>
+<dd>The smallest batch the seller will quote. Franchise distributors sell down to 1 piece; brokers typically have higher MOQs (e.g. 1 reel, 1,000 pieces) because supplier contracts bind them to full lots.</dd>
+
+<dt>Line-down</dt>
+<dd>A buyer whose production line has stopped because they're missing a part. Highest-urgency RFQ class. Line-down costs manufacturers tens of thousands of dollars per hour, so quote turnaround matters more than price.</dd>
+
+<dt>Last-time-buy (LTB)</dt>
+<dd>The manufacturer's final opportunity to buy a part before it goes EOL. OEMs doing lifecycle management calculate the LTB quantity based on expected remaining product life. Running short later means the spot market.</dd>
+</dl>
+
+<div class="cta">
+<p style="margin:0 0 14px;color:var(--ink-2);">Need a part now? Submit an RFQ. 24-hour sourced quote.</p>
+<a href="/#rfq" class="btn">Submit RFQ →</a>
+</div>
+</main>
+<footer><div class="wrap">
+<span>© 2026 ChipShark · Hard-to-find electronic components</span>
+<div><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/refund.html">Refund</a><a href="/counterfeit-policy.html">Counterfeit policy</a></div>
+</div></footer>
+</body>
+</html>
