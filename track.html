@@ -6,6 +6,7 @@
 <title>Track your RFQ — ChipShark</title>
 <meta name="description" content="Track the status of your component sourcing request.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='0' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 <style>
   :root {
     --bg: #ffffff;
@@ -268,7 +269,28 @@ function renderStatus(data) {
         <div class="label">Quote</div>
         <div class="amount">${esc(quoteAmount)}</div>
         <div style="color:var(--ink-2);font-size:14px;margin-bottom:16px;">For ${esc(data.qty)} × ${esc(data.mpn)}</div>
-        ${payLink ? `<a href="${esc(payLink)}" class="btn" target="_blank" rel="noopener">Accept and pay →</a>` : '<p style="color:var(--ink-3);font-size:13px;margin:0;">Payment link will be shared via email shortly.</p>'}
+        ${payLink ? `
+          <a href="${esc(payLink)}" class="btn" target="_blank" rel="noopener">Accept and pay →</a>
+          <div style="margin-top:20px;padding-top:20px;border-top:0.5px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+            <div style="background:#fff;padding:8px;border:0.5px solid var(--line);border-radius:10px;line-height:0;">
+              <img id="pay-qr" alt="Scan to pay" style="width:140px;height:140px;display:block;image-rendering:pixelated;">
+            </div>
+            <div style="font-size:13px;color:var(--ink-2);max-width:220px;line-height:1.45;">
+              <strong style="color:var(--ink);font-weight:500;">Prefer your phone?</strong><br>
+              Scan this code with your phone camera to open the secure Stripe checkout.
+            </div>
+          </div>
+          <script>
+            (function() {
+              try {
+                var qr = qrcode(0, 'M');
+                qr.addData(${JSON.stringify(payLink)});
+                qr.make();
+                document.getElementById('pay-qr').src = qr.createDataURL(5, 2);
+              } catch (e) { console.warn('QR failed', e); }
+            })();
+          <\/script>
+        ` : '<p style="color:var(--ink-3);font-size:13px;margin:0;">Payment link will be shared via email shortly.</p>'}
       </div>
     ` : ''}
 

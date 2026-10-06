@@ -6,6 +6,7 @@
 <title>ChipShark — Admin</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='0' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 <style>
   :root { --bg:#ffffff; --surface:#fff; --surface-2:#f5f5f7; --ink:#1d1d1f; --ink-2:#424245; --ink-3:#86868b; --line:#d2d2d7; --accent:#0071e3; --accent-hover:#0077ed; --ok:#30861a; --warn:#8a4a0b; --danger:#c0392b; }
   * { box-sizing: border-box; }
@@ -47,9 +48,10 @@
   .section-head .count { background: var(--surface-2); color: var(--ink-2); padding: 1px 7px; border-radius: 10px; font-weight: 500; letter-spacing: 0; }
   .section-head.priority .count { background: color-mix(in srgb, var(--danger) 15%, transparent); color: var(--danger); }
   .rfq-list { display: flex; flex-direction: column; gap: 10px; }
-  .rfq { background: var(--surface); border: 0.5px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+  .rfq { background: var(--surface); border: 0.5px solid var(--line); border-radius: 14px; padding: 16px 18px; transition: opacity 0.35s ease, transform 0.35s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease; overflow: hidden; max-height: 1200px; }
   .rfq.urgent-new { border-color: var(--danger); border-left-width: 3px; background: color-mix(in srgb, var(--danger) 2.5%, var(--surface)); }
   .rfq.just-arrived { animation: slide-in 0.5s ease-out; }
+  .rfq.fading-out { opacity: 0; transform: translateX(40px) scale(0.98); max-height: 0; margin-top: -10px; padding-top: 0; padding-bottom: 0; border-width: 0; }
   @keyframes slide-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
   .rfq-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; flex-wrap: wrap; }
   .rfq-head .who { font-size: 15px; font-weight: 500; margin: 0 0 2px; }
@@ -61,7 +63,7 @@
   .b-new { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
   .b-quoted { background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); }
   .b-won { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
-  .b-lost { background: color-mix(in srgb, var(--ink-3) 20%, transparent); color: var(--ink-3); }
+  .b-lost, .b-unable_to_source { background: color-mix(in srgb, var(--ink-3) 20%, transparent); color: var(--ink-3); }
   .b-urgent { background: var(--danger); color: #fff; }
   .rfq-body { margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 20px; font-size: 13px; }
   .rfq-field .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); margin-bottom: 2px; }
@@ -71,22 +73,60 @@
   .rfq-actions select { background: var(--bg); color: var(--ink); border: 0.5px solid var(--line); border-radius: 8px; padding: 5px 10px; font-size: 12px; font-family: inherit; }
   .rfq-actions a, .rfq-actions button.ghost { font-size: 12px; color: var(--accent); text-decoration: none; padding: 5px 10px; border: 0.5px solid var(--accent); border-radius: 8px; background: transparent; cursor: pointer; font-family: inherit; }
   .rfq-actions a:hover, .rfq-actions button.ghost:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
-  .quote-form { margin-top: 12px; padding: 14px; background: color-mix(in srgb, var(--accent) 5%, transparent); border: 0.5px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 10px; display: grid; grid-template-columns: 140px 1fr auto; gap: 8px; align-items: center; }
+  .quote-form { margin-top: 12px; padding: 14px; background: color-mix(in srgb, var(--accent) 5%, transparent); border: 0.5px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 10px; display: grid; grid-template-columns: 180px auto auto 1fr; gap: 8px 12px; align-items: center; }
   @media (max-width: 640px) { .quote-form { grid-template-columns: 1fr; } }
   .quote-form input { background: var(--bg); color: var(--ink); border: 0.5px solid var(--line); border-radius: 7px; padding: 7px 10px; font-size: 13px; font-family: inherit; width: 100%; }
   .quote-form input:focus { outline: none; border-color: var(--accent); }
-  .quote-form button.save { background: var(--accent); color: #fff; border: none; border-radius: 7px; padding: 7px 14px; font-size: 13px; cursor: pointer; font-family: inherit; }
+  .quote-form button.save { background: var(--accent); color: #fff; border: none; border-radius: 7px; padding: 7px 14px; font-size: 13px; cursor: pointer; font-family: inherit; white-space: nowrap; }
   .quote-form button.save:hover { background: var(--accent-hover); }
   .quote-form button.save:disabled { opacity: 0.5; cursor: not-allowed; }
-  .quote-form .saved { font-size: 12px; color: var(--ok); margin-left: 8px; }
+  .quote-form button.cant { background: #fff; color: var(--danger); border: 0.5px solid var(--danger); border-radius: 7px; padding: 7px 12px; font-size: 13px; cursor: pointer; font-family: inherit; white-space: nowrap; }
+  .quote-form button.cant:hover { background: color-mix(in srgb, var(--danger) 8%, transparent); }
+  .quote-form .saved { font-size: 12px; color: var(--ok); margin-left: 0; }
+  .quote-form .hint { grid-column: 1 / -1; font-size: 11px; color: var(--ink-3); margin-top: -2px; }
+  .quote-form .link-row { grid-column: 1 / -1; display: flex; gap: 14px; align-items: flex-start; margin-top: 6px; flex-wrap: wrap; }
+  .quote-form .link-row .link-text { flex: 1 1 220px; min-width: 0; font-size: 11px; color: var(--ok); word-break: break-all; }
+  .quote-form .link-row .link-text a { color: var(--ok); text-decoration: underline; }
+  .quote-form .qr-mini { flex: 0 0 auto; width: 72px; height: 72px; background: #fff; padding: 4px; border: 0.5px solid var(--line); border-radius: 6px; }
+  .quote-form .qr-mini img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+  .quote-form .toggle-advanced { grid-column: 1 / -1; font-size: 11px; color: var(--ink-3); cursor: pointer; background: none; border: none; padding: 0; text-align: left; text-decoration: underline; font-family: inherit; }
+  .quote-form .advanced { grid-column: 1 / -1; display: none; margin-top: 4px; }
+  .quote-form .advanced.show { display: block; }
+  .quote-form .advanced input { width: 100%; }
+  .last-email { grid-column: 1 / -1; font-size: 11px; color: var(--ink-3); margin-top: 2px; }
   .empty { text-align: center; padding: 60px 20px; color: var(--ink-3); font-size: 14px; }
   .loading { text-align: center; padding: 60px 20px; color: var(--ink-3); font-size: 13px; }
   .toast-stack { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 8px; z-index: 100; }
   .toast { background: var(--surface); border: 0.5px solid var(--line); border-radius: 12px; padding: 12px 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); font-size: 13px; max-width: 320px; animation: toast-in 0.3s ease; }
   .toast.urgent { border-color: var(--danger); border-left-width: 3px; }
+  .toast.ok { border-color: var(--ok); border-left-width: 3px; }
   .toast .t-title { font-weight: 500; margin-bottom: 2px; }
   .toast .t-sub { font-size: 12px; color: var(--ink-3); }
   @keyframes toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
+  /* ---------- Email composer modal ---------- */
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+  .modal-backdrop.show { display: flex; }
+  .modal { background: var(--surface); border-radius: 16px; width: 100%; max-width: 640px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+  .modal-head { padding: 18px 22px; border-bottom: 0.5px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .modal-head h2 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .modal-head .close { background: transparent; border: none; font-size: 22px; cursor: pointer; color: var(--ink-3); padding: 0 4px; line-height: 1; }
+  .modal-body { padding: 20px 22px; overflow-y: auto; flex: 1; }
+  .modal-body .to-row { font-size: 13px; color: var(--ink-2); margin-bottom: 14px; }
+  .modal-body .to-row strong { color: var(--ink); font-weight: 500; }
+  .modal-body label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); margin-bottom: 6px; margin-top: 14px; }
+  .modal-body label:first-of-type { margin-top: 0; }
+  .modal-body input, .modal-body textarea { width: 100%; background: var(--bg); color: var(--ink); border: 0.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 14px; font-family: inherit; }
+  .modal-body textarea { min-height: 240px; resize: vertical; line-height: 1.55; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; }
+  .modal-foot { padding: 14px 22px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 0.5px solid var(--line); }
+  .modal-foot .status-text { font-size: 12px; color: var(--ink-3); flex: 1; }
+  .modal-foot .status-text.err { color: var(--danger); }
+  .modal-foot button { padding: 9px 18px; border-radius: 980px; border: none; font-size: 14px; font-family: inherit; cursor: pointer; font-weight: 500; }
+  .modal-foot .btn-cancel { background: transparent; color: var(--ink-2); border: 0.5px solid var(--line); }
+  .modal-foot .btn-cancel:hover { background: var(--surface-2); }
+  .modal-foot .btn-send { background: var(--accent); color: #fff; }
+  .modal-foot .btn-send:hover { background: var(--accent-hover); }
+  .modal-foot .btn-send.danger { background: var(--danger); }
+  .modal-foot .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -113,15 +153,38 @@
   <div class="wrap">
     <div class="stats" id="stats"></div>
     <div class="filters" id="filters">
-      <button class="chip active" data-filter="all">All</button>
-      <button class="chip" data-filter="new">New</button>
+      <button class="chip" data-filter="all">All</button>
+      <button class="chip active" data-filter="new">New</button>
       <button class="chip" data-filter="quoted">Quoted</button>
       <button class="chip" data-filter="won">Won</button>
       <button class="chip" data-filter="lost">Lost</button>
+      <button class="chip" data-filter="unable_to_source">Unable</button>
       <span class="sep">·</span>
       <button class="chip" data-filter="urgent">Urgent only</button>
     </div>
     <div id="rfq-list" class="rfq-list"></div>
+  </div>
+</div>
+
+<!-- Email composer modal -->
+<div class="modal-backdrop" id="compose-backdrop">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="compose-title">Review email</h2>
+      <button class="close" id="compose-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="to-row">To: <strong id="compose-to"></strong></div>
+      <label>Subject</label>
+      <input id="compose-subject" type="text">
+      <label>Message</label>
+      <textarea id="compose-body" spellcheck="true"></textarea>
+    </div>
+    <div class="modal-foot">
+      <span class="status-text" id="compose-status"></span>
+      <button class="btn-cancel" id="compose-cancel">Cancel</button>
+      <button class="btn-send" id="compose-send">Send</button>
+    </div>
   </div>
 </div>
 
@@ -141,13 +204,14 @@
   const loginMsg = $('login-msg');
   const loginHelp = $('login-help');
 
-  let mode = 'login'; // or 'setup'
+  let mode = 'login';
   let password = null;
-  let currentFilter = 'all';
+  let currentFilter = 'new'; // default to actionable queue
   let allRfqs = [];
   let knownIds = new Set();
   let justArrivedIds = new Set();
   let pollTimer = null;
+  let composeCtx = null; // {rfqId, type}
 
   function showMsg(text, kind) {
     loginMsg.textContent = text;
@@ -237,6 +301,16 @@
     });
   }
 
+  // Make a small QR as a data: URL from the qrcode-generator CDN lib
+  function qrDataUrl(text, size = 64) {
+    try {
+      const qr = qrcode(0, 'M');
+      qr.addData(text);
+      qr.make();
+      return qr.createDataURL(3, 2); // cellSize=3, margin=2
+    } catch (e) { console.warn('QR gen failed', e); return ''; }
+  }
+
   function rowHtml(r) {
     const status = r.status || 'new';
     const urgent = isUrgentNew(r);
@@ -252,12 +326,14 @@
     if (urgent) classes.push('urgent-new');
     if (justArrived) classes.push('just-arrived');
     const phoneLink = r.phone ? ` · <a href="tel:${esc(r.phone.replace(/[^0-9+]/g,''))}">${esc(r.phone)}</a>` : '';
+    const qrImg = r.stripe_payment_link ? `<div class="qr-mini" title="Scan to open Stripe link"><img src="${qrDataUrl(r.stripe_payment_link)}" alt="Stripe QR"></div>` : '';
+    const lastEmailLine = r.last_email_sent_at ? `<div class="last-email">📧 Last email: ${esc(r.last_email_type || 'sent')} · ${new Date(r.last_email_sent_at).toLocaleString()}</div>` : '';
     return `
       <div class="${classes.join(' ')}" data-rfq-id="${r.id}">
         <div class="rfq-head">
           <div>
             <p class="who">${esc(r.name)} · ${esc(r.company)}
-              <span class="badge b-${status}">${status}</span>
+              <span class="badge b-${status}">${status.replace(/_/g, ' ')}</span>
               ${urgent ? '<span class="badge b-urgent">URGENT</span>' : ''}
             </p>
             <p class="meta"><a href="mailto:${esc(r.email)}">${esc(r.email)}</a>${phoneLink}</p>
@@ -278,14 +354,22 @@
             <option value="quoted"${status==='quoted'?' selected':''}>quoted</option>
             <option value="won"${status==='won'?' selected':''}>won</option>
             <option value="lost"${status==='lost'?' selected':''}>lost</option>
+            <option value="unable_to_source"${status==='unable_to_source'?' selected':''}>unable to source</option>
           </select>
-          <a href="mailto:${esc(r.email)}?subject=Quote%20for%20RFQ%20%23${r.id.slice(0,8)}&body=Hi%20${encodeURIComponent((r.name || '').split(' ')[0])}%2C%0A%0AThanks%20for%20your%20RFQ.%20Here's%20what%20we%20found%3A%0A%0A">Email quote</a>
           <a href="/track.html?id=${r.id}" target="_blank">View buyer page</a>
         </div>
         <div class="quote-form" data-id="${r.id}">
-          <input class="qamt" placeholder="Quote total (USD, e.g. 1250.00)" value="${r.quote_amount_cents != null ? (r.quote_amount_cents/100).toFixed(2) : ''}" inputmode="decimal">
-          <input class="qlink" placeholder="Stripe Payment Link URL" value="${esc(r.stripe_payment_link || '')}">
-          <div style="display:flex;align-items:center;gap:4px;"><button class="save" data-id="${r.id}">Save quote</button><span class="saved" data-id="${r.id}"></span></div>
+          <input class="qamt" placeholder="Quote total USD (e.g. 1250.00)" value="${r.quote_amount_cents != null ? (r.quote_amount_cents/100).toFixed(2) : ''}" inputmode="decimal">
+          <button class="save" data-id="${r.id}">${r.stripe_payment_link ? 'Update quote &amp; email' : 'Save quote &amp; email'}</button>
+          <button class="cant" data-id="${r.id}" title="Email buyer that we can't source this">Can't source →</button>
+          <span class="saved" data-id="${r.id}"></span>
+          <div class="hint">💡 Save creates the Stripe payment link, then opens an email you can edit before it sends.</div>
+          ${r.stripe_payment_link ? `<div class="link-row"><div class="link-text">Buyer link:<br><a href="${esc(r.stripe_payment_link)}" target="_blank" rel="noopener">${esc(r.stripe_payment_link)}</a></div>${qrImg}</div>` : ''}
+          ${lastEmailLine}
+          <button type="button" class="toggle-advanced" data-id="${r.id}">Advanced: paste your own Stripe link instead ▸</button>
+          <div class="advanced" data-id="${r.id}">
+            <input class="qlink" placeholder="https://buy.stripe.com/..." value="${esc(r.stripe_payment_link || '')}">
+          </div>
         </div>
       </div>
     `;
@@ -303,11 +387,11 @@
     const otherRows = rows.filter(r => !isUrgentNew(r));
 
     let html = '';
-    if (urgentRows.length && currentFilter === 'all') {
+    if (urgentRows.length && (currentFilter === 'all' || currentFilter === 'new')) {
       html += `<div class="section-head priority">⚡ Priority queue <span class="count">${urgentRows.length}</span></div>`;
       html += urgentRows.map(rowHtml).join('');
       if (otherRows.length) {
-        html += `<div class="section-head">All other RFQs <span class="count">${otherRows.length}</span></div>`;
+        html += `<div class="section-head">${currentFilter === 'new' ? 'Other new RFQs' : 'All other RFQs'} <span class="count">${otherRows.length}</span></div>`;
         html += otherRows.map(rowHtml).join('');
       }
     } else {
@@ -318,6 +402,21 @@
     wireRowHandlers();
   }
 
+  // Fade a row out in-place without a full re-render — gives instant visual feedback
+  function fadeOutRow(id, onDone) {
+    const el = document.querySelector(`.rfq[data-rfq-id="${id}"]`);
+    if (!el) { if (onDone) onDone(); return; }
+    el.classList.add('fading-out');
+    setTimeout(() => { if (onDone) onDone(); }, 380);
+  }
+
+  // Does this RFQ still belong on the current filter? If not, it should fade away.
+  function matchesCurrentFilter(r) {
+    if (currentFilter === 'all') return true;
+    if (currentFilter === 'urgent') return (r.urgency || '').toLowerCase().match(/urgent|line down|critical/) && (r.status || 'new') === 'new';
+    return (r.status || 'new') === currentFilter;
+  }
+
   function wireRowHandlers() {
     document.querySelectorAll('.status-sel').forEach(sel => {
       sel.addEventListener('change', async (e) => {
@@ -326,8 +425,20 @@
         try {
           await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify({ status: value }) });
           const r = allRfqs.find(x => x.id === id); if (r) r.status = value;
-          renderStats(); renderList();
+          renderStats();
+          if (r && !matchesCurrentFilter(r)) fadeOutRow(id, renderList);
+          else renderList();
         } catch (err) { alert('Update failed: ' + err.message); }
+      });
+    });
+    document.querySelectorAll('.quote-form .toggle-advanced').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const form = e.target.closest('.quote-form');
+        const adv = form.querySelector('.advanced');
+        adv.classList.toggle('show');
+        btn.textContent = adv.classList.contains('show')
+          ? 'Advanced: paste your own Stripe link instead ▾'
+          : 'Advanced: paste your own Stripe link instead ▸';
       });
     });
     document.querySelectorAll('.quote-form .save').forEach(btn => {
@@ -335,33 +446,108 @@
         const id = e.target.dataset.id;
         const form = e.target.closest('.quote-form');
         const amtStr = form.querySelector('.qamt').value.trim().replace(/[$,\s]/g, '');
-        const link = form.querySelector('.qlink').value.trim();
+        const advShown = form.querySelector('.advanced')?.classList.contains('show');
+        const link = advShown ? form.querySelector('.qlink').value.trim() : '';
         const saved = form.querySelector('.saved');
-        if (!amtStr && !link) { saved.textContent = 'Enter at least an amount or link.'; saved.style.color = 'var(--danger)'; return; }
-        const amtNum = amtStr ? parseFloat(amtStr) : null;
-        if (amtStr && (isNaN(amtNum) || amtNum < 0)) { saved.textContent = 'Invalid amount.'; saved.style.color = 'var(--danger)'; return; }
+        if (!amtStr) { saved.textContent = 'Enter a quote amount.'; saved.style.color = 'var(--danger)'; return; }
+        const amtNum = parseFloat(amtStr);
+        if (isNaN(amtNum) || amtNum < 0.5) { saved.textContent = 'Minimum $0.50.'; saved.style.color = 'var(--danger)'; return; }
         if (link && !/^https?:\/\//.test(link)) { saved.textContent = 'Link must start with https://'; saved.style.color = 'var(--danger)'; return; }
-        btn.disabled = true; saved.textContent = 'Saving…'; saved.style.color = 'var(--ink-3)';
+        btn.disabled = true; saved.textContent = link ? 'Saving…' : 'Creating Stripe link…'; saved.style.color = 'var(--ink-3)';
         const patch = {
-          quote_amount_cents: amtNum != null ? Math.round(amtNum * 100) : null,
-          quote_currency: amtNum != null ? 'USD' : null,
-          stripe_payment_link: link || null,
+          quote_amount_cents: Math.round(amtNum * 100),
+          quote_currency: 'USD',
           status: 'quoted',
         };
+        if (link) patch.stripe_payment_link = link;
         try {
-          await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify(patch) });
-          saved.textContent = '✓ Saved · status → quoted';
-          saved.style.color = 'var(--ok)';
+          const result = await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify(patch) });
           const r = allRfqs.find(x => x.id === id);
-          if (r) { Object.assign(r, patch); }
+          if (r && result.rfq) Object.assign(r, result.rfq);
+          saved.textContent = result.generated_link ? '✓ Saved · opening email…' : '✓ Saved · opening email…';
+          saved.style.color = 'var(--ok)';
           renderStats();
-          setTimeout(() => { if (saved.textContent.startsWith('✓')) renderList(); }, 1500);
+          // Open the composer so admin can review/edit the quote-ready email, then fade on send
+          await openComposer(id, 'quote_ready');
         } catch (err) {
           saved.textContent = 'Save failed: ' + err.message; saved.style.color = 'var(--danger)';
         } finally { btn.disabled = false; }
       });
     });
+    document.querySelectorAll('.quote-form .cant').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = e.target.dataset.id;
+        await openComposer(id, 'cannot_source');
+      });
+    });
   }
+
+  // ---------- Email composer modal ----------
+  async function openComposer(rfqId, type) {
+    composeCtx = { rfqId, type };
+    $('compose-title').textContent = type === 'cannot_source' ? "Email buyer: can't source" : 'Email buyer: quote ready';
+    const sendBtn = $('compose-send');
+    sendBtn.textContent = type === 'cannot_source' ? "Send & mark unable" : 'Send to buyer';
+    sendBtn.classList.toggle('danger', type === 'cannot_source');
+    $('compose-status').textContent = 'Drafting…';
+    $('compose-status').classList.remove('err');
+    $('compose-subject').value = '';
+    $('compose-body').value = '';
+    $('compose-to').textContent = '';
+    $('compose-backdrop').classList.add('show');
+    try {
+      const draft = await api('/draft-email', { method: 'POST', body: JSON.stringify({ rfq_id: rfqId, type }) });
+      $('compose-to').textContent = draft.to || '';
+      $('compose-subject').value = draft.subject || '';
+      $('compose-body').value = draft.body || '';
+      $('compose-status').textContent = 'Review and edit before sending.';
+    } catch (err) {
+      $('compose-status').textContent = 'Could not draft: ' + err.message;
+      $('compose-status').classList.add('err');
+    }
+  }
+
+  function closeComposer() {
+    $('compose-backdrop').classList.remove('show');
+    composeCtx = null;
+  }
+
+  $('compose-close').addEventListener('click', closeComposer);
+  $('compose-cancel').addEventListener('click', closeComposer);
+  $('compose-backdrop').addEventListener('click', (e) => { if (e.target.id === 'compose-backdrop') closeComposer(); });
+
+  $('compose-send').addEventListener('click', async () => {
+    if (!composeCtx) return;
+    const { rfqId, type } = composeCtx;
+    const subject = $('compose-subject').value.trim();
+    const body = $('compose-body').value.trim();
+    if (!subject || !body) { $('compose-status').textContent = 'Subject and body required.'; $('compose-status').classList.add('err'); return; }
+    const btn = $('compose-send');
+    btn.disabled = true;
+    $('compose-status').textContent = 'Sending…';
+    $('compose-status').classList.remove('err');
+    try {
+      await api('/send-email', { method: 'POST', body: JSON.stringify({ rfq_id: rfqId, type, subject, body }) });
+      // Update local state
+      const r = allRfqs.find(x => x.id === rfqId);
+      if (r) {
+        r.last_email_type = type;
+        r.last_email_sent_at = new Date().toISOString();
+        r.last_email_subject = subject;
+        if (type === 'cannot_source') r.status = 'unable_to_source';
+      }
+      showToast('Email sent', (type === 'cannot_source' ? 'Marked unable to source' : 'Quote delivered to buyer'), false, true);
+      closeComposer();
+      renderStats();
+      if (r && !matchesCurrentFilter(r)) fadeOutRow(rfqId, renderList);
+      else renderList();
+    } catch (err) {
+      $('compose-status').textContent = 'Send failed: ' + err.message;
+      $('compose-status').classList.add('err');
+    } finally {
+      btn.disabled = false;
+    }
+  });
 
   function renderStats() {
     const total = allRfqs.length;
@@ -415,10 +601,10 @@
   }
   function stopPolling() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } }
 
-  function showToast(title, sub, urgent) {
+  function showToast(title, sub, urgent, ok) {
     const stack = $('toasts');
     const el = document.createElement('div');
-    el.className = 'toast' + (urgent ? ' urgent' : '');
+    el.className = 'toast' + (urgent ? ' urgent' : '') + (ok ? ' ok' : '');
     el.innerHTML = `<div class="t-title">${urgent ? '⚡ ' : ''}${esc(title)}</div><div class="t-sub">${esc(sub)}</div>`;
     stack.appendChild(el);
     setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => el.remove(), 400); }, urgent ? 10000 : 5000);
