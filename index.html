@@ -11,6 +11,7 @@
 <meta property="og:url" content="https://chipsharksupply.com/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='0' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
 <style>
   :root {
@@ -660,6 +661,8 @@
     <label for="notes">Notes (optional)</label>
     <textarea id="notes" name="notes" placeholder="Acceptable alternates, date-code requirements, packaging, compliance (AS9100, ITAR, RoHS), shipping address, etc."></textarea>
 
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFPyjK0P_am6Bifm" data-size="flexible" style="margin: 20px 0;"></div>
+
     <button type="submit">Submit RFQ →</button>
   </form>
 </div></section>
@@ -709,6 +712,8 @@
     submitBtn.textContent = 'Submitting…';
     const fd = new FormData(form);
     if (fd.get('website')) { ok.classList.add('show'); form.style.display = 'none'; return; } // honeypot: bots fill hidden field; fake success, no insert
+    const turnstileToken = fd.get('cf-turnstile-response');
+    if (!turnstileToken) { alert('Please complete the "I am human" check above the Submit button.'); submitBtn.disabled = false; submitBtn.textContent = 'Submit RFQ →'; return; }
     const payload = {
       name: fd.get('name'),
       company: fd.get('company'),
@@ -719,16 +724,16 @@
       target: fd.get('target') || null,
       needed_by: fd.get('needed'),
       urgency: fd.get('urgency'),
-      notes: fd.get('notes') || null
+      notes: fd.get('notes') || null,
+      turnstile_token: turnstileToken
     };
     try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/rfqs`, {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/rfq-submit`, {
         method: 'POST',
         headers: {
           apikey: SUPABASE_ANON_KEY,
           Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json',
-          Prefer: 'return=minimal'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload)
       });
