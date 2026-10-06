@@ -15,23 +15,23 @@
   .brand-mark { width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center; color: var(--ink); }
   .brand-mark svg { width:26px; height:26px; display:block; }
   .topbar .right { display:flex; align-items:center; gap:10px; }
-  .topbar .user { font-size: 12px; color: var(--ink-3); }
   .topbar .live { display:inline-flex; align-items:center; gap:6px; font-size:11px; color: var(--ink-3); padding: 4px 10px; background: var(--surface-2); border-radius: 20px; }
   .topbar .live .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
   .topbar button { background: transparent; border: 0.5px solid var(--line); border-radius: 20px; padding: 6px 12px; font-size: 12px; color: var(--ink-2); cursor: pointer; }
   .topbar button:hover { background: var(--surface-2); }
-  .login { max-width: 400px; margin: 100px auto; padding: 32px; background: var(--surface); border: 0.5px solid var(--line); border-radius: 18px; }
+  .login { max-width: 400px; margin: 80px auto; padding: 32px; background: var(--surface); border: 0.5px solid var(--line); border-radius: 18px; }
   .login h1 { font-size: 22px; margin: 0 0 6px; font-weight: 600; letter-spacing: -0.01em; }
-  .login p { margin: 0 0 20px; font-size: 14px; color: var(--ink-2); }
+  .login p { margin: 0 0 20px; font-size: 14px; color: var(--ink-2); line-height: 1.5; }
   .login input { width: 100%; padding: 11px 13px; font-size: 15px; background: var(--bg); color: var(--ink); border: 0.5px solid var(--line); border-radius: 10px; font-family: inherit; margin-bottom: 12px; }
   .login input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
-  .login button { width: 100%; background: var(--accent); color: white; border: none; padding: 12px; font-size: 15px; font-weight: 500; border-radius: 980px; cursor: pointer; }
+  .login button { width: 100%; background: var(--accent); color: white; border: none; padding: 12px; font-size: 15px; font-weight: 500; border-radius: 980px; cursor: pointer; font-family: inherit; }
   .login button:hover { opacity: 0.92; }
-  .login button:disabled { opacity: 0.6; }
+  .login button:disabled { opacity: 0.6; cursor: not-allowed; }
   .login .msg { font-size: 13px; margin-top: 12px; padding: 10px; border-radius: 8px; }
   .login .msg.ok { background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--ok); }
   .login .msg.err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
+  .login .note { font-size: 11px; color: var(--ink-3); text-align: center; margin-top: 14px; }
   .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 24px; }
   .stat { background: var(--surface); border: 0.5px solid var(--line); border-radius: 12px; padding: 14px 16px; }
@@ -91,20 +91,21 @@
 </head>
 <body>
 
-<div id="login-view" class="login">
-  <h1>ChipShark Admin</h1>
-  <p>Enter your email. We'll send you a magic link.</p>
-  <input id="email-in" type="email" placeholder="adityapareek0923@gmail.com" autocomplete="email">
-  <button id="send-btn">Send magic link</button>
+<div id="login-view" class="login" style="display:none">
+  <h1 id="login-title">ChipShark Admin</h1>
+  <p id="login-help">Enter your password to log in.</p>
+  <input id="pwd-in" type="password" placeholder="Password" autocomplete="current-password">
+  <input id="pwd-in-2" type="password" placeholder="Confirm password" autocomplete="new-password" style="display:none">
+  <button id="submit-btn">Log in</button>
   <div id="login-msg" class="msg" style="display:none"></div>
+  <p class="note">Password lives in your browser only. Lose it and you'll need to reset via Supabase.</p>
 </div>
 
 <div id="app-view" style="display:none">
   <div class="topbar">
     <div class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg></span>ChipShark · Admin</div>
     <div class="right">
-      <span class="live" id="live-indicator" title="Realtime connection to database"><span class="dot"></span><span id="live-text">Live</span></span>
-      <span class="user" id="user-email"></span>
+      <span class="live" id="live-indicator" title="Auto-refresh every 10 seconds"><span class="dot"></span><span id="live-text">Live</span></span>
       <button id="refresh-btn">Refresh</button>
       <button id="logout-btn">Log out</button>
     </div>
@@ -126,18 +127,27 @@
 
 <div class="toast-stack" id="toasts"></div>
 
-<script type="module">
-  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+<script>
+  const API = "https://dgpdfponhxbnhfhmbmjb.supabase.co/functions/v1/admin-api";
+  const PWD_KEY = "chipshark_admin_pwd_v1";
+  const POLL_MS = 10000;
 
-  const SUPABASE_URL = "https://dgpdfponhxbnhfhmbmjb.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRncGRmcG9uaHhibmhmaG1ibWpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwMzc5ODcsImV4cCI6MjEwNjYxMzk4N30.5R9ASFR8eig65JzfNBueXp3NvwHRVtb4wQ2dyH8qhE8";
-  const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const $ = (id) => document.getElementById(id);
+  const loginView = $('login-view');
+  const appView = $('app-view');
+  const pwdIn = $('pwd-in');
+  const pwdIn2 = $('pwd-in-2');
+  const submitBtn = $('submit-btn');
+  const loginMsg = $('login-msg');
+  const loginHelp = $('login-help');
 
-  const loginView = document.getElementById('login-view');
-  const appView = document.getElementById('app-view');
-  const emailIn = document.getElementById('email-in');
-  const sendBtn = document.getElementById('send-btn');
-  const loginMsg = document.getElementById('login-msg');
+  let mode = 'login'; // or 'setup'
+  let password = null;
+  let currentFilter = 'all';
+  let allRfqs = [];
+  let knownIds = new Set();
+  let justArrivedIds = new Set();
+  let pollTimer = null;
 
   function showMsg(text, kind) {
     loginMsg.textContent = text;
@@ -145,25 +155,67 @@
     loginMsg.style.display = 'block';
   }
 
-  sendBtn.addEventListener('click', async () => {
-    const email = emailIn.value.trim();
-    if (!email) return;
-    sendBtn.disabled = true;
-    sendBtn.textContent = 'Sending…';
-    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
-    if (error) {
-      showMsg(error.message, 'err');
-      sendBtn.disabled = false;
-      sendBtn.textContent = 'Send magic link';
-    } else {
-      showMsg('Check your email for the magic link.', 'ok');
-      sendBtn.textContent = 'Sent';
+  function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  async function api(path, opts = {}) {
+    const headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+    if (password) headers['x-admin-pwd'] = password;
+    const r = await fetch(API + path, Object.assign({}, opts, { headers }));
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
+    return data;
+  }
+
+  async function checkMode() {
+    try {
+      const data = await (await fetch(API + '/status')).json();
+      if (data.setup_required) {
+        mode = 'setup';
+        $('login-title').textContent = 'First-time setup';
+        loginHelp.textContent = 'Pick a password. 8+ characters. Store it somewhere safe — there is no email reset.';
+        pwdIn.placeholder = 'New password';
+        pwdIn.autocomplete = 'new-password';
+        pwdIn2.style.display = 'block';
+        submitBtn.textContent = 'Create password';
+      } else {
+        mode = 'login';
+      }
+      loginView.style.display = 'block';
+    } catch (e) {
+      loginView.style.display = 'block';
+      showMsg('Could not reach admin API: ' + e.message, 'err');
+    }
+  }
+
+  submitBtn.addEventListener('click', async () => {
+    const p = pwdIn.value;
+    if (!p) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = mode === 'setup' ? 'Creating…' : 'Checking…';
+    try {
+      if (mode === 'setup') {
+        if (p.length < 8) { showMsg('Password must be at least 8 characters.', 'err'); submitBtn.disabled = false; submitBtn.textContent = 'Create password'; return; }
+        if (p !== pwdIn2.value) { showMsg('Passwords do not match.', 'err'); submitBtn.disabled = false; submitBtn.textContent = 'Create password'; return; }
+        await (await fetch(API + '/setup', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ password: p }) })).json().then(d => { if (d.error) throw new Error(d.error); });
+      } else {
+        const r = await (await fetch(API + '/verify', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ password: p }) })).json();
+        if (!r.ok) { showMsg('Wrong password.', 'err'); submitBtn.disabled = false; submitBtn.textContent = 'Log in'; return; }
+      }
+      password = p;
+      localStorage.setItem(PWD_KEY, p);
+      loginView.style.display = 'none';
+      appView.style.display = 'block';
+      await loadRfqs(true);
+      startPolling();
+    } catch (e) {
+      showMsg(e.message, 'err');
+      submitBtn.disabled = false;
+      submitBtn.textContent = mode === 'setup' ? 'Create password' : 'Log in';
     }
   });
 
-  let currentFilter = 'all';
-  let allRfqs = [];
-  let justArrivedIds = new Set();
+  pwdIn.addEventListener('keydown', e => { if (e.key === 'Enter' && mode === 'login') submitBtn.click(); });
+  pwdIn2.addEventListener('keydown', e => { if (e.key === 'Enter') submitBtn.click(); });
 
   function isUrgentNew(r) {
     const status = r.status || 'new';
@@ -172,9 +224,9 @@
   }
 
   function priorityBucket(r) {
-    if (isUrgentNew(r)) return 0;                             // Priority queue
-    if ((r.status || 'new') === 'new') return 1;              // Normal new
-    return 2;                                                 // Quoted / won / lost
+    if (isUrgentNew(r)) return 0;
+    if ((r.status || 'new') === 'new') return 1;
+    return 2;
   }
 
   function sortRows(rows) {
@@ -184,8 +236,6 @@
       return new Date(b.created_at) - new Date(a.created_at);
     });
   }
-
-  function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
   function rowHtml(r) {
     const status = r.status || 'new';
@@ -242,7 +292,7 @@
   }
 
   function renderList() {
-    const list = document.getElementById('rfq-list');
+    const list = $('rfq-list');
     let rows = sortRows(allRfqs);
     if (currentFilter === 'urgent') rows = rows.filter(r => (r.urgency || '').toLowerCase().match(/urgent|line down|critical/));
     else if (currentFilter !== 'all') rows = rows.filter(r => (r.status || 'new') === currentFilter);
@@ -253,7 +303,7 @@
     const otherRows = rows.filter(r => !isUrgentNew(r));
 
     let html = '';
-    if (urgentRows.length && currentFilter !== 'urgent' && currentFilter === 'all') {
+    if (urgentRows.length && currentFilter === 'all') {
       html += `<div class="section-head priority">⚡ Priority queue <span class="count">${urgentRows.length}</span></div>`;
       html += urgentRows.map(rowHtml).join('');
       if (otherRows.length) {
@@ -273,9 +323,11 @@
       sel.addEventListener('change', async (e) => {
         const id = e.target.dataset.id;
         const value = e.target.value;
-        const { error } = await sb.from('rfqs').update({ status: value }).eq('id', id);
-        if (error) alert('Update failed: ' + error.message);
-        else { const r = allRfqs.find(x => x.id === id); if (r) r.status = value; renderStats(); renderList(); }
+        try {
+          await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify({ status: value }) });
+          const r = allRfqs.find(x => x.id === id); if (r) r.status = value;
+          renderStats(); renderList();
+        } catch (err) { alert('Update failed: ' + err.message); }
       });
     });
     document.querySelectorAll('.quote-form .save').forEach(btn => {
@@ -296,17 +348,17 @@
           stripe_payment_link: link || null,
           status: 'quoted',
         };
-        const { error } = await sb.from('rfqs').update(patch).eq('id', id);
-        btn.disabled = false;
-        if (error) { saved.textContent = 'Save failed: ' + error.message; saved.style.color = 'var(--danger)'; }
-        else {
+        try {
+          await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify(patch) });
           saved.textContent = '✓ Saved · status → quoted';
           saved.style.color = 'var(--ok)';
           const r = allRfqs.find(x => x.id === id);
-          if (r) { r.quote_amount_cents = patch.quote_amount_cents; r.quote_currency = patch.quote_currency; r.stripe_payment_link = patch.stripe_payment_link; r.status = 'quoted'; }
+          if (r) { Object.assign(r, patch); }
           renderStats();
           setTimeout(() => { if (saved.textContent.startsWith('✓')) renderList(); }, 1500);
-        }
+        } catch (err) {
+          saved.textContent = 'Save failed: ' + err.message; saved.style.color = 'var(--danger)';
+        } finally { btn.disabled = false; }
       });
     });
   }
@@ -317,7 +369,7 @@
     const quoted = allRfqs.filter(r => r.status === 'quoted').length;
     const won = allRfqs.filter(r => r.status === 'won').length;
     const urgent = allRfqs.filter(isUrgentNew).length;
-    document.getElementById('stats').innerHTML = `
+    $('stats').innerHTML = `
       <div class="stat ${urgent ? 'urgent-alive' : ''}"><div class="label">⚡ Urgent open</div><div class="value" style="color: ${urgent ? 'var(--danger)' : 'inherit'}">${urgent}</div></div>
       <div class="stat"><div class="label">Open (new)</div><div class="value">${newCount}</div></div>
       <div class="stat"><div class="label">Quoted</div><div class="value">${quoted}</div></div>
@@ -326,16 +378,45 @@
     `;
   }
 
-  async function loadRfqs() {
-    document.getElementById('rfq-list').innerHTML = '<div class="loading">Loading RFQs…</div>';
-    const { data, error } = await sb.from('rfqs').select('*').order('created_at', { ascending: false });
-    if (error) { document.getElementById('rfq-list').innerHTML = '<div class="empty">Error: ' + esc(error.message) + '</div>'; return; }
-    allRfqs = data || [];
-    renderStats(); renderList();
+  async function loadRfqs(initial) {
+    if (initial) $('rfq-list').innerHTML = '<div class="loading">Loading RFQs…</div>';
+    try {
+      const data = await api('/list');
+      const incoming = data.rfqs || [];
+      if (!initial) {
+        for (const r of incoming) {
+          if (!knownIds.has(r.id)) {
+            justArrivedIds.add(r.id);
+            const urg = isUrgentNew(r);
+            showToast(`${r.name} · ${r.company}`, `${(r.mpn || '').split(/\s+/)[0]} · qty ${r.qty}`, urg);
+            if (urg) playPing();
+          }
+        }
+      }
+      allRfqs = incoming;
+      knownIds = new Set(incoming.map(r => r.id));
+      renderStats(); renderList();
+      setLive('Live', 'var(--ok)');
+    } catch (err) {
+      if (err.message === 'unauthorized') { logout(); return; }
+      setLive('Offline', 'var(--ink-3)');
+      console.error('loadRfqs error', err);
+    }
   }
 
+  function setLive(text, color) {
+    $('live-text').textContent = text;
+    document.querySelector('#live-indicator .dot').style.background = color;
+  }
+
+  function startPolling() {
+    stopPolling();
+    pollTimer = setInterval(() => loadRfqs(false), POLL_MS);
+  }
+  function stopPolling() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } }
+
   function showToast(title, sub, urgent) {
-    const stack = document.getElementById('toasts');
+    const stack = $('toasts');
     const el = document.createElement('div');
     el.className = 'toast' + (urgent ? ' urgent' : '');
     el.innerHTML = `<div class="t-title">${urgent ? '⚡ ' : ''}${esc(title)}</div><div class="t-sub">${esc(sub)}</div>`;
@@ -358,35 +439,6 @@
     } catch (e) { /* no audio ok */ }
   }
 
-  function subscribeRealtime() {
-    const liveText = document.getElementById('live-text');
-    const liveDot = document.querySelector('#live-indicator .dot');
-    sb.channel('rfqs-admin')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'rfqs' }, (payload) => {
-        const r = payload.new;
-        if (allRfqs.some(x => x.id === r.id)) return;
-        allRfqs.unshift(r);
-        justArrivedIds.add(r.id);
-        renderStats(); renderList();
-        const urg = isUrgentNew(r);
-        showToast(
-          `${r.name} · ${r.company}`,
-          `${(r.mpn || '').split(/\s+/)[0]} · qty ${r.qty}`,
-          urg
-        );
-        if (urg) playPing();
-      })
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'rfqs' }, (payload) => {
-        const r = payload.new;
-        const idx = allRfqs.findIndex(x => x.id === r.id);
-        if (idx !== -1) { allRfqs[idx] = r; renderStats(); renderList(); }
-      })
-      .subscribe((status) => {
-        if (status === 'SUBSCRIBED') { liveText.textContent = 'Live'; liveDot.style.background = 'var(--ok)'; }
-        else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') { liveText.textContent = 'Offline'; liveDot.style.background = 'var(--ink-3)'; }
-      });
-  }
-
   document.querySelectorAll('.chip').forEach(c => {
     c.addEventListener('click', () => {
       document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
@@ -396,22 +448,39 @@
     });
   });
 
-  document.getElementById('refresh-btn').addEventListener('click', loadRfqs);
-  document.getElementById('logout-btn').addEventListener('click', async () => { await sb.auth.signOut(); location.reload(); });
+  $('refresh-btn').addEventListener('click', () => loadRfqs(false));
+
+  function logout() {
+    stopPolling();
+    localStorage.removeItem(PWD_KEY);
+    password = null;
+    appView.style.display = 'none';
+    pwdIn.value = ''; pwdIn2.value = '';
+    submitBtn.disabled = false;
+    submitBtn.textContent = mode === 'setup' ? 'Create password' : 'Log in';
+    loginView.style.display = 'block';
+  }
+  $('logout-btn').addEventListener('click', logout);
 
   async function init() {
-    const { data: { session } } = await sb.auth.getSession();
-    if (session) {
-      loginView.style.display = 'none';
-      appView.style.display = 'block';
-      document.getElementById('user-email').textContent = session.user.email;
-      await loadRfqs();
-      subscribeRealtime();
+    const stored = localStorage.getItem(PWD_KEY);
+    if (stored) {
+      password = stored;
+      try {
+        const r = await (await fetch(API + '/verify', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ password: stored }) })).json();
+        if (r.ok) {
+          appView.style.display = 'block';
+          await loadRfqs(true);
+          startPolling();
+          return;
+        }
+      } catch { /* fall through to login */ }
+      password = null;
+      localStorage.removeItem(PWD_KEY);
     }
+    await checkMode();
   }
   init();
-
-  sb.auth.onAuthStateChange((event, session) => { if (event === 'SIGNED_IN') init(); });
 </script>
 
 </body>
