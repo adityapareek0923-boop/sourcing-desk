@@ -33,7 +33,7 @@
       "provider": { "@id": "https://chipsharksupply.com/#org" },
       "areaServed": "Worldwide",
       "serviceType": "Electronic components procurement",
-      "description": "Independent broker service: submit an RFQ with your part numbers, get a sourced quote within 24 hours. Three-tier supplier vetting, lot/date-code provenance, inspection documentation, and counterfeit-parts guarantee."
+      "description": "Independent broker service: submit an RFQ with your part numbers, get a sourced quote within 24 hours. Supplier vetting with tier disclosure, lot/date-code provenance, full documentation pass-through, and counterfeit-parts guarantee. Drop-ship direct from source to buyer."
     },
     {
       "@type": "WebSite",
@@ -46,7 +46,7 @@
       "mainEntity": [
         { "@type": "Question", "name": "What does ChipShark do?", "acceptedAnswer": { "@type": "Answer", "text": "ChipShark is an independent broker for hard-to-find, obsolete, EOL and long-lead-time electronic components. We source parts from vetted stock partners worldwide and deliver quotes within 24 hours." } },
         { "@type": "Question", "name": "How fast do you quote?", "acceptedAnswer": { "@type": "Answer", "text": "Within 24 business hours of RFQ submission. Urgent and line-down requests are triaged first." } },
-        { "@type": "Question", "name": "How do you prevent counterfeits?", "acceptedAnswer": { "@type": "Answer", "text": "Three-tier vetting: supplier screening, document check with Certificate of Conformance, and physical inspection (visual, X-ray, decapsulation, or electrical as specified). Full refund and ERAI report if a counterfeit is confirmed." } },
+        { "@type": "Question", "name": "How do you prevent counterfeits?", "acceptedAnswer": { "@type": "Answer", "text": "Supplier screening against a vetted-source list, with full documentation pass-through on every lot — manufacturer CoC where available, source traceability certificate otherwise, plus date-code photos from the source. Supplier tier (franchise, authorized, OEM-direct excess, or independent) is disclosed on every quote. For critical builds, buyers can request routing through a third-party inspection lab at buyer cost. Full refund and ERAI report if a counterfeit is confirmed on incoming inspection." } },
         { "@type": "Question", "name": "How do I pay?", "acceptedAnswer": { "@type": "Answer", "text": "A one-time Stripe payment link accompanies every quote. We never ask for bank wire. Adaptive pricing lets buyers in other currencies pay in their local currency." } },
         { "@type": "Question", "name": "Do you support BOM uploads?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Upload a CSV or XLSX BOM on the RFQ form and we auto-detect the part-number column up to 500 lines." } }
       ]
@@ -418,7 +418,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
       </span>
       <h3>Counterfeit mitigation</h3>
-      <p>Vetted suppliers only. Visual, documentation, and date-code checks before anything ships. For regulated applications we route to AS6081-certified test labs.</p>
+      <p>Vetted suppliers only, with tier disclosed on every quote. Full documentation pass-through — CoC, traceability, source-provided date-code photos. Third-party lab testing available at buyer cost for regulated builds.</p>
     </div>
     <div class="card">
       <span class="icon-box">
@@ -467,9 +467,9 @@
     </div>
     <div class="tl-stage">
       <div class="tl-time">5–10d</div>
-      <h4 class="tl-title">Inspection &amp; ship</h4>
-      <p class="tl-body">Incoming inspection on arrival (visual, docs, date-code match). Consolidated shipping to your dock with full traceability package.</p>
-      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Shipment notification + CoC and inspection docs</span>
+      <h4 class="tl-title">Direct ship &amp; docs</h4>
+      <p class="tl-body">Source ships straight to your dock. Documentation package follows — supplier CoC where available, source traceability certificate, date-code photos, and your lot numbers for IQC.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Tracking number + full documentation package</span>
     </div>
   </div>
 </div></section>
@@ -503,43 +503,43 @@
 </div></section>
 
 <section class="section" id="standards"><div class="wrap">
-  <span class="eyebrow">Vetting checklist</span>
-  <h2>What we check<br>before we quote.</h2>
-  <p class="lead">The counterfeit-risk read isn't a buzzword. Here's the actual checklist.</p>
+  <span class="eyebrow">How we work</span>
+  <h2>Direct from source,<br>no hands in between.</h2>
+  <p class="lead">We're a broker, not a warehouse. We find your part at a vetted source, you pay through us, and the part ships directly to you. Fewer hands, faster transit, nothing hidden.</p>
   <div class="compliance-list">
     <div class="compliance-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      <div><h4>Supplier tier</h4><p>Franchise, authorized, OEM-direct excess, or independent — tier is disclosed on every quote.</p></div>
+      <div><h4>Supplier tier disclosed</h4><p>Franchise, authorized, OEM-direct excess, or independent — the tier of your source is named on every quote.</p></div>
     </div>
     <div class="compliance-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      <div><h4>Date code &amp; lot trace</h4><p>Confirmed from source, matched to your date-code requirements where applicable.</p></div>
+      <div><h4>Date code &amp; lot trace</h4><p>Confirmed from source, matched to your date-code requirements where applicable, with the lot code on the shipping docs.</p></div>
     </div>
     <div class="compliance-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      <div><h4>Visual &amp; documentation</h4><p>Photos, markings, and packaging reviewed against the manufacturer datasheet before you commit.</p></div>
+      <div><h4>Direct drop-ship</h4><p>Parts ship from the vetted source straight to your dock — not through a middleman warehouse. You see what the source saw, no transit day lost to a repack.</p></div>
     </div>
     <div class="compliance-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      <div><h4>Independent testing (on request)</h4><p>For regulated or safety-critical builds we route to AS6081-certified labs. Cost quoted up front.</p></div>
+      <div><h4>Documentation pass-through</h4><p>Manufacturer CoC where the source supports it, supplier traceability certificate otherwise. Source-provided date-code photos on request before you pre-pay.</p></div>
     </div>
     <div class="compliance-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      <div><h4>Compliance docs</h4><p>RoHS, REACH, CoC, and manufacturer traceability provided whenever the source supports it.</p></div>
+      <div><h4>Third-party lab routing (optional)</h4><p>For regulated or safety-critical builds, we can route a sample lot through an independent inspection lab before shipment. Buyer-paid, quoted per job, you pick the lab.</p></div>
     </div>
     <div class="compliance-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      <div><h4>Return policy</h4><p>Any part that fails incoming inspection is returned for full refund within 30 days of receipt.</p></div>
+      <div><h4>Counterfeit guarantee</h4><p>Any part failing your incoming inspection within 30 days of receipt gets a full refund including return shipping. We also file the ERAI report so other buyers are warned.</p></div>
     </div>
   </div>
   <div class="framework-strip">
-    <span class="framework-label">Framework we follow</span>
+    <span class="framework-label">Frameworks we follow</span>
     <div class="framework-items">
-      <div class="framework-item"><strong>AS6081</strong>Industry standard for fraudulent-part avoidance by independent distributors.</div>
-      <div class="framework-item"><strong>IDEA-ICE-3000</strong>Counterfeit evaluation and visual-inspection methodology by trained inspectors.</div>
-      <div class="framework-item"><strong>ERAI code of conduct</strong>Reporting counterfeit incidents to the industry database to protect other buyers.</div>
+      <div class="framework-item"><strong>AS6081</strong>Industry standard for fraudulent-part avoidance by independent distributors — applied to our supplier-screening and documentation flow.</div>
+      <div class="framework-item"><strong>ERAI code of conduct</strong>Reporting counterfeit incidents to the industry database so other buyers are warned.</div>
+      <div class="framework-item"><strong>Open-book sourcing</strong>Supplier tier, source country, and acquisition path disclosed on every quote. No hidden markup chain, no mystery middleman.</div>
     </div>
-    <p class="framework-note">We apply this framework on every RFQ. Formal membership and third-party certification are on our roadmap; we'll never claim what we haven't earned.</p>
+    <p class="framework-note">We apply these frameworks on every RFQ. We don't operate an inspection lab — physical testing, when a buyer wants it, is routed to a third-party lab at buyer cost. We'll never claim what we don't do.</p>
   </div>
 </div></section>
 
@@ -769,7 +769,7 @@
       <dl class="footer-meta">
         <div><dt>Based</dt><dd>Jaipur, India</dd></div>
         <div><dt>Serves</dt><dd>North America · Europe · APAC</dd></div>
-        <div><dt>Framework</dt><dd>AS6081 · IDEA-ICE-3000 · ERAI</dd></div>
+        <div><dt>Framework</dt><dd>AS6081 · ERAI · Open-book sourcing</dd></div>
         <div><dt>Payment</dt><dd>Stripe link per quote · Wire on terms</dd></div>
       </dl>
     </div>
