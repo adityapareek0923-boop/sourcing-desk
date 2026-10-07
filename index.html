@@ -66,8 +66,8 @@
     --ink-3: #86868b;
     --line: #d2d2d7;
     --line-2: #e8e8ed;
-    --accent: #e63946;
-    --accent-hover: #d02e3b;
+    --accent: #0d9488;
+    --accent-hover: #0f766e;
     --accent-ink: #ffffff;
     --ok: #30861a;
     --warn: #8a4a0b;
@@ -155,7 +155,7 @@
   .timeline-vert::before { content: ''; position: absolute; left: 102px; top: 32px; bottom: 32px; width: 2px; background: var(--line); }
   .tl-stage { position: relative; padding: 22px 0 26px 36px; }
   .tl-stage::before { content: ''; position: absolute; left: -36px; top: 32px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 2px solid var(--line); z-index: 1; transition: all .18s ease; }
-  .tl-stage:hover::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 5px rgba(230, 57, 70, 0.12); }
+  .tl-stage:hover::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 5px rgba(13, 148, 136, 0.12); }
   .tl-time { position: absolute; left: -130px; top: 30px; width: 86px; text-align: right; font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 13px; font-weight: 500; color: var(--ink-3); letter-spacing: 0.3px; }
   .tl-title { margin: 0 0 6px; font-size: 20px; font-weight: 500; letter-spacing: -0.019em; color: var(--ink); line-height: 1.2; }
   .tl-body { margin: 0 0 12px; font-size: 15px; color: var(--ink-2); line-height: 1.5; letter-spacing: -0.009em; }
@@ -203,7 +203,7 @@
   }
   input:focus, textarea:focus, select:focus {
     outline: none; border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.15);
+    box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
   }
   textarea { resize: vertical; min-height: 100px; }
   button[type=submit] {
@@ -248,7 +248,7 @@
   .s-meta { font-size: 12px; color: var(--ink-3); margin-top: 3px; line-height: 1.4; letter-spacing: -0.004em; }
   .s-mfr { color: var(--ink-2); font-weight: 500; margin-right: 8px; }
   .mid-cta { background: #1d1d1f; color: #fff; padding: 88px 0; text-align: center; }
-  .mid-cta .eyebrow { display: block; font-size: 13px; font-weight: 500; color: #e63946; margin: 0 0 12px; }
+  .mid-cta .eyebrow { display: block; font-size: 13px; font-weight: 500; color: #0d9488; margin: 0 0 12px; }
   .mid-cta h3 { font-size: clamp(30px, 3.8vw, 48px); letter-spacing: -0.032em; font-weight: 600; margin: 0 0 16px; line-height: 1.07; color: #fff; }
   .mid-cta p { font-size: clamp(16px, 1.5vw, 19px); color: #a1a1a6; margin: 0 auto 32px; max-width: 580px; letter-spacing: -0.012em; line-height: 1.4; }
   .mid-cta .cta { background: #fff; color: var(--ink); }
@@ -280,7 +280,7 @@
   .watch-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.3px; padding: 4px 10px; border-radius: 10px; margin-bottom: 12px; text-transform: uppercase; }
   .watch-badge.allocation { background: rgba(194, 24, 24, 0.1); color: #c21818; }
   .watch-badge.leadtime { background: rgba(217, 119, 6, 0.1); color: #a04d00; }
-  .watch-badge.eol { background: rgba(230, 57, 70, 0.1); color: var(--accent); }
+  .watch-badge.eol { background: rgba(13, 148, 136, 0.1); color: var(--accent); }
   .watch-badge.easing { background: rgba(48, 134, 26, 0.1); color: var(--ok); }
   .watch-item h4 { margin: 0 0 6px; font-size: 17px; font-weight: 500; letter-spacing: -0.014em; color: var(--ink); line-height: 1.3; }
   .watch-item p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.5; letter-spacing: -0.009em; }
