@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Track your RFQ — ChipShark</title>
 <meta name="description" content="Track the status of your component sourcing request.">
@@ -18,8 +19,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     --ink-2: #424245;
     --ink-3: #86868b;
     --line: #d2d2d7;
-    --accent: #0071e3;
-    --accent-hover: #0077ed;
+    --accent: #b1322c;
+    --accent-hover: #c23a33;
     --accent-ink: #ffffff;
     --ok: #30861a;
     --warn: #8a4a0b;
@@ -28,7 +29,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    font-family: "Inter", "-apple-system", BlinkMacSystemFont, Helvetica, Arial, sans-serif;
     background: var(--bg); color: var(--ink);
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
@@ -39,7 +40,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     position: sticky; top: 0; z-index: 10;
     backdrop-filter: saturate(180%) blur(20px);
     background: color-mix(in srgb, var(--bg) 72%, transparent);
-    border-bottom: 0.5px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
   nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 48px; font-size: 14px; }
   .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
@@ -59,12 +60,12 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   .id-form input {
     width: 100%; padding: 12px 14px; font-size: 15px;
     background: var(--bg); color: var(--ink);
-    border: 0.5px solid var(--line); border-radius: 10px;
+    border: 1px solid var(--line); border-radius: 10px;
     font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
     letter-spacing: 0.3px;
   }
   .id-form input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 980px; font-size: 17px; font-weight: 400; text-decoration: none; border: none; cursor: pointer; letter-spacing: -0.022em; transition: background-color .18s ease; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 10px; font-size: 17px; font-weight: 400; text-decoration: none; border: none; cursor: pointer; letter-spacing: -0.022em; transition: background-color .18s ease; }
   .btn:hover { background: var(--accent-hover); }
   .btn:disabled { opacity: .5; cursor: not-allowed; }
 
@@ -77,7 +78,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     letter-spacing: 0.5px;
   }
   .status-pill {
-    font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 980px;
+    font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 10px;
     display: inline-flex; align-items: center; gap: 6px;
   }
   .status-pill .dot { width: 7px; height: 7px; border-radius: 50%; }
@@ -274,8 +275,8 @@ function renderStatus(data) {
         <div style="color:var(--ink-2);font-size:14px;margin-bottom:16px;">For ${esc(data.qty)} × ${esc(data.mpn)}</div>
         ${payLink ? `
           <a href="${esc(payLink)}" class="btn" target="_blank" rel="noopener">Accept and pay →</a>
-          <div style="margin-top:20px;padding-top:20px;border-top:0.5px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
-            <div style="background:#fff;padding:8px;border:0.5px solid var(--line);border-radius:10px;line-height:0;">
+          <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+            <div style="background:#fff;padding:8px;border:1px solid var(--line);border-radius:10px;line-height:0;">
               <img id="pay-qr" alt="Scan to pay" style="width:140px;height:140px;display:block;image-rendering:pixelated;">
             </div>
             <div style="font-size:13px;color:var(--ink-2);max-width:220px;line-height:1.45;">
@@ -297,7 +298,7 @@ function renderStatus(data) {
       </div>
     ` : ''}
 
-    <hr style="border:none;border-top:0.5px solid var(--line);margin:24px 0;">
+    <hr style="border:none;border-top:1px solid var(--line);margin:24px 0;">
 
     <div class="details">
       <div>
