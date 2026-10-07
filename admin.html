@@ -171,6 +171,15 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   .bubble.tool pre { margin: 0; white-space: pre-wrap; max-height: 220px; overflow-y: auto; }
   .bubble.thinking { background: var(--surface-2); color: var(--ink-3); align-self: flex-start; font-style: italic; }
   .bubble.err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); align-self: flex-start; }
+  .trigger-tile { align-self: stretch; display: flex; align-items: center; gap: 10px; padding: 7px 14px; background: color-mix(in srgb, var(--accent) 5%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); border-radius: 10px; font-size: 11px; color: var(--ink-3); max-width: 760px; }
+  .trigger-tile .tt-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); opacity: 0.6; flex-shrink: 0; }
+  .trigger-tile .tt-body { display: flex; align-items: baseline; gap: 10px; flex: 1; min-width: 0; }
+  .trigger-tile .tt-kind { text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; color: var(--accent); font-size: 10px; }
+  .trigger-tile .tt-sub { color: var(--ink-2); font-size: 11px; }
+  .trigger-tile .tt-peek { color: var(--ink-3); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
+  /* Live-working pulsing dot on tab */
+  .tab-btn .agent-dot.working { animation: dot-pulse 1.2s infinite; box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 15%, transparent); }
+  @keyframes dot-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
   .chat-input-wrap { border-top: 1px solid var(--line); background: var(--surface); padding: 12px 22px 16px; display: flex; gap: 10px; align-items: flex-end; }
   .chat-input { flex: 1; border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: 14px; font-family: inherit; resize: none; min-height: 44px; max-height: 160px; line-height: 1.4; }
   .chat-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
@@ -905,7 +914,18 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       return;
     }
     const html = msgs.map(m => {
-      if (m.role === 'user') return `<div class="bubble user">${esc(m.content)}</div>`;
+      if (m.role === 'user') {
+        const txt = m.content || '';
+        // Render SYSTEM TRIGGER / SYSTEM AUTORUN messages as thin inline tiles, not user bubbles
+        if (/^SYSTEM (TRIGGER|AUTORUN)/i.test(txt)) {
+          const headerMatch = txt.match(/^SYSTEM (TRIGGER|AUTORUN)\s*(?:\(([^)]+)\))?\s*:?\s*(.{0,120})/i);
+          const kind = headerMatch ? headerMatch[1].toLowerCase() : 'trigger';
+          const sub  = headerMatch && headerMatch[2] ? headerMatch[2] : (kind === 'autorun' ? 'scheduled run' : 'event');
+          const peek = headerMatch && headerMatch[3] ? headerMatch[3].trim() : '';
+          return `<div class="trigger-tile"><span class="tt-dot"></span><div class="tt-body"><span class="tt-kind">${esc(kind)}</span><span class="tt-sub">${esc(sub)}</span>${peek ? `<span class="tt-peek">${esc(peek)}</span>` : ''}</div></div>`;
+        }
+        return `<div class="bubble user">${esc(txt)}</div>`;
+      }
       if (m.role === 'assistant') {
         let out = '';
         if (m.content) out += `<div class="bubble assistant">${esc(m.content)}</div>`;
@@ -1044,6 +1064,24 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     refreshTasksPill();
     // Update RFQs pill when RFQs load — hook into existing render path
     setInterval(() => { const n = (allRfqs || []).filter(r => (r.status || 'new') === 'new').length; const pill = $('pill-rfqs'); if (pill) pill.textContent = n; }, 2000);
+    // Live-working detector: poll conversations every 6s, pulse dot if agent updated in last 25s
+    setInterval(async () => {
+      for (const ag of ['sonar', 'beacon']) {
+        try {
+          const { conversations } = await agentApi({ action: 'list_conversations', agent_id: ag });
+          const latest = conversations?.[0];
+          const working = latest && (Date.now() - new Date(latest.updated_at).getTime() < 25000);
+          document.querySelectorAll(`.tab-btn[data-view="${ag}"] .agent-dot`).forEach(d => d.classList.toggle('working', !!working));
+          // If current view IS this agent and the open conversation got new messages, refresh it
+          if (currentView === ag && working && agentState[ag].convId === latest.id) {
+            const { messages } = await agentApi({ action: 'list_messages', conversation_id: latest.id });
+            agentState[ag].msgs = messages;
+            renderMsgs(ag);
+          }
+        } catch { /* non-fatal */ }
+      }
+      refreshTasksPill();
+    }, 6000);
   }
 
   init();
