@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ChipShark — Hard-to-find electronic components</title>
+<meta name="description" content="Obsolete, EOL, long-lead-time electronic components sourced by a former procurement lead. Submit an RFQ, get a sourced quote within 24 hours.">
+<link rel="canonical" href="https://chipsharksupply.com/">
+<meta property="og:title" content="ChipShark — Hard-to-find electronic components">
+<meta property="og:description" content="Submit an RFQ, get a sourced quote within 24 hours. Obsolete, EOL, long-lead-time components.">
+<meta property="og:url" content="https://chipsharksupply.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="google-site-verification" content="REPLACE_WITH_GSC_TOKEN">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://chipsharksupply.com/#org",
+      "name": "ChipShark",
+      "url": "https://chipsharksupply.com/",
+      "logo": "https://chipsharksupply.com/#logo",
+      "description": "Independent broker for hard-to-find, obsolete, EOL and long-lead-time electronic components. 24-hour quotes with full documentation and counterfeit vetting.",
+      "email": "hello@chipsharksupply.com",
+      "foundingDate": "2026"
+    },
+    {
+      "@type": "Service",
+      "name": "Component sourcing service",
+      "provider": { "@id": "https://chipsharksupply.com/#org" },
+      "areaServed": "Worldwide",
+      "serviceType": "Electronic components procurement",
+      "description": "Independent broker service: submit an RFQ with your part numbers, get a sourced quote within 24 hours. Three-tier supplier vetting, lot/date-code provenance, inspection documentation, and counterfeit-parts guarantee."
+    },
+    {
+      "@type": "WebSite",
+      "url": "https://chipsharksupply.com/",
+      "name": "ChipShark",
+      "publisher": { "@id": "https://chipsharksupply.com/#org" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What does ChipShark do?", "acceptedAnswer": { "@type": "Answer", "text": "ChipShark is an independent broker for hard-to-find, obsolete, EOL and long-lead-time electronic components. We source parts from vetted stock partners worldwide and deliver quotes within 24 hours." } },
+        { "@type": "Question", "name": "How fast do you quote?", "acceptedAnswer": { "@type": "Answer", "text": "Within 24 business hours of RFQ submission. Urgent and line-down requests are triaged first." } },
+        { "@type": "Question", "name": "How do you prevent counterfeits?", "acceptedAnswer": { "@type": "Answer", "text": "Three-tier vetting: supplier screening, document check with Certificate of Conformance, and physical inspection (visual, X-ray, decapsulation, or electrical as specified). Full refund and ERAI report if a counterfeit is confirmed." } },
+        { "@type": "Question", "name": "How do I pay?", "acceptedAnswer": { "@type": "Answer", "text": "A one-time Stripe payment link accompanies every quote. We never ask for bank wire. Adaptive pricing lets buyers in other currencies pay in their local currency." } },
+        { "@type": "Question", "name": "Do you support BOM uploads?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Upload a CSV or XLSX BOM on the RFQ form and we auto-detect the part-number column up to 500 lines." } }
+      ]
+    }
+  ]
+}
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='0' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f5f5f7;
+    --ink: #1d1d1f;
+    --ink-2: #424245;
+    --ink-3: #86868b;
+    --line: #d2d2d7;
+    --line-2: #e8e8ed;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-ink: #ffffff;
+    --ok: #30861a;
+    --warn: #8a4a0b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", "-apple-system", BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.47059;
+    letter-spacing: -0.003em;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+  .wrap-wide { max-width: 1200px; margin: 0 auto; padding: 0 22px; }
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap-wide { display: flex; align-items: center; justify-content: space-between; height: 48px; font-size: 13px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; letter-spacing: -0.014em; }
+  .brand-mark { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); }
+  .brand-mark svg { width: 28px; height: 28px; display: block; }
+  .nav-right { display: flex; align-items: center; }
+  .links { display: inline-flex; align-items: center; }
+  .links a { color: var(--ink); text-decoration: none; margin-left: 26px; font-size: 13px; opacity: 0.9; letter-spacing: -0.004em; }
+  .links a:hover { opacity: 1; }
+  .nav-cta { background: var(--accent); color: #fff !important; padding: 7px 16px; border-radius: 10px; font-size: 12px; font-weight: 500; text-decoration: none; margin-left: 24px; letter-spacing: -0.004em; transition: background-color .18s ease; opacity: 1 !important; }
+  .nav-cta:hover { background: var(--accent-hover); }
+  @media (max-width: 560px) { .links a:not(.nav-cta) { display: none; } .nav-cta { margin-left: 0; } }
+  .hero { padding: 120px 0 100px; text-align: center; }
+  .hero .eyebrow { display: inline-block; font-size: 12px; font-weight: 500; color: var(--accent); letter-spacing: 0; margin: 0 0 14px; }
+  .hero h1 {
+    font-size: clamp(42px, 6.4vw, 80px); line-height: 1.05;
+    letter-spacing: -0.035em; font-weight: 600; margin: 0 0 20px;
+  }
+  .hero p { font-size: clamp(19px, 1.8vw, 24px); color: var(--ink-2); max-width: 680px; margin: 0 auto 36px; line-height: 1.38; letter-spacing: -0.009em; font-weight: 400; }
+  .hero-visual { max-width: 920px; margin: 56px auto 0; }
+  .hero-visual svg { width: 100%; height: auto; display: block; }
+  .stats-band { background: #1d1d1f; color: #f5f5f7; padding: 80px 0; }
+  .stats-band .wrap-wide { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 48px; text-align: center; }
+  .stat-num { font-size: clamp(44px, 5vw, 64px); font-weight: 600; letter-spacing: -0.035em; line-height: 1; margin: 0 0 8px; }
+  .stat-num small { font-size: 0.5em; color: #86868b; font-weight: 500; margin-left: 2px; vertical-align: top; }
+  .stat-label { font-size: 15px; color: #a1a1a6; letter-spacing: -0.009em; line-height: 1.3; margin: 0; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--accent); color: #fff;
+    padding: 12px 24px; border-radius: 10px;
+    font-size: 17px; font-weight: 400; text-decoration: none;
+    letter-spacing: -0.022em;
+    transition: background-color .18s ease;
+  }
+  .cta:hover { background: var(--accent-hover); }
+  .cta.ghost { background: transparent; color: var(--accent); padding: 12px 0; margin-left: 20px; }
+  .cta.ghost:hover { background: transparent; text-decoration: underline; }
+  .trust-strip {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+    background: var(--surface-2);
+  }
+  .trust-strip .wrap { display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap; font-size: 14px; color: var(--ink-2); letter-spacing: -0.014em; }
+  .trust-item { display: flex; align-items: center; gap: 10px; }
+  .trust-item svg { width: 18px; height: 18px; color: var(--ink); opacity: 0.6; flex-shrink: 0; }
+  .section { padding: 80px 0; }
+  .section + .section { border-top: 1px solid var(--line); }
+  .section .eyebrow { display: block; font-size: 13px; font-weight: 500; color: var(--accent); text-align: center; margin: 0 0 10px; letter-spacing: 0; }
+  .section h2 { font-size: clamp(32px, 4.5vw, 56px); letter-spacing: -0.03em; font-weight: 600; margin: 0 0 18px; text-align: center; line-height: 1.07; }
+  .section .lead { color: var(--ink-2); text-align: center; max-width: 680px; margin: 0 auto 64px; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.38; letter-spacing: -0.009em; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .card {
+    background: var(--surface-2); border-radius: 22px; padding: 36px 32px;
+    border: none;
+    transition: transform .25s ease;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card h3 { margin: 0 0 10px; font-size: 24px; font-weight: 600; letter-spacing: -0.022em; line-height: 1.17; }
+  .card p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.47; letter-spacing: -0.012em; }
+  .icon-box { width: 44px; height: 44px; border-radius: 12px; background: var(--surface); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+  .icon-box svg { width: 22px; height: 22px; color: var(--ink); stroke-width: 1.5; }
+  .timeline-vert { max-width: 820px; margin: 0 auto; position: relative; padding-left: 130px; }
+  .timeline-vert::before { content: ''; position: absolute; left: 102px; top: 32px; bottom: 32px; width: 2px; background: var(--line); }
+  .tl-stage { position: relative; padding: 22px 0 26px 36px; }
+  .tl-stage::before { content: ''; position: absolute; left: -36px; top: 32px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 2px solid var(--line); z-index: 1; transition: all .18s ease; }
+  .tl-stage:hover::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 5px rgba(0, 113, 227, 0.12); }
+  .tl-time { position: absolute; left: -130px; top: 30px; width: 86px; text-align: right; font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 13px; font-weight: 500; color: var(--ink-3); letter-spacing: 0.3px; }
+  .tl-title { margin: 0 0 6px; font-size: 20px; font-weight: 500; letter-spacing: -0.019em; color: var(--ink); line-height: 1.2; }
+  .tl-body { margin: 0 0 12px; font-size: 15px; color: var(--ink-2); line-height: 1.5; letter-spacing: -0.009em; }
+  .tl-receive { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 10px; background: var(--surface-2); border-radius: 10px; font-size: 12px; color: var(--ink-2); letter-spacing: -0.004em; }
+  .tl-receive svg { width: 13px; height: 13px; color: var(--accent); flex-shrink: 0; }
+  @media (max-width: 640px) {
+    .timeline-vert { padding-left: 48px; }
+    .timeline-vert::before { left: 20px; }
+    .tl-stage { padding: 18px 0 22px 24px; }
+    .tl-stage::before { left: -18px; }
+    .tl-time { position: static; display: inline-block; margin-bottom: 6px; text-align: left; width: auto; padding: 3px 10px; background: var(--surface-2); border-radius: 10px; font-size: 12px; }
+  }
+  .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 56px; align-items: start; max-width: 980px; margin: 0 auto; }
+  @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .about-body p { font-size: 19px; color: var(--ink-2); line-height: 1.47; letter-spacing: -0.012em; margin: 0 0 20px; }
+  .about-body p strong { color: var(--ink); font-weight: 500; }
+  .about-card { background: var(--surface-2); border-radius: 18px; padding: 32px 28px; }
+  .about-card .label { font-size: 12px; letter-spacing: 0; color: var(--ink-3); margin-bottom: 6px; font-weight: 500; }
+  .about-card .value { font-size: 17px; font-weight: 400; margin-bottom: 24px; letter-spacing: -0.014em; line-height: 1.3; }
+  .about-card .value:last-child { margin-bottom: 0; }
+  .compliance-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; max-width: 980px; margin: 0 auto; }
+  .compliance-item { display: flex; gap: 14px; padding: 24px; background: var(--surface-2); border-radius: 16px; }
+  .compliance-item svg { width: 20px; height: 20px; color: var(--ink); flex-shrink: 0; margin-top: 2px; stroke-width: 2; }
+  .compliance-item h4 { margin: 0 0 4px; font-size: 17px; font-weight: 500; letter-spacing: -0.014em; }
+  .compliance-item p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.47; letter-spacing: -0.009em; }
+  .framework-strip { max-width: 760px; margin: 56px auto 0; padding-top: 36px; border-top: 1px solid var(--line-2); text-align: center; }
+  .framework-label { display: block; font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 24px; font-weight: 500; }
+  .framework-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; text-align: left; }
+  .framework-item { font-size: 13px; color: var(--ink-2); line-height: 1.5; letter-spacing: -0.006em; }
+  .framework-item strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 6px; font-size: 15px; letter-spacing: -0.012em; }
+  .framework-note { max-width: 580px; margin: 28px auto 0; font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+  @media (max-width: 640px) { .framework-items { grid-template-columns: 1fr; gap: 20px; } }
+  .faq { max-width: 820px; margin: 0 auto; }
+  .faq details { border-bottom: 1px solid var(--line); padding: 24px 0; }
+  .faq details:last-child { border-bottom: none; }
+  .faq summary { font-size: 19px; font-weight: 500; letter-spacing: -0.019em; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; font-size: 24px; color: var(--ink-3); font-weight: 300; transition: transform .2s ease; }
+  .faq details[open] summary::after { content: '−'; }
+  .faq .answer { margin-top: 14px; color: var(--ink-2); font-size: 17px; line-height: 1.47; letter-spacing: -0.012em; }
+  form { max-width: 680px; margin: 0 auto; background: var(--surface-2); border-radius: 22px; padding: 40px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+  label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-2); margin: 18px 0 6px; letter-spacing: -0.004em; }
+  label:first-child { margin-top: 0; }
+  input, textarea, select {
+    width: 100%; padding: 13px 15px; font-size: 15px;
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 12px;
+    font-family: inherit;
+    transition: border-color .18s ease;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+  }
+  textarea { resize: vertical; min-height: 100px; }
+  button[type=submit] {
+    margin-top: 28px; width: 100%;
+    background: var(--accent); color: #fff;
+    border: none; padding: 14px; font-size: 17px; font-weight: 400;
+    border-radius: 10px; cursor: pointer;
+    letter-spacing: -0.022em;
+    transition: background-color .18s ease;
+  }
+  button[type=submit]:hover { background: var(--accent-hover); }
+  button[type=submit]:disabled { opacity: 0.5; cursor: not-allowed; }
+  .ok-msg { display: none; text-align: center; padding: 36px; background: var(--surface-2); border-radius: 22px; color: var(--ink); max-width: 680px; margin: 0 auto; }
+  .ok-msg.show { display: block; }
+  .ok-msg .check { width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .ok-msg h3 { margin: 0 0 8px; font-size: 24px; font-weight: 500; letter-spacing: -0.022em; }
+  .ok-msg p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.47; }
+  .form-helper { font-size: 13px; color: var(--ink-3); margin: 8px 0 0; letter-spacing: -0.009em; line-height: 1.4; }
+  .form-helper a { color: var(--accent); text-decoration: none; }
+  .form-helper a:hover { text-decoration: underline; }
+  .bom-upload { display: block; margin-top: 10px; padding: 18px; border: 1.5px dashed var(--line); border-radius: 14px; text-align: center; cursor: pointer; transition: background-color .15s, border-color .15s; }
+  .bom-upload:hover, .bom-upload.drag { background: var(--surface); border-color: var(--accent); }
+  .bom-upload input { display: none; }
+  .bom-upload-label { font-size: 14px; color: var(--ink-2); display: block; letter-spacing: -0.009em; }
+  .bom-upload-label strong { color: var(--accent); font-weight: 500; }
+  .bom-upload-hint { font-size: 12px; color: var(--ink-3); margin-top: 4px; display: block; }
+  .bom-status { margin-top: 10px; padding: 10px 14px; background: var(--surface); border-radius: 10px; font-size: 13px; color: var(--ink-2); display: none; line-height: 1.5; letter-spacing: -0.004em; }
+  .bom-status.show { display: block; }
+  .bom-status.ok { color: var(--ok); background: color-mix(in srgb, var(--ok) 8%, var(--surface)); }
+  .bom-status.err { color: #c21818; background: color-mix(in srgb, #c21818 7%, var(--surface)); }
+  .mpn-wrap { position: relative; }
+  .mpn-wrap .powered { position: absolute; right: 14px; top: 14px; font-size: 11px; color: var(--ink-3); letter-spacing: 0; pointer-events: none; opacity: 0; transition: opacity .15s ease; }
+  .mpn-wrap.has-focus .powered { opacity: 1; }
+  .suggestions { position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; margin-top: 6px; max-height: 340px; overflow-y: auto; z-index: 100; box-shadow: 0 6px 24px rgba(0,0,0,0.08); display: none; }
+  .suggestions.show { display: block; }
+  .suggestions .loading { padding: 14px 16px; font-size: 13px; color: var(--ink-3); text-align: center; }
+  .suggestions .empty { padding: 14px 16px; font-size: 13px; color: var(--ink-3); text-align: center; }
+  .suggestion { padding: 12px 16px; cursor: pointer; border-bottom: 1px solid var(--line-2); }
+  .suggestion:last-child { border-bottom: none; }
+  .suggestion:hover, .suggestion.highlighted { background: var(--surface-2); }
+  .s-mpn { font-weight: 500; font-size: 14px; color: var(--ink); font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0; }
+  .s-meta { font-size: 12px; color: var(--ink-3); margin-top: 3px; line-height: 1.4; letter-spacing: -0.004em; }
+  .s-mfr { color: var(--ink-2); font-weight: 500; margin-right: 8px; }
+  .mid-cta { background: #1d1d1f; color: #fff; padding: 88px 0; text-align: center; }
+  .mid-cta .eyebrow { display: block; font-size: 13px; font-weight: 500; color: #0071e3; margin: 0 0 12px; }
+  .mid-cta h3 { font-size: clamp(30px, 3.8vw, 48px); letter-spacing: -0.032em; font-weight: 600; margin: 0 0 16px; line-height: 1.07; color: #fff; }
+  .mid-cta p { font-size: clamp(16px, 1.5vw, 19px); color: #a1a1a6; margin: 0 auto 32px; max-width: 580px; letter-spacing: -0.012em; line-height: 1.4; }
+  .mid-cta .cta { background: #fff; color: var(--ink); }
+  .mid-cta .cta:hover { background: #f5f5f7; }
+  .mid-cta .cta.ghost { color: #fff; background: transparent; }
+  .mid-cta .cta.ghost:hover { background: transparent; text-decoration: underline; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 980px; margin: 0 auto; }
+  @media (max-width: 720px) { .compare-grid { grid-template-columns: 1fr; } }
+  .compare-col { background: var(--surface-2); border-radius: 22px; padding: 36px 32px; }
+  .compare-col.chipshark { background: #1d1d1f; color: #fff; }
+  .compare-col .col-label { font-size: 12px; font-weight: 500; letter-spacing: 0; margin: 0 0 4px; color: var(--ink-3); text-transform: none; }
+  .compare-col.chipshark .col-label { color: #6e6e73; }
+  .compare-col h3 { margin: 0 0 24px; font-size: 24px; font-weight: 600; letter-spacing: -0.022em; }
+  .compare-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  .compare-col li { font-size: 15px; line-height: 1.47; letter-spacing: -0.009em; padding-left: 28px; position: relative; color: var(--ink-2); }
+  .compare-col.chipshark li { color: #d2d2d7; }
+  .compare-col li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--line-2);
+  }
+  .compare-col.chipshark li::before {
+    background: var(--accent);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='12 4 7 10 4 7'/%3E%3C/svg%3E");
+    background-size: 16px 16px; background-repeat: no-repeat;
+  }
+  .watch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; max-width: 980px; margin: 0 auto; }
+  .watch-item { background: var(--surface-2); border-radius: 18px; padding: 24px 26px; position: relative; }
+  .watch-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.3px; padding: 4px 10px; border-radius: 10px; margin-bottom: 12px; text-transform: uppercase; }
+  .watch-badge.allocation { background: rgba(194, 24, 24, 0.1); color: #c21818; }
+  .watch-badge.leadtime { background: rgba(217, 119, 6, 0.1); color: #a04d00; }
+  .watch-badge.eol { background: rgba(0, 113, 227, 0.1); color: var(--accent); }
+  .watch-badge.easing { background: rgba(48, 134, 26, 0.1); color: var(--ok); }
+  .watch-item h4 { margin: 0 0 6px; font-size: 17px; font-weight: 500; letter-spacing: -0.014em; color: var(--ink); line-height: 1.3; padding-right: 60px; }
+  .watch-item p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.5; letter-spacing: -0.009em; }
+  .pkg-icon { position: absolute; top: 22px; right: 22px; width: 48px; height: 48px; color: var(--ink-3); opacity: 0.55; pointer-events: none; }
+  .pkg-icon svg { width: 100%; height: 100%; display: block; }
+  .pkg-caption { display: block; margin-top: 10px; font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500; }
+  .watch-footer { max-width: 980px; margin: 36px auto 0; text-align: center; font-size: 13px; color: var(--ink-3); letter-spacing: -0.004em; }
+  .enterprise-row { display: flex; justify-content: center; margin-bottom: 22px; }
+  .enterprise-note { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: var(--surface-2); border-radius: 10px; font-size: 13px; color: var(--ink-2); letter-spacing: -0.009em; }
+  .enterprise-note::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); }
+  footer { padding: 56px 0 40px; color: var(--ink-3); font-size: 12px; border-top: 1px solid var(--line); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+  @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; gap: 28px; } }
+  .footer-grid h5 { margin: 0 0 12px; font-size: 12px; color: var(--ink); font-weight: 500; letter-spacing: -0.004em; }
+  .footer-grid a { color: var(--ink-3); text-decoration: none; display: block; margin-bottom: 8px; font-size: 12px; }
+  .footer-grid a:hover { text-decoration: underline; }
+  .footer-brand { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+  .footer-brand-sub { color: var(--ink-3); line-height: 1.5; font-size: 12px; }
+  .footer-meta { margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 6px; }
+  .footer-meta > div { display: grid; grid-template-columns: 72px 1fr; gap: 8px; font-size: 11px; line-height: 1.5; }
+  .footer-meta dt { color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.4px; margin: 0; }
+  .footer-meta dd { color: var(--ink-2); margin: 0; }
+  .footer-bottom { border-top: 1px solid var(--line); padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap-wide">
+  <div class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg></span>ChipShark</div>
+  <div class="nav-right"><div class="links">
+    <a href="#how">How it works</a>
+    <a href="#about">About</a>
+    <a href="#standards">Standards</a>
+    <a href="#faq">FAQ</a>
+    <a href="#rfq" class="nav-cta">Submit RFQ</a>
+  </div></div>
+</div></nav>
+
+<section class="hero"><div class="wrap">
+  <div class="enterprise-row"><div class="enterprise-note">Enterprise &amp; volume RFQs welcome</div></div>
+  <h1>Hard-to-find components, sourced in 24 hours.</h1>
+  <p>Obsolete, end-of-life, allocated and long-lead semiconductors — sourced through a vetted network across North America, Europe, and Asia. Quote back within 24 hours.</p>
+  <div>
+    <a href="#rfq" class="cta">Submit an RFQ ›</a>
+    <a href="#how" class="cta ghost">Learn more ›</a>
+  </div>
+  <div class="hero-visual">
+    <svg viewBox="0 0 920 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="chipG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#1d1d1f" stop-opacity="0.95"/>
+          <stop offset="1" stop-color="#424245" stop-opacity="0.9"/>
+        </linearGradient>
+      </defs>
+      <!-- traces -->
+      <g stroke="#d2d2d7" stroke-width="1" fill="none" opacity="0.65">
+        <path d="M20 60 L180 60 L200 80 L380 80"/>
+        <path d="M20 120 L160 120 L180 100 L380 100"/>
+        <path d="M20 180 L200 180 L220 160 L380 160"/>
+        <path d="M900 60 L740 60 L720 80 L540 80"/>
+        <path d="M900 120 L760 120 L740 100 L540 100"/>
+        <path d="M900 180 L720 180 L700 160 L540 160"/>
+        <path d="M460 20 L460 60"/>
+        <path d="M460 180 L460 220"/>
+      </g>
+      <!-- solder pads on left/right ends -->
+      <g fill="#86868b" opacity="0.55">
+        <circle cx="20" cy="60" r="3"/><circle cx="20" cy="120" r="3"/><circle cx="20" cy="180" r="3"/>
+        <circle cx="900" cy="60" r="3"/><circle cx="900" cy="120" r="3"/><circle cx="900" cy="180" r="3"/>
+      </g>
+      <!-- center chip body -->
+      <rect x="380" y="60" width="160" height="120" rx="14" fill="url(#chipG)"/>
+      <!-- chip pins -->
+      <g fill="#86868b">
+        <rect x="374" y="78" width="6" height="8" rx="1"/>
+        <rect x="374" y="98" width="6" height="8" rx="1"/>
+        <rect x="374" y="118" width="6" height="8" rx="1"/>
+        <rect x="374" y="138" width="6" height="8" rx="1"/>
+        <rect x="374" y="158" width="6" height="8" rx="1"/>
+        <rect x="540" y="78" width="6" height="8" rx="1"/>
+        <rect x="540" y="98" width="6" height="8" rx="1"/>
+        <rect x="540" y="118" width="6" height="8" rx="1"/>
+        <rect x="540" y="138" width="6" height="8" rx="1"/>
+        <rect x="540" y="158" width="6" height="8" rx="1"/>
+      </g>
+      <!-- chip pin indicator notch -->
+      <circle cx="395" cy="75" r="3" fill="#86868b" opacity="0.6"/>
+      <!-- subtle label on chip body -->
+      <text x="460" y="118" text-anchor="middle" font-family="-apple-system, SF Pro Display, sans-serif" font-size="13" font-weight="500" fill="#86868b" letter-spacing="2">CHIPSHARK</text>
+      <text x="460" y="138" text-anchor="middle" font-family="-apple-system, SF Mono, monospace" font-size="10" fill="#6e6e73" letter-spacing="1">SOURCING NODE</text>
+    </svg>
+  </div>
+</div></section>
+
+<section class="stats-band"><div class="wrap-wide">
+  <div>
+    <p class="stat-num">40<small>+</small></p>
+    <p class="stat-label">Vetted sources in our<br>global network</p>
+  </div>
+  <div>
+    <p class="stat-num">3</p>
+    <p class="stat-label">Continents covered<br>— US, EU, APAC</p>
+  </div>
+  <div>
+    <p class="stat-num">24<small>h</small></p>
+    <p class="stat-label">Standard quote<br>turnaround</p>
+  </div>
+  <div>
+    <p class="stat-num">100<small>%</small></p>
+    <p class="stat-label">Supplier-tier disclosed<br>on every quote</p>
+  </div>
+</div></section>
+
+<section class="section" id="why"><div class="wrap">
+  <span class="eyebrow">Why ChipShark</span>
+  <h2>Built for the parts<br>nobody else has.</h2>
+  <p class="lead">When DigiKey says "out of stock" and Mouser says "26 weeks," you need someone who picks up the phone.</p>
+  <div class="grid-3">
+    <div class="card">
+      <span class="icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <h3>Hard-to-find</h3>
+      <p>Obsolete semiconductors, discontinued parts, allocated inventory — hunted down through authorized distributors, OEM excess, and vetted independent sources worldwide.</p>
+    </div>
+    <div class="card">
+      <span class="icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      </span>
+      <h3>Counterfeit mitigation</h3>
+      <p>Vetted suppliers only. Visual, documentation, and date-code checks before anything ships. For regulated applications we route to AS6081-certified test labs.</p>
+    </div>
+    <div class="card">
+      <span class="icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </span>
+      <h3>24-hour response</h3>
+      <p>Submit an RFQ today, get a sourced quote with price, lead time, and supplier tier by tomorrow. Line-down? Flag it urgent and we move inside the hour.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="section" id="how"><div class="wrap">
+  <span class="eyebrow">What to expect</span>
+  <h2>From BOM to shipment.</h2>
+  <p class="lead">A clock-by-clock view of what happens after you submit. Our side, your side. No black box.</p>
+  <div class="timeline-vert">
+    <div class="tl-stage">
+      <div class="tl-time">0h</div>
+      <h4 class="tl-title">RFQ received</h4>
+      <p class="tl-body">BOM parsed, urgency flags auto-detected, sourcing lead assigned. Everything timestamped from this moment.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Confirmation email with live tracking link</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">1h</div>
+      <h4 class="tl-title">Line-down triage</h4>
+      <p class="tl-body">Urgent requests jump the queue. We're on the phone with vetted partners within the hour for allocated or shortage parts.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call-back from us on anything we need clarified</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">4h</div>
+      <h4 class="tl-title">Supplier shortlist</h4>
+      <p class="tl-body">Two to three vetted sources identified per line. Supplier tier, date codes, lead times, and provenance verified before quoting.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Interim read on any parts we can't source</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">24h</div>
+      <h4 class="tl-title">Quote delivered</h4>
+      <p class="tl-body">Full quote with unit price, lead time, supplier tier, and counterfeit-risk read on every line. No obligation.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg>Quote email with Accept-and-pay button</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">48h</div>
+      <h4 class="tl-title">Payment &amp; PO issuance</h4>
+      <p class="tl-body">Accept the quote → payment cleared → POs issued to suppliers that day. The physical sourcing clock starts here.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Payment receipt + PO confirmation</span>
+    </div>
+    <div class="tl-stage">
+      <div class="tl-time">5–10d</div>
+      <h4 class="tl-title">Inspection &amp; ship</h4>
+      <p class="tl-body">Incoming inspection on arrival (visual, docs, date-code match). Consolidated shipping to your dock with full traceability package.</p>
+      <span class="tl-receive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Shipment notification + CoC and inspection docs</span>
+    </div>
+  </div>
+</div></section>
+
+<section class="mid-cta"><div class="wrap">
+  <span class="eyebrow">Ready when you are</span>
+  <h3>One form.<br>A sourced quote by tomorrow.</h3>
+  <p>No account. No subscription. Pay only when you accept a quote.</p>
+  <a href="#rfq" class="cta">Submit an RFQ ›</a>
+</div></section>
+
+<section class="section" id="about"><div class="wrap">
+  <span class="eyebrow">About</span>
+  <h2>Procurement, done right.</h2>
+  <p class="lead">Built by procurement professionals from the precision electronics manufacturing world.</p>
+  <div class="about-grid">
+    <div class="about-body">
+      <p>ChipShark was built by procurement professionals who've spent years placing POs across <strong>DigiKey, Mouser, Arrow, Avnet, Rochester, Smith</strong>, and dozens of independent sources across the US, EU, and Asia — serving precision electronics manufacturers in <strong>semiconductor, aerospace, medical, and industrial</strong>.</p>
+      <p>What that teaches you: when the authorized channel is dry, who you know matters more than what any website says. The relationships, the vetting playbooks, and the counterfeit red flags — that's what we bring to your bench.</p>
+      <p>Small, deliberate team. Every RFQ gets a human read, not a scraper hit. If a part can be sourced ethically and verifiably, you'll have an answer by the next business morning.</p>
+    </div>
+    <div class="about-card">
+      <div class="label">Experience</div>
+      <div class="value">Procurement &amp; program management for precision electronics manufacturing</div>
+      <div class="label">Network</div>
+      <div class="value">Authorized distributors + 40+ vetted independent sources across US, EU, Asia</div>
+      <div class="label">Focus industries</div>
+      <div class="value">Semiconductor, aerospace, medical, industrial, defense</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section" id="standards"><div class="wrap">
+  <span class="eyebrow">Vetting checklist</span>
+  <h2>What we check<br>before we quote.</h2>
+  <p class="lead">The counterfeit-risk read isn't a buzzword. Here's the actual checklist.</p>
+  <div class="compliance-list">
+    <div class="compliance-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <div><h4>Supplier tier</h4><p>Franchise, authorized, OEM-direct excess, or independent — tier is disclosed on every quote.</p></div>
+    </div>
+    <div class="compliance-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <div><h4>Date code &amp; lot trace</h4><p>Confirmed from source, matched to your date-code requirements where applicable.</p></div>
+    </div>
+    <div class="compliance-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <div><h4>Visual &amp; documentation</h4><p>Photos, markings, and packaging reviewed against the manufacturer datasheet before you commit.</p></div>
+    </div>
+    <div class="compliance-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <div><h4>Independent testing (on request)</h4><p>For regulated or safety-critical builds we route to AS6081-certified labs. Cost quoted up front.</p></div>
+    </div>
+    <div class="compliance-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <div><h4>Compliance docs</h4><p>RoHS, REACH, CoC, and manufacturer traceability provided whenever the source supports it.</p></div>
+    </div>
+    <div class="compliance-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <div><h4>Return policy</h4><p>Any part that fails incoming inspection is returned for full refund within 30 days of receipt.</p></div>
+    </div>
+  </div>
+  <div class="framework-strip">
+    <span class="framework-label">Framework we follow</span>
+    <div class="framework-items">
+      <div class="framework-item"><strong>AS6081</strong>Industry standard for fraudulent-part avoidance by independent distributors.</div>
+      <div class="framework-item"><strong>IDEA-ICE-3000</strong>Counterfeit evaluation and visual-inspection methodology by trained inspectors.</div>
+      <div class="framework-item"><strong>ERAI code of conduct</strong>Reporting counterfeit incidents to the industry database to protect other buyers.</div>
+    </div>
+    <p class="framework-note">We apply this framework on every RFQ. Formal membership and third-party certification are on our roadmap; we'll never claim what we haven't earned.</p>
+  </div>
+</div></section>
+
+<section class="section" id="compare"><div class="wrap">
+  <span class="eyebrow">How we compare</span>
+  <h2>Different, by design.</h2>
+  <p class="lead">We're not a stocking distributor and we don't try to be. We're the sourcing partner you call when the authorized channel is dry and you need an answer today — not a vendor-onboarding gate.</p>
+  <div class="compare-grid">
+    <div class="compare-col chipshark">
+      <p class="col-label">ChipShark</p>
+      <h3>Built for speed.</h3>
+      <ul>
+        <li>24-hour quote turnaround, stated on every page</li>
+        <li>No account, no portal, no onboarding — one form</li>
+        <li>Supplier tier disclosed on every quote</li>
+        <li>Every RFQ gets a human read, not a scraper hit</li>
+        <li>Line-down? One business-hour response</li>
+        <li>Modern tooling, transparent pricing, operator-run</li>
+      </ul>
+    </div>
+    <div class="compare-col">
+      <p class="col-label">Legacy brokers</p>
+      <h3>Built for the catalog era.</h3>
+      <ul>
+        <li>Response times vary — 48 to 72 hours is common</li>
+        <li>Vendor setup, W-9, references required up front</li>
+        <li>Opaque sourcing with bundled margins</li>
+        <li>Sales reps sitting between you and the sourcing desk</li>
+        <li>Emergency RFQs handled on the same queue as the rest</li>
+        <li>Portals and processes that feel ten years old</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="section" id="watch"><div class="wrap">
+  <span class="eyebrow">Allocation watch</span>
+  <h2>What's tight right now.</h2>
+  <p class="lead">An operator's read of current allocation, lead-time, and EOL conditions across the categories we source most. Updated monthly from distributor channels and partner feedback.</p>
+  <div class="watch-grid">
+    <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="12" y="24" width="40" height="16" rx="1.5"/><rect x="12" y="24" width="7" height="16" fill="currentColor" opacity="0.4" stroke="none"/><rect x="45" y="24" width="7" height="16" fill="currentColor" opacity="0.4" stroke="none"/></svg></span>
+      <span class="watch-badge allocation">Allocation</span>
+      <h4>High-cap MLCCs (0402 / 0603)</h4>
+      <p>Murata and TDK still showing 20+ week lead on high-capacitance values. Independent stock pockets exist in Asia but demand supplier-tier verification before shipment.</p>
+      <span class="pkg-caption">Package: 0402 / 0603 chip</span>
+    </div>
+    <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="18" y="18" width="28" height="28" rx="2"/><g stroke-linecap="round"><line x1="22" y1="18" x2="22" y2="12"/><line x1="28" y1="18" x2="28" y2="12"/><line x1="34" y1="18" x2="34" y2="12"/><line x1="40" y1="18" x2="40" y2="12"/><line x1="22" y1="46" x2="22" y2="52"/><line x1="28" y1="46" x2="28" y2="52"/><line x1="34" y1="46" x2="34" y2="52"/><line x1="40" y1="46" x2="40" y2="52"/><line x1="18" y1="22" x2="12" y2="22"/><line x1="18" y1="28" x2="12" y2="28"/><line x1="18" y1="34" x2="12" y2="34"/><line x1="18" y1="40" x2="12" y2="40"/><line x1="46" y1="22" x2="52" y2="22"/><line x1="46" y1="28" x2="52" y2="28"/><line x1="46" y1="34" x2="52" y2="34"/><line x1="46" y1="40" x2="52" y2="40"/></g><circle cx="22" cy="22" r="1.6" fill="currentColor" stroke="none"/></svg></span>
+      <span class="watch-badge leadtime">Long lead</span>
+      <h4>Automotive-grade STM32 (H7 / U5 series)</h4>
+      <p>STMicro quoting 30–40 weeks on AEC-Q100 variants. OEM excess surfacing in Europe periodically — call us if you need under 12 weeks.</p>
+      <span class="pkg-caption">Package: LQFP / UFBGA</span>
+    </div>
+    <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10 L44 10 L44 24 L48 24 L48 44 L16 44 L16 24 L20 24 Z"/><circle cx="32" cy="18" r="3"/><line x1="24" y1="44" x2="24" y2="54"/><line x1="32" y1="44" x2="32" y2="54"/><line x1="40" y1="44" x2="40" y2="54"/></svg></span>
+      <span class="watch-badge leadtime">Long lead</span>
+      <h4>SiC MOSFETs (650 V and above)</h4>
+      <p>EV charging and traction demand keeping Wolfspeed and Infineon stretched past 30 weeks. Second-source alternates from onsemi worth evaluating.</p>
+      <span class="pkg-caption">Package: TO-247 / D²PAK</span>
+    </div>
+    <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="24" width="56" height="18" rx="1"/><rect x="10" y="28" width="7" height="10"/><rect x="20" y="28" width="7" height="10"/><rect x="30" y="28" width="7" height="10"/><rect x="40" y="28" width="7" height="10"/><rect x="50" y="28" width="6" height="10"/><path d="M28 42 L28 46 L36 46 L36 42"/><line x1="6" y1="42" x2="6" y2="46"/><line x1="58" y1="42" x2="58" y2="46"/></svg></span>
+      <span class="watch-badge easing">Easing</span>
+      <h4>DDR5 DRAM</h4>
+      <p>Pricing has stabilized after Q2 fluctuation. Mainline speeds broadly available at authorized channel; keep watching allocation on specific high-speed SKUs.</p>
+      <span class="pkg-caption">Package: FBGA / UDIMM / SODIMM</span>
+    </div>
+    <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="12" y="12" width="40" height="40" rx="2"/><g fill="currentColor" stroke="none"><circle cx="20" cy="20" r="1.6"/><circle cx="28" cy="20" r="1.6"/><circle cx="36" cy="20" r="1.6"/><circle cx="44" cy="20" r="1.6"/><circle cx="20" cy="28" r="1.6"/><circle cx="28" cy="28" r="1.6"/><circle cx="36" cy="28" r="1.6"/><circle cx="44" cy="28" r="1.6"/><circle cx="20" cy="36" r="1.6"/><circle cx="28" cy="36" r="1.6"/><circle cx="36" cy="36" r="1.6"/><circle cx="44" cy="36" r="1.6"/><circle cx="20" cy="44" r="1.6"/><circle cx="28" cy="44" r="1.6"/><circle cx="36" cy="44" r="1.6"/><circle cx="44" cy="44" r="1.6"/></g></svg></span>
+      <span class="watch-badge eol">EOL / PCN</span>
+      <h4>Legacy Xilinx Spartan-6 family</h4>
+      <p>Last-time-buy notices filtering through the channel. If you're on a Spartan-6 BOM, now is the moment to secure lifetime supply or begin a migration path.</p>
+      <span class="pkg-caption">Package: CSG / FGG BGA</span>
+    </div>
+    <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="32" height="32" rx="2"/><g fill="currentColor" stroke="none"><rect x="20" y="12" width="4" height="4"/><rect x="28" y="12" width="4" height="4"/><rect x="36" y="12" width="4" height="4"/><rect x="20" y="48" width="4" height="4"/><rect x="28" y="48" width="4" height="4"/><rect x="36" y="48" width="4" height="4"/><rect x="12" y="20" width="4" height="4"/><rect x="12" y="28" width="4" height="4"/><rect x="12" y="36" width="4" height="4"/><rect x="48" y="20" width="4" height="4"/><rect x="48" y="28" width="4" height="4"/><rect x="48" y="36" width="4" height="4"/><circle cx="22" cy="22" r="1.6"/></g></svg></span>
+      <span class="watch-badge easing">Easing</span>
+      <h4>Low-power FPGAs (Lattice iCE / MachXO)</h4>
+      <p>Stock improving broadly; lead times down to 16 weeks at authorized. Spot inventory available at competitive pricing if volumes line up.</p>
+      <span class="pkg-caption">Package: QFN / BGA</span>
+    </div>
+  </div>
+  <p class="watch-footer">Last updated October 2026 · Operator read, not a real-time feed · Verify current conditions before committing to a BOM.</p>
+</div></section>
+
+<section class="section" id="faq"><div class="wrap">
+  <span class="eyebrow">FAQ</span>
+  <h2>Questions buyers ask first.</h2>
+  <p class="lead">The honest answers, up front.</p>
+  <div class="faq">
+    <details>
+      <summary>What's your minimum order?</summary>
+      <div class="answer">No minimum when the line is down — emergencies always come first. For standard sourcing we typically focus on orders above 100 units or $500, which keeps the vetting economics sound for both sides. Enterprise POs welcome — we routinely handle five- and six-figure orders.</div>
+    </details>
+    <details>
+      <summary>How do payments work?</summary>
+      <div class="answer">Standard net-30 terms for established customers on wire or ACH. First order is wire-in-advance unless you have references we can call. Credit card available on request (2.9% surcharge). Stripe payment links can be generated per quote if preferred.</div>
+    </details>
+    <details>
+      <summary>What if the part turns out to be counterfeit?</summary>
+      <div class="answer">Full refund within 30 days of receipt. We also eat the return shipping. We've built the vetting process to avoid this, but if it happens, you're protected.</div>
+    </details>
+    <details>
+      <summary>Do you handle ITAR / defense parts?</summary>
+      <div class="answer">We can source ITAR-controlled parts for US-persons customers through qualified US-based partners. We'll ask for your end-use certification before accepting the RFQ. Non-US customers: we can't ship ITAR items to you, no exceptions.</div>
+    </details>
+    <details>
+      <summary>How fast is "line-down" fast?</summary>
+      <div class="answer">For flagged line-down RFQs we respond within one business hour with status, and typically have a quote inside four hours. Shipping is same-day where source and courier cutoffs permit.</div>
+    </details>
+    <details>
+      <summary>What geographies do you ship from?</summary>
+      <div class="answer">Sources span North America, Europe, Hong Kong/Singapore, Japan, and India. We consolidate from the nearest reliable source to your delivery address to minimize transit and tariff exposure.</div>
+    </details>
+    <details>
+      <summary>Can I just send you a BOM?</summary>
+      <div class="answer">Yes. Paste the lines into the "Manufacturer part number(s)" field or attach a CSV in the notes. We'll quote line by line. For BOMs over 20 lines, email us directly — faster for both of us.</div>
+    </details>
+    <details>
+      <summary>Do quotes include a Certificate of Conformance?</summary>
+      <div class="answer">Every quote lists the documentation that will accompany the parts: manufacturer CoC where the source supports it, supplier traceability certificate otherwise, plus date-code photos on request before you pre-pay. For critical builds we can route to a third-party test lab and surface the cost up front.</div>
+    </details>
+    <details>
+      <summary>How is chain of custody maintained?</summary>
+      <div class="answer">Each lot is tracked from source to shipment: supplier tier, source country, date and lot code, hand-off waypoints, courier and tracking number. The log goes on the quote and travels with the shipment, so anything downstream can be traced back to its origin.</div>
+    </details>
+    <details>
+      <summary>What's the warranty beyond counterfeit refund?</summary>
+      <div class="answer">30-day inspection window from receipt — any part failing incoming visual, documentation, or electrical check goes back for a full refund including return shipping. Past 30 days we pass through the manufacturer's warranty where it applies. We don't warrant parts against application-specific failure or misuse — that's on the design.</div>
+    </details>
+    <details>
+      <summary>Where are you based, and who runs this?</summary>
+      <div class="answer">Operated from Jaipur, India by a former OEM procurement lead with 20+ years sourcing components for precision heating-element and automation hardware. Suppliers span North America, Europe, and APAC. For buyers who require a US entity on the invoice, say so on your RFQ — we can route through a US-based partner.</div>
+    </details>
+  </div>
+</div></section>
+
+<section class="section" id="rfq"><div class="wrap">
+  <span class="eyebrow">Request a quote</span>
+  <h2>Tell us what you need.</h2>
+  <p class="lead">We'll come back within 24 business hours.</p>
+
+  <div class="ok-msg" id="ok">
+    <div class="check"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h3>RFQ received.</h3>
+    <p>We'll come back within 24 business hours at the email you provided. For line-down urgency, email <a href="mailto:hello@chipsharksupply.com" style="color:var(--accent);text-decoration:none;">hello@chipsharksupply.com</a> for an immediate reply.</p>
+  </div>
+
+  <form id="rfq-form">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <div class="row">
+      <div>
+        <label for="name">Your name *</label>
+        <input id="name" name="name" required autocomplete="name">
+      </div>
+      <div>
+        <label for="company">Company *</label>
+        <input id="company" name="company" required autocomplete="organization">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="email">Work email *</label>
+        <input id="email" name="email" type="email" required autocomplete="email">
+      </div>
+      <div>
+        <label for="phone">Phone (optional)</label>
+        <input id="phone" name="phone" autocomplete="tel">
+      </div>
+    </div>
+
+    <label for="mpn">Manufacturer part number(s) *</label>
+    <div class="mpn-wrap">
+      <textarea id="mpn" name="mpn" required placeholder="Start typing a part number — e.g. STM32F407, LM358DR&#10;One per line if multiple" autocomplete="off" spellcheck="false"></textarea>
+      <span class="powered">Search powered by Mouser</span>
+      <div class="suggestions" id="mpn-suggestions" role="listbox"></div>
+    </div>
+    <label class="bom-upload" id="bom-drop">
+      <input type="file" id="bom-file" accept=".csv,.tsv,.xlsx,.xls">
+      <span class="bom-upload-label">📎 <strong>Upload a BOM</strong> or drag &amp; drop a file here</span>
+      <span class="bom-upload-hint">CSV, XLSX, XLS — we auto-detect the part-number column (up to 500 lines)</span>
+    </label>
+    <div class="bom-status" id="bom-status"></div>
+    <p class="form-helper">For BOMs over 500 lines, email <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a> with the file attached.</p>
+
+    <div class="row">
+      <div>
+        <label for="qty">Quantity needed *</label>
+        <input id="qty" name="qty" required placeholder="e.g. 500">
+      </div>
+      <div>
+        <label for="target">Target price per unit (optional)</label>
+        <input id="target" name="target" placeholder="e.g. $0.25">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="needed">Needed by *</label>
+        <input id="needed" name="needed" type="date" required>
+      </div>
+      <div>
+        <label for="urgency">Urgency</label>
+        <select id="urgency" name="urgency">
+          <option>Standard (24h quote)</option>
+          <option>Urgent — line down</option>
+          <option>Flexible (within 2 weeks)</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="notes">Notes (optional)</label>
+    <textarea id="notes" name="notes" placeholder="Acceptable alternates, date-code requirements, packaging, compliance (AS9100, ITAR, RoHS), shipping address, etc."></textarea>
+
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFPyjK0P_am6Bifm" data-size="flexible" style="margin: 20px 0;"></div>
+
+    <button type="submit">Submit RFQ →</button>
+  </form>
+</div></section>
+
+<footer><div class="wrap-wide">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">ChipShark</div>
+      <div class="footer-brand-sub">Independent components sourcing.<br>Built by procurement professionals.</div>
+      <dl class="footer-meta">
+        <div><dt>Based</dt><dd>Jaipur, India</dd></div>
+        <div><dt>Serves</dt><dd>North America · Europe · APAC</dd></div>
+        <div><dt>Framework</dt><dd>AS6081 · IDEA-ICE-3000 · ERAI</dd></div>
+        <div><dt>Payment</dt><dd>Stripe link per quote · Wire on terms</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a>
+      <a href="#rfq">Submit RFQ</a>
+    </div>
+    <div>
+      <h5>Site</h5>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="#standards">What we check</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+    <div>
+      <h5>Legal</h5>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms of sale</a>
+      <a href="/refund.html">Refund policy</a>
+      <a href="/counterfeit-policy.html">Counterfeit policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Copyright © 2026 ChipShark. All rights reserved.</span>
+    <span>Not affiliated with any manufacturer listed.</span>
+  </div>
+</div></footer>
+
+<script>
+  const SUPABASE_URL = "https://dgpdfponhxbnhfhmbmjb.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRncGRmcG9uaHhibmhmaG1ibWpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwMzc5ODcsImV4cCI6MjEwNjYxMzk4N30.5R9ASFR8eig65JzfNBueXp3NvwHRVtb4wQ2dyH8qhE8";
+
+  const form = document.getElementById('rfq-form');
+  const ok = document.getElementById('ok');
+  const submitBtn = form.querySelector('button[type=submit]');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+    const fd = new FormData(form);
+    if (fd.get('website')) { ok.classList.add('show'); form.style.display = 'none'; return; } // honeypot: bots fill hidden field; fake success, no insert
+    const turnstileToken = fd.get('cf-turnstile-response');
+    if (!turnstileToken) { alert('Please complete the "I am human" check above the Submit button.'); submitBtn.disabled = false; submitBtn.textContent = 'Submit RFQ →'; return; }
+    const payload = {
+      name: fd.get('name'),
+      company: fd.get('company'),
+      email: fd.get('email'),
+      phone: fd.get('phone') || null,
+      mpn: fd.get('mpn'),
+      qty: fd.get('qty'),
+      target: fd.get('target') || null,
+      needed_by: fd.get('needed'),
+      urgency: fd.get('urgency'),
+      notes: fd.get('notes') || null,
+      turnstile_token: turnstileToken
+    };
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/rfq-submit`, {
+        method: 'POST',
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        ok.classList.add('show');
+        form.style.display = 'none';
+        ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        const err = await res.text();
+        alert(/rate_limited/.test(err) ? 'We are receiving a lot of requests right now. Please try again in a little while, or email hello@chipsharksupply.com.' : 'We could not submit your request. Please check the form and try again, or email hello@chipsharksupply.com.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit RFQ →';
+      }
+    } catch (err) {
+      alert('Network error. Please try again or email hello@chipsharksupply.com directly.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit RFQ →';
+    }
+  });
+
+  const d = new Date(); d.setDate(d.getDate() + 14);
+  document.getElementById('needed').value = d.toISOString().slice(0, 10);
+
+  // ---- Part number autocomplete (Octopart via Nexar) ----
+  const mpnEl = document.getElementById('mpn');
+  const mpnWrap = mpnEl.closest('.mpn-wrap');
+  const suggEl = document.getElementById('mpn-suggestions');
+  let suggTimer = null;
+  let suggAbort = null;
+
+  function escHtml(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+  function hideSugg() { suggEl.classList.remove('show'); }
+  function currentFragment() {
+    const lines = mpnEl.value.split('\n');
+    return (lines[lines.length - 1] || '').trim();
+  }
+  function replaceLastLine(withText) {
+    const lines = mpnEl.value.split('\n');
+    lines[lines.length - 1] = withText;
+    mpnEl.value = lines.join('\n') + '\n';
+  }
+
+  function render(results) {
+    if (!results || results.length === 0) {
+      suggEl.innerHTML = '<div class="empty">No matches. You can still type the MPN manually.</div>';
+      suggEl.classList.add('show');
+      return;
+    }
+    suggEl.innerHTML = results.map(r => `
+      <div class="suggestion" data-mpn="${escHtml(r.mpn)}">
+        <div class="s-mpn">${escHtml(r.mpn)}</div>
+        <div class="s-meta"><span class="s-mfr">${escHtml(r.manufacturer || '')}</span>${escHtml((r.description || '').slice(0, 110))}</div>
+      </div>
+    `).join('');
+    suggEl.classList.add('show');
+    suggEl.querySelectorAll('.suggestion').forEach(el => {
+      el.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        replaceLastLine(el.dataset.mpn);
+        hideSugg();
+        mpnEl.focus();
+      });
+    });
+  }
+
+  async function doSearch(q) {
+    if (suggAbort) suggAbort.abort();
+    suggAbort = new AbortController();
+    suggEl.innerHTML = '<div class="loading">Searching…</div>';
+    suggEl.classList.add('show');
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/parts-search?q=${encodeURIComponent(q)}`, {
+        headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+        signal: suggAbort.signal,
+      });
+      if (res.status === 503) { hideSugg(); return; }
+      if (!res.ok) { hideSugg(); return; }
+      const data = await res.json();
+      render(data.results || []);
+    } catch (e) {
+      if (e.name !== 'AbortError') hideSugg();
+    }
+  }
+
+  mpnEl.addEventListener('focus', () => mpnWrap.classList.add('has-focus'));
+  mpnEl.addEventListener('blur', () => { mpnWrap.classList.remove('has-focus'); setTimeout(hideSugg, 150); });
+  mpnEl.addEventListener('input', () => {
+    clearTimeout(suggTimer);
+    const frag = currentFragment();
+    if (frag.length < 3) { hideSugg(); return; }
+    suggTimer = setTimeout(() => doSearch(frag), 280);
+  });
+
+  // ---- BOM upload (CSV / XLSX) ----
+  const bomInput = document.getElementById('bom-file');
+  const bomDrop = document.getElementById('bom-drop');
+  const bomStatus = document.getElementById('bom-status');
+  let xlsxReady = false;
+
+  function setBomStatus(msg, type) {
+    bomStatus.textContent = msg;
+    bomStatus.className = 'bom-status show' + (type ? ' ' + type : '');
+  }
+  function hideBomStatus() { bomStatus.className = 'bom-status'; }
+
+  function loadXlsx() {
+    if (xlsxReady) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+      s.onload = () => { xlsxReady = true; resolve(); };
+      s.onerror = () => reject(new Error('Could not load XLSX parser'));
+      document.head.appendChild(s);
+    });
+  }
+
+  // MPN heuristic: starts alphanumeric, >=4 chars, contains at least one letter,
+  // only alphanumeric + - _ . / , no spaces
+  function looksLikeMpn(v) {
+    const t = String(v == null ? '' : v).trim();
+    if (t.length < 4 || t.length > 80) return false;
+    if (!/^[A-Za-z0-9][A-Za-z0-9\-_.\/+]*$/.test(t)) return false;
+    if (!/[A-Za-z]/.test(t)) return false;
+    return true;
+  }
+  function detectMpnColumn(rows, headerRow) {
+    // Prefer an explicit header hint if present
+    if (headerRow && headerRow.length) {
+      for (let c = 0; c < headerRow.length; c++) {
+        if (/^\s*(mpn|mfr\s*p\/?n|manufacturer\s*part(\s*(no|number|#))?|part\s*(no\.?|number|#)|p\/?n)\s*$/i.test(headerRow[c])) {
+          return { idx: c, score: 999 };
+        }
+      }
+    }
+    if (!rows.length) return { idx: -1, score: 0 };
+    const cols = Math.max(...rows.map(r => r.length));
+    let best = { idx: -1, score: 0 };
+    for (let c = 0; c < cols; c++) {
+      let hits = 0;
+      for (let r = 0; r < rows.length; r++) {
+        if (looksLikeMpn(rows[r][c])) hits++;
+      }
+      if (hits > best.score) best = { idx: c, score: hits };
+    }
+    return best;
+  }
+
+  async function handleBomFile(file) {
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) { setBomStatus('File too large (max 10 MB). Email the BOM instead.', 'err'); return; }
+    setBomStatus('Reading ' + file.name + '…');
+    try {
+      await loadXlsx();
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, { type: 'array', codepage: 65001 });
+      const sheetName = wb.SheetNames[0];
+      if (!sheetName) { setBomStatus('No sheets found in that file.', 'err'); return; }
+      const sheet = wb.Sheets[sheetName];
+      const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false, defval: '' });
+      if (!rows.length) { setBomStatus('That file looked empty.', 'err'); return; }
+
+      // Detect header row: if first row looks like header words OR has no MPN-like values
+      const firstRow = (rows[0] || []).map(c => String(c || '').trim());
+      const headerLooking = firstRow.some(c => /^(mpn|part|qty|quantity|description|mfr|manufacturer|designator|footprint|value|package|p\/?n)/i.test(c));
+      const firstRowHasMpn = firstRow.some(c => looksLikeMpn(c));
+      const treatAsHeader = headerLooking || !firstRowHasMpn;
+      const headerRow = treatAsHeader ? firstRow : [];
+      const dataRows = treatAsHeader ? rows.slice(1) : rows;
+
+      const { idx: mpnCol, score } = detectMpnColumn(dataRows, headerRow);
+      if (mpnCol === -1 || score < 2) {
+        setBomStatus('Couldn’t find a column that looks like part numbers. Paste MPNs above or email the file to hello@chipsharksupply.com.', 'err');
+        return;
+      }
+
+      const mpns = dataRows
+        .map(r => String(r[mpnCol] == null ? '' : r[mpnCol]).trim())
+        .filter(m => looksLikeMpn(m));
+      const unique = [...new Set(mpns)].slice(0, 500);
+      if (!unique.length) { setBomStatus('No valid part numbers detected.', 'err'); return; }
+
+      mpnEl.value = unique.join('\n');
+      mpnEl.dispatchEvent(new Event('input', { bubbles: true }));
+      hideSugg();
+      const sheetLabel = wb.SheetNames.length > 1 ? ' (sheet 1 of ' + wb.SheetNames.length + ')' : '';
+      const colLabel = headerRow[mpnCol] ? ' from column "' + headerRow[mpnCol] + '"' : '';
+      const truncated = mpns.length > 500 ? ' (first 500 shown; remaining ' + (mpns.length - 500) + ' not loaded)' : '';
+      setBomStatus('✓ Loaded ' + unique.length + ' unique part numbers' + colLabel + sheetLabel + truncated + '. Review the list above, then submit.', 'ok');
+      mpnEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      setBomStatus('Couldn’t parse that file: ' + (err && err.message ? err.message : err) + '. Try CSV or XLSX.', 'err');
+    }
+  }
+
+  bomInput.addEventListener('change', (e) => handleBomFile(e.target.files && e.target.files[0]));
+  ['dragover', 'dragenter'].forEach(ev => bomDrop.addEventListener(ev, (e) => { e.preventDefault(); bomDrop.classList.add('drag'); }));
+  ['dragleave'].forEach(ev => bomDrop.addEventListener(ev, () => bomDrop.classList.remove('drag')));
+  bomDrop.addEventListener('drop', (e) => {
+    e.preventDefault();
+    bomDrop.classList.remove('drag');
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    handleBomFile(f);
+  });
+</script>
+
+</body>
+</html>
