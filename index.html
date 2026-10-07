@@ -181,6 +181,13 @@
   .compliance-item svg { width: 20px; height: 20px; color: var(--ink); flex-shrink: 0; margin-top: 2px; stroke-width: 2; }
   .compliance-item h4 { margin: 0 0 4px; font-size: 17px; font-weight: 500; letter-spacing: -0.014em; }
   .compliance-item p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.47; letter-spacing: -0.009em; }
+  .framework-strip { max-width: 760px; margin: 56px auto 0; padding-top: 36px; border-top: 1px solid var(--line-2); text-align: center; }
+  .framework-label { display: block; font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 24px; font-weight: 500; }
+  .framework-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; text-align: left; }
+  .framework-item { font-size: 13px; color: var(--ink-2); line-height: 1.5; letter-spacing: -0.006em; }
+  .framework-item strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 6px; font-size: 15px; letter-spacing: -0.012em; }
+  .framework-note { max-width: 580px; margin: 28px auto 0; font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+  @media (max-width: 640px) { .framework-items { grid-template-columns: 1fr; gap: 20px; } }
   .faq { max-width: 820px; margin: 0 auto; }
   .faq details { border-bottom: 1px solid var(--line); padding: 24px 0; }
   .faq details:last-child { border-bottom: none; }
@@ -276,14 +283,17 @@
     background-size: 16px 16px; background-repeat: no-repeat;
   }
   .watch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; max-width: 980px; margin: 0 auto; }
-  .watch-item { background: var(--surface-2); border-radius: 18px; padding: 24px 26px; }
+  .watch-item { background: var(--surface-2); border-radius: 18px; padding: 24px 26px; position: relative; }
   .watch-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.3px; padding: 4px 10px; border-radius: 10px; margin-bottom: 12px; text-transform: uppercase; }
   .watch-badge.allocation { background: rgba(194, 24, 24, 0.1); color: #c21818; }
   .watch-badge.leadtime { background: rgba(217, 119, 6, 0.1); color: #a04d00; }
   .watch-badge.eol { background: rgba(0, 113, 227, 0.1); color: var(--accent); }
   .watch-badge.easing { background: rgba(48, 134, 26, 0.1); color: var(--ok); }
-  .watch-item h4 { margin: 0 0 6px; font-size: 17px; font-weight: 500; letter-spacing: -0.014em; color: var(--ink); line-height: 1.3; }
+  .watch-item h4 { margin: 0 0 6px; font-size: 17px; font-weight: 500; letter-spacing: -0.014em; color: var(--ink); line-height: 1.3; padding-right: 60px; }
   .watch-item p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.5; letter-spacing: -0.009em; }
+  .pkg-icon { position: absolute; top: 22px; right: 22px; width: 48px; height: 48px; color: var(--ink-3); opacity: 0.55; pointer-events: none; }
+  .pkg-icon svg { width: 100%; height: 100%; display: block; }
+  .pkg-caption { display: block; margin-top: 10px; font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500; }
   .watch-footer { max-width: 980px; margin: 36px auto 0; text-align: center; font-size: 13px; color: var(--ink-3); letter-spacing: -0.004em; }
   .enterprise-row { display: flex; justify-content: center; margin-bottom: 22px; }
   .enterprise-note { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: var(--surface-2); border-radius: 10px; font-size: 13px; color: var(--ink-2); letter-spacing: -0.009em; }
@@ -296,6 +306,10 @@
   .footer-grid a:hover { text-decoration: underline; }
   .footer-brand { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
   .footer-brand-sub { color: var(--ink-3); line-height: 1.5; font-size: 12px; }
+  .footer-meta { margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 6px; }
+  .footer-meta > div { display: grid; grid-template-columns: 72px 1fr; gap: 8px; font-size: 11px; line-height: 1.5; }
+  .footer-meta dt { color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.4px; margin: 0; }
+  .footer-meta dd { color: var(--ink-2); margin: 0; }
   .footer-bottom { border-top: 1px solid var(--line); padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; }
 </style>
 </head>
@@ -518,6 +532,15 @@
       <div><h4>Return policy</h4><p>Any part that fails incoming inspection is returned for full refund within 30 days of receipt.</p></div>
     </div>
   </div>
+  <div class="framework-strip">
+    <span class="framework-label">Framework we follow</span>
+    <div class="framework-items">
+      <div class="framework-item"><strong>AS6081</strong>Industry standard for fraudulent-part avoidance by independent distributors.</div>
+      <div class="framework-item"><strong>IDEA-ICE-3000</strong>Counterfeit evaluation and visual-inspection methodology by trained inspectors.</div>
+      <div class="framework-item"><strong>ERAI code of conduct</strong>Reporting counterfeit incidents to the industry database to protect other buyers.</div>
+    </div>
+    <p class="framework-note">We apply this framework on every RFQ. Formal membership and third-party certification are on our roadmap; we'll never claim what we haven't earned.</p>
+  </div>
 </div></section>
 
 <section class="section" id="compare"><div class="wrap">
@@ -558,34 +581,46 @@
   <p class="lead">An operator's read of current allocation, lead-time, and EOL conditions across the categories we source most. Updated monthly from distributor channels and partner feedback.</p>
   <div class="watch-grid">
     <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="12" y="24" width="40" height="16" rx="1.5"/><rect x="12" y="24" width="7" height="16" fill="currentColor" opacity="0.4" stroke="none"/><rect x="45" y="24" width="7" height="16" fill="currentColor" opacity="0.4" stroke="none"/></svg></span>
       <span class="watch-badge allocation">Allocation</span>
       <h4>High-cap MLCCs (0402 / 0603)</h4>
       <p>Murata and TDK still showing 20+ week lead on high-capacitance values. Independent stock pockets exist in Asia but demand supplier-tier verification before shipment.</p>
+      <span class="pkg-caption">Package: 0402 / 0603 chip</span>
     </div>
     <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="18" y="18" width="28" height="28" rx="2"/><g stroke-linecap="round"><line x1="22" y1="18" x2="22" y2="12"/><line x1="28" y1="18" x2="28" y2="12"/><line x1="34" y1="18" x2="34" y2="12"/><line x1="40" y1="18" x2="40" y2="12"/><line x1="22" y1="46" x2="22" y2="52"/><line x1="28" y1="46" x2="28" y2="52"/><line x1="34" y1="46" x2="34" y2="52"/><line x1="40" y1="46" x2="40" y2="52"/><line x1="18" y1="22" x2="12" y2="22"/><line x1="18" y1="28" x2="12" y2="28"/><line x1="18" y1="34" x2="12" y2="34"/><line x1="18" y1="40" x2="12" y2="40"/><line x1="46" y1="22" x2="52" y2="22"/><line x1="46" y1="28" x2="52" y2="28"/><line x1="46" y1="34" x2="52" y2="34"/><line x1="46" y1="40" x2="52" y2="40"/></g><circle cx="22" cy="22" r="1.6" fill="currentColor" stroke="none"/></svg></span>
       <span class="watch-badge leadtime">Long lead</span>
       <h4>Automotive-grade STM32 (H7 / U5 series)</h4>
       <p>STMicro quoting 30–40 weeks on AEC-Q100 variants. OEM excess surfacing in Europe periodically — call us if you need under 12 weeks.</p>
+      <span class="pkg-caption">Package: LQFP / UFBGA</span>
     </div>
     <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10 L44 10 L44 24 L48 24 L48 44 L16 44 L16 24 L20 24 Z"/><circle cx="32" cy="18" r="3"/><line x1="24" y1="44" x2="24" y2="54"/><line x1="32" y1="44" x2="32" y2="54"/><line x1="40" y1="44" x2="40" y2="54"/></svg></span>
       <span class="watch-badge leadtime">Long lead</span>
       <h4>SiC MOSFETs (650 V and above)</h4>
       <p>EV charging and traction demand keeping Wolfspeed and Infineon stretched past 30 weeks. Second-source alternates from onsemi worth evaluating.</p>
+      <span class="pkg-caption">Package: TO-247 / D²PAK</span>
     </div>
     <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="24" width="56" height="18" rx="1"/><rect x="10" y="28" width="7" height="10"/><rect x="20" y="28" width="7" height="10"/><rect x="30" y="28" width="7" height="10"/><rect x="40" y="28" width="7" height="10"/><rect x="50" y="28" width="6" height="10"/><path d="M28 42 L28 46 L36 46 L36 42"/><line x1="6" y1="42" x2="6" y2="46"/><line x1="58" y1="42" x2="58" y2="46"/></svg></span>
       <span class="watch-badge easing">Easing</span>
       <h4>DDR5 DRAM</h4>
       <p>Pricing has stabilized after Q2 fluctuation. Mainline speeds broadly available at authorized channel; keep watching allocation on specific high-speed SKUs.</p>
+      <span class="pkg-caption">Package: FBGA / UDIMM / SODIMM</span>
     </div>
     <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="12" y="12" width="40" height="40" rx="2"/><g fill="currentColor" stroke="none"><circle cx="20" cy="20" r="1.6"/><circle cx="28" cy="20" r="1.6"/><circle cx="36" cy="20" r="1.6"/><circle cx="44" cy="20" r="1.6"/><circle cx="20" cy="28" r="1.6"/><circle cx="28" cy="28" r="1.6"/><circle cx="36" cy="28" r="1.6"/><circle cx="44" cy="28" r="1.6"/><circle cx="20" cy="36" r="1.6"/><circle cx="28" cy="36" r="1.6"/><circle cx="36" cy="36" r="1.6"/><circle cx="44" cy="36" r="1.6"/><circle cx="20" cy="44" r="1.6"/><circle cx="28" cy="44" r="1.6"/><circle cx="36" cy="44" r="1.6"/><circle cx="44" cy="44" r="1.6"/></g></svg></span>
       <span class="watch-badge eol">EOL / PCN</span>
       <h4>Legacy Xilinx Spartan-6 family</h4>
       <p>Last-time-buy notices filtering through the channel. If you're on a Spartan-6 BOM, now is the moment to secure lifetime supply or begin a migration path.</p>
+      <span class="pkg-caption">Package: CSG / FGG BGA</span>
     </div>
     <div class="watch-item">
+      <span class="pkg-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="32" height="32" rx="2"/><g fill="currentColor" stroke="none"><rect x="20" y="12" width="4" height="4"/><rect x="28" y="12" width="4" height="4"/><rect x="36" y="12" width="4" height="4"/><rect x="20" y="48" width="4" height="4"/><rect x="28" y="48" width="4" height="4"/><rect x="36" y="48" width="4" height="4"/><rect x="12" y="20" width="4" height="4"/><rect x="12" y="28" width="4" height="4"/><rect x="12" y="36" width="4" height="4"/><rect x="48" y="20" width="4" height="4"/><rect x="48" y="28" width="4" height="4"/><rect x="48" y="36" width="4" height="4"/><circle cx="22" cy="22" r="1.6"/></g></svg></span>
       <span class="watch-badge easing">Easing</span>
       <h4>Low-power FPGAs (Lattice iCE / MachXO)</h4>
       <p>Stock improving broadly; lead times down to 16 weeks at authorized. Spot inventory available at competitive pricing if volumes line up.</p>
+      <span class="pkg-caption">Package: QFN / BGA</span>
     </div>
   </div>
   <p class="watch-footer">Last updated October 2026 · Operator read, not a real-time feed · Verify current conditions before committing to a BOM.</p>
@@ -623,6 +658,22 @@
     <details>
       <summary>Can I just send you a BOM?</summary>
       <div class="answer">Yes. Paste the lines into the "Manufacturer part number(s)" field or attach a CSV in the notes. We'll quote line by line. For BOMs over 20 lines, email us directly — faster for both of us.</div>
+    </details>
+    <details>
+      <summary>Do quotes include a Certificate of Conformance?</summary>
+      <div class="answer">Every quote lists the documentation that will accompany the parts: manufacturer CoC where the source supports it, supplier traceability certificate otherwise, plus date-code photos on request before you pre-pay. For critical builds we can route to a third-party test lab and surface the cost up front.</div>
+    </details>
+    <details>
+      <summary>How is chain of custody maintained?</summary>
+      <div class="answer">Each lot is tracked from source to shipment: supplier tier, source country, date and lot code, hand-off waypoints, courier and tracking number. The log goes on the quote and travels with the shipment, so anything downstream can be traced back to its origin.</div>
+    </details>
+    <details>
+      <summary>What's the warranty beyond counterfeit refund?</summary>
+      <div class="answer">30-day inspection window from receipt — any part failing incoming visual, documentation, or electrical check goes back for a full refund including return shipping. Past 30 days we pass through the manufacturer's warranty where it applies. We don't warrant parts against application-specific failure or misuse — that's on the design.</div>
+    </details>
+    <details>
+      <summary>Where are you based, and who runs this?</summary>
+      <div class="answer">Operated from Jaipur, India by a former OEM procurement lead with 20+ years sourcing components for precision heating-element and automation hardware. Suppliers span North America, Europe, and APAC. For buyers who require a US entity on the invoice, say so on your RFQ — we can route through a US-based partner.</div>
     </details>
   </div>
 </div></section>
@@ -715,6 +766,12 @@
     <div>
       <div class="footer-brand">ChipShark</div>
       <div class="footer-brand-sub">Independent components sourcing.<br>Built by procurement professionals.</div>
+      <dl class="footer-meta">
+        <div><dt>Based</dt><dd>Jaipur, India</dd></div>
+        <div><dt>Serves</dt><dd>North America · Europe · APAC</dd></div>
+        <div><dt>Framework</dt><dd>AS6081 · IDEA-ICE-3000 · ERAI</dd></div>
+        <div><dt>Payment</dt><dd>Stripe link per quote · Wire on terms</dd></div>
+      </dl>
     </div>
     <div>
       <h5>Contact</h5>
