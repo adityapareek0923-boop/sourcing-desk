@@ -721,7 +721,7 @@
     <label class="bom-upload" id="bom-drop">
       <input type="file" id="bom-file" accept=".csv,.tsv,.xlsx,.xls">
       <span class="bom-upload-label">📎 <strong>Upload a BOM</strong> or drag &amp; drop a file here</span>
-      <span class="bom-upload-hint">CSV, XLSX, XLS — we auto-detect the part-number column (up to 500 lines)</span>
+      <span class="bom-upload-hint">CSV, XLSX, XLS — part numbers OR descriptive items (mini PC, cables, etc.) — up to 500 lines</span>
     </label>
     <div class="bom-status" id="bom-status"></div>
     <p class="form-helper">For BOMs over 500 lines, email <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a> with the file attached.</p>
@@ -929,13 +929,21 @@
   });
 
   // ---- BOM upload (CSV / XLSX) ----
+  // Handles two shapes:
+  //  (1) Component BOM — has MPN column (ICs, passives). Extracts MPNs.
+  //  (2) Generic/hardware BOM — Item + Spec + Qty columns, no MPNs
+  //      (mini PCs, UPS, cables). Extracts human-readable items for Sonar
+  //      to web-search. Both end up in the MPN textarea as one-per-line.
   const bomInput = document.getElementById('bom-file');
   const bomDrop = document.getElementById('bom-drop');
   const bomStatus = document.getElementById('bom-status');
+  const mpnLabelEl = document.querySelector('label[for="mpn"]');
+  const mpnLabelOriginal = mpnLabelEl ? mpnLabelEl.textContent : null;
+  const mpnPlaceholderOriginal = mpnEl.getAttribute('placeholder');
   let xlsxReady = false;
 
   function setBomStatus(msg, type) {
-    bomStatus.textContent = msg;
+    bomStatus.innerHTML = msg;
     bomStatus.className = 'bom-status show' + (type ? ' ' + type : '');
   }
   function hideBomStatus() { bomStatus.className = 'bom-status'; }
@@ -951,8 +959,7 @@
     });
   }
 
-  // MPN heuristic: starts alphanumeric, >=4 chars, contains at least one letter,
-  // only alphanumeric + - _ . / , no spaces
+  // MPN heuristic — same as before: alphanumeric with at least one letter, no spaces
   function looksLikeMpn(v) {
     const t = String(v == null ? '' : v).trim();
     if (t.length < 4 || t.length > 80) return false;
@@ -960,32 +967,149 @@
     if (!/[A-Za-z]/.test(t)) return false;
     return true;
   }
-  function detectMpnColumn(rows, headerRow) {
-    // Prefer an explicit header hint if present
-    if (headerRow && headerRow.length) {
-      for (let c = 0; c < headerRow.length; c++) {
-        if (/^\s*(mpn|mfr\s*p\/?n|manufacturer\s*part(\s*(no|number|#))?|part\s*(no\.?|number|#)|p\/?n)\s*$/i.test(headerRow[c])) {
-          return { idx: c, score: 999 };
-        }
+
+  // Column header aliases → canonical keys
+  const HDR_ALIASES = {
+    mpn:      ['mpn','mfr p/n','mfr pn','mfr part','manufacturer part','manufacturer part number','manufacturer part no','part number','part no','part #','p/n','pn','orderable part number','order code','order no'],
+    item:     ['item','description','desc','component','name','product','item name','part description'],
+    spec:     ['spec','specification','specification/requirement','spec / requirement','requirement','details','value','rating','parameters'],
+    qty:      ['qty','quantity','qty per unit','quantity per unit','count','units','qty required','needed'],
+    unitCost: ['unit cost','unit price','price','cost','rate','per unit cost','unit cost (₹)','unit cost ($)','unit price (₹)'],
+    lineCost: ['line cost','subtotal','line total','extended cost','extended price','total cost','line cost (₹)'],
+    mfr:      ['mfr','manufacturer','brand','maker','make','vendor','supplier'],
+    category: ['category','section','group','type','ref','reference','reference designator','designator'],
+    notes:    ['notes','note','remarks','comments','comment']
+  };
+  function normHeader(cell) {
+    return String(cell || '').trim().toLowerCase()
+      .replace(/[\s\-_.]+/g, ' ')
+      .replace(/\s*\(.*?\)\s*/g, '')
+      .replace(/[#*:]+/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  function matchHeader(cell) {
+    const t = normHeader(cell);
+    if (!t) return null;
+    for (const [key, aliases] of Object.entries(HDR_ALIASES)) {
+      for (const a of aliases) {
+        if (t === a) return key;
       }
     }
-    if (!rows.length) return { idx: -1, score: 0 };
-    const cols = Math.max(...rows.map(r => r.length));
-    let best = { idx: -1, score: 0 };
-    for (let c = 0; c < cols; c++) {
-      let hits = 0;
-      for (let r = 0; r < rows.length; r++) {
-        if (looksLikeMpn(rows[r][c])) hits++;
+    // Softer matches: starts-with
+    for (const [key, aliases] of Object.entries(HDR_ALIASES)) {
+      for (const a of aliases) {
+        if (t.startsWith(a + ' ')) return key;
       }
+    }
+    return null;
+  }
+
+  // Find the first row that has ≥ 2 recognized header cells, within first 15 rows.
+  function detectHeader(rows) {
+    const limit = Math.min(rows.length, 15);
+    for (let r = 0; r < limit; r++) {
+      const row = rows[r] || [];
+      const cols = {};
+      row.forEach((cell, i) => {
+        const key = matchHeader(cell);
+        if (key && cols[key] == null) cols[key] = i;
+      });
+      if (Object.keys(cols).length >= 2) return { row: r, cols };
+    }
+    return null;
+  }
+
+  function numFrom(s) {
+    const n = parseFloat(String(s || '').replace(/[^\d.\-]/g, ''));
+    return isFinite(n) ? n : 0;
+  }
+  function isSummaryRow(itemText, qty) {
+    const t = (itemText || '').toLowerCase();
+    return /\b(total|subtotal|per[\s-]unit|grand\s*total|sum)\b/.test(t) && qty === 0;
+  }
+
+  function parseBom(rows) {
+    const hdr = detectHeader(rows);
+
+    // ---- Component-BOM fast path: header has an MPN column ----
+    if (hdr && hdr.cols.mpn != null) {
+      const items = [];
+      const warnings = [];
+      for (let r = hdr.row + 1; r < rows.length; r++) {
+        const row = rows[r] || [];
+        const mpn = String(row[hdr.cols.mpn] || '').trim();
+        if (!looksLikeMpn(mpn)) continue;
+        const qty = hdr.cols.qty != null ? numFrom(row[hdr.cols.qty]) : 0;
+        items.push({ mpn, item: '', spec: hdr.cols.spec != null ? String(row[hdr.cols.spec] || '').trim() : '', qty });
+      }
+      return { kind: 'component', items, warnings, headerLabel: 'MPN' };
+    }
+
+    // ---- Generic/hardware BOM: Item + Spec + Qty columns ----
+    if (hdr && (hdr.cols.item != null || hdr.cols.spec != null)) {
+      const items = [];
+      const warnings = [];
+      for (let r = hdr.row + 1; r < rows.length; r++) {
+        const row = rows[r] || [];
+        const get = (k) => hdr.cols[k] != null ? String(row[hdr.cols[k]] || '').trim() : '';
+        const item = get('item');
+        const spec = get('spec');
+        const qty = numFrom(get('qty'));
+        const unitCost = numFrom(get('unitCost'));
+        const lineCost = numFrom(get('lineCost'));
+        if (!item && !spec) continue;
+        if (isSummaryRow(item, qty)) continue;
+        const category = get('category');
+        const notes = get('notes');
+        // Validations
+        if (qty === 0) warnings.push(`"${item || spec}" — qty 0, flagged optional. Sonar will note but not source.`);
+        else if (!spec && !/mpn|part no/i.test(item)) warnings.push(`"${item}" has no spec — ask customer to clarify before sourcing.`);
+        if (qty > 0 && unitCost > 0 && lineCost > 0 && Math.abs(qty * unitCost - lineCost) > 1) {
+          warnings.push(`"${item}" line cost ${lineCost} ≠ ${qty}×${unitCost}=${qty*unitCost}. Check the sheet.`);
+        }
+        items.push({ mpn: '', item, spec, qty, unitCost, lineCost, category, notes });
+      }
+      return { kind: 'generic', items, warnings, headerLabel: 'items' };
+    }
+
+    // ---- Legacy fallback: no header found, scan columns for MPN-like values ----
+    const firstRow = (rows[0] || []).map(c => String(c || '').trim());
+    const headerLooking = firstRow.some(c => matchHeader(c));
+    const firstRowHasMpn = firstRow.some(c => looksLikeMpn(c));
+    const treatAsHeader = headerLooking || !firstRowHasMpn;
+    const dataRows = treatAsHeader ? rows.slice(1) : rows;
+    if (!dataRows.length) return { kind: 'empty', items: [], warnings: [] };
+    const nCols = Math.max(...dataRows.map(r => r.length));
+    let best = { idx: -1, score: 0 };
+    for (let c = 0; c < nCols; c++) {
+      let hits = 0;
+      for (let r = 0; r < dataRows.length; r++) if (looksLikeMpn(dataRows[r][c])) hits++;
       if (hits > best.score) best = { idx: c, score: hits };
     }
-    return best;
+    if (best.idx === -1 || best.score < 2) return { kind: 'empty', items: [], warnings: [] };
+    const items = dataRows
+      .map(r => String(r[best.idx] || '').trim())
+      .filter(m => looksLikeMpn(m))
+      .map(mpn => ({ mpn, item: '', spec: '', qty: 0 }));
+    return { kind: 'component', items, warnings: [], headerLabel: 'MPN' };
+  }
+
+  function esc(s) { return String(s || '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]); }
+
+  function restoreLabel() {
+    if (mpnLabelEl && mpnLabelOriginal) mpnLabelEl.textContent = mpnLabelOriginal;
+    if (mpnPlaceholderOriginal != null) mpnEl.setAttribute('placeholder', mpnPlaceholderOriginal);
+  }
+  function setGenericMode() {
+    if (mpnLabelEl) mpnLabelEl.textContent = 'Items to source *';
+    mpnEl.setAttribute('placeholder', 'Mini PC (barebone) | Ryzen 5 5500U class | Qty 1');
   }
 
   async function handleBomFile(file) {
     if (!file) return;
     if (file.size > 10 * 1024 * 1024) { setBomStatus('File too large (max 10 MB). Email the BOM instead.', 'err'); return; }
-    setBomStatus('Reading ' + file.name + '…');
+    setBomStatus('Reading ' + esc(file.name) + '…');
     try {
       await loadXlsx();
       const buf = await file.arrayBuffer();
@@ -996,36 +1120,62 @@
       const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false, defval: '' });
       if (!rows.length) { setBomStatus('That file looked empty.', 'err'); return; }
 
-      // Detect header row: if first row looks like header words OR has no MPN-like values
-      const firstRow = (rows[0] || []).map(c => String(c || '').trim());
-      const headerLooking = firstRow.some(c => /^(mpn|part|qty|quantity|description|mfr|manufacturer|designator|footprint|value|package|p\/?n)/i.test(c));
-      const firstRowHasMpn = firstRow.some(c => looksLikeMpn(c));
-      const treatAsHeader = headerLooking || !firstRowHasMpn;
-      const headerRow = treatAsHeader ? firstRow : [];
-      const dataRows = treatAsHeader ? rows.slice(1) : rows;
-
-      const { idx: mpnCol, score } = detectMpnColumn(dataRows, headerRow);
-      if (mpnCol === -1 || score < 2) {
-        setBomStatus('Couldn’t find a column that looks like part numbers. Paste MPNs above or email the file to hello@chipsharksupply.com.', 'err');
+      const parsed = parseBom(rows);
+      if (parsed.kind === 'empty' || !parsed.items.length) {
+        restoreLabel();
+        setBomStatus('Couldn’t make sense of that sheet — no MPN column and no "Item" column with content. Paste rows manually above or email the file to <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a>.', 'err');
         return;
       }
 
-      const mpns = dataRows
-        .map(r => String(r[mpnCol] == null ? '' : r[mpnCol]).trim())
-        .filter(m => looksLikeMpn(m));
-      const unique = [...new Set(mpns)].slice(0, 500);
-      if (!unique.length) { setBomStatus('No valid part numbers detected.', 'err'); return; }
+      // Format for the textarea
+      let textLines;
+      if (parsed.kind === 'component') {
+        const unique = [...new Set(parsed.items.map(x => x.mpn))].slice(0, 500);
+        textLines = unique.join('\n');
+        restoreLabel();
+      } else {
+        // Generic: one line per sourceable item (skip qty=0)
+        const sourceable = parsed.items.filter(x => x.qty > 0).slice(0, 500);
+        textLines = sourceable.map(x => {
+          const parts = [x.item || '(unnamed)'];
+          if (x.spec) parts.push(x.spec);
+          parts.push(`Qty: ${x.qty}`);
+          return parts.join(' | ');
+        }).join('\n');
+        setGenericMode();
+      }
 
-      mpnEl.value = unique.join('\n');
+      mpnEl.value = textLines;
       mpnEl.dispatchEvent(new Event('input', { bubbles: true }));
       hideSugg();
-      const sheetLabel = wb.SheetNames.length > 1 ? ' (sheet 1 of ' + wb.SheetNames.length + ')' : '';
-      const colLabel = headerRow[mpnCol] ? ' from column "' + headerRow[mpnCol] + '"' : '';
-      const truncated = mpns.length > 500 ? ' (first 500 shown; remaining ' + (mpns.length - 500) + ' not loaded)' : '';
-      setBomStatus('✓ Loaded ' + unique.length + ' unique part numbers' + colLabel + sheetLabel + truncated + '. Review the list above, then submit.', 'ok');
+
+      // Auto-fill Qty field with max item qty (generic) or sum of lines (component)
+      try {
+        const qtyField = document.getElementById('qty');
+        if (qtyField && !qtyField.value) {
+          const maxQty = parsed.items.reduce((m, x) => Math.max(m, x.qty || 0), 0);
+          if (maxQty > 0) qtyField.value = maxQty;
+        }
+      } catch(_) {}
+
+      // Build status message
+      const nLoaded = parsed.kind === 'component'
+        ? new Set(parsed.items.map(x => x.mpn)).size
+        : parsed.items.filter(x => x.qty > 0).length;
+      const kindLabel = parsed.kind === 'component'
+        ? `${nLoaded} unique part numbers`
+        : `${nLoaded} items (hardware/assembly BOM — Sonar will web-search each)`;
+      const sheetLabel = wb.SheetNames.length > 1 ? ` (sheet 1 of ${wb.SheetNames.length})` : '';
+      let msg = `✓ Loaded ${kindLabel}${sheetLabel}. Review the list above, then submit.`;
+      if (parsed.warnings.length) {
+        const shown = parsed.warnings.slice(0, 6).map(w => '• ' + esc(w)).join('<br>');
+        const more = parsed.warnings.length > 6 ? `<br>• (+${parsed.warnings.length - 6} more warnings — Sonar will raise them in the quote)` : '';
+        msg += `<br><br><b>${parsed.warnings.length} issue${parsed.warnings.length === 1 ? '' : 's'} to review:</b><br>${shown}${more}`;
+      }
+      setBomStatus(msg, 'ok');
       mpnEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (err) {
-      setBomStatus('Couldn’t parse that file: ' + (err && err.message ? err.message : err) + '. Try CSV or XLSX.', 'err');
+      setBomStatus('Couldn’t parse that file: ' + esc(err && err.message ? err.message : String(err)) + '. Try CSV or XLSX.', 'err');
     }
   }
 
