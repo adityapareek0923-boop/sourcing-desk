@@ -792,7 +792,7 @@
     <label for="notes">Notes (optional)</label>
     <textarea id="notes" name="notes" placeholder="Acceptable alternates, date-code requirements, packaging, compliance (AS9100, ITAR, RoHS), shipping address, etc."></textarea>
 
-    <div id="cf-turnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAFPyjK0P_am6Bifm" data-size="invisible" data-execution="execute" data-callback="onTurnstileCallback" data-error-callback="onTurnstileError"></div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFPyjK0P_am6Bifm" data-size="flexible" style="margin: 20px 0;"></div>
 
     <button type="submit">Submit RFQ →</button>
   </form>
@@ -844,33 +844,14 @@
   const ok = document.getElementById('ok');
   const submitBtn = form.querySelector('button[type=submit]');
 
-  // Turnstile: run invisibly at submit time so the token is always fresh.
-  // No checkbox for the user. Token minted at click, verified on server.
-  window.onTurnstileCallback = function(token) {
-    if (window._turnstileResolve) { window._turnstileResolve(token); window._turnstileResolve = null; }
-  };
-  window.onTurnstileError = function() {
-    if (window._turnstileResolve) { window._turnstileResolve(null); window._turnstileResolve = null; }
-  };
-  function runTurnstile() {
-    return new Promise((resolve) => {
-      if (typeof turnstile === 'undefined') { resolve(null); return; }
-      window._turnstileResolve = resolve;
-      try { turnstile.reset('#cf-turnstile'); turnstile.execute('#cf-turnstile'); }
-      catch (e) { resolve(null); return; }
-      setTimeout(() => { if (window._turnstileResolve) { window._turnstileResolve(null); window._turnstileResolve = null; } }, 12000);
-    });
-  }
-
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Checking…';
+    submitBtn.textContent = 'Submitting…';
     const fd = new FormData(form);
     if (fd.get('website')) { ok.classList.add('show'); form.style.display = 'none'; return; } // honeypot
-    const turnstileToken = await runTurnstile();
-    if (!turnstileToken) { alert('Could not run the human check. Please reload the page and try again, or email hello@chipsharksupply.com.'); submitBtn.disabled = false; submitBtn.textContent = 'Submit RFQ →'; return; }
-    submitBtn.textContent = 'Submitting…';
+    const turnstileToken = fd.get('cf-turnstile-response');
+    if (!turnstileToken) { alert('Please tick the "I am human" check above the Submit button, then submit.'); submitBtn.disabled = false; submitBtn.textContent = 'Submit RFQ →'; return; }
     const payload = {
       name: fd.get('name'),
       company: fd.get('company'),
