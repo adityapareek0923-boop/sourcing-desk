@@ -728,7 +728,7 @@
 
     <div class="row">
       <div>
-        <label for="qty">Quantity needed *</label>
+        <label for="qty" id="qty-label">Quantity needed *</label>
         <input id="qty" name="qty" required placeholder="e.g. 500">
       </div>
       <div>
@@ -739,7 +739,7 @@
 
     <div class="row">
       <div>
-        <label for="needed">Needed by *</label>
+        <label for="needed" id="needed-label">Needed by *</label>
         <input id="needed" name="needed" type="date" required>
       </div>
       <div>
@@ -751,6 +751,43 @@
         </select>
       </div>
     </div>
+
+    <div class="row">
+      <div>
+        <label for="country">Country *</label>
+        <select id="country" name="country" required>
+          <option value="">— pick one —</option>
+          <option>United States</option>
+          <option>Canada</option>
+          <option>Mexico</option>
+          <option>United Kingdom</option>
+          <option>Germany</option>
+          <option>France</option>
+          <option>Netherlands</option>
+          <option>Italy</option>
+          <option>Spain</option>
+          <option>Sweden</option>
+          <option>Switzerland</option>
+          <option>India</option>
+          <option>Singapore</option>
+          <option>Japan</option>
+          <option>South Korea</option>
+          <option>China</option>
+          <option>Taiwan</option>
+          <option>Hong Kong</option>
+          <option>United Arab Emirates</option>
+          <option>Australia</option>
+          <option>Israel</option>
+          <option>Brazil</option>
+          <option>Other (specify in drop-off)</option>
+        </select>
+      </div>
+      <div>
+        <label for="drop_off">Drop-off: city, ZIP or port *</label>
+        <input id="drop_off" name="drop_off" required placeholder="e.g. 90210 Los Angeles · Chennai port · Jebel Ali Free Zone">
+      </div>
+    </div>
+    <p class="form-helper">Tighter drop-off = cheaper + faster quote. Give whichever you have: ZIP, city, port name, free-zone — we'll figure out the rest.</p>
 
     <label for="notes">Notes (optional)</label>
     <textarea id="notes" name="notes" placeholder="Acceptable alternates, date-code requirements, packaging, compliance (AS9100, ITAR, RoHS), shipping address, etc."></textarea>
@@ -821,10 +858,12 @@
       email: fd.get('email'),
       phone: fd.get('phone') || null,
       mpn: fd.get('mpn'),
-      qty: fd.get('qty'),
+      qty: fd.get('qty') || null,
       target: fd.get('target') || null,
-      needed_by: fd.get('needed'),
+      needed_by: fd.get('needed') || null,
       urgency: fd.get('urgency'),
+      country: fd.get('country'),
+      drop_off_location: fd.get('drop_off'),
       notes: fd.get('notes') || null,
       turnstile_token: turnstileToken
     };
