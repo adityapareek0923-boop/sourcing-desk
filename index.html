@@ -882,8 +882,16 @@
         form.style.display = 'none';
         ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else {
-        const err = await res.text();
-        alert(/rate_limited/.test(err) ? 'We are receiving a lot of requests right now. Please try again in a little while, or email hello@chipsharksupply.com.' : 'We could not submit your request. Please check the form and try again, or email hello@chipsharksupply.com.');
+        const errText = await res.text();
+        let serverMsg = errText;
+        try { serverMsg = JSON.parse(errText).error || errText; } catch(_) {}
+        if (/rate_limited/i.test(errText)) {
+          alert('We are receiving a lot of requests right now. Please try again shortly, or email hello@chipsharksupply.com.');
+        } else if (/human check|turnstile/i.test(serverMsg)) {
+          alert('The "I am human" check expired. Please reload the page, re-tick the box, and resubmit — forms expire after about 2 minutes.');
+        } else {
+          alert('Submit failed: ' + serverMsg + '\n\nIf this keeps happening, email hello@chipsharksupply.com.');
+        }
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit RFQ →';
       }
