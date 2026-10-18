@@ -46,6 +46,18 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   .chip { padding: 6px 12px; border-radius: 20px; border: 1px solid var(--line); font-size: 12px; cursor: pointer; background: var(--surface); color: var(--ink-2); font-family: inherit; }
   .chip.active { background: var(--accent); color: white; border-color: var(--accent); }
   .filters .sep { color: var(--ink-3); font-size: 11px; margin: 0 4px; }
+  .lchip { padding: 6px 12px; border-radius: 20px; border: 1px solid var(--line); font-size: 12px; cursor: pointer; background: var(--surface); color: var(--ink-2); font-family: inherit; }
+  .lchip.active { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .lchip .n { opacity: .6; margin-left: 4px; }
+  .lines { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 13px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .lines th, .lines td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--line); }
+  .lines th { font-weight: 500; color: var(--ink-3); font-size: 12px; }
+  .lines td.num, .lines th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .lines tr:last-child td { border-bottom: 0; }
+  .type-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: 2px; background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink-2); }
+  .type-tag.t-shortage { background: color-mix(in srgb, #d70015 12%, transparent); color: #d70015; }
+  .type-tag.t-ai_box { background: color-mix(in srgb, #0071e3 12%, transparent); color: #0071e3; }
+  .type-tag.t-retainer { background: color-mix(in srgb, #248a3d 14%, transparent); color: #248a3d; }
   .section-head { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-3); margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
   .section-head.priority { color: var(--danger); }
   .section-head .count { background: var(--surface-2); color: var(--ink-2); padding: 1px 7px; border-radius: 10px; font-weight: 500; letter-spacing: 0; }
@@ -270,6 +282,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   <div id="rfqs-view" class="view active">
     <div class="wrap">
       <div class="stats" id="stats"></div>
+      <table class="lines" id="lines"></table>
+      <div class="filters" id="line-filters"></div>
       <div class="filters" id="filters">
         <button class="chip" data-filter="all">All</button>
         <button class="chip active" data-filter="new">New</button>
@@ -406,6 +420,9 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   let token = null;      // session token from /verify (12h)
   let legacyPwd = null;  // only used if the API predates tokens
   let currentFilter = 'new'; // default to actionable queue
+  let currentLine = 'all';   // business line: part / shortage / ai_box / retainer
+  const LINES = { part: 'Parts', shortage: 'Shortage', ai_box: 'AI box', retainer: 'Retainer', bom_check: 'BOM check', sell: 'Buyback' };
+  const lineOf = (r) => r.type || 'part';
   let allRfqs = [];
   let knownIds = new Set();
   let justArrivedIds = new Set();
@@ -535,7 +552,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       <div class="${classes.join(' ')}" data-rfq-id="${r.id}">
         <div class="rfq-head">
           <div>
-            <p class="who">${esc(r.name)} · ${esc(r.company)}
+            <p class="who">${esc(r.name)} · ${esc(r.company)}<span class="type-tag t-${esc(lineOf(r))}">${esc(LINES[lineOf(r)] || lineOf(r))}</span>
               <span class="badge b-${status}">${status.replace(/_/g, ' ')}</span>
               ${urgent ? '<span class="badge b-urgent">URGENT</span>' : ''}
             </p>
@@ -584,6 +601,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function renderList() {
     const list = $('rfq-list');
     let rows = sortRows(allRfqs);
+    if (currentLine !== 'all') rows = rows.filter(r => lineOf(r) === currentLine);
     if (currentFilter === 'urgent') rows = rows.filter(r => (r.urgency || '').toLowerCase().match(/urgent|line down|critical/));
     else if (currentFilter !== 'all') rows = rows.filter(r => (r.status || 'new') === currentFilter);
 
@@ -618,6 +636,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
 
   // Does this RFQ still belong on the current filter? If not, it should fade away.
   function matchesCurrentFilter(r) {
+    if (currentLine !== 'all' && lineOf(r) !== currentLine) return false;
     if (currentFilter === 'all') return true;
     if (currentFilter === 'urgent') return (r.urgency || '').toLowerCase().match(/urgent|line down|critical/) && (r.status || 'new') === 'new';
     return (r.status || 'new') === currentFilter;
@@ -770,7 +789,25 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     }
   });
 
+  function renderLines() {
+    const keys = ['part', 'shortage', 'ai_box', 'retainer'];
+    for (const r of allRfqs) if (!keys.includes(lineOf(r))) keys.push(lineOf(r));
+    const money = (c) => '$' + Math.round(c / 100).toLocaleString('en-US');
+    let rowsHtml = '';
+    for (const k of keys) {
+      const rs = allRfqs.filter(r => lineOf(r) === k);
+      const quoted = rs.filter(r => r.quote_amount_cents);
+      const won = rs.filter(r => r.status === 'won');
+      rowsHtml += `<tr><td>${esc(LINES[k] || k)}</td><td class="num">${rs.length}</td><td class="num">${rs.filter(r => (r.status || 'new') === 'new').length}</td><td class="num">${quoted.length}</td><td class="num">${won.length}</td><td class="num">${money(won.reduce((a, r) => a + (r.quote_amount_cents || 0), 0))}</td><td class="num">${rs.length ? Math.round(won.length / rs.length * 100) : 0}%</td></tr>`;
+    }
+    $('lines').innerHTML = `<tr><th>Business line</th><th class="num">Requests</th><th class="num">Open</th><th class="num">Quoted</th><th class="num">Won</th><th class="num">Won value</th><th class="num">Win rate</th></tr>` + rowsHtml;
+    $('line-filters').innerHTML = [['all', 'All lines', allRfqs.length], ...keys.map(k => [k, LINES[k] || k, allRfqs.filter(r => lineOf(r) === k).length])]
+      .map(([k, label, n]) => `<button class="lchip${k === currentLine ? ' active' : ''}" data-line="${k}">${esc(label)}<span class="n">${n}</span></button>`).join('');
+    $('line-filters').querySelectorAll('.lchip').forEach(b => b.addEventListener('click', () => { currentLine = b.dataset.line; renderLines(); renderList(); }));
+  }
+
   function renderStats() {
+    renderLines();
     const total = allRfqs.length;
     const newCount = allRfqs.filter(r => (r.status || 'new') === 'new').length;
     const quoted = allRfqs.filter(r => r.status === 'quoted').length;
