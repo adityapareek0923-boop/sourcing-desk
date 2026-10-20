@@ -5,7 +5,63 @@
   // Cloudflare Web Analytics: paste the site token here (it is public, it ships in page source). Empty = off.
   const CF_BEACON_TOKEN = "";
 
+  // Google tag: paste your GA4 ID ("G-XXXXXXX") and/or Google Ads ID ("AW-XXXXXXX"). Empty = off.
+  const GA4_ID = "";
+  const ADS_ID = "";
+  // Google Ads conversion "send_to" for a submitted request, e.g. "AW-123456789/AbCdEfGh". Empty = off.
+  const ADS_LEAD_SEND_TO = "";
+
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- Ad-source capture: first landing of the session wins, so a later internal click doesn't overwrite it.
+  const SRC_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "gbraid", "wbraid", "li_fat_id", "fbclid"];
+  function readSource() {
+    try { const s = sessionStorage.getItem("cs_src"); if (s) return JSON.parse(s); } catch (_) {}
+    return null;
+  }
+  (function captureSource() {
+    const q = new URLSearchParams(location.search);
+    const src = {};
+    SRC_KEYS.forEach((k) => { const v = q.get(k); if (v) src[k] = v.slice(0, 200); });
+    const hasNew = Object.keys(src).length > 0;
+    if (!hasNew && readSource()) return;
+    const ref = document.referrer && !document.referrer.startsWith(location.origin) ? document.referrer.slice(0, 300) : "";
+    if (ref) src.referrer = ref;
+    src.landing = location.pathname;
+    src.at = new Date().toISOString();
+    try { sessionStorage.setItem("cs_src", JSON.stringify(src)); } catch (_) {}
+  })();
+  // Channel label used by the admin "Source" table.
+  function channelOf(s) {
+    if (!s) return "direct";
+    if (s.gclid || s.gbraid || s.wbraid) return "google_ads";
+    if (s.li_fat_id) return "linkedin_ads";
+    if (s.utm_source) return (s.utm_source + (s.utm_medium ? "_" + s.utm_medium : "")).toLowerCase();
+    if (s.referrer) { try { return "ref:" + new URL(s.referrer).hostname.replace(/^www\./, ""); } catch (_) {} }
+    return "direct";
+  }
+  window.csSource = function () { const s = readSource() || {}; return Object.assign({ channel: channelOf(s) }, s); };
+
+  // ---- Google tag (GA4 + Ads), with Consent Mode: denied by default for EU/EEA/UK/CH visitors.
+  if (GA4_ID || ADS_ID) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied",
+      region: ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IS","IE","IT","LV","LI","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","GB","CH"] });
+    const g = document.createElement("script");
+    g.async = true;
+    g.src = "https://www.googletagmanager.com/gtag/js?id=" + (GA4_ID || ADS_ID);
+    document.head.appendChild(g);
+    gtag("js", new Date());
+    if (GA4_ID) gtag("config", GA4_ID);
+    if (ADS_ID) gtag("config", ADS_ID);
+  }
+  // Call after a request is saved. type = part / shortage / ai_box / retainer.
+  window.csConvert = function (type) {
+    if (!window.gtag) return;
+    gtag("event", "generate_lead", { lead_type: type || "part" });
+    if (ADS_LEAD_SEND_TO) gtag("event", "conversion", { send_to: ADS_LEAD_SEND_TO });
+  };
 
   if (CF_BEACON_TOKEN) {
     const s = document.createElement("script");
@@ -85,6 +141,7 @@
         notes: fd.get("notes") || null,
         turnstile_token: token,
       }, extra);
+      payload.meta = Object.assign({}, extra.meta, { source: window.csSource() });
       try {
         const res = await fetch(SUPABASE_URL + "/functions/v1/rfq-submit", {
           method: "POST",
@@ -92,6 +149,7 @@
           body: JSON.stringify(payload),
         });
         if (res.ok) {
+          window.csConvert(opts.type);
           form.hidden = true;
           if (done) { done.classList.add("cs-show"); done.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }); }
           return;

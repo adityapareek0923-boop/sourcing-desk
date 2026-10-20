@@ -283,6 +283,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     <div class="wrap">
       <div class="stats" id="stats"></div>
       <table class="lines" id="lines"></table>
+      <table class="lines" id="sources"></table>
       <div class="filters" id="line-filters"></div>
       <div class="filters" id="filters">
         <button class="chip" data-filter="all">All</button>
@@ -567,6 +568,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
           <div class="rfq-field"><div class="label">Needed by</div><div class="value">${esc(r.needed_by || '— (in BOM)')}</div></div>
           <div class="rfq-field"><div class="label">Urgency</div><div class="value">${esc(r.urgency)}</div></div>
           <div class="rfq-field"><div class="label">Country</div><div class="value">${esc(r.country || '—')}</div></div>
+          ${r.meta && r.meta.source ? `<div class="rfq-field" style="grid-column:1/-1"><div class="label">Source</div><div class="value">${esc([r.meta.source.channel, r.meta.source.utm_campaign, r.meta.source.utm_term && ('“' + r.meta.source.utm_term + '”'), r.meta.source.landing].filter(Boolean).join(' · '))}</div></div>` : ''}
           <div class="rfq-field" style="grid-column:1/-1"><div class="label">Drop-off</div><div class="value">${esc(r.drop_off_location || '—')}</div></div>
           ${r.notes ? `<div class="rfq-field" style="grid-column:1/-1"><div class="label">Notes</div><pre class="value">${esc(r.notes)}</pre></div>` : ''}
         </div>
@@ -800,6 +802,13 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       const won = rs.filter(r => r.status === 'won');
       rowsHtml += `<tr><td>${esc(LINES[k] || k)}</td><td class="num">${rs.length}</td><td class="num">${rs.filter(r => (r.status || 'new') === 'new').length}</td><td class="num">${quoted.length}</td><td class="num">${won.length}</td><td class="num">${money(won.reduce((a, r) => a + (r.quote_amount_cents || 0), 0))}</td><td class="num">${rs.length ? Math.round(won.length / rs.length * 100) : 0}%</td></tr>`;
     }
+    // Source breakdown: where requests came from (meta.source.channel, set by cs.js on the site).
+    const srcOf = (r) => (r.meta && r.meta.source && (r.meta.source.utm_campaign ? r.meta.source.channel + ' · ' + r.meta.source.utm_campaign : r.meta.source.channel)) || 'unknown (before tracking)';
+    const srcKeys = [...new Set(allRfqs.map(srcOf))].sort((a, b) => allRfqs.filter(r => srcOf(r) === b).length - allRfqs.filter(r => srcOf(r) === a).length);
+    $('sources').innerHTML = `<tr><th>Source</th><th class="num">Requests</th><th class="num">Quoted</th><th class="num">Won</th><th class="num">Won value</th><th class="num">Win rate</th></tr>` + srcKeys.map(k => {
+      const rs = allRfqs.filter(r => srcOf(r) === k), won = rs.filter(r => r.status === 'won');
+      return `<tr><td>${esc(k)}</td><td class="num">${rs.length}</td><td class="num">${rs.filter(r => r.quote_amount_cents).length}</td><td class="num">${won.length}</td><td class="num">${money(won.reduce((a, r) => a + (r.quote_amount_cents || 0), 0))}</td><td class="num">${rs.length ? Math.round(won.length / rs.length * 100) : 0}%</td></tr>`;
+    }).join('');
     $('lines').innerHTML = `<tr><th>Business line</th><th class="num">Requests</th><th class="num">Open</th><th class="num">Quoted</th><th class="num">Won</th><th class="num">Won value</th><th class="num">Win rate</th></tr>` + rowsHtml;
     $('line-filters').innerHTML = [['all', 'All lines', allRfqs.length], ...keys.map(k => [k, LINES[k] || k, allRfqs.filter(r => lineOf(r) === k).length])]
       .map(([k, label, n]) => `<button class="lchip${k === currentLine ? ' active' : ''}" data-line="${k}">${esc(label)}<span class="n">${n}</span></button>`).join('');
