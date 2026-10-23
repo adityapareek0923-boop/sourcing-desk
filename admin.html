@@ -2,1513 +2,938 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ChipShark — Admin</title>
+<title>ChipShark Desk</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='0' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>/* qrcode-generator 1.4.4, MIT, Kazuhiko Arase — self-hosted (no CDN) */
 var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],f={},c=function(t,r){o=function(t){for(var r=new Array(t),e=0;e<t;e+=1){r[e]=new Array(t);for(var n=0;n<t;n+=1)r[e][n]=null}return r}(i=4*e+17),l(0,0),l(i-7,0),l(0,i-7),s(),h(),d(t,r),e>=7&&v(t),null==a&&(a=p(e,n,u)),w(a,r)},l=function(t,r){for(var e=-1;e<=7;e+=1)if(!(t+e<=-1||i<=t+e))for(var n=-1;n<=7;n+=1)r+n<=-1||i<=r+n||(o[t+e][r+n]=0<=e&&e<=6&&(0==n||6==n)||0<=n&&n<=6&&(0==e||6==e)||2<=e&&e<=4&&2<=n&&n<=4)},h=function(){for(var t=8;t<i-8;t+=1)null==o[t][6]&&(o[t][6]=t%2==0);for(var r=8;r<i-8;r+=1)null==o[6][r]&&(o[6][r]=r%2==0)},s=function(){for(var t=B.getPatternPosition(e),r=0;r<t.length;r+=1)for(var n=0;n<t.length;n+=1){var i=t[r],a=t[n];if(null==o[i][a])for(var u=-2;u<=2;u+=1)for(var f=-2;f<=2;f+=1)o[i+u][a+f]=-2==u||2==u||-2==f||2==f||0==u&&0==f}},v=function(t){for(var r=B.getBCHTypeNumber(e),n=0;n<18;n+=1){var a=!t&&1==(r>>n&1);o[Math.floor(n/3)][n%3+i-8-3]=a}for(n=0;n<18;n+=1){a=!t&&1==(r>>n&1);o[n%3+i-8-3][Math.floor(n/3)]=a}},d=function(t,r){for(var e=n<<3|r,a=B.getBCHTypeInfo(e),u=0;u<15;u+=1){var f=!t&&1==(a>>u&1);u<6?o[u][8]=f:u<8?o[u+1][8]=f:o[i-15+u][8]=f}for(u=0;u<15;u+=1){f=!t&&1==(a>>u&1);u<8?o[8][i-u-1]=f:u<9?o[8][15-u-1+1]=f:o[8][15-u-1]=f}o[i-8][8]=!t},w=function(t,r){for(var e=-1,n=i-1,a=7,u=0,f=B.getMaskFunction(r),c=i-1;c>0;c-=2)for(6==c&&(c-=1);;){for(var g=0;g<2;g+=1)if(null==o[n][c-g]){var l=!1;u<t.length&&(l=1==(t[u]>>>a&1)),f(n,c-g)&&(l=!l),o[n][c-g]=l,-1==(a-=1)&&(u+=1,a=7)}if((n+=e)<0||i<=n){n-=e,e=-e;break}}},p=function(t,r,e){for(var n=A.getRSBlocks(t,r),o=b(),i=0;i<e.length;i+=1){var a=e[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var u=0;for(i=0;i<n.length;i+=1)u+=n[i].dataCount;if(o.getLengthInBits()>8*u)throw"code length overflow. ("+o.getLengthInBits()+">"+8*u+")";for(o.getLengthInBits()+4<=8*u&&o.put(0,4);o.getLengthInBits()%8!=0;)o.putBit(!1);for(;!(o.getLengthInBits()>=8*u||(o.put(236,8),o.getLengthInBits()>=8*u));)o.put(17,8);return function(t,r){for(var e=0,n=0,o=0,i=new Array(r.length),a=new Array(r.length),u=0;u<r.length;u+=1){var f=r[u].dataCount,c=r[u].totalCount-f;n=Math.max(n,f),o=Math.max(o,c),i[u]=new Array(f);for(var g=0;g<i[u].length;g+=1)i[u][g]=255&t.getBuffer()[g+e];e+=f;var l=B.getErrorCorrectPolynomial(c),h=k(i[u],l.getLength()-1).mod(l);for(a[u]=new Array(l.getLength()-1),g=0;g<a[u].length;g+=1){var s=g+h.getLength()-a[u].length;a[u][g]=s>=0?h.getAt(s):0}}var v=0;for(g=0;g<r.length;g+=1)v+=r[g].totalCount;var d=new Array(v),w=0;for(g=0;g<n;g+=1)for(u=0;u<r.length;u+=1)g<i[u].length&&(d[w]=i[u][g],w+=1);for(g=0;g<o;g+=1)for(u=0;u<r.length;u+=1)g<a[u].length&&(d[w]=a[u][g],w+=1);return d}(o,n)};f.addData=function(t,r){var e=null;switch(r=r||"Byte"){case"Numeric":e=M(t);break;case"Alphanumeric":e=x(t);break;case"Byte":e=m(t);break;case"Kanji":e=L(t);break;default:throw"mode:"+r}u.push(e),a=null},f.isDark=function(t,r){if(t<0||i<=t||r<0||i<=r)throw t+","+r;return o[t][r]},f.getModuleCount=function(){return i},f.make=function(){if(e<1){for(var t=1;t<40;t++){for(var r=A.getRSBlocks(t,n),o=b(),i=0;i<u.length;i++){var a=u[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var g=0;for(i=0;i<r.length;i++)g+=r[i].dataCount;if(o.getLengthInBits()<=8*g)break}e=t}c(!1,function(){for(var t=0,r=0,e=0;e<8;e+=1){c(!0,e);var n=B.getLostPoint(f);(0==e||t>n)&&(t=n,r=e)}return r}())},f.createTableTag=function(t,r){t=t||2;var e="";e+='<table style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: "+(r=void 0===r?4*t:r)+"px;",e+='">',e+="<tbody>";for(var n=0;n<f.getModuleCount();n+=1){e+="<tr>";for(var o=0;o<f.getModuleCount();o+=1)e+='<td style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: 0px;",e+=" width: "+t+"px;",e+=" height: "+t+"px;",e+=" background-color: ",e+=f.isDark(n,o)?"#000000":"#ffffff",e+=";",e+='"/>';e+="</tr>"}return e+="</tbody>",e+="</table>"},f.createSvgTag=function(t,r,e,n){var o={};"object"==typeof arguments[0]&&(t=(o=arguments[0]).cellSize,r=o.margin,e=o.alt,n=o.title),t=t||2,r=void 0===r?4*t:r,(e="string"==typeof e?{text:e}:e||{}).text=e.text||null,e.id=e.text?e.id||"qrcode-description":null,(n="string"==typeof n?{text:n}:n||{}).text=n.text||null,n.id=n.text?n.id||"qrcode-title":null;var i,a,u,c,g=f.getModuleCount()*t+2*r,l="";for(c="l"+t+",0 0,"+t+" -"+t+",0 0,-"+t+"z ",l+='<svg version="1.1" xmlns="http://www.w3.org/2000/svg"',l+=o.scalable?"":' width="'+g+'px" height="'+g+'px"',l+=' viewBox="0 0 '+g+" "+g+'" ',l+=' preserveAspectRatio="xMinYMin meet"',l+=n.text||e.text?' role="img" aria-labelledby="'+y([n.id,e.id].join(" ").trim())+'"':"",l+=">",l+=n.text?'<title id="'+y(n.id)+'">'+y(n.text)+"</title>":"",l+=e.text?'<description id="'+y(e.id)+'">'+y(e.text)+"</description>":"",l+='<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>',l+='<path d="',a=0;a<f.getModuleCount();a+=1)for(u=a*t+r,i=0;i<f.getModuleCount();i+=1)f.isDark(a,i)&&(l+="M"+(i*t+r)+","+u+c);return l+='" stroke="transparent" fill="black"/>',l+="</svg>"},f.createDataURL=function(t,r){t=t||2,r=void 0===r?4*t:r;var e=f.getModuleCount()*t+2*r,n=r,o=e-r;return I(e,e,function(r,e){if(n<=r&&r<o&&n<=e&&e<o){var i=Math.floor((r-n)/t),a=Math.floor((e-n)/t);return f.isDark(a,i)?0:1}return 1})},f.createImgTag=function(t,r,e){t=t||2,r=void 0===r?4*t:r;var n=f.getModuleCount()*t+2*r,o="";return o+="<img",o+=' src="',o+=f.createDataURL(t,r),o+='"',o+=' width="',o+=n,o+='"',o+=' height="',o+=n,o+='"',e&&(o+=' alt="',o+=y(e),o+='"'),o+="/>"};var y=function(t){for(var r="",e=0;e<t.length;e+=1){var n=t.charAt(e);switch(n){case"<":r+="&lt;";break;case">":r+="&gt;";break;case"&":r+="&amp;";break;case'"':r+="&quot;";break;default:r+=n}}return r};return f.createASCII=function(t,r){if((t=t||1)<2)return function(t){t=void 0===t?2:t;var r,e,n,o,i,a=1*f.getModuleCount()+2*t,u=t,c=a-t,g={"██":"█","█ ":"▀"," █":"▄","  ":" "},l={"██":"▀","█ ":"▀"," █":" ","  ":" "},h="";for(r=0;r<a;r+=2){for(n=Math.floor((r-u)/1),o=Math.floor((r+1-u)/1),e=0;e<a;e+=1)i="█",u<=e&&e<c&&u<=r&&r<c&&f.isDark(n,Math.floor((e-u)/1))&&(i=" "),u<=e&&e<c&&u<=r+1&&r+1<c&&f.isDark(o,Math.floor((e-u)/1))?i+=" ":i+="█",h+=t<1&&r+1>=c?l[i]:g[i];h+="\n"}return a%2&&t>0?h.substring(0,h.length-a-1)+Array(a+1).join("▀"):h.substring(0,h.length-1)}(r);t-=1,r=void 0===r?2*t:r;var e,n,o,i,a=f.getModuleCount()*t+2*r,u=r,c=a-r,g=Array(t+1).join("██"),l=Array(t+1).join("  "),h="",s="";for(e=0;e<a;e+=1){for(o=Math.floor((e-u)/t),s="",n=0;n<a;n+=1)i=1,u<=n&&n<c&&u<=e&&e<c&&f.isDark(o,Math.floor((n-u)/t))&&(i=0),s+=i?g:l;for(o=0;o<t;o+=1)h+=s+"\n"}return h.substring(0,h.length-1)},f.renderTo2dContext=function(t,r){r=r||2;for(var e=f.getModuleCount(),n=0;n<e;n++)for(var o=0;o<e;o++)t.fillStyle=f.isDark(n,o)?"black":"white",t.fillRect(n*r,o*r,r,r)},f};t.stringToBytes=(t.stringToBytesFuncs={default:function(t){for(var r=[],e=0;e<t.length;e+=1){var n=t.charCodeAt(e);r.push(255&n)}return r}}).default,t.createStringToBytes=function(t,r){var e=function(){for(var e=S(t),n=function(){var t=e.read();if(-1==t)throw"eof";return t},o=0,i={};;){var a=e.read();if(-1==a)break;var u=n(),f=n()<<8|n();i[String.fromCharCode(a<<8|u)]=f,o+=1}if(o!=r)throw o+" != "+r;return i}(),n="?".charCodeAt(0);return function(t){for(var r=[],o=0;o<t.length;o+=1){var i=t.charCodeAt(o);if(i<128)r.push(i);else{var a=e[t.charAt(o)];"number"==typeof a?(255&a)==a?r.push(a):(r.push(a>>>8),r.push(255&a)):r.push(n)}}return r}};var r,e,n,o,i,a=1,u=2,f=4,c=8,g={L:1,M:0,Q:3,H:2},l=0,h=1,s=2,v=3,d=4,w=5,p=6,y=7,B=(r=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],e=1335,n=7973,i=function(t){for(var r=0;0!=t;)r+=1,t>>>=1;return r},(o={}).getBCHTypeInfo=function(t){for(var r=t<<10;i(r)-i(e)>=0;)r^=e<<i(r)-i(e);return 21522^(t<<10|r)},o.getBCHTypeNumber=function(t){for(var r=t<<12;i(r)-i(n)>=0;)r^=n<<i(r)-i(n);return t<<12|r},o.getPatternPosition=function(t){return r[t-1]},o.getMaskFunction=function(t){switch(t){case l:return function(t,r){return(t+r)%2==0};case h:return function(t,r){return t%2==0};case s:return function(t,r){return r%3==0};case v:return function(t,r){return(t+r)%3==0};case d:return function(t,r){return(Math.floor(t/2)+Math.floor(r/3))%2==0};case w:return function(t,r){return t*r%2+t*r%3==0};case p:return function(t,r){return(t*r%2+t*r%3)%2==0};case y:return function(t,r){return(t*r%3+(t+r)%2)%2==0};default:throw"bad maskPattern:"+t}},o.getErrorCorrectPolynomial=function(t){for(var r=k([1],0),e=0;e<t;e+=1)r=r.multiply(k([1,C.gexp(e)],0));return r},o.getLengthInBits=function(t,r){if(1<=r&&r<10)switch(t){case a:return 10;case u:return 9;case f:case c:return 8;default:throw"mode:"+t}else if(r<27)switch(t){case a:return 12;case u:return 11;case f:return 16;case c:return 10;default:throw"mode:"+t}else{if(!(r<41))throw"type:"+r;switch(t){case a:return 14;case u:return 13;case f:return 16;case c:return 12;default:throw"mode:"+t}}},o.getLostPoint=function(t){for(var r=t.getModuleCount(),e=0,n=0;n<r;n+=1)for(var o=0;o<r;o+=1){for(var i=0,a=t.isDark(n,o),u=-1;u<=1;u+=1)if(!(n+u<0||r<=n+u))for(var f=-1;f<=1;f+=1)o+f<0||r<=o+f||0==u&&0==f||a==t.isDark(n+u,o+f)&&(i+=1);i>5&&(e+=3+i-5)}for(n=0;n<r-1;n+=1)for(o=0;o<r-1;o+=1){var c=0;t.isDark(n,o)&&(c+=1),t.isDark(n+1,o)&&(c+=1),t.isDark(n,o+1)&&(c+=1),t.isDark(n+1,o+1)&&(c+=1),0!=c&&4!=c||(e+=3)}for(n=0;n<r;n+=1)for(o=0;o<r-6;o+=1)t.isDark(n,o)&&!t.isDark(n,o+1)&&t.isDark(n,o+2)&&t.isDark(n,o+3)&&t.isDark(n,o+4)&&!t.isDark(n,o+5)&&t.isDark(n,o+6)&&(e+=40);for(o=0;o<r;o+=1)for(n=0;n<r-6;n+=1)t.isDark(n,o)&&!t.isDark(n+1,o)&&t.isDark(n+2,o)&&t.isDark(n+3,o)&&t.isDark(n+4,o)&&!t.isDark(n+5,o)&&t.isDark(n+6,o)&&(e+=40);var g=0;for(o=0;o<r;o+=1)for(n=0;n<r;n+=1)t.isDark(n,o)&&(g+=1);return e+=Math.abs(100*g/r/r-50)/5*10},o),C=function(){for(var t=new Array(256),r=new Array(256),e=0;e<8;e+=1)t[e]=1<<e;for(e=8;e<256;e+=1)t[e]=t[e-4]^t[e-5]^t[e-6]^t[e-8];for(e=0;e<255;e+=1)r[t[e]]=e;var n={glog:function(t){if(t<1)throw"glog("+t+")";return r[t]},gexp:function(r){for(;r<0;)r+=255;for(;r>=256;)r-=255;return t[r]}};return n}();function k(t,r){if(void 0===t.length)throw t.length+"/"+r;var e=function(){for(var e=0;e<t.length&&0==t[e];)e+=1;for(var n=new Array(t.length-e+r),o=0;o<t.length-e;o+=1)n[o]=t[o+e];return n}(),n={getAt:function(t){return e[t]},getLength:function(){return e.length},multiply:function(t){for(var r=new Array(n.getLength()+t.getLength()-1),e=0;e<n.getLength();e+=1)for(var o=0;o<t.getLength();o+=1)r[e+o]^=C.gexp(C.glog(n.getAt(e))+C.glog(t.getAt(o)));return k(r,0)},mod:function(t){if(n.getLength()-t.getLength()<0)return n;for(var r=C.glog(n.getAt(0))-C.glog(t.getAt(0)),e=new Array(n.getLength()),o=0;o<n.getLength();o+=1)e[o]=n.getAt(o);for(o=0;o<t.getLength();o+=1)e[o]^=C.gexp(C.glog(t.getAt(o))+r);return k(e,0).mod(t)}};return n}var A=function(){var t=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],r=function(t,r){var e={};return e.totalCount=t,e.dataCount=r,e},e={};return e.getRSBlocks=function(e,n){var o=function(r,e){switch(e){case g.L:return t[4*(r-1)+0];case g.M:return t[4*(r-1)+1];case g.Q:return t[4*(r-1)+2];case g.H:return t[4*(r-1)+3];default:return}}(e,n);if(void 0===o)throw"bad rs block @ typeNumber:"+e+"/errorCorrectionLevel:"+n;for(var i=o.length/3,a=[],u=0;u<i;u+=1)for(var f=o[3*u+0],c=o[3*u+1],l=o[3*u+2],h=0;h<f;h+=1)a.push(r(c,l));return a},e}(),b=function(){var t=[],r=0,e={getBuffer:function(){return t},getAt:function(r){var e=Math.floor(r/8);return 1==(t[e]>>>7-r%8&1)},put:function(t,r){for(var n=0;n<r;n+=1)e.putBit(1==(t>>>r-n-1&1))},getLengthInBits:function(){return r},putBit:function(e){var n=Math.floor(r/8);t.length<=n&&t.push(0),e&&(t[n]|=128>>>r%8),r+=1}};return e},M=function(t){var r=a,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+2<r.length;)t.put(o(r.substring(n,n+3)),10),n+=3;n<r.length&&(r.length-n==1?t.put(o(r.substring(n,n+1)),4):r.length-n==2&&t.put(o(r.substring(n,n+2)),7))}},o=function(t){for(var r=0,e=0;e<t.length;e+=1)r=10*r+i(t.charAt(e));return r},i=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);throw"illegal char :"+t};return n},x=function(t){var r=u,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+1<r.length;)t.put(45*o(r.charAt(n))+o(r.charAt(n+1)),11),n+=2;n<r.length&&t.put(o(r.charAt(n)),6)}},o=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);if("A"<=t&&t<="Z")return t.charCodeAt(0)-"A".charCodeAt(0)+10;switch(t){case" ":return 36;case"$":return 37;case"%":return 38;case"*":return 39;case"+":return 40;case"-":return 41;case".":return 42;case"/":return 43;case":":return 44;default:throw"illegal char :"+t}};return n},m=function(r){var e=f,n=t.stringToBytes(r),o={getMode:function(){return e},getLength:function(t){return n.length},write:function(t){for(var r=0;r<n.length;r+=1)t.put(n[r],8)}};return o},L=function(r){var e=c,n=t.stringToBytesFuncs.SJIS;if(!n)throw"sjis not supported.";!function(){var t=n("友");if(2!=t.length||38726!=(t[0]<<8|t[1]))throw"sjis not supported."}();var o=n(r),i={getMode:function(){return e},getLength:function(t){return~~(o.length/2)},write:function(t){for(var r=o,e=0;e+1<r.length;){var n=(255&r[e])<<8|255&r[e+1];if(33088<=n&&n<=40956)n-=33088;else{if(!(57408<=n&&n<=60351))throw"illegal char at "+(e+1)+"/"+n;n-=49472}n=192*(n>>>8&255)+(255&n),t.put(n,13),e+=2}if(e<r.length)throw"illegal char at "+(e+1)}};return i},D=function(){var t=[],r={writeByte:function(r){t.push(255&r)},writeShort:function(t){r.writeByte(t),r.writeByte(t>>>8)},writeBytes:function(t,e,n){e=e||0,n=n||t.length;for(var o=0;o<n;o+=1)r.writeByte(t[o+e])},writeString:function(t){for(var e=0;e<t.length;e+=1)r.writeByte(t.charCodeAt(e))},toByteArray:function(){return t},toString:function(){var r="";r+="[";for(var e=0;e<t.length;e+=1)e>0&&(r+=","),r+=t[e];return r+="]"}};return r},S=function(t){var r=t,e=0,n=0,o=0,i={read:function(){for(;o<8;){if(e>=r.length){if(0==o)return-1;throw"unexpected end of file./"+o}var t=r.charAt(e);if(e+=1,"="==t)return o=0,-1;t.match(/^\s$/)||(n=n<<6|a(t.charCodeAt(0)),o+=6)}var i=n>>>o-8&255;return o-=8,i}},a=function(t){if(65<=t&&t<=90)return t-65;if(97<=t&&t<=122)return t-97+26;if(48<=t&&t<=57)return t-48+52;if(43==t)return 62;if(47==t)return 63;throw"c:"+t};return i},I=function(t,r,e){for(var n=function(t,r){var e=t,n=r,o=new Array(t*r),i={setPixel:function(t,r,n){o[r*e+t]=n},write:function(t){t.writeString("GIF87a"),t.writeShort(e),t.writeShort(n),t.writeByte(128),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(255),t.writeByte(255),t.writeByte(255),t.writeString(","),t.writeShort(0),t.writeShort(0),t.writeShort(e),t.writeShort(n),t.writeByte(0);var r=a(2);t.writeByte(2);for(var o=0;r.length-o>255;)t.writeByte(255),t.writeBytes(r,o,255),o+=255;t.writeByte(r.length-o),t.writeBytes(r,o,r.length-o),t.writeByte(0),t.writeString(";")}},a=function(t){for(var r=1<<t,e=1+(1<<t),n=t+1,i=u(),a=0;a<r;a+=1)i.add(String.fromCharCode(a));i.add(String.fromCharCode(r)),i.add(String.fromCharCode(e));var f,c,g,l=D(),h=(f=l,c=0,g=0,{write:function(t,r){if(t>>>r!=0)throw"length over";for(;c+r>=8;)f.writeByte(255&(t<<c|g)),r-=8-c,t>>>=8-c,g=0,c=0;g|=t<<c,c+=r},flush:function(){c>0&&f.writeByte(g)}});h.write(r,n);var s=0,v=String.fromCharCode(o[s]);for(s+=1;s<o.length;){var d=String.fromCharCode(o[s]);s+=1,i.contains(v+d)?v+=d:(h.write(i.indexOf(v),n),i.size()<4095&&(i.size()==1<<n&&(n+=1),i.add(v+d)),v=d)}return h.write(i.indexOf(v),n),h.write(e,n),h.flush(),l.toByteArray()},u=function(){var t={},r=0,e={add:function(n){if(e.contains(n))throw"dup key:"+n;t[n]=r,r+=1},size:function(){return r},indexOf:function(r){return t[r]},contains:function(r){return void 0!==t[r]}};return e};return i}(t,r),o=0;o<r;o+=1)for(var i=0;i<t;i+=1)n.setPixel(i,o,e(i,o));var a=D();n.write(a);for(var u=function(){var t=0,r=0,e=0,n="",o={},i=function(t){n+=String.fromCharCode(a(63&t))},a=function(t){if(t<0);else{if(t<26)return 65+t;if(t<52)return t-26+97;if(t<62)return t-52+48;if(62==t)return 43;if(63==t)return 47}throw"n:"+t};return o.writeByte=function(n){for(t=t<<8|255&n,r+=8,e+=1;r>=6;)i(t>>>r-6),r-=6},o.flush=function(){if(r>0&&(i(t<<6-r),t=0,r=0),e%3!=0)for(var o=3-e%3,a=0;a<o;a+=1)n+="="},o.toString=function(){return n},o}(),f=a.toByteArray(),c=0;c<f.length;c+=1)u.writeByte(f[c]);return u.flush(),"data:image/gif;base64,"+u};return t}();qrcode.stringToBytesFuncs["UTF-8"]=function(t){return function(t){for(var r=[],e=0;e<t.length;e++){var n=t.charCodeAt(e);n<128?r.push(n):n<2048?r.push(192|n>>6,128|63&n):n<55296||n>=57344?r.push(224|n>>12,128|n>>6&63,128|63&n):(e++,n=65536+((1023&n)<<10|1023&t.charCodeAt(e)),r.push(240|n>>18,128|n>>12&63,128|n>>6&63,128|63&n))}return r}(t)},function(t){"function"==typeof define&&define.amd?define([],t):"object"==typeof exports&&(module.exports=t())}(function(){return qrcode});
 </script>
 <style>
-  :root { --bg:#ffffff; --surface:#fff; --surface-2:#f5f5f7; --ink:#1d1d1f; --ink-2:#424245; --ink-3:#86868b; --line:#d2d2d7; --accent:#0071e3; --accent-hover:#0077ed; --ok:#30861a; --warn:#8a4a0b; --danger:#c0392b; }
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: "Inter", "-apple-system", BlinkMacSystemFont, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
-  .topbar { position: sticky; top:0; z-index: 10; background: color-mix(in srgb, var(--bg) 80%, transparent); backdrop-filter: blur(20px); border-bottom: 1px solid var(--line); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-  .topbar .brand { display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; }
-  .brand-mark { width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center; color: var(--ink); }
-  .brand-mark svg { width:26px; height:26px; display:block; }
-  .topbar .right { display:flex; align-items:center; gap:10px; }
-  .topbar .live { display:inline-flex; align-items:center; gap:6px; font-size:11px; color: var(--ink-3); padding: 4px 10px; background: var(--surface-2); border-radius: 20px; }
-  .topbar .live .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-  .topbar button { background: transparent; border: 1px solid var(--line); border-radius: 20px; padding: 6px 12px; font-size: 12px; color: var(--ink-2); cursor: pointer; }
-  .topbar button:hover { background: var(--surface-2); }
-  .login { max-width: 400px; margin: 80px auto; padding: 32px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
-  .login h1 { font-size: 22px; margin: 0 0 6px; font-weight: 600; letter-spacing: -0.01em; }
-  .login p { margin: 0 0 20px; font-size: 14px; color: var(--ink-2); line-height: 1.5; }
-  .login input { width: 100%; padding: 11px 13px; font-size: 15px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; font-family: inherit; margin-bottom: 12px; }
-  .login input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
-  .login button { width: 100%; background: var(--accent); color: white; border: none; padding: 12px; font-size: 15px; font-weight: 500; border-radius: 10px; cursor: pointer; font-family: inherit; }
-  .login button:hover { opacity: 0.92; }
-  .login button:disabled { opacity: 0.6; cursor: not-allowed; }
-  .login .msg { font-size: 13px; margin-top: 12px; padding: 10px; border-radius: 8px; }
-  .login .msg.ok { background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--ok); }
-  .login .msg.err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
-  .login .note { font-size: 11px; color: var(--ink-3); text-align: center; margin-top: 14px; }
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 24px; }
-  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
-  .stat.urgent-alive { border-color: var(--danger); background: color-mix(in srgb, var(--danger) 6%, var(--surface)); }
-  .stat .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); margin-bottom: 4px; }
-  .stat .value { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
-  .filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
-  .chip { padding: 6px 12px; border-radius: 20px; border: 1px solid var(--line); font-size: 12px; cursor: pointer; background: var(--surface); color: var(--ink-2); font-family: inherit; }
-  .chip.active { background: var(--accent); color: white; border-color: var(--accent); }
-  .filters .sep { color: var(--ink-3); font-size: 11px; margin: 0 4px; }
-  .lchip { padding: 6px 12px; border-radius: 20px; border: 1px solid var(--line); font-size: 12px; cursor: pointer; background: var(--surface); color: var(--ink-2); font-family: inherit; }
-  .lchip.active { background: var(--ink); color: var(--surface); border-color: var(--ink); }
-  .lchip .n { opacity: .6; margin-left: 4px; }
-  .lines { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 13px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-  .lines th, .lines td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--line); }
-  .lines th { font-weight: 500; color: var(--ink-3); font-size: 12px; }
-  .lines td.num, .lines th.num { text-align: right; font-variant-numeric: tabular-nums; }
-  .lines tr:last-child td { border-bottom: 0; }
-  .type-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: 2px; background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink-2); }
-  .type-tag.t-shortage { background: color-mix(in srgb, #d70015 12%, transparent); color: #d70015; }
-  .type-tag.t-ai_box { background: color-mix(in srgb, #0071e3 12%, transparent); color: #0071e3; }
-  .type-tag.t-retainer { background: color-mix(in srgb, #248a3d 14%, transparent); color: #248a3d; }
-  .section-head { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-3); margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
-  .section-head.priority { color: var(--danger); }
-  .section-head .count { background: var(--surface-2); color: var(--ink-2); padding: 1px 7px; border-radius: 10px; font-weight: 500; letter-spacing: 0; }
-  .section-head.priority .count { background: color-mix(in srgb, var(--danger) 15%, transparent); color: var(--danger); }
-  .rfq-list { display: flex; flex-direction: column; gap: 10px; }
-  .rfq { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; transition: opacity 0.35s ease, transform 0.35s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease; overflow: hidden; max-height: 1200px; }
-  .rfq.urgent-new { border-color: var(--danger); border-left-width: 3px; background: color-mix(in srgb, var(--danger) 2.5%, var(--surface)); }
-  .rfq.just-arrived { animation: slide-in 0.5s ease-out; }
-  .rfq.fading-out { opacity: 0; transform: translateX(40px) scale(0.98); max-height: 0; margin-top: -10px; padding-top: 0; padding-bottom: 0; border-width: 0; }
-  @keyframes slide-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
-  .rfq-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; flex-wrap: wrap; }
-  .rfq-head .who { font-size: 15px; font-weight: 500; margin: 0 0 2px; }
-  .rfq-head .meta { font-size: 12px; color: var(--ink-3); }
-  .rfq-head .meta a { color: var(--ink-3); text-decoration: none; }
-  .rfq-head .meta a:hover { color: var(--accent); text-decoration: underline; }
-  .rfq-head .time { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 500; margin-left: 6px; }
-  .b-new { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
-  .b-quoted { background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); }
-  .b-won { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
-  .b-lost, .b-unable_to_source { background: color-mix(in srgb, var(--ink-3) 20%, transparent); color: var(--ink-3); }
-  .b-urgent { background: var(--danger); color: #fff; }
-  .rfq-body { margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 20px; font-size: 13px; }
-  .rfq-field .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); margin-bottom: 2px; }
-  .rfq-field .value { color: var(--ink); word-break: break-word; }
-  .rfq-field pre { margin: 0; font-family: inherit; white-space: pre-wrap; }
-  .rfq-actions { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  .rfq-actions select { background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; font-size: 12px; font-family: inherit; }
-  .rfq-actions a, .rfq-actions button.ghost { font-size: 12px; color: var(--accent); text-decoration: none; padding: 5px 10px; border: 1px solid var(--accent); border-radius: 8px; background: transparent; cursor: pointer; font-family: inherit; }
-  .rfq-actions a:hover, .rfq-actions button.ghost:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
-  .quote-form { margin-top: 12px; padding: 14px; background: color-mix(in srgb, var(--accent) 5%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 10px; display: grid; grid-template-columns: 180px auto auto 1fr; gap: 8px 12px; align-items: center; }
-  @media (max-width: 640px) { .quote-form { grid-template-columns: 1fr; } }
-  .quote-form input { background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 7px; padding: 7px 10px; font-size: 13px; font-family: inherit; width: 100%; }
-  .quote-form input:focus { outline: none; border-color: var(--accent); }
-  .quote-form button.save { background: var(--accent); color: #fff; border: none; border-radius: 7px; padding: 7px 14px; font-size: 13px; cursor: pointer; font-family: inherit; white-space: nowrap; }
-  .quote-form button.save:hover { background: var(--accent-hover); }
-  .quote-form button.save:disabled { opacity: 0.5; cursor: not-allowed; }
-  .quote-form button.cant { background: #fff; color: var(--danger); border: 1px solid var(--danger); border-radius: 7px; padding: 7px 12px; font-size: 13px; cursor: pointer; font-family: inherit; white-space: nowrap; }
-  .quote-form button.cant:hover { background: color-mix(in srgb, var(--danger) 8%, transparent); }
-  .quote-form .saved { font-size: 12px; color: var(--ok); margin-left: 0; }
-  .quote-form .hint { grid-column: 1 / -1; font-size: 11px; color: var(--ink-3); margin-top: -2px; }
-  .quote-form .link-row { grid-column: 1 / -1; display: flex; gap: 14px; align-items: flex-start; margin-top: 6px; flex-wrap: wrap; }
-  .quote-form .link-row .link-text { flex: 1 1 220px; min-width: 0; font-size: 11px; color: var(--ok); word-break: break-all; }
-  .quote-form .link-row .link-text a { color: var(--ok); text-decoration: underline; }
-  .quote-form .qr-mini { flex: 0 0 auto; width: 72px; height: 72px; background: #fff; padding: 4px; border: 1px solid var(--line); border-radius: 6px; }
-  .quote-form .qr-mini img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
-  .quote-form .toggle-advanced { grid-column: 1 / -1; font-size: 11px; color: var(--ink-3); cursor: pointer; background: none; border: none; padding: 0; text-align: left; text-decoration: underline; font-family: inherit; }
-  .quote-form .advanced { grid-column: 1 / -1; display: none; margin-top: 4px; }
-  .quote-form .advanced.show { display: block; }
-  .quote-form .advanced input { width: 100%; }
-  .last-email { grid-column: 1 / -1; font-size: 11px; color: var(--ink-3); margin-top: 2px; }
-  .empty { text-align: center; padding: 60px 20px; color: var(--ink-3); font-size: 14px; }
-  .loading { text-align: center; padding: 60px 20px; color: var(--ink-3); font-size: 13px; }
-  .toast-stack { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 8px; z-index: 100; }
-  .toast { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); font-size: 13px; max-width: 320px; animation: toast-in 0.3s ease; }
-  .toast.urgent { border-color: var(--danger); border-left-width: 3px; }
-  .toast.ok { border-color: var(--ok); border-left-width: 3px; }
-  .toast .t-title { font-weight: 500; margin-bottom: 2px; }
-  .toast .t-sub { font-size: 12px; color: var(--ink-3); }
-  @keyframes toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
-  /* ---------- Sourcing plan ---------- */
-  .modal.wide { max-width: 1100px; }
-  .pl-sub { color: var(--ink-3); font-size: 12.5px; margin: 2px 0 14px; }
-  .pl-kpis { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-  .pl-kpi { background: var(--bg); border-radius: 10px; padding: 10px 12px; }
-  .pl-kpi b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
-  .pl-kpi span { color: var(--ink-3); font-size: 11.5px; }
-  .pl-kpi.hero { background: color-mix(in srgb, var(--accent) 10%, transparent); } .pl-kpi.hero b { color: var(--accent); }
-  .pl-kpi.hero.late { background: color-mix(in srgb, var(--danger) 10%, transparent); } .pl-kpi.hero.late b { color: var(--danger); }
-  .pl-h { font-size: 14px; font-weight: 600; margin: 18px 0 8px; }
-  .pl-bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin: 8px 0 6px; background: var(--bg); }
-  .pl-lg { display: flex; gap: 14px; flex-wrap: wrap; font-size: 11.5px; color: var(--ink-2); }
-  .pl-lg i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
-  .pl-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-  .pl-table th, .pl-table td { text-align: left; padding: 7px 8px 7px 0; border-top: 1px solid var(--line); vertical-align: middle; }
-  .pl-table th { color: var(--ink-3); font-weight: 500; font-size: 11.5px; border-top: 0; }
-  .pl-table td.n, .pl-table th.n { text-align: right; font-variant-numeric: tabular-nums; }
-  .pl-table .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
-  .pl-table .dim { color: var(--ink-3); font-size: 11.5px; }
-  .pl-chips { display: flex; gap: 6px; margin: 4px 0 8px; }
-  .pl-chips button { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 14px; padding: 3px 11px; font-size: 12px; cursor: pointer; font-family: inherit; }
-  .pl-chips button.on { background: var(--ink); color: var(--surface); border-color: var(--ink); }
-  .pl-verdict { margin-top: 14px; padding: 12px 14px; background: var(--bg); border-radius: 10px; font-size: 13px; }
-  .pl-verdict ul { margin: 4px 0 0; padding-left: 18px; } .pl-verdict li { margin: 3px 0; }
-  .pl-basis { color: var(--ink-3); font-size: 11.5px; margin-top: 10px; }
-  .pl-progress { height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; margin: 10px 0; }
-  .pl-progress i { display: block; height: 100%; background: var(--accent); transition: width .4s ease; }
-  .pl-scroll { overflow-x: auto; }
-  @media (max-width: 760px) { .pl-kpis { grid-template-columns: 1fr 1fr; } }
-  /* ---------- Email composer modal ---------- */
-  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
-  .modal-backdrop.show { display: flex; }
-  .modal { background: var(--surface); border-radius: 16px; width: 100%; max-width: 640px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
-  .modal-head { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
-  .modal-head h2 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
-  .modal-head .close { background: transparent; border: none; font-size: 22px; cursor: pointer; color: var(--ink-3); padding: 0 4px; line-height: 1; }
-  .modal-body { padding: 20px 22px; overflow-y: auto; flex: 1; }
-  .modal-body .to-row { font-size: 13px; color: var(--ink-2); margin-bottom: 14px; }
-  .modal-body .to-row strong { color: var(--ink); font-weight: 500; }
-  .modal-body label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); margin-bottom: 6px; margin-top: 14px; }
-  .modal-body label:first-of-type { margin-top: 0; }
-  .modal-body input, .modal-body textarea { width: 100%; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 14px; font-family: inherit; }
-  .modal-body textarea { min-height: 240px; resize: vertical; line-height: 1.55; font-family: "Inter", "-apple-system", BlinkMacSystemFont, Helvetica, Arial, sans-serif; }
-  .modal-foot { padding: 14px 22px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid var(--line); }
-  .modal-foot .status-text { font-size: 12px; color: var(--ink-3); flex: 1; }
-  .modal-foot .status-text.err { color: var(--danger); }
-  .modal-foot button { padding: 9px 18px; border-radius: 10px; border: none; font-size: 14px; font-family: inherit; cursor: pointer; font-weight: 500; }
-  .modal-foot .btn-cancel { background: transparent; color: var(--ink-2); border: 1px solid var(--line); }
-  .modal-foot .btn-cancel:hover { background: var(--surface-2); }
-  .modal-foot .btn-send { background: var(--accent); color: #fff; }
-  .modal-foot .btn-send:hover { background: var(--accent-hover); }
-  .modal-foot .btn-send.danger { background: var(--danger); }
-  .modal-foot .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
-  /* ---------- Tabs + agent chat ---------- */
-  .tabs { display: flex; gap: 4px; padding: 0 20px; border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: 46px; z-index: 9; }
-  .tab-btn { background: transparent; border: none; padding: 12px 14px; font-size: 13px; color: var(--ink-2); cursor: pointer; border-bottom: 2px solid transparent; font-family: inherit; display: inline-flex; align-items: center; gap: 7px; }
-  .tab-btn:hover { color: var(--ink); }
-  .tab-btn.active { color: var(--ink); border-bottom-color: var(--accent); font-weight: 500; }
-  .tab-btn .pill { background: var(--surface-2); color: var(--ink-2); font-size: 10px; padding: 1px 7px; border-radius: 10px; font-weight: 500; letter-spacing: 0; }
-  .tab-btn .pill.alert { background: var(--danger); color: #fff; }
-  .view { display: none; }
-  .view.active { display: block; }
-  /* Chat layout */
-  .chat-wrap { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 260px 1fr; gap: 0; min-height: calc(100vh - 110px); border-bottom: 1px solid var(--line); }
-  @media (max-width: 820px) { .chat-wrap { grid-template-columns: 1fr; } .conv-sidebar { display: none; } .conv-sidebar.show { display: block; } }
-  .conv-sidebar { border-right: 1px solid var(--line); background: var(--surface-2); padding: 16px 12px; }
-  .conv-sidebar .new-chat { width: 100%; background: var(--accent); color: #fff; border: none; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-family: inherit; cursor: pointer; margin-bottom: 14px; font-weight: 500; }
-  .conv-sidebar .new-chat:hover { background: var(--accent-hover); }
-  .conv-sidebar h5 { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-3); margin: 10px 4px 6px; font-weight: 500; }
-  .conv-item { padding: 9px 10px; font-size: 13px; color: var(--ink-2); border-radius: 7px; cursor: pointer; margin-bottom: 2px; display: flex; width: 100%; text-align: left; border: none; background: transparent; font-family: inherit; line-height: 1.35; align-items: flex-start; gap: 6px; justify-content: space-between; }
-  .conv-item:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--ink); }
-  .conv-item.active { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--ink); }
-  .conv-item .conv-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-  .conv-item .conv-time { display: block; font-size: 10px; color: var(--ink-3); margin-top: 2px; }
-  .conv-item .conv-del { opacity: 0; background: transparent; border: none; color: var(--ink-3); cursor: pointer; font-size: 15px; padding: 0 4px; line-height: 1; transition: opacity .12s, color .12s; }
-  .conv-item:hover .conv-del { opacity: 1; }
-  .conv-item .conv-del:hover { color: var(--danger); }
-  /* Sonar settings panel */
-  .settings-btn { background: transparent; border: 1px solid var(--line); color: var(--ink-2); padding: 6px 12px; border-radius: 7px; font-size: 12px; cursor: pointer; }
-  .settings-btn:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--ink); border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); }
-  .settings-panel { padding: 16px 18px; background: color-mix(in srgb, var(--accent) 3%, transparent); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
-  .settings-row label { display: block; font-size: 12px; color: var(--ink-2); font-weight: 500; }
-  .settings-row input, .settings-row select { margin-top: 4px; width: 100%; padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: 13px; background: var(--bg); color: var(--ink); box-sizing: border-box; }
-  .settings-row input:focus, .settings-row select:focus { outline: none; border-color: var(--accent); }
-  .settings-row .hint { margin-top: 4px; font-size: 11px; color: var(--ink-3); line-height: 1.5; }
-  .settings-row .hint code { background: var(--line); padding: 1px 5px; border-radius: 3px; font-size: 10px; }
-  .settings-actions { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
-  .settings-actions button { background: var(--accent); color: white; border: none; padding: 7px 16px; border-radius: 6px; font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
-  .settings-actions button:hover { opacity: 0.9; }
-  .settings-msg { font-size: 11px; color: var(--ink-3); }
-  .settings-msg.ok { color: #0a7a2a; }
-  .settings-msg.err { color: var(--danger); }
-  .key-status { font-size: 11px; color: var(--ink-3); font-weight: 400; }
-  .key-status.has-key { color: #0a7a2a; }
-  /* Delete RFQ button */
-  .rfq-del { background: transparent; border: 1px solid var(--line); color: var(--ink-3); padding: 4px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; margin-left: auto; }
-  .rfq-del:hover { background: color-mix(in srgb, var(--danger) 10%, transparent); color: var(--danger); border-color: color-mix(in srgb, var(--danger) 30%, var(--line)); }
-  .chat-panel { display: flex; flex-direction: column; height: calc(100vh - 110px); position: relative; }
-  .chat-head { padding: 14px 22px; border-bottom: 1px solid var(--line); background: var(--surface); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .chat-head .agent-id { display: flex; align-items: center; gap: 10px; }
-  .agent-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
-  .agent-dot.sonar { background: #0071e3; box-shadow: 0 0 0 3px color-mix(in srgb, #0071e3 25%, transparent); }
-  .chat-head h3 { margin: 0; font-size: 15px; font-weight: 600; }
-  .chat-head .agent-role { font-size: 11px; color: var(--ink-3); }
-  .msg-list { flex: 1; overflow-y: auto; padding: 22px; display: flex; flex-direction: column; gap: 14px; }
-  .msg-list .empty-chat { margin: auto; text-align: center; max-width: 420px; color: var(--ink-3); font-size: 13px; }
-  .msg-list .empty-chat h4 { color: var(--ink); font-size: 16px; font-weight: 600; margin: 0 0 6px; }
-  .msg-list .empty-chat ul { text-align: left; margin: 14px 0; padding-left: 20px; font-size: 12px; }
-  .msg-list .empty-chat li { margin-bottom: 4px; }
-  .bubble { max-width: 760px; padding: 11px 15px; border-radius: 14px; font-size: 14px; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word; }
-  .bubble.user { background: var(--accent); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-  .bubble.assistant { background: var(--surface-2); color: var(--ink); align-self: flex-start; border-bottom-left-radius: 4px; }
-  .bubble.tool { background: #fff; color: var(--ink-2); align-self: flex-start; border: 1px solid var(--line); border-radius: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; max-width: 760px; padding: 10px 12px; }
-  .bubble.tool .tool-head { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); font-family: "Inter", sans-serif; margin-bottom: 5px; }
-  .bubble.tool pre { margin: 0; white-space: pre-wrap; max-height: 220px; overflow-y: auto; }
-  /* Sonar: readable steps and result cards instead of raw JSON */
-  .bubble.assistant.md { white-space: normal; }
-  .bubble.assistant.md p { margin: 0 0 8px; } .bubble.assistant.md p:last-child { margin-bottom: 0; }
-  .bubble.assistant.md ul { margin: 4px 0 10px; padding-left: 18px; } .bubble.assistant.md li { margin: 2px 0; }
-  .s-step { align-self: flex-start; display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-2); padding: 2px 4px; }
-  .s-step .s-ico { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--surface-2); font-size: 12px; flex: none; }
-  .s-card { align-self: flex-start; max-width: 760px; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 13px; }
-  .s-card .s-title { font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .s-pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
-  .s-pill.ok { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); }
-  .s-pill.warn { background: color-mix(in srgb, #b25000 14%, transparent); color: #b25000; }
-  .s-pill.bad { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
-  .s-card table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 4px; }
-  .s-card th, .s-card td { text-align: left; padding: 6px 8px 6px 0; border-top: 1px solid var(--line); vertical-align: top; }
-  .s-card th { color: var(--ink-3); font-weight: 500; font-size: 11.5px; border-top: 0; }
-  .s-card .s-kv { display: grid; grid-template-columns: 110px 1fr; gap: 4px 10px; }
-  .s-card .s-kv dt { color: var(--ink-3); } .s-card .s-kv dd { margin: 0; }
-  .s-card .s-note { color: var(--ink-3); margin-top: 6px; }
-  .s-card details.raw { margin-top: 8px; font-size: 11px; color: var(--ink-3); }
-  .s-card details.raw pre { font-size: 11px; max-height: 200px; overflow: auto; white-space: pre-wrap; }
-  .s-scroll { overflow-x: auto; }
-  .bubble.thinking { background: var(--surface-2); color: var(--ink-3); align-self: flex-start; font-style: italic; }
-  .bubble.err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); align-self: flex-start; }
-  .trigger-tile { align-self: stretch; display: flex; align-items: center; gap: 10px; padding: 7px 14px; background: color-mix(in srgb, var(--accent) 5%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); border-radius: 10px; font-size: 11px; color: var(--ink-3); max-width: 760px; }
-  .trigger-tile .tt-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); opacity: 0.6; flex-shrink: 0; }
-  .trigger-tile .tt-body { display: flex; align-items: baseline; gap: 10px; flex: 1; min-width: 0; }
-  .trigger-tile .tt-kind { text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; color: var(--accent); font-size: 10px; }
-  .trigger-tile .tt-sub { color: var(--ink-2); font-size: 11px; }
-  .trigger-tile .tt-peek { color: var(--ink-3); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
-  /* Live-working pulsing dot on tab */
-  .tab-btn .agent-dot.working { animation: dot-pulse 1.2s infinite; box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 15%, transparent); }
-  @keyframes dot-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-  .chat-input-wrap { border-top: 1px solid var(--line); background: var(--surface); padding: 12px 22px 16px; display: flex; gap: 10px; align-items: flex-end; }
-  .chat-input { flex: 1; border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: 14px; font-family: inherit; resize: none; min-height: 44px; max-height: 160px; line-height: 1.4; }
-  .chat-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
-  .chat-send { background: var(--accent); color: #fff; border: none; width: 44px; height: 44px; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
-  .chat-send:hover { background: var(--accent-hover); }
-  .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
-  .chat-send svg { width: 20px; height: 20px; }
-  /* Tasks */
-  .task-list { display: flex; flex-direction: column; gap: 10px; }
-  .task-tile { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
-  .task-tile.pending { border-left: 3px solid var(--warn); }
-  .task-tile.approved { border-left: 3px solid var(--ok); background: color-mix(in srgb, var(--ok) 3%, var(--surface)); }
-  .task-tile.declined { opacity: 0.6; }
-  .task-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
-  .task-head .task-title { font-size: 14px; font-weight: 500; }
-  .task-head .task-meta { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
-  .task-body { margin-top: 12px; background: var(--surface-2); padding: 12px 14px; border-radius: 10px; font-size: 12.5px; color: var(--ink-2); line-height: 1.5; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
-  .task-actions { margin-top: 12px; display: flex; gap: 8px; }
-  .task-actions button { padding: 6px 14px; border-radius: 8px; font-size: 12px; font-family: inherit; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); }
-  .task-actions button.approve { background: var(--ok); color: #fff; border-color: var(--ok); }
-  .task-actions button.approve:hover { opacity: 0.9; }
-  .task-actions button.decline:hover { background: var(--surface-2); color: var(--danger); border-color: var(--danger); }
-  .task-actions button.approve-send { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 500; }
-  .task-actions button.approve-send:hover { background: var(--accent-hover); }
-  .task-actions button.approve-send:disabled { opacity: 0.6; cursor: wait; }
-  .task-actions .task-note { font-size: 11px; color: var(--ink-3); margin-left: 8px; }
-  .task-fields { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-  .task-fields label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500; }
-  .task-fields input, .task-fields textarea { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 11px; font-size: 13px; font-family: inherit; color: var(--ink); line-height: 1.4; width: 100%; }
-  .task-fields textarea { resize: vertical; font-family: "Inter", -apple-system, sans-serif; min-height: 100px; }
-  .task-fields input:focus, .task-fields textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
-  .task-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 7px; border-radius: 10px; background: var(--surface-2); color: var(--ink-3); font-weight: 500; }
-  .task-tag.sonar { background: color-mix(in srgb, #0071e3 15%, transparent); color: #0071e3; }
+:root { --ink:#1d1d1f; --ink2:#48484a; --ink3:#86868b; --line:#e5e5ea; --bg:#f5f5f7; --card:#fff; --blue:#0071e3; --blue-h:#0077ed; --blue-bg:#eef5fe;
+  --ok:#1f7a36; --ok-bg:#e9f6ec; --warn:#a34d00; --warn-bg:#fff3e6; --bad:#c4001a; --bad-bg:#fdecee; --mono:ui-monospace,SFMono-Regular,Menlo,monospace; }
+* { box-sizing:border-box; }
+html, body { margin:0; height:100%; }
+body { font:13.5px/1.45 "Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif; color:var(--ink); background:var(--bg); -webkit-font-smoothing:antialiased; }
+button, input, select, textarea { font:inherit; color:inherit; }
+button { cursor:pointer; }
+a { color:var(--blue); text-decoration:none; }
+.mono { font-family:var(--mono); font-size:12.5px; }
+.dim { color:var(--ink3); }
+.hidden { display:none !important; }
+
+/* login */
+.login { max-width:360px; margin:12vh auto; background:#fff; border:1px solid var(--line); border-radius:16px; padding:28px; }
+.login h1 { font-size:20px; margin:0 0 4px; }
+.login p { color:var(--ink2); margin:0 0 16px; }
+.login input { width:100%; border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:10px; background:var(--bg); }
+.login .msg { margin-top:10px; padding:9px 11px; border-radius:9px; font-size:12.5px; }
+.login .msg.err { background:var(--bad-bg); color:var(--bad); } .login .msg.ok { background:var(--ok-bg); color:var(--ok); }
+.login .note { color:var(--ink3); font-size:12px; margin-top:14px; }
+
+/* buttons */
+.btn { border:1px solid var(--line); background:#fff; border-radius:9px; padding:7px 13px; font-weight:550; white-space:nowrap; }
+.btn:hover { border-color:#c7c7cc; }
+.btn.p { background:var(--blue); border-color:var(--blue); color:#fff; } .btn.p:hover { background:var(--blue-h); }
+.btn.sm { padding:4px 10px; font-size:12.5px; }
+.btn.link { border-color:transparent; background:transparent; color:var(--blue); padding-left:2px; padding-right:2px; }
+.btn.danger { color:var(--bad); }
+.btn:disabled { opacity:.55; cursor:default; }
+.login .btn.p { width:100%; padding:10px; }
+
+/* top bar */
+.top { height:52px; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:24px; padding:0 18px; position:sticky; top:0; z-index:20; }
+.brand { font-weight:650; display:flex; gap:8px; align-items:center; white-space:nowrap; }
+.brand svg { width:24px; height:24px; }
+.nav { display:flex; gap:2px; }
+.nav button { border:0; background:transparent; padding:6px 12px; border-radius:8px; color:var(--ink2); }
+.nav button.on { background:var(--bg); color:var(--ink); font-weight:600; }
+.nav .cnt { background:var(--bad); color:#fff; border-radius:9px; padding:0 6px; font-size:11px; margin-left:5px; }
+.top .r { margin-left:auto; display:flex; gap:12px; align-items:center; color:var(--ink3); font-size:12.5px; }
+.live-dot { width:7px; height:7px; border-radius:50%; background:var(--ok); display:inline-block; margin-right:5px; }
+
+/* RFQ view layout */
+.app { display:grid; grid-template-columns:360px 1fr; height:calc(100vh - 52px); }
+.inbox { border-right:1px solid var(--line); background:#fff; display:flex; flex-direction:column; min-height:0; }
+.ib-head { padding:12px 14px 10px; }
+.search { width:100%; border:1px solid var(--line); background:var(--bg); border-radius:9px; padding:8px 10px; }
+.seg { display:flex; gap:4px; margin-top:10px; flex-wrap:wrap; }
+.seg button { border:0; background:transparent; border-radius:8px; padding:5px 9px; color:var(--ink2); font-size:12.5px; }
+.seg button.on { background:var(--ink); color:#fff; }
+.seg b { font-weight:600; margin-left:4px; opacity:.75; }
+.list { overflow:auto; flex:1; }
+.item { padding:12px 14px; border-top:1px solid var(--line); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:2px 8px; }
+.item:hover { background:#fafafa; }
+.item.on { background:var(--blue-bg); box-shadow:inset 3px 0 var(--blue); }
+.item .co { font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.item .v { font-variant-numeric:tabular-nums; font-weight:600; }
+.item .what { color:var(--ink2); grid-column:1/-1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.item .meta { color:var(--ink3); font-size:12px; grid-column:1/-1; display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+.item.fresh { animation:fresh 2s ease; } @keyframes fresh { from { background:#fff8d6; } }
+.empty { padding:30px 18px; color:var(--ink3); text-align:center; }
+.chip { font-size:11px; font-weight:600; border-radius:7px; padding:1px 7px; white-space:nowrap; }
+.c-you { background:var(--blue); color:#fff; } .c-work { background:var(--bg); color:var(--ink2); } .c-wait { background:var(--warn-bg); color:var(--warn); }
+.c-won { background:var(--ok-bg); color:var(--ok); } .c-lost { background:var(--bg); color:var(--ink3); } .c-urg { background:var(--bad-bg); color:var(--bad); }
+.pulse { width:7px; height:7px; border-radius:50%; background:var(--blue); display:inline-block; margin-right:4px; animation:pl 1.4s infinite; } @keyframes pl { 50% { opacity:.25; } }
+
+/* workspace */
+.ws { overflow:auto; padding:22px 28px 60px; }
+.blank { height:100%; display:flex; align-items:center; justify-content:center; color:var(--ink3); text-align:center; }
+.wgrid { max-width:1060px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:18px; align-items:start; }
+.full { grid-column:1/-1; }
+.back { display:none; }
+.h1 { font-size:21px; font-weight:650; letter-spacing:-.01em; margin:0; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.sub { color:var(--ink2); margin-top:4px; display:flex; gap:6px 14px; flex-wrap:wrap; }
+.sub span { white-space:nowrap; }
+.hdr-acts { display:flex; gap:6px; margin-left:auto; }
+.steps { display:flex; margin-top:14px; font-size:12px; color:var(--ink3); }
+.steps div { flex:1; border-top:3px solid var(--line); padding-top:6px; }
+.steps .d { border-color:var(--ok); color:var(--ink2); } .steps .c { border-color:var(--blue); color:var(--blue); font-weight:600; } .steps .x { border-color:var(--ink3); }
+.col { display:flex; flex-direction:column; gap:16px; min-width:0; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+.sonar { border:1.5px solid transparent; background:linear-gradient(#fff,#fff) padding-box, linear-gradient(90deg,#0071e3,#6e5ce6) border-box; }
+.sonar .lab { font-size:11.5px; font-weight:650; color:var(--blue); letter-spacing:.03em; text-transform:uppercase; }
+.sonar .say { font-size:16px; font-weight:600; margin:6px 0 4px; letter-spacing:-.005em; }
+.sonar .why { color:var(--ink2); }
+.acts { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.prog { height:6px; background:var(--bg); border-radius:3px; overflow:hidden; margin-top:10px; } .prog i { display:block; height:100%; background:var(--blue); transition:width .4s; }
+.nums { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+.num { background:#fff; border:1px solid var(--line); border-radius:12px; padding:11px 13px; }
+.num b { display:block; font-size:19px; font-variant-numeric:tabular-nums; letter-spacing:-.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.num span { color:var(--ink3); font-size:12px; }
+.num.good b { color:var(--ok); } .num.bad b { color:var(--bad); }
+.sec { font-size:13px; font-weight:650; margin:0 0 10px; display:flex; align-items:center; gap:10px; }
+.sec .dim { font-weight:400; }
+.issue { border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:8px; display:grid; grid-template-columns:auto minmax(0,1fr); gap:3px 12px; }
+.issue:last-child { margin-bottom:0; }
+.issue .ic { width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; grid-row:span 3; }
+.ic.bad { background:var(--bad-bg); color:var(--bad); } .ic.warn { background:var(--warn-bg); color:var(--warn); } .ic.ok { background:var(--ok-bg); color:var(--ok); }
+.issue .t { font-weight:600; } .issue .t .mono { font-weight:600; }
+.issue .d { color:var(--ink2); }
+.opts { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+.opt { border:1px solid var(--line); border-radius:9px; padding:6px 10px; background:#fff; font-size:12.5px; text-align:left; }
+.opt small { display:block; color:var(--ink3); font-size:11.5px; }
+.opt.sel { border-color:var(--blue); background:var(--blue-bg); box-shadow:0 0 0 1px var(--blue) inset; }
+.manual { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:8px; font-size:12.5px; color:var(--ink2); }
+.manual input { width:96px; border:1px solid var(--line); border-radius:8px; padding:5px 8px; }
+.ready { display:flex; align-items:center; justify-content:space-between; gap:10px; border:1px dashed #d2d2d7; border-radius:12px; padding:10px 14px; color:var(--ink2); }
+.ship { display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:4px 16px; padding:9px 0; border-top:1px solid var(--line); align-items:center; }
+.ship:first-of-type { border-top:0; padding-top:0; }
+.bar { height:6px; border-radius:3px; background:var(--bg); position:relative; grid-column:1/-1; margin-top:3px; }
+.bar i { position:absolute; left:0; height:100%; border-radius:3px; background:var(--blue); }
+.bar i.late { background:var(--bad); }
+.bar .need { position:absolute; top:-4px; width:2px; height:14px; background:var(--bad); }
+.tbl-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:12.5px; }
+th, td { text-align:left; padding:7px 10px 7px 0; border-top:1px solid var(--line); vertical-align:top; }
+th { color:var(--ink3); font-weight:500; font-size:11.5px; border-top:0; white-space:nowrap; }
+td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+tr.out td { color:var(--ink3); text-decoration:line-through; text-decoration-color:#c7c7cc; }
+.pill { font-size:11px; font-weight:600; border-radius:7px; padding:1px 7px; white-space:nowrap; }
+.p-ok { background:var(--ok-bg); color:var(--ok); } .p-warn { background:var(--warn-bg); color:var(--warn); } .p-bad { background:var(--bad-bg); color:var(--bad); } .p-gray { background:var(--bg); color:var(--ink2); }
+.req dl { display:grid; grid-template-columns:120px minmax(0,1fr); gap:6px 12px; margin:0; }
+.req dt { color:var(--ink3); } .req dd { margin:0; word-break:break-word; }
+.req pre { margin:0; white-space:pre-wrap; font-family:var(--mono); font-size:12px; max-height:220px; overflow:auto; background:var(--bg); padding:8px 10px; border-radius:8px; }
+
+/* quote panel */
+.side { position:sticky; top:0; display:flex; flex-direction:column; gap:14px; }
+.q .row { display:flex; justify-content:space-between; gap:10px; padding:5px 0; color:var(--ink2); }
+.q .row b { color:var(--ink); font-variant-numeric:tabular-nums; }
+.q .tot { border-top:1px solid var(--line); margin-top:6px; padding-top:10px; font-size:15px; } .q .tot b { font-size:20px; }
+.mg { display:flex; gap:4px; margin:8px 0 6px; }
+.mg button { flex:1; border:1px solid var(--line); background:#fff; border-radius:8px; padding:5px 0; font-size:12.5px; }
+.mg button.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+.q .amt { width:100%; border:1px solid var(--line); border-radius:9px; padding:8px 10px; font-size:15px; font-variant-numeric:tabular-nums; margin-top:4px; }
+.q .note { color:var(--ink3); font-size:11.5px; margin-top:8px; }
+.q .linkbox { margin-top:10px; font-size:12px; display:flex; gap:10px; align-items:center; word-break:break-all; }
+.q .linkbox img { width:64px; height:64px; flex:none; }
+.appr { background:var(--warn-bg); border-radius:10px; padding:10px 12px; font-size:12.5px; color:var(--warn); }
+.appr button { margin-top:6px; }
+.log > div:not(.sec) { display:grid; grid-template-columns:56px minmax(0,1fr); gap:8px; padding:4px 0; color:var(--ink2); font-size:12.5px; }
+.log span { color:var(--ink3); font-variant-numeric:tabular-nums; }
+
+/* other views */
+.page { max-width:980px; margin:0 auto; padding:24px 20px 60px; }
+.page h2 { font-size:19px; margin:0 0 4px; } .page .lead { color:var(--ink2); margin:0 0 16px; }
+.task { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:10px; }
+.task.pending { border-left:3px solid var(--warn); }
+.task .tt { font-weight:600; } .task .tm { color:var(--ink3); font-size:12px; margin-top:2px; }
+.task label { display:block; color:var(--ink3); font-size:11.5px; margin-top:10px; }
+.task input, .task textarea { width:100%; border:1px solid var(--line); border-radius:9px; padding:8px 10px; margin-top:3px; background:#fff; }
+.task textarea { min-height:150px; resize:vertical; line-height:1.5; }
+.task .body { margin-top:10px; background:var(--bg); padding:10px 12px; border-radius:9px; white-space:pre-wrap; font-size:12.5px; color:var(--ink2); }
+.ins-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+
+/* modals */
+.mb { position:fixed; inset:0; background:rgba(0,0,0,.38); display:none; align-items:center; justify-content:center; z-index:100; padding:20px; }
+.mb.show { display:flex; }
+.modal { background:#fff; border-radius:16px; width:100%; max-width:640px; max-height:90vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.25); }
+.mh { padding:16px 20px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; }
+.mh h3 { margin:0; font-size:16px; }
+.mh .x { border:0; background:transparent; font-size:22px; color:var(--ink3); line-height:1; }
+.mbody { padding:16px 20px; overflow:auto; }
+.mbody label { display:block; font-size:11.5px; color:var(--ink3); margin:12px 0 4px; } .mbody label:first-child { margin-top:0; }
+.mbody input, .mbody textarea, .mbody select { width:100%; border:1px solid var(--line); border-radius:9px; padding:9px 11px; background:#fff; }
+.mbody textarea { min-height:260px; line-height:1.55; resize:vertical; }
+.mf { padding:12px 20px 16px; border-top:1px solid var(--line); display:flex; gap:8px; align-items:center; }
+.mf .status { margin-right:auto; color:var(--ink3); font-size:12.5px; } .mf .status.err { color:var(--bad); }
+
+.toasts { position:fixed; right:16px; bottom:16px; display:flex; flex-direction:column; gap:8px; z-index:200; }
+.toast { background:#1d1d1f; color:#fff; border-radius:12px; padding:10px 14px; min-width:240px; box-shadow:0 8px 24px rgba(0,0,0,.2); }
+.toast .s { opacity:.75; font-size:12.5px; } .toast.urg { background:var(--bad); }
+
+@media (max-width: 960px) {
+  .wgrid { grid-template-columns:minmax(0,1fr); }
+  .side { position:static; }
+  .nums { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .ins-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width: 760px) {
+  .top { gap:6px; padding:0 10px; } .brand span { display:none; } .top .r .hide-m { display:none; } .top .r { gap:6px; } .nav button { padding:6px 7px; }
+  .app { grid-template-columns:1fr; }
+  .app.sel .inbox { display:none; } .app:not(.sel) .ws { display:none; }
+  .ws { padding:16px 14px 50px; }
+  .back { display:inline-block; margin-bottom:8px; }
+  .hdr-acts { margin-left:0; }
+  .req dl { grid-template-columns:96px minmax(0,1fr); }
+}
 </style>
 </head>
 <body>
 
-<div id="login-view" class="login" style="display:none">
-  <h1 id="login-title">ChipShark Admin</h1>
+<div id="login-view" class="login hidden">
+  <h1 id="login-title">ChipShark Desk</h1>
   <p id="login-help">Enter your password to log in.</p>
   <input id="pwd-in" type="password" placeholder="Password" autocomplete="current-password">
-  <input id="pwd-in-2" type="password" placeholder="Confirm password" autocomplete="new-password" style="display:none">
-  <input id="setup-token" type="text" placeholder="Setup token (from Supabase reset)" autocomplete="off" style="display:none">
-  <button id="submit-btn">Log in</button>
-  <div id="login-msg" class="msg" style="display:none"></div>
-  <p class="note">Sessions last 12 hours. Lose the password and you'll need to reset via Supabase.</p>
+  <input id="pwd-in-2" type="password" placeholder="Confirm password" autocomplete="new-password" class="hidden">
+  <input id="setup-token" type="text" placeholder="Setup token (from Supabase reset)" autocomplete="off" class="hidden">
+  <button class="btn p" id="submit-btn">Log in</button>
+  <div id="login-msg" class="msg hidden"></div>
+  <p class="note">Sessions last 12 hours.</p>
 </div>
 
-<div id="app-view" style="display:none">
-  <div class="topbar">
-    <div class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg></span>ChipShark · Admin</div>
-    <div class="right">
-      <span class="live" id="live-indicator" title="Auto-refresh every 10 seconds"><span class="dot"></span><span id="live-text">Live</span></span>
-      <button id="refresh-btn">Refresh</button>
-      <button id="logout-btn">Log out</button>
-    </div>
-  </div>
-  <nav class="tabs" id="tabs">
-    <button class="tab-btn active" data-view="rfqs">RFQs <span class="pill" id="pill-rfqs">0</span></button>
-    <button class="tab-btn" data-view="sonar"><span class="agent-dot sonar"></span>Sonar</button>
-    <button class="tab-btn" data-view="tasks">Tasks <span class="pill" id="pill-tasks">0</span></button>
-  </nav>
-
-  <!-- RFQs view -->
-  <div id="rfqs-view" class="view active">
-    <div class="wrap">
-      <div class="stats" id="stats"></div>
-      <table class="lines" id="lines"></table>
-      <table class="lines" id="sources"></table>
-      <div class="filters" id="line-filters"></div>
-      <div class="filters" id="filters">
-        <button class="chip" data-filter="all">All</button>
-        <button class="chip active" data-filter="new">New</button>
-        <button class="chip" data-filter="quoted">Quoted</button>
-        <button class="chip" data-filter="won">Won</button>
-        <button class="chip" data-filter="lost">Lost</button>
-        <button class="chip" data-filter="unable_to_source">Unable</button>
-        <span class="sep">·</span>
-        <button class="chip" data-filter="urgent">Urgent only</button>
-      </div>
-      <div id="rfq-list" class="rfq-list"></div>
+<div id="app-view" class="hidden">
+  <div class="top">
+    <div class="brand"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg><span>ChipShark Desk</span></div>
+    <nav class="nav">
+      <button data-view="rfqs" class="on">RFQs</button>
+      <button data-view="approvals">Approvals<span class="cnt hidden" id="appr-cnt">0</span></button>
+      <button data-view="insights">Insights</button>
+    </nav>
+    <div class="r">
+      <span class="hide-m" id="live"><span class="live-dot"></span>Live</span>
+      <button class="btn sm" id="settings-btn" title="Settings">⚙︎</button>
+      <button class="btn sm" id="logout-btn">Log out</button>
     </div>
   </div>
 
-  <!-- Sonar view -->
-  <div id="sonar-view" class="view">
-    <div class="chat-wrap">
-      <aside class="conv-sidebar">
-        <button class="new-chat" data-agent="sonar">+ New chat</button>
-        <h5>Conversations</h5>
-        <div id="sonar-convs"></div>
-      </aside>
-      <div class="chat-panel">
-        <div class="chat-head" style="justify-content:space-between;align-items:center;">
-          <div class="agent-id"><span class="agent-dot sonar"></span><div><h3>Sonar</h3><div class="agent-role">Sourcing desk — finds parts, drafts quotes</div></div></div>
-          <button id="sonar-settings-btn" class="settings-btn" title="Settings — pick model &amp; API key">⚙ Settings</button>
-        </div>
-        <div id="sonar-settings" class="settings-panel" style="display:none;">
-          <div class="settings-row">
-            <label>Provider
-              <select id="sonar-provider">
-                <option value="openai_compat">OpenAI-compatible (OpenAI, Groq, DeepSeek, OpenRouter, Together, Mistral…)</option>
-                <option value="anthropic">Anthropic Claude</option>
-                <option value="google">Google Gemini</option>
-              </select>
-            </label>
-          </div>
-          <div class="settings-row" id="sonar-baseurl-row">
-            <label>Base URL
-              <input id="sonar-baseurl" type="text" placeholder="https://api.groq.com/openai/v1">
-            </label>
-            <div class="hint">Examples: <code>https://api.openai.com/v1</code> · <code>https://api.groq.com/openai/v1</code> · <code>https://api.deepseek.com</code> · <code>https://openrouter.ai/api/v1</code></div>
-          </div>
-          <div class="settings-row">
-            <label>Model
-              <input id="sonar-model" type="text" placeholder="e.g. openai/gpt-oss-120b · gpt-4o-mini · claude-sonnet-5-5 · gemini-2.5-flash">
-            </label>
-          </div>
-          <div class="settings-row">
-            <label>API key <span id="sonar-key-status" class="key-status"></span>
-              <input id="sonar-apikey" type="password" placeholder="Paste here. Leave blank to keep the current key.">
-            </label>
-            <div class="hint">Stored in your Supabase database. Only the admin API (requires login) and edge functions (via service role) can read it.</div>
-          </div>
-          <div class="settings-actions">
-            <button id="sonar-settings-save">Save</button>
-            <span id="sonar-settings-msg" class="settings-msg"></span>
-          </div>
-        </div>
-        <div class="msg-list" id="sonar-msgs">
-          <div class="empty-chat">
-            <h4>Pick up where you left off, or ask Sonar something.</h4>
-            <p>Sonar can search Octopart + Mouser, read your RFQ pipeline, and draft quotes for your approval.</p>
-            <ul>
-              <li>"What's the fastest source for 500 of STM32F407VGT6?"</li>
-              <li>"Pull RFQ 7 and suggest a quote"</li>
-              <li>"Any obvious counterfeits in these results?"</li>
-            </ul>
-          </div>
-        </div>
-        <div class="chat-input-wrap">
-          <textarea class="chat-input" id="sonar-input" placeholder="Ask Sonar... (Enter to send, Shift+Enter for newline)" rows="1"></textarea>
-          <button class="chat-send" id="sonar-send" title="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
-        </div>
+  <div id="view-rfqs" class="app">
+    <aside class="inbox">
+      <div class="ib-head">
+        <input class="search" id="search" placeholder="Search company, part number, email…" autocomplete="off">
+        <div class="seg" id="buckets"></div>
       </div>
-    </div>
+      <div class="list" id="list"></div>
+    </aside>
+    <main class="ws" id="ws"><div class="blank">Pick an RFQ on the left.</div></main>
   </div>
 
-  <!-- Tasks view -->
-  <div id="tasks-view" class="view">
-    <div class="wrap">
-      <div class="filters" id="task-filters">
-        <button class="chip active" data-task-filter="pending">Pending</button>
-        <button class="chip" data-task-filter="approved">Approved</button>
-        <button class="chip" data-task-filter="declined">Declined</button>
-        <button class="chip" data-task-filter="all">All</button>
-      </div>
-      <div id="task-list" class="task-list"></div>
-    </div>
-  </div>
+  <div id="view-approvals" class="hidden"><div class="page">
+    <h2>Approvals</h2>
+    <p class="lead">Emails Sonar drafted. Nothing is sent until you press Send.</p>
+    <div id="appr-list"></div>
+  </div></div>
+
+  <div id="view-insights" class="hidden"><div class="page">
+    <h2>Insights</h2>
+    <p class="lead">How requests turn into revenue, by business line and by where buyers came from.</p>
+    <div class="ins-grid" id="ins-kpis"></div>
+    <div class="card" style="margin-bottom:14px"><div class="sec">By business line</div><div class="tbl-wrap"><table id="ins-lines"></table></div></div>
+    <div class="card"><div class="sec">By source</div><div class="tbl-wrap"><table id="ins-sources"></table></div></div>
+  </div></div>
 </div>
 
-<!-- Email composer modal -->
-<div class="modal-backdrop" id="compose-backdrop">
-  <div class="modal">
-    <div class="modal-head">
-      <h2 id="compose-title">Review email</h2>
-      <button class="close" id="compose-close" aria-label="Close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="to-row">To: <strong id="compose-to"></strong></div>
-      <label>Subject</label>
-      <input id="compose-subject" type="text">
-      <label>Message</label>
-      <textarea id="compose-body" spellcheck="true"></textarea>
-    </div>
-    <div class="modal-foot">
-      <span class="status-text" id="compose-status"></span>
-      <button class="btn-cancel" id="compose-cancel">Cancel</button>
-      <button class="btn-send" id="compose-send">Send</button>
-    </div>
+<!-- buyer email composer -->
+<div class="mb" id="compose-mb"><div class="modal">
+  <div class="mh"><h3 id="compose-title">Email buyer</h3><button class="x" data-close="compose-mb" aria-label="Close">&times;</button></div>
+  <div class="mbody">
+    <label>To</label><input id="compose-to" readonly>
+    <label>Subject</label><input id="compose-subject">
+    <label>Message</label><textarea id="compose-body" spellcheck="true"></textarea>
   </div>
-</div>
+  <div class="mf"><span class="status" id="compose-status"></span><button class="btn" data-close="compose-mb">Cancel</button><button class="btn p" id="compose-send">Send</button></div>
+</div></div>
 
-<!-- Sourcing plan modal -->
-<div class="modal-backdrop" id="plan-backdrop">
-  <div class="modal wide">
-    <div class="modal-head">
-      <h2 id="plan-title">Sourcing plan</h2>
-      <div style="display:flex;gap:8px;align-items:center">
-        <button class="ghost" id="plan-refresh" style="font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:8px;background:transparent;padding:5px 10px;cursor:pointer">Re-check prices</button>
-        <button class="close" id="plan-close" aria-label="Close">&times;</button>
-      </div>
-    </div>
-    <div class="modal-body" id="plan-body"></div>
+<!-- settings -->
+<div class="mb" id="settings-mb"><div class="modal">
+  <div class="mh"><h3>Settings</h3><button class="x" data-close="settings-mb" aria-label="Close">&times;</button></div>
+  <div class="mbody">
+    <div class="dim" style="margin-bottom:10px">Sonar's AI model (used for written analysis). Part search and plans don't need it.</div>
+    <label>Provider</label>
+    <select id="s-provider"><option value="openai_compat">OpenAI-compatible (Groq, OpenRouter, DeepSeek, OpenAI…)</option><option value="anthropic">Anthropic</option><option value="google">Google Gemini</option></select>
+    <div id="s-baseurl-row"><label>Base URL</label><input id="s-baseurl" placeholder="https://api.groq.com/openai/v1"></div>
+    <label>Model</label><input id="s-model" placeholder="openai/gpt-oss-120b">
+    <label>API key <span id="s-keystate" class="dim"></span></label><input id="s-apikey" type="password" placeholder="Leave blank to keep the current key" autocomplete="off">
   </div>
-</div>
+  <div class="mf"><span class="status" id="s-msg"></span><button class="btn" data-close="settings-mb">Close</button><button class="btn p" id="s-save">Save</button></div>
+</div></div>
 
-<div class="toast-stack" id="toasts"></div>
+<div class="toasts" id="toasts"></div>
 
 <script>
-  const API = "https://dgpdfponhxbnhfhmbmjb.supabase.co/functions/v1/admin-api";
-  const TOKEN_KEY = "chipshark_admin_token_v1";
-  const OLD_PWD_KEY = "chipshark_admin_pwd_v1"; // legacy: plaintext password, purged on load
-  const POLL_MS = 10000;
+const API = "https://dgpdfponhxbnhfhmbmjb.supabase.co/functions/v1/admin-api";
+const AGENT_API = "https://dgpdfponhxbnhfhmbmjb.supabase.co/functions/v1/agent-chat";
+const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRncGRmcG9uaHhibmhmaG1ibWpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwMzc5ODcsImV4cCI6MjEwNjYxMzk4N30.5R9ASFR8eig65JzfNBueXp3NvwHRVtb4wQ2dyH8qhE8";
+const TOKEN_KEY = "chipshark_admin_token_v1";
+const POLL_MS = 10000;
+const PLANNABLE = ['part', 'shortage', 'bom_check'];
+const TYPES = { part: 'Part', shortage: 'Shortage', ai_box: 'AI box', retainer: 'Retainer', bom_check: 'BOM check', sell: 'Buyback' };
+const $ = (id) => document.getElementById(id);
+const esc = (s) => (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const $ = (id) => document.getElementById(id);
-  const loginView = $('login-view');
-  const appView = $('app-view');
-  const pwdIn = $('pwd-in');
-  const pwdIn2 = $('pwd-in-2');
-  const setupTokenIn = $('setup-token');
-  const submitBtn = $('submit-btn');
-  const loginMsg = $('login-msg');
-  const loginHelp = $('login-help');
+let mode = 'login', token = null;
+let rfqs = [], plans = {}, tasks = [], known = null, fresh = new Set();
+let view = 'rfqs', bucket = 'you', selId = null, query = '';
+let full = {};            // rfq_id -> full plan (lines, decisions)
+let running = {};         // rfq_id -> true while this page drives a plan
+let pollTimer = null, planPoll = null, composeCtx = null;
 
-  let mode = 'login';
-  let token = null;      // session token from /verify (12h)
-  let legacyPwd = null;  // only used if the API predates tokens
-  let currentFilter = 'new'; // default to actionable queue
-  let currentLine = 'all';   // business line: part / shortage / ai_box / retainer
-  const LINES = { part: 'Parts', shortage: 'Shortage', ai_box: 'AI box', retainer: 'Retainer', bom_check: 'BOM check', sell: 'Buyback' };
-  const lineOf = (r) => r.type || 'part';
-  let allRfqs = [];
-  let knownIds = new Set();
-  let justArrivedIds = new Set();
-  let pollTimer = null;
-  let composeCtx = null; // {rfqId, type}
+// ---------------- API ----------------
+async function api(path, opts = {}) {
+  const headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+  if (token) headers['x-admin-token'] = token;
+  const r = await fetch(API + path, Object.assign({}, opts, { headers }));
+  const data = await r.json().catch(() => ({}));
+  if (r.status === 401 && token) { logout(); throw new Error('Session expired. Log in again.'); }
+  if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
+  return data;
+}
+async function agent(body) {
+  const r = await fetch(AGENT_API, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-token': token, 'Authorization': 'Bearer ' + SB_ANON, 'apikey': SB_ANON }, body: JSON.stringify(body) });
+  const data = await r.json().catch(() => ({}));
+  if (r.status === 401 && token) { logout(); throw new Error('Session expired. Log in again.'); }
+  if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
+  return data;
+}
 
-  function showMsg(text, kind) {
-    loginMsg.textContent = text;
-    loginMsg.className = 'msg ' + kind;
-    loginMsg.style.display = 'block';
-  }
+// ---------------- formatting ----------------
+const money = (n, dp) => n == null || !isFinite(n) ? '—' : '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: dp ?? (n < 10 ? 2 : 0), maximumFractionDigits: dp ?? (n < 1 ? 4 : n < 10 ? 2 : 0) });
+const fmtD = (d) => d ? new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '—';
+const dayDiff = (a, b) => Math.round((new Date(b + 'T00:00:00Z') - new Date(a + 'T00:00:00Z')) / 864e5);
+const addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
+const today = () => new Date().toISOString().slice(0, 10);
+function ago(iso) {
+  if (!iso) return '';
+  const m = Math.round((Date.now() - new Date(iso)) / 60000);
+  if (m < 1) return 'just now'; if (m < 60) return m + 'm ago'; if (m < 1440) return Math.round(m / 60) + 'h ago';
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+const clock = (iso) => iso ? new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : '';
+const isUrgent = (r) => /urgent|line down|critical/i.test(r.urgency || '');
+const firstLine = (s) => String(s || '').split('\n').map(x => x.trim()).filter(Boolean);
+function whatOf(r) {
+  const ls = firstLine(r.mpn);
+  if (ls.length > 1) return `${ls.length}-line ${r.type === 'ai_box' ? 'build' : 'BOM'}`;
+  const one = (ls[0] || '').replace(/\s*\|\s*qty:.*$/i, '');
+  return one.slice(0, 60) + (r.qty ? ` × ${Number(String(r.qty).replace(/[^\d]/g, '')).toLocaleString('en-US') || r.qty}` : '');
+}
+function placeOf(r) {
+  const c = r.country || '';
+  const city = String(r.drop_off_location || '').split(',')[0].trim();
+  const short = { 'United States': 'US', 'United Kingdom': 'UK', 'United Arab Emirates': 'UAE' }[c] || c;
+  return [city, short].filter(Boolean).join(', ');
+}
 
-  function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-  async function api(path, opts = {}) {
-    const headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
-    if (token) headers['x-admin-token'] = token;
-    else if (legacyPwd) headers['x-admin-pwd'] = legacyPwd;
-    const r = await fetch(API + path, Object.assign({}, opts, { headers }));
-    const data = await r.json().catch(() => ({}));
-    if (r.status === 401 && token) { logout(); throw new Error('Session expired. Log in again.'); }
-    if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
-    return data;
-  }
-
-  async function checkMode() {
-    try {
-      const data = await (await fetch(API + '/status')).json();
-      if (data.setup_required) {
-        mode = 'setup';
-        $('login-title').textContent = 'First-time setup';
-        loginHelp.textContent = 'Pick a password. 8+ characters. Store it somewhere safe — there is no email reset.';
-        pwdIn.placeholder = 'New password';
-        pwdIn.autocomplete = 'new-password';
-        pwdIn2.style.display = 'block';
-        setupTokenIn.style.display = 'block';
-        submitBtn.textContent = 'Create password';
-      } else {
-        mode = 'login';
-      }
-      loginView.style.display = 'block';
-    } catch (e) {
-      loginView.style.display = 'block';
-      showMsg('Could not reach admin API: ' + e.message, 'err');
+// ---------------- plan maths (decisions applied) ----------------
+// Line problems Sonar raises; decisions are stored per line number.
+function issueOf(l, plan) {
+  if (l.status === 'not_found') return 'missing';
+  const late = plan.summary && plan.summary.late && plan.summary.late.includes(l.n);
+  if (late) return 'late';
+  if (l.status === 'partial' && !l.lead_days) return 'short';
+  return null;
+}
+function computeQuote(r, plan) {
+  const dec = (plan && plan.decisions) || {};
+  const urgent = isUrgent(r);
+  const margin = Number(dec.margin) || (urgent ? 25 : 15);
+  if (!plan || plan.status !== 'done' || !plan.summary) return { margin, ready: false };
+  const sm = plan.summary, lines = plan.lines || [];
+  let cost = 0, inc = 0, arrive = null; const out = [], open = [];
+  for (const l of lines) {
+    const d = dec[String(l.n)];
+    if (d === 'leave_out' || d === 'ask_brokers') { out.push(l.n); continue; }
+    if (d && typeof d === 'object' && d.unit != null) {
+      cost += Number(d.unit) * l.qty; inc++;
+      const a = addDays(plan.ctx.today, Number(d.days) || 0); if (!arrive || a > arrive) arrive = a; continue;
     }
+    if (l.status === 'not_found' || l.landed_unit == null || (issueOf(l, plan) && d !== 'accept')) { open.push(l.n); continue; }   // problem lines count only once you accept them
+    cost += l.landed_unit * (l.covered || l.qty); inc++;
+    if (l.arrive_date && (!arrive || l.arrive_date > arrive)) arrive = l.arrive_date;
   }
+  const profit = cost * margin / 100;
+  return { ready: true, margin, cost, profit, total: cost + profit, inc, total_lines: lines.length, out, open, arrive, needed: sm.needed_by };
+}
 
-  submitBtn.addEventListener('click', async () => {
-    const p = pwdIn.value;
-    if (!p) return;
-    submitBtn.disabled = true;
-    submitBtn.textContent = mode === 'setup' ? 'Creating…' : 'Checking…';
-    try {
-      if (mode === 'setup') {
-        if (p.length < 8) { showMsg('Password must be at least 8 characters.', 'err'); submitBtn.disabled = false; submitBtn.textContent = 'Create password'; return; }
-        if (p !== pwdIn2.value) { showMsg('Passwords do not match.', 'err'); submitBtn.disabled = false; submitBtn.textContent = 'Create password'; return; }
-        await (await fetch(API + '/setup', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ password: p, setup_token: setupTokenIn.value.trim() }) })).json().then(d => { if (d.error) throw new Error(d.error); });
-      }
-      const r = await (await fetch(API + '/verify', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ password: p }) })).json();
-      if (!r.ok) { showMsg(r.error || 'Wrong password.', 'err'); submitBtn.disabled = false; submitBtn.textContent = mode === 'setup' ? 'Create password' : 'Log in'; return; }
-      token = r.token || null; legacyPwd = r.token ? null : p;
-      if (token) localStorage.setItem(TOKEN_KEY, token);
-      pwdIn.value = ''; pwdIn2.value = ''; setupTokenIn.value = '';
-      loginView.style.display = 'none';
-      appView.style.display = 'block';
-      await loadRfqs(true);
-      startPolling();
-      initAgents();
-    } catch (e) {
-      showMsg(e.message, 'err');
-      submitBtn.disabled = false;
-      submitBtn.textContent = mode === 'setup' ? 'Create password' : 'Log in';
-    }
-  });
+// ---------------- buckets ----------------
+function bucketOf(r) {
+  const st = r.status || 'new';
+  if (['won', 'lost', 'unable_to_source'].includes(st)) return 'closed';
+  if (st === 'quoted') return 'wait';
+  if (!PLANNABLE.includes(r.type || 'part')) return 'you';
+  const p = plans[r.id];
+  if (!p) return (Date.now() - new Date(r.created_at) > 180000) ? 'you' : 'work';
+  if (p.status === 'running') return (Date.now() - new Date(p.updated_at) > 180000) ? 'you' : 'work';
+  return 'you';
+}
+const BUCKETS = [['you', 'Needs you'], ['work', 'Sonar working'], ['wait', 'Waiting on buyer'], ['closed', 'Closed']];
 
-  pwdIn.addEventListener('keydown', e => { if (e.key === 'Enter' && mode === 'login') submitBtn.click(); });
-  pwdIn2.addEventListener('keydown', e => { if (e.key === 'Enter') submitBtn.click(); });
+function chipFor(r) {
+  const st = r.status || 'new', b = bucketOf(r), p = plans[r.id];
+  const urg = isUrgent(r) && b !== 'closed' ? '<span class="chip c-urg">Line down</span>' : '';
+  if (st === 'won') return '<span class="chip c-won">Won</span>';
+  if (st === 'lost') return '<span class="chip c-lost">Lost</span>';
+  if (st === 'unable_to_source') return '<span class="chip c-lost">Couldn\'t source</span>';
+  if (st === 'quoted') return `<span class="chip c-wait">Quote sent ${ago(r.last_email_sent_at || r.updated_at)}</span>`;
+  if (b === 'work') return urg + '<span class="chip c-work"><span class="pulse"></span>Sonar checking</span>';
+  return urg + '<span class="chip c-you">Review</span>';
+}
+function noteFor(r) {
+  const p = plans[r.id];
+  if (!PLANNABLE.includes(r.type || 'part')) return TYPES[r.type] || 'Request';
+  if (!p) return 'not checked yet';
+  if (p.status === 'error') return 'Sonar hit an error';
+  if (p.status !== 'done' || !p.summary) return '';
+  const c = p.summary.counts, need = (p.summary.open || []).length + (p.summary.late || []).length;
+  if (c.not_found === c.total) return 'not at distributors';
+  return need ? `${need} line${need === 1 ? '' : 's'} need you` : 'ready to send';
+}
+function valueOf(r) {
+  if (r.quote_amount_cents) return money(r.quote_amount_cents / 100, 0);
+  const p = plans[r.id];
+  const fp = full[r.id] || p;   // same maths as the RFQ page
+  if (fp && fp.status === 'done' && fp.summary && fp.lines) { const q = computeQuote(r, fp); return q.inc ? money(q.total, 0) : '—'; }
+  return '—';
+}
 
-  function isUrgentNew(r) {
-    const status = r.status || 'new';
-    const urg = (r.urgency || '').toLowerCase();
-    return status === 'new' && (urg.includes('urgent') || urg.includes('line down') || urg.includes('critical'));
+// ---------------- render: inbox ----------------
+function renderInbox() {
+  const q = query.toLowerCase();
+  const match = (r) => !q || [r.company, r.name, r.email, r.mpn].some(x => String(x || '').toLowerCase().includes(q));
+  const counts = {}; for (const [k] of BUCKETS) counts[k] = rfqs.filter(r => bucketOf(r) === k && match(r)).length;
+  $('buckets').innerHTML = BUCKETS.map(([k, label]) => `<button data-b="${k}" class="${k === bucket ? 'on' : ''}">${label}<b>${counts[k]}</b></button>`).join('');
+  const rows = rfqs.filter(r => bucketOf(r) === bucket && match(r)).sort((a, b) => (isUrgent(b) - isUrgent(a)) || (new Date(b.created_at) - new Date(a.created_at)));
+  $('list').innerHTML = rows.length ? rows.map(r => `
+    <div class="item${r.id === selId ? ' on' : ''}${fresh.has(r.id) ? ' fresh' : ''}" data-id="${r.id}">
+      <span class="co">${esc(r.company || r.name)}</span><span class="v">${valueOf(r)}</span>
+      <span class="what">${esc(whatOf(r))}</span>
+      <span class="meta">${chipFor(r)}${esc([placeOf(r), r.needed_by ? 'needed ' + fmtD(r.needed_by) : '', noteFor(r)].filter(Boolean).join(' · '))}</span>
+    </div>`).join('') : `<div class="empty">${bucket === 'you' ? 'Nothing needs you right now.' : 'Nothing here.'}</div>`;
+  fresh.clear();
+}
+
+// ---------------- render: workspace ----------------
+function stepsFor(r, plan) {
+  const st = r.status || 'new';
+  const planned = !PLANNABLE.includes(r.type || 'part') || (plan && plan.status === 'done');
+  const s = [['Received', 'd'], ["Sonar's plan", planned ? 'd' : 'c'], ['Your review', planned && st === 'new' ? 'c' : (st !== 'new' ? 'd' : '')], ['Quote sent', st === 'quoted' ? 'c' : (['won', 'lost'].includes(st) ? 'd' : '')], [st === 'lost' ? 'Lost' : st === 'unable_to_source' ? "Couldn't source" : 'Won · paid', st === 'won' ? 'd' : (['lost', 'unable_to_source'].includes(st) ? 'x' : '')]];
+  return '<div class="steps">' + s.map(([t, c]) => `<div class="${c}">${c === 'd' ? '✓ ' : c === 'c' ? '● ' : ''}${t}</div>`).join('') + '</div>';
+}
+function sonarCard(r, plan, q) {
+  const plannable = PLANNABLE.includes(r.type || 'part');
+  if (!plannable) return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">${esc(TYPES[r.type] || 'This request')} needs your own quote.</div><div class="why">Sonar only plans part, BOM and shortage requests. The buyer's details are below; set the amount in the quote panel.</div></div>`;
+  if (!plan) return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">Sonar hasn't checked this request yet.</div><div class="why">This usually happens for RFQs that came in before automatic checks were switched on.</div><div class="acts"><button class="btn p" data-run="${r.id}">Check stock and prices now</button></div></div>`;
+  if (plan.status === 'error') return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">Sonar couldn't finish this plan.</div><div class="why">${esc(plan.error || 'Unknown error')}</div><div class="acts"><button class="btn p" data-run="${r.id}">Try again</button></div></div>`;
+  if (plan.status !== 'done') {
+    const total = (plan.lines || []).length, done = (plan.lines || []).filter(l => l.status !== 'pending').length;
+    const stale = Date.now() - new Date(plan.updated_at) > 180000;
+    return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">${stale ? 'Sonar stopped part-way.' : 'Checking stock and prices…'}</div><div class="why">${done} of ${total} line${total === 1 ? '' : 's'} checked${total > 30 && !stale ? ' · about a minute per 30 lines' : ''}.</div><div class="prog"><i style="width:${Math.round(done / Math.max(total, 1) * 100)}%"></i></div>${stale ? `<div class="acts"><button class="btn p" data-run="${r.id}" data-cont="1">Continue</button></div>` : ''}</div>`;
   }
-
-  function priorityBucket(r) {
-    if (isUrgentNew(r)) return 0;
-    if ((r.status || 'new') === 'new') return 1;
-    return 2;
+  const sm = plan.summary, c = sm.counts, issues = (plan.lines || []).filter(l => issueOf(l, plan));
+  const undecided = issues.filter(l => !(plan.decisions || {})[String(l.n)]);
+  let say, why;
+  if (c.not_found === c.total) { say = `None of the ${c.total} line${c.total === 1 ? ' is' : 's are'} at distributors.`; why = 'This one needs broker sourcing. Draft a broker inquiry below, or enter prices you get yourself.'; }
+  else {
+    const early = q.arrive && q.needed ? dayDiff(q.arrive, q.needed) : null;
+    say = `${q.inc} of ${c.total} line${c.total === 1 ? '' : 's'} ${q.inc === 1 ? 'is' : 'are'} ready${q.arrive ? `, arriving by ${fmtD(q.arrive)}` : ''}${early != null ? (early >= 0 ? `, ${early} day${early === 1 ? '' : 's'} before the buyer's date` : `, ${-early} day${early === -1 ? '' : 's'} late`) : ''}.`;
+    why = undecided.length ? `${undecided.length} line${undecided.length === 1 ? ' needs' : 's need'} a decision from you below; they're not in the quote yet. The rest are priced from distributor stock.` : 'Every line is decided. Check the total on the right and send the quote.';
   }
-
-  function sortRows(rows) {
-    return [...rows].sort((a, b) => {
-      const pa = priorityBucket(a), pb = priorityBucket(b);
-      if (pa !== pb) return pa - pb;
-      return new Date(b.created_at) - new Date(a.created_at);
-    });
+  return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">${esc(say)}</div><div class="why">${esc(why)}</div>
+    <div class="acts">${undecided.length ? `<button class="btn p" data-jump="issues">Decide on ${undecided.length} line${undecided.length === 1 ? '' : 's'}</button>` : ''}${q.inc ? `<button class="btn${undecided.length ? '' : ' p'}" data-quote="${r.id}">Send quote for ${q.inc} line${q.inc === 1 ? '' : 's'}</button>` : ''}</div></div>`;
+}
+function numsFor(plan, q) {
+  if (!q.ready) return '';
+  const early = q.arrive && q.needed ? dayDiff(q.arrive, q.needed) : null;
+  return `<div class="nums">
+    <div class="num ${early == null ? '' : early >= 0 ? 'good' : 'bad'}"><b>${fmtD(q.arrive)}</b><span>arrives${q.needed ? ' · needed ' + fmtD(q.needed) : ''}</span></div>
+    <div class="num"><b>${q.inc} / ${q.total_lines}</b><span>lines in the quote</span></div>
+    <div class="num"><b>${money(q.cost, 0)}</b><span>your cost, delivered</span></div>
+    <div class="num"><b>${money(q.total, 0)}</b><span>quote to buyer</span></div></div>`;
+}
+const DESC = {
+  missing: (l) => l.note === 'Not listed at Mouser' ? 'Not at any distributor Sonar checks.' : (l.note || 'No usable stock at distributors.'),
+  late: (l, plan) => `${l.note ? l.note + '. ' : ''}Arrives ${fmtD(l.arrive_date)}, after the buyer's ${fmtD(plan.summary.needed_by)}.`,
+  short: (l) => l.note || 'Not enough stock for the full quantity.',
+};
+function issueCard(l, plan) {
+  const kind = issueOf(l, plan), d = (plan.decisions || {})[String(l.n)];
+  const manual = d && typeof d === 'object';
+  const sel = (v) => (v === 'manual' ? manual : d === v) ? ' sel' : '';
+  let opts;
+  if (kind === 'missing') opts = `
+    <button class="opt${sel('ask_brokers')}" data-dec="${l.n}" data-v="ask_brokers">Draft broker inquiry<small>email waits in Approvals</small></button>
+    <button class="opt${sel('leave_out')}" data-dec="${l.n}" data-v="leave_out">Leave out<small>“quote to follow”</small></button>
+    <button class="opt${sel('manual')}" data-dec="${l.n}" data-v="manual">I have a price<small>enter it below</small></button>`;
+  else opts = `
+    <button class="opt${sel('accept')}" data-dec="${l.n}" data-v="accept">Quote it anyway<small>${kind === 'late' ? 'buyer gets it ' + fmtD(l.arrive_date) : 'partial quantity'}</small></button>
+    <button class="opt${sel('ask_brokers')}" data-dec="${l.n}" data-v="ask_brokers">Ask brokers for faster stock<small>leaves it out for now</small></button>
+    <button class="opt${sel('leave_out')}" data-dec="${l.n}" data-v="leave_out">Leave out</button>
+    <button class="opt${sel('manual')}" data-dec="${l.n}" data-v="manual">I have a price</button>`;
+  const showManual = manual || (plan._manualOpen === l.n);
+  const mv = manual ? d : {};
+  const icon = kind === 'missing' ? ['bad', '!'] : ['warn', kind === 'late' ? '↯' : '½'];
+  const done = d ? `<div class="dim" style="font-size:12px;margin-top:4px">Decided${d === 'ask_brokers' ? ': inquiry drafted, see Approvals' : ''}.</div>` : '';
+  return `<div class="issue"><div class="ic ${icon[0]}">${icon[1]}</div>
+    <div class="t">Line ${l.n} · <span class="mono">${esc(l.mpn)}</span> × ${Number(l.qty).toLocaleString('en-US')}</div>
+    <div class="d">${esc(DESC[kind](l, plan))}</div>
+    <div><div class="opts">${opts}</div>
+    ${showManual ? `<div class="manual">Unit price $<input type="number" step="0.0001" min="0" id="mu-${l.n}" value="${mv.unit ?? ''}"> delivered in <input type="number" min="0" id="md-${l.n}" value="${mv.days ?? ''}" style="width:64px"> days <button class="btn sm p" data-manual="${l.n}">Use this price</button></div>` : ''}${done}</div></div>`;
+}
+function shipmentsCard(plan) {
+  const sm = plan.summary; if (!sm || !sm.shipments || !sm.shipments.length) return '';
+  const t0 = plan.ctx.today, last = [sm.needed_by, ...sm.shipments.map(s => s.arrive)].filter(Boolean).sort().pop();
+  const span = Math.max(dayDiff(t0, last), 7) * 1.08;
+  const pos = (d) => Math.min(100, Math.max(2, dayDiff(t0, d) / span * 100));
+  const rows = sm.shipments.map(s => `<div class="ship"><span><b>${esc(s.name)}</b> <span class="dim">· ${esc(s.origin)} · ${s.lines} line${s.lines === 1 ? '' : 's'}</span></span><span class="mono">${money(s.value, 0)}</span><span>${fmtD(s.arrive)}</span>
+    <div class="bar"><i class="${sm.needed_by && s.arrive > sm.needed_by ? 'late' : ''}" style="width:${pos(s.arrive)}%"></i>${sm.needed_by ? `<span class="need" style="left:${pos(sm.needed_by)}%"></span>` : ''}</div></div>`).join('');
+  return `<div class="card"><div class="sec">Shipments <span class="dim">to ${esc(plan.ctx.drop || plan.ctx.dest)}</span></div>${rows}
+    <div class="dim" style="font-size:11.5px;margin-top:8px">Bar runs from today to arrival${sm.needed_by ? '; red mark is the buyer\'s date' : ''}. Freight and transit are estimates.</div></div>`;
+}
+let showAllLines = false;
+function linesCard(plan) {
+  const dec = plan.decisions || {}, lines = plan.lines || [];
+  const okCount = lines.filter(l => !issueOf(l, plan)).length;
+  const ST = { in_stock: ['In stock', 'p-ok'], partial: ['Part stock', 'p-warn'], factory: ['Lead time', 'p-warn'], not_found: ['Not found', 'p-bad'] };
+  const head = `<div class="ready"><span>✓ <b>${okCount} line${okCount === 1 ? '' : 's'} ready</b>: priced${plan.summary.needed_by ? ' and on time' : ''}</span><button class="btn link" data-toggle-lines>${showAllLines ? 'Hide lines' : 'Show all ' + lines.length + ' lines'}</button></div>`;
+  if (!showAllLines) return head;
+  const rows = lines.map(l => {
+    const d = dec[String(l.n)], out = d === 'leave_out' || d === 'ask_brokers';
+    const manual = d && typeof d === 'object';
+    const st = ST[l.status] || ['—', 'p-gray'];
+    return `<tr class="${out ? 'out' : ''}"><td>${l.n}</td><td><span class="mono">${esc(l.mpn)}</span>${l.manufacturer ? `<div class="dim">${esc(l.manufacturer)}</div>` : ''}</td>
+      <td class="n">${Number(l.qty).toLocaleString('en-US')}</td><td><span class="pill ${manual ? 'p-gray' : st[1]}">${manual ? 'Your price' : st[0]}</span></td>
+      <td class="n">${manual ? money(Number(d.unit), 4) : money(l.unit)}</td><td class="n">${manual ? money(Number(d.unit) * l.qty, 0) : money((l.landed_unit || 0) * (l.covered || 0) || null, 0)}</td>
+      <td>${manual ? fmtD(addDays(plan.ctx.today, Number(d.days) || 0)) : fmtD(l.arrive_date)}</td><td>${l.link ? `<a href="${esc(l.link)}" target="_blank" rel="noopener" title="Open listing">↗</a>` : ''}</td></tr>`;
+  }).join('');
+  return `<div class="card">${head}<div class="tbl-wrap" style="margin-top:10px"><table><tr><th>#</th><th>Part</th><th class="n">Qty</th><th>Status</th><th class="n">Unit</th><th class="n">Delivered cost</th><th>Arrives</th><th></th></tr>${rows}</table></div>
+    <div class="dim" style="font-size:11.5px;margin-top:8px">${esc(plan.summary.basis)}</div></div>`;
+}
+function requestCard(r) {
+  const src = r.meta && r.meta.source ? [r.meta.source.channel, r.meta.source.utm_campaign, r.meta.source.utm_term && '“' + r.meta.source.utm_term + '”'].filter(Boolean).join(' · ') : '';
+  const rows = [['Buyer', `${r.name || ''}${r.company ? ' · ' + r.company : ''}`], ['Email', r.email ? `<a href="mailto:${esc(r.email)}">${esc(r.email)}</a>` : ''], ['Phone', r.phone ? `<a href="tel:${esc(String(r.phone).replace(/[^0-9+]/g, ''))}">${esc(r.phone)}</a>` : ''],
+    ['Ship to', esc([r.drop_off_location, r.country].filter(Boolean).join(', '))], ['Needed by', esc(r.needed_by ? fmtD(r.needed_by) : '')], ['Urgency', esc(r.urgency || '')],
+    ['Target price', esc(r.target || '')], ['Came from', esc(src)], ['Notes', r.notes ? `<pre>${esc(r.notes)}</pre>` : '']].filter(x => x[1]);
+  return `<div class="card req"><div class="sec">Request</div><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${k === 'Buyer' ? esc(v) : v}</dd>`).join('')}
+    <dt>As submitted</dt><dd><pre>${esc(r.mpn || '')}</pre></dd></dl></div>`;
+}
+function quoteCard(r, plan, q) {
+  const plannable = PLANNABLE.includes(r.type || 'part') && q.ready;
+  const st = r.status || 'new';
+  const sent = st !== 'new' && r.quote_amount_cents;
+  const linkBox = r.stripe_payment_link ? `<div class="linkbox">${qr(r.stripe_payment_link)}<div>Buyer's payment link<br><a href="${esc(r.stripe_payment_link)}" target="_blank" rel="noopener">${esc(r.stripe_payment_link)}</a></div></div>` : '';
+  let body;
+  if (plannable) {
+    body = `<div class="row"><span>Lines included</span><b>${q.inc} of ${q.total_lines}</b></div>
+      <div class="row"><span>Your cost, delivered</span><b>${money(q.cost, 2)}</b></div>
+      <div style="margin-top:8px;color:var(--ink2)">Margin</div>
+      <div class="mg">${[15, 20, 25].map(m => `<button data-margin="${m}" class="${q.margin === m ? 'on' : ''}">${m}%</button>`).join('')}</div>
+      <div class="row"><span>Your profit</span><b>${money(q.profit, 2)}</b></div>
+      <div class="row tot"><span>Buyer pays</span><b>${money(q.total, 2)}</b></div>`;
+  } else {
+    body = `<div style="color:var(--ink2)">Quote amount (USD)</div><input class="amt" id="manual-amt" inputmode="decimal" placeholder="e.g. 1250.00" value="${r.quote_amount_cents ? (r.quote_amount_cents / 100).toFixed(2) : ''}">`;
   }
+  const label = sent ? 'Update quote & email again' : 'Preview & send quote';
+  const disabled = plannable && !q.inc ? ' disabled' : '';
+  return `<div class="card q"><div class="sec">Quote${sent ? ` <span class="pill p-ok">sent ${ago(r.last_email_sent_at)}</span>` : ''}</div>${body}
+    <div class="acts"><button class="btn p" style="flex:1" data-quote="${r.id}"${disabled}>${label}</button></div>
+    <div class="note">${plannable ? `${q.out.length ? q.out.length + ' line' + (q.out.length === 1 ? '' : 's') + ' left out (listed as “quote to follow”). ' : ''}${q.open.length ? q.open.length + ' undecided line' + (q.open.length === 1 ? ' is' : 's are') + ' not in the total. ' : ''}` : ''}Creates a Stripe payment link, then opens the email for you to check before it sends.</div>${linkBox}</div>`;
+}
+function approvalsFor(r) {
+  const mine = tasks.filter(t => t.status === 'pending' && t.payload && t.payload.rfq_id === r.id);
+  if (!mine.length) return '';
+  return `<div class="appr">⏳ <b>${mine.length} email${mine.length === 1 ? '' : 's'} waiting for your OK</b>: ${mine.map(t => esc(t.title)).join(', ')}. Sent only when you approve.<br><button class="btn sm" data-goto="approvals">Open Approvals</button></div>`;
+}
+function logFor(r, plan) {
+  const ev = [[r.created_at, `Request arrived${firstLine(r.mpn).length > 1 ? `: ${firstLine(r.mpn).length} lines` : ''}`]];
+  if (plan && plan.created_at) ev.push([plan.created_at, 'Sonar started checking stock']);
+  if (plan && plan.status === 'done') ev.push([plan.updated_at, `Plan ready: ${plan.summary.counts.total - plan.summary.counts.not_found} of ${plan.summary.counts.total} lines found`]);
+  for (const t of tasks.filter(t => t.payload && t.payload.rfq_id === r.id)) ev.push([t.created_at, `${t.title} drafted (${t.status === 'executed' ? 'sent' : t.status})`]);
+  if (r.last_email_sent_at) ev.push([r.last_email_sent_at, r.last_email_type === 'cannot_source' ? "Told buyer we can't source" : 'Quote emailed to buyer']);
+  ev.sort((a, b) => new Date(a[0]) - new Date(b[0]));
+  return `<div class="card log"><div class="sec">What happened</div>${ev.map(([t, s]) => `<div><span title="${esc(new Date(t).toLocaleString())}">${new Date(t).toDateString() === new Date().toDateString() ? clock(t) : new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</span>${esc(s)}</div>`).join('')}</div>`;
+}
+function qr(text) {
+  try { const q = qrcode(0, 'M'); q.addData(text); q.make(); return `<img alt="QR code for the payment link" src="${q.createDataURL(3, 2)}">`; } catch (e) { return ''; }
+}
 
-  // Make a small QR as a data: URL from the qrcode-generator CDN lib
-  function qrDataUrl(text, size = 64) {
-    try {
-      const qr = qrcode(0, 'M');
-      qr.addData(text);
-      qr.make();
-      return qr.createDataURL(3, 2); // cellSize=3, margin=2
-    } catch (e) { console.warn('QR gen failed', e); return ''; }
-  }
+function renderWorkspace() {
+  const ws = $('ws');
+  document.querySelector('#view-rfqs').classList.toggle('sel', !!selId);
+  const r = rfqs.find(x => x.id === selId);
+  if (!r) { ws.innerHTML = '<div class="blank">Pick an RFQ on the left.</div>'; return; }
+  const plan = full[r.id] || null;
+  const q = computeQuote(r, plan);
+  const issues = plan && plan.status === 'done' ? (plan.lines || []).filter(l => issueOf(l, plan)) : [];
+  const st = r.status || 'new';
+  const keep = ws.scrollTop;
+  ws.innerHTML = `<div class="wgrid">
+    <div class="full">
+      <button class="btn sm back" data-back>← All RFQs</button>
+      <h1 class="h1">${esc(r.company || r.name)} · ${esc(whatOf(r))}${isUrgent(r) ? ' <span class="chip c-urg">Line down</span>' : ''}
+        <span class="hdr-acts"><select class="btn sm" id="status-sel" title="Change status">
+          ${[['new', 'Open'], ['quoted', 'Quote sent'], ['won', 'Won · paid'], ['lost', 'Lost'], ['unable_to_source', "Couldn't source"]].map(([v, t]) => `<option value="${v}"${st === v ? ' selected' : ''}>${t}</option>`).join('')}
+        </select><button class="btn sm" data-cant="${r.id}" title="Email the buyer that we can't source this">Can't source</button><button class="btn sm danger" data-del="${r.id}" title="Delete permanently">Delete</button></span></h1>
+      <div class="sub"><span>${esc(r.name || '')}${r.email ? ' · ' + esc(r.email) : ''}</span>${placeOf(r) ? `<span>Ship to ${esc([r.drop_off_location, r.country].filter(Boolean).join(', '))}</span>` : ''}${r.needed_by ? `<span>Needed by <b>${fmtD(r.needed_by)}</b></span>` : ''}<span>Received ${ago(r.created_at)}</span></div>
+      ${stepsFor(r, plan)}
+    </div>
+    <div class="col">
+      ${sonarCard(r, plan, q)}
+      ${numsFor(plan, q)}
+      ${issues.length ? `<div class="card" id="issues"><div class="sec">Needs your decision <span class="dim">${issues.length} line${issues.length === 1 ? '' : 's'}</span></div>${issues.map(l => issueCard(l, plan)).join('')}</div>` : ''}
+      ${plan && plan.status === 'done' ? shipmentsCard(plan) + linesCard(plan) : ''}
+      ${requestCard(r)}
+    </div>
+    <div class="side">${quoteCard(r, plan, q)}${approvalsFor(r)}${logFor(r, plan)}</div>
+  </div>`;
+  ws.scrollTop = keep;
+}
 
-  function rowHtml(r) {
-    const status = r.status || 'new';
-    const urgent = isUrgentNew(r);
-    const d = new Date(r.created_at);
-    const hoursAgo = (Date.now() - d) / 3600000;
-    const timeAgo = hoursAgo < 1
-      ? Math.max(1, Math.round(hoursAgo * 60)) + 'm ago'
-      : hoursAgo < 24
-        ? Math.round(hoursAgo) + 'h ago'
-        : d.toLocaleDateString();
-    const justArrived = justArrivedIds.has(r.id);
-    const classes = ['rfq'];
-    if (urgent) classes.push('urgent-new');
-    if (justArrived) classes.push('just-arrived');
-    const phoneLink = r.phone ? ` · <a href="tel:${esc(r.phone.replace(/[^0-9+]/g,''))}">${esc(r.phone)}</a>` : '';
-    const qrImg = r.stripe_payment_link ? `<div class="qr-mini" title="Scan to open Stripe link"><img src="${qrDataUrl(r.stripe_payment_link)}" alt="Stripe QR"></div>` : '';
-    const lastEmailLine = r.last_email_sent_at ? `<div class="last-email">📧 Last email: ${esc(r.last_email_type || 'sent')} · ${new Date(r.last_email_sent_at).toLocaleString()}</div>` : '';
-    return `
-      <div class="${classes.join(' ')}" data-rfq-id="${r.id}">
-        <div class="rfq-head">
-          <div>
-            <p class="who">${esc(r.name)} · ${esc(r.company)}<span class="type-tag t-${esc(lineOf(r))}">${esc(LINES[lineOf(r)] || lineOf(r))}</span>
-              <span class="badge b-${status}">${status.replace(/_/g, ' ')}</span>
-              ${urgent ? '<span class="badge b-urgent">URGENT</span>' : ''}
-            </p>
-            <p class="meta"><a href="mailto:${esc(r.email)}">${esc(r.email)}</a>${phoneLink}</p>
-          </div>
-          <div class="time">${timeAgo}</div>
-        </div>
-        <div class="rfq-body">
-          <div class="rfq-field"><div class="label">Part number(s)</div><pre class="value">${esc(r.mpn)}</pre></div>
-          <div class="rfq-field"><div class="label">Quantity</div><div class="value">${esc(r.qty || '— (in BOM)')}</div></div>
-          <div class="rfq-field"><div class="label">Target price</div><div class="value">${esc(r.target || '—')}</div></div>
-          <div class="rfq-field"><div class="label">Needed by</div><div class="value">${esc(r.needed_by || '— (in BOM)')}</div></div>
-          <div class="rfq-field"><div class="label">Urgency</div><div class="value">${esc(r.urgency)}</div></div>
-          <div class="rfq-field"><div class="label">Country</div><div class="value">${esc(r.country || '—')}</div></div>
-          ${r.meta && r.meta.source ? `<div class="rfq-field" style="grid-column:1/-1"><div class="label">Source</div><div class="value">${esc([r.meta.source.channel, r.meta.source.utm_campaign, r.meta.source.utm_term && ('“' + r.meta.source.utm_term + '”'), r.meta.source.landing].filter(Boolean).join(' · '))}</div></div>` : ''}
-          <div class="rfq-field" style="grid-column:1/-1"><div class="label">Drop-off</div><div class="value">${esc(r.drop_off_location || '—')}</div></div>
-          ${r.notes ? `<div class="rfq-field" style="grid-column:1/-1"><div class="label">Notes</div><pre class="value">${esc(r.notes)}</pre></div>` : ''}
-        </div>
-        <div class="rfq-actions">
-          <select data-id="${r.id}" class="status-sel">
-            <option value="new"${status==='new'?' selected':''}>new</option>
-            <option value="quoted"${status==='quoted'?' selected':''}>quoted</option>
-            <option value="won"${status==='won'?' selected':''}>won</option>
-            <option value="lost"${status==='lost'?' selected':''}>lost</option>
-            <option value="unable_to_source"${status==='unable_to_source'?' selected':''}>unable to source</option>
-          </select>
-          ${['part', 'shortage', 'bom_check'].includes(r.type || 'part') ? `<button class="ghost" data-plan="${r.id}">📦 Sourcing plan</button>` : ''}
-          <a href="/track.html?id=${r.id}" target="_blank">View buyer page</a>
-          <button class="rfq-del" data-del-rfq="${r.id}" title="Delete this RFQ permanently">Delete</button>
-        </div>
-        <div class="quote-form" data-id="${r.id}">
-          <input class="qamt" placeholder="Quote total USD (e.g. 1250.00)" value="${r.quote_amount_cents != null ? (r.quote_amount_cents/100).toFixed(2) : ''}" inputmode="decimal">
-          <button class="save" data-id="${r.id}">${r.stripe_payment_link ? 'Update quote &amp; email' : 'Save quote &amp; email'}</button>
-          <button class="cant" data-id="${r.id}" title="Email buyer that we can't source this">Can't source →</button>
-          <span class="saved" data-id="${r.id}"></span>
-          <div class="hint">💡 Save creates the Stripe payment link, then opens an email you can edit before it sends.</div>
-          ${r.stripe_payment_link ? `<div class="link-row"><div class="link-text">Buyer link:<br><a href="${esc(r.stripe_payment_link)}" target="_blank" rel="noopener">${esc(r.stripe_payment_link)}</a></div>${qrImg}</div>` : ''}
-          ${lastEmailLine}
-          <button type="button" class="toggle-advanced" data-id="${r.id}">Advanced: paste your own Stripe link instead ▸</button>
-          <div class="advanced" data-id="${r.id}">
-            <input class="qlink" placeholder="https://buy.stripe.com/..." value="${esc(r.stripe_payment_link || '')}">
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  function renderList() {
-    const list = $('rfq-list');
-    let rows = sortRows(allRfqs);
-    if (currentLine !== 'all') rows = rows.filter(r => lineOf(r) === currentLine);
-    if (currentFilter === 'urgent') rows = rows.filter(r => (r.urgency || '').toLowerCase().match(/urgent|line down|critical/));
-    else if (currentFilter !== 'all') rows = rows.filter(r => (r.status || 'new') === currentFilter);
-
-    if (!rows.length) { list.innerHTML = '<div class="empty">No RFQs match this filter.</div>'; return; }
-
-    const urgentRows = rows.filter(isUrgentNew);
-    const otherRows = rows.filter(r => !isUrgentNew(r));
-
-    let html = '';
-    if (urgentRows.length && (currentFilter === 'all' || currentFilter === 'new')) {
-      html += `<div class="section-head priority">⚡ Priority queue <span class="count">${urgentRows.length}</span></div>`;
-      html += urgentRows.map(rowHtml).join('');
-      if (otherRows.length) {
-        html += `<div class="section-head">${currentFilter === 'new' ? 'Other new RFQs' : 'All other RFQs'} <span class="count">${otherRows.length}</span></div>`;
-        html += otherRows.map(rowHtml).join('');
-      }
-    } else {
-      html += rows.map(rowHtml).join('');
-    }
-    list.innerHTML = html;
-    justArrivedIds.clear();
-    wireRowHandlers();
-  }
-
-  // Fade a row out in-place without a full re-render — gives instant visual feedback
-  function fadeOutRow(id, onDone) {
-    const el = document.querySelector(`.rfq[data-rfq-id="${id}"]`);
-    if (!el) { if (onDone) onDone(); return; }
-    el.classList.add('fading-out');
-    setTimeout(() => { if (onDone) onDone(); }, 380);
-  }
-
-  // Does this RFQ still belong on the current filter? If not, it should fade away.
-  function matchesCurrentFilter(r) {
-    if (currentLine !== 'all' && lineOf(r) !== currentLine) return false;
-    if (currentFilter === 'all') return true;
-    if (currentFilter === 'urgent') return (r.urgency || '').toLowerCase().match(/urgent|line down|critical/) && (r.status || 'new') === 'new';
-    return (r.status || 'new') === currentFilter;
-  }
-
-  function wireRowHandlers() {
-    document.querySelectorAll('[data-del-rfq]').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const id = btn.dataset.delRfq;
-        if (!confirm('Delete this RFQ permanently? This cannot be undone.')) return;
-        btn.disabled = true;
-        try {
-          await api('/rfq?id=' + id, { method: 'DELETE' });
-          allRfqs = allRfqs.filter(r => r.id !== id);
-          fadeOutRow(id, () => { renderList(); renderStats(); });
-        } catch (err) {
-          btn.disabled = false;
-          alert('Delete failed: ' + err.message);
-        }
-      });
-    });
-    document.querySelectorAll('.status-sel').forEach(sel => {
-      sel.addEventListener('change', async (e) => {
-        const id = e.target.dataset.id;
-        const value = e.target.value;
-        try {
-          await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify({ status: value }) });
-          const r = allRfqs.find(x => x.id === id); if (r) r.status = value;
-          renderStats();
-          if (r && !matchesCurrentFilter(r)) fadeOutRow(id, renderList);
-          else renderList();
-        } catch (err) { alert('Update failed: ' + err.message); }
-      });
-    });
-    document.querySelectorAll('.quote-form .toggle-advanced').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const form = e.target.closest('.quote-form');
-        const adv = form.querySelector('.advanced');
-        adv.classList.toggle('show');
-        btn.textContent = adv.classList.contains('show')
-          ? 'Advanced: paste your own Stripe link instead ▾'
-          : 'Advanced: paste your own Stripe link instead ▸';
-      });
-    });
-    document.querySelectorAll('.quote-form .save').forEach(btn => {
-      btn.addEventListener('click', async (e) => {
-        const id = e.target.dataset.id;
-        const form = e.target.closest('.quote-form');
-        const amtStr = form.querySelector('.qamt').value.trim().replace(/[$,\s]/g, '');
-        const advShown = form.querySelector('.advanced')?.classList.contains('show');
-        const link = advShown ? form.querySelector('.qlink').value.trim() : '';
-        const saved = form.querySelector('.saved');
-        if (!amtStr) { saved.textContent = 'Enter a quote amount.'; saved.style.color = 'var(--danger)'; return; }
-        const amtNum = parseFloat(amtStr);
-        if (isNaN(amtNum) || amtNum < 0.5) { saved.textContent = 'Minimum $0.50.'; saved.style.color = 'var(--danger)'; return; }
-        if (link && !/^https?:\/\//.test(link)) { saved.textContent = 'Link must start with https://'; saved.style.color = 'var(--danger)'; return; }
-        btn.disabled = true; saved.textContent = link ? 'Saving…' : 'Creating Stripe link…'; saved.style.color = 'var(--ink-3)';
-        const patch = {
-          quote_amount_cents: Math.round(amtNum * 100),
-          quote_currency: 'USD',
-          status: 'quoted',
-        };
-        if (link) patch.stripe_payment_link = link;
-        try {
-          const result = await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify(patch) });
-          const r = allRfqs.find(x => x.id === id);
-          if (r && result.rfq) Object.assign(r, result.rfq);
-          saved.textContent = result.generated_link ? '✓ Saved · opening email…' : '✓ Saved · opening email…';
-          saved.style.color = 'var(--ok)';
-          renderStats();
-          // Open the composer so admin can review/edit the quote-ready email, then fade on send
-          await openComposer(id, 'quote_ready');
-        } catch (err) {
-          saved.textContent = 'Save failed: ' + err.message; saved.style.color = 'var(--danger)';
-        } finally { btn.disabled = false; }
-      });
-    });
-    document.querySelectorAll('.quote-form .cant').forEach(btn => {
-      btn.addEventListener('click', async (e) => {
-        const id = e.target.dataset.id;
-        await openComposer(id, 'cannot_source');
-      });
-    });
-  }
-
-  // ---------- Email composer modal ----------
-  async function openComposer(rfqId, type) {
-    composeCtx = { rfqId, type };
-    $('compose-title').textContent = type === 'cannot_source' ? "Email buyer: can't source" : 'Email buyer: quote ready';
-    const sendBtn = $('compose-send');
-    sendBtn.textContent = type === 'cannot_source' ? "Send & mark unable" : 'Send to buyer';
-    sendBtn.classList.toggle('danger', type === 'cannot_source');
-    $('compose-status').textContent = 'Drafting…';
-    $('compose-status').classList.remove('err');
-    $('compose-subject').value = '';
-    $('compose-body').value = '';
-    $('compose-to').textContent = '';
-    $('compose-backdrop').classList.add('show');
-    try {
-      const draft = await api('/draft-email', { method: 'POST', body: JSON.stringify({ rfq_id: rfqId, type }) });
-      $('compose-to').textContent = draft.to || '';
-      $('compose-subject').value = draft.subject || '';
-      $('compose-body').value = draft.body || '';
-      $('compose-status').textContent = 'Review and edit before sending.';
-    } catch (err) {
-      $('compose-status').textContent = 'Could not draft: ' + err.message;
-      $('compose-status').classList.add('err');
-    }
-  }
-
-  function closeComposer() {
-    $('compose-backdrop').classList.remove('show');
-    composeCtx = null;
-  }
-
-  $('compose-close').addEventListener('click', closeComposer);
-  $('compose-cancel').addEventListener('click', closeComposer);
-  $('compose-backdrop').addEventListener('click', (e) => { if (e.target.id === 'compose-backdrop') closeComposer(); });
-
-  $('compose-send').addEventListener('click', async () => {
-    if (!composeCtx) return;
-    const { rfqId, type } = composeCtx;
-    const subject = $('compose-subject').value.trim();
-    const body = $('compose-body').value.trim();
-    if (!subject || !body) { $('compose-status').textContent = 'Subject and body required.'; $('compose-status').classList.add('err'); return; }
-    const btn = $('compose-send');
-    btn.disabled = true;
-    $('compose-status').textContent = 'Sending…';
-    $('compose-status').classList.remove('err');
-    try {
-      await api('/send-email', { method: 'POST', body: JSON.stringify({ rfq_id: rfqId, type, subject, body }) });
-      // Update local state
-      const r = allRfqs.find(x => x.id === rfqId);
-      if (r) {
-        r.last_email_type = type;
-        r.last_email_sent_at = new Date().toISOString();
-        r.last_email_subject = subject;
-        if (type === 'cannot_source') r.status = 'unable_to_source';
-      }
-      showToast('Email sent', (type === 'cannot_source' ? 'Marked unable to source' : 'Quote delivered to buyer'), false, true);
-      closeComposer();
-      renderStats();
-      if (r && !matchesCurrentFilter(r)) fadeOutRow(rfqId, renderList);
-      else renderList();
-    } catch (err) {
-      $('compose-status').textContent = 'Send failed: ' + err.message;
-      $('compose-status').classList.add('err');
-    } finally {
-      btn.disabled = false;
-    }
-  });
-
-  function renderLines() {
-    const keys = ['part', 'shortage', 'ai_box', 'retainer'];
-    for (const r of allRfqs) if (!keys.includes(lineOf(r))) keys.push(lineOf(r));
-    const money = (c) => '$' + Math.round(c / 100).toLocaleString('en-US');
-    let rowsHtml = '';
-    for (const k of keys) {
-      const rs = allRfqs.filter(r => lineOf(r) === k);
-      const quoted = rs.filter(r => r.quote_amount_cents);
-      const won = rs.filter(r => r.status === 'won');
-      rowsHtml += `<tr><td>${esc(LINES[k] || k)}</td><td class="num">${rs.length}</td><td class="num">${rs.filter(r => (r.status || 'new') === 'new').length}</td><td class="num">${quoted.length}</td><td class="num">${won.length}</td><td class="num">${money(won.reduce((a, r) => a + (r.quote_amount_cents || 0), 0))}</td><td class="num">${rs.length ? Math.round(won.length / rs.length * 100) : 0}%</td></tr>`;
-    }
-    // Source breakdown: where requests came from (meta.source.channel, set by cs.js on the site).
-    const srcOf = (r) => (r.meta && r.meta.source && (r.meta.source.utm_campaign ? r.meta.source.channel + ' · ' + r.meta.source.utm_campaign : r.meta.source.channel)) || 'unknown (before tracking)';
-    const srcKeys = [...new Set(allRfqs.map(srcOf))].sort((a, b) => allRfqs.filter(r => srcOf(r) === b).length - allRfqs.filter(r => srcOf(r) === a).length);
-    $('sources').innerHTML = `<tr><th>Source</th><th class="num">Requests</th><th class="num">Quoted</th><th class="num">Won</th><th class="num">Won value</th><th class="num">Win rate</th></tr>` + srcKeys.map(k => {
-      const rs = allRfqs.filter(r => srcOf(r) === k), won = rs.filter(r => r.status === 'won');
-      return `<tr><td>${esc(k)}</td><td class="num">${rs.length}</td><td class="num">${rs.filter(r => r.quote_amount_cents).length}</td><td class="num">${won.length}</td><td class="num">${money(won.reduce((a, r) => a + (r.quote_amount_cents || 0), 0))}</td><td class="num">${rs.length ? Math.round(won.length / rs.length * 100) : 0}%</td></tr>`;
-    }).join('');
-    $('lines').innerHTML = `<tr><th>Business line</th><th class="num">Requests</th><th class="num">Open</th><th class="num">Quoted</th><th class="num">Won</th><th class="num">Won value</th><th class="num">Win rate</th></tr>` + rowsHtml;
-    $('line-filters').innerHTML = [['all', 'All lines', allRfqs.length], ...keys.map(k => [k, LINES[k] || k, allRfqs.filter(r => lineOf(r) === k).length])]
-      .map(([k, label, n]) => `<button class="lchip${k === currentLine ? ' active' : ''}" data-line="${k}">${esc(label)}<span class="n">${n}</span></button>`).join('');
-    $('line-filters').querySelectorAll('.lchip').forEach(b => b.addEventListener('click', () => { currentLine = b.dataset.line; renderLines(); renderList(); }));
-  }
-
-  function renderStats() {
-    renderLines();
-    const total = allRfqs.length;
-    const newCount = allRfqs.filter(r => (r.status || 'new') === 'new').length;
-    const quoted = allRfqs.filter(r => r.status === 'quoted').length;
-    const won = allRfqs.filter(r => r.status === 'won').length;
-    const urgent = allRfqs.filter(isUrgentNew).length;
-    $('stats').innerHTML = `
-      <div class="stat ${urgent ? 'urgent-alive' : ''}"><div class="label">⚡ Urgent open</div><div class="value" style="color: ${urgent ? 'var(--danger)' : 'inherit'}">${urgent}</div></div>
-      <div class="stat"><div class="label">Open (new)</div><div class="value">${newCount}</div></div>
-      <div class="stat"><div class="label">Quoted</div><div class="value">${quoted}</div></div>
-      <div class="stat"><div class="label">Won</div><div class="value">${won}</div></div>
-      <div class="stat"><div class="label">Total RFQs</div><div class="value">${total}</div></div>
-    `;
-  }
-
-  async function loadRfqs(initial) {
-    if (initial) $('rfq-list').innerHTML = '<div class="loading">Loading RFQs…</div>';
-    try {
-      const data = await api('/list');
-      const incoming = data.rfqs || [];
-      if (!initial) {
-        for (const r of incoming) {
-          if (!knownIds.has(r.id)) {
-            justArrivedIds.add(r.id);
-            const urg = isUrgentNew(r);
-            showToast(`${r.name} · ${r.company}`, `${(r.mpn || '').split(/\s+/)[0]} · qty ${r.qty}`, urg);
-            if (urg) playPing();
-          }
-        }
-      }
-      allRfqs = incoming;
-      knownIds = new Set(incoming.map(r => r.id));
-      renderStats(); renderList();
-      setLive('Live', 'var(--ok)');
-    } catch (err) {
-      if (err.message === 'unauthorized') { logout(); return; }
-      setLive('Offline', 'var(--ink-3)');
-      console.error('loadRfqs error', err);
-    }
-  }
-
-  function setLive(text, color) {
-    $('live-text').textContent = text;
-    document.querySelector('#live-indicator .dot').style.background = color;
-  }
-
-  function startPolling() {
-    stopPolling();
-    pollTimer = setInterval(() => loadRfqs(false), POLL_MS);
-  }
-  function stopPolling() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } }
-
-  function showToast(title, sub, urgent, ok) {
-    const stack = $('toasts');
-    const el = document.createElement('div');
-    el.className = 'toast' + (urgent ? ' urgent' : '') + (ok ? ' ok' : '');
-    el.innerHTML = `<div class="t-title">${urgent ? '⚡ ' : ''}${esc(title)}</div><div class="t-sub">${esc(sub)}</div>`;
-    stack.appendChild(el);
-    setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => el.remove(), 400); }, urgent ? 10000 : 5000);
-  }
-
-  function playPing() {
-    try {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'sine'; o.frequency.setValueAtTime(880, ctx.currentTime);
-      o.frequency.setValueAtTime(1320, ctx.currentTime + 0.12);
-      g.gain.setValueAtTime(0, ctx.currentTime);
-      g.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.02);
-      g.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
-      o.connect(g); g.connect(ctx.destination);
-      o.start(); o.stop(ctx.currentTime + 0.4);
-    } catch (e) { /* no audio ok */ }
-  }
-
-  document.querySelectorAll('.chip').forEach(c => {
-    c.addEventListener('click', () => {
-      document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
-      c.classList.add('active');
-      currentFilter = c.dataset.filter;
-      renderList();
-    });
-  });
-
-  $('refresh-btn').addEventListener('click', () => loadRfqs(false));
-
-  function logout() {
-    stopPolling();
-    localStorage.removeItem(TOKEN_KEY);
-    token = null; legacyPwd = null;
-    appView.style.display = 'none';
-    pwdIn.value = ''; pwdIn2.value = '';
-    submitBtn.disabled = false;
-    submitBtn.textContent = mode === 'setup' ? 'Create password' : 'Log in';
-    loginView.style.display = 'block';
-  }
-  $('logout-btn').addEventListener('click', logout);
-
-  async function init() {
-    try { localStorage.removeItem(OLD_PWD_KEY); } catch { /* ignore */ }
-    const stored = localStorage.getItem(TOKEN_KEY);
-    if (stored) {
-      token = stored;
-      try {
-        await api('/session');
-        appView.style.display = 'block';
-        await loadRfqs(true);
-        startPolling();
-        initAgents();
-        return;
-      } catch { /* expired or invalid: fall through to login */ }
-      token = null;
-      localStorage.removeItem(TOKEN_KEY);
-    }
-    await checkMode();
-  }
-
-  // ============================================================
-  // Agent chat (Sonar) + Tasks
-  // ============================================================
-  const AGENT_API = "https://dgpdfponhxbnhfhmbmjb.supabase.co/functions/v1/agent-chat";
-  const SB_ANON  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRncGRmcG9uaHhibmhmaG1ibWpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwMzc5ODcsImV4cCI6MjEwNjYxMzk4N30.5R9ASFR8eig65JzfNBueXp3NvwHRVtb4wQ2dyH8qhE8";
-  const agentState = {
-    sonar:  { convId: null, convs: [], msgs: [] },
+// ---------------- render: approvals ----------------
+function renderApprovals() {
+  const n = tasks.filter(t => t.status === 'pending').length;
+  $('appr-cnt').textContent = n; $('appr-cnt').classList.toggle('hidden', !n);
+  if (view !== 'approvals') return;
+  const list = tasks.filter(t => t.status === 'pending');
+  const done = tasks.filter(t => t.status !== 'pending').slice(0, 15);
+  const tile = (t) => {
+    const p = t.payload || {}, dft = p.draft || {}, sendable = ['send_cold_email', 'send_quote_email'].includes(t.type);
+    const rf = rfqs.find(x => x.id === p.rfq_id);
+    return `<div class="task ${esc(t.status)}" data-task="${t.id}">
+      <div class="tt">${esc(t.title)}${rf ? ` <span class="dim">· for ${esc(rf.company || rf.name)}</span>` : ''}</div>
+      <div class="tm">${ago(t.created_at)} · ${t.status === 'pending' ? 'waiting for you' : esc(t.status)}${t.result && t.result.sent_to ? ' → sent to ' + esc(t.result.sent_to) : ''}</div>
+      ${t.status === 'pending' && sendable ? `
+        <label>To <span class="dim">(one address · for more brokers, draft the inquiry again from the RFQ)</span></label><input class="t-to" type="email" placeholder="broker@company.com" value="${esc(p.contact_email || p.to || '')}">
+        <label>Subject</label><input class="t-subj" value="${esc(dft.subject || p.subject || t.title)}">
+        <label>Message</label><textarea class="t-body">${esc(dft.body || p.body || '')}</textarea>
+        <div class="acts"><button class="btn p" data-tsend="${t.id}">Send</button><button class="btn" data-tdecline="${t.id}">Decline</button><button class="btn danger" data-tdel="${t.id}" style="margin-left:auto">Delete</button></div>`
+      : `<div class="body">${esc(dft.body || p.body || JSON.stringify(p, null, 2))}</div>${t.status === 'pending' ? `<div class="acts"><button class="btn p" data-tapprove="${t.id}">Approve</button><button class="btn" data-tdecline="${t.id}">Decline</button></div>` : `<div class="acts"><button class="btn sm danger" data-tdel="${t.id}">Delete</button></div>`}`}
+    </div>`;
   };
-  let currentView = 'rfqs';
-  let currentTaskFilter = 'pending';
+  $('appr-list').innerHTML = (list.length ? list.map(tile).join('') : '<div class="empty">Nothing waiting for your approval.</div>')
+    + (done.length ? `<h3 style="font-size:14px;margin:24px 0 10px">Recent</h3>${done.map(tile).join('')}` : '');
+}
 
-  async function agentApi(body) {
-    if (!token) throw new Error('not logged in');
-    const r = await fetch(AGENT_API, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-admin-token': token,
-        'Authorization': 'Bearer ' + SB_ANON,
-        'apikey': SB_ANON,
-      },
-      body: JSON.stringify(body),
-    });
-    const data = await r.json().catch(() => ({}));
-    if (r.status === 401 && token) { logout(); throw new Error('Session expired. Log in again.'); }
-    if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
-    return data;
-  }
-
-  function switchView(name) {
-    currentView = name;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.view === name));
-    document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === name + '-view'));
-    if (name === 'sonar') loadConvs(name);
-    if (name === 'tasks') loadTasks();
-  }
-
-  async function loadConvs(agentId) {
-    const container = $(agentId + '-convs');
-    try {
-      const { conversations } = await agentApi({ action: 'list_conversations', agent_id: agentId });
-      agentState[agentId].convs = conversations || [];
-      container.innerHTML = (conversations || []).map(c => `<div class="conv-item${c.id === agentState[agentId].convId ? ' active' : ''}" data-conv="${c.id}" data-agent="${agentId}"><span class="conv-text">${esc(c.title || 'Untitled')}<span class="conv-time">${fmtTime(c.updated_at)}</span></span><button class="conv-del" data-del-conv="${c.id}" title="Delete this chat">✕</button></div>`).join('') || '<div style="color:var(--ink-3);font-size:12px;padding:8px 4px">No conversations yet.</div>';
-      container.querySelectorAll('.conv-item').forEach(b => b.addEventListener('click', (e) => { if (e.target.closest('.conv-del')) return; openConv(agentId, b.dataset.conv); }));
-      container.querySelectorAll('[data-del-conv]').forEach(b => b.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        if (!confirm('Delete this chat and all its messages?')) return;
-        try {
-          await agentApi({ action: 'delete_conversation', conversation_id: b.dataset.delConv });
-          if (agentState[agentId].convId === b.dataset.delConv) { agentState[agentId].convId = null; agentState[agentId].msgs = []; renderMsgs(agentId); }
-          loadConvs(agentId);
-        } catch (err) { alert('Delete failed: ' + err.message); }
-      }));
-    } catch (e) { container.innerHTML = '<div style="color:var(--danger);font-size:12px;padding:8px 4px">' + esc(e.message) + '</div>'; }
-  }
-
-  async function openConv(agentId, convId) {
-    agentState[agentId].convId = convId;
-    await loadConvs(agentId); // refresh active-state
-    const list = $(agentId + '-msgs');
-    list.innerHTML = '<div class="loading">Loading messages…</div>';
-    try {
-      const { messages } = await agentApi({ action: 'list_messages', conversation_id: convId });
-      agentState[agentId].msgs = messages || [];
-      renderMsgs(agentId);
-    } catch (e) { list.innerHTML = '<div class="bubble err">' + esc(e.message) + '</div>'; }
-  }
-
-  function newChat(agentId) {
-    agentState[agentId].convId = null;
-    agentState[agentId].msgs = [];
-    const list = $(agentId + '-msgs');
-    list.innerHTML = `<div class="empty-chat"><h4>Fresh conversation. Ask Sonar something.</h4></div>`;
-    loadConvs(agentId);
-  }
-
-  // ---- Sourcing plan: per-line stock, landed cost, arrival dates, shipments, verdict.
-  let planRfq = null, planFilter = 'attention';
-  const usd = (n) => n == null ? '—' : '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: n < 10 ? 2 : 0, maximumFractionDigits: n < 10 ? 4 : 0 });
-  const usd2 = (n) => n == null ? '—' : '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: n < 1 ? 4 : 2 });
-  const fmtD = (d) => d ? new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '—';
-  const ST = {
-    in_stock: ['In stock', 'ok', '#248a3d'], partial: ['Part stock', 'warn', '#7cc38f'], factory: ['Factory lead time', 'warn', '#f0a254'],
-    not_found: ['Not found yet', 'bad', '#d70015'], pending: ['Checking…', '', '#d2d2d7'],
-  };
-  async function openPlan(rfqId, refresh) {
-    planRfq = rfqId; planFilter = 'attention';
-    const r = allRfqs.find(x => x.id === rfqId) || {};
-    $('plan-title').textContent = 'Sourcing plan · ' + (r.company || r.name || 'RFQ');
-    $('plan-backdrop').classList.add('show');
-    const body = $('plan-body');
-    body.innerHTML = '<div class="loading">Loading…</div>';
-    try {
-      let plan = refresh ? null : (await agentApi({ action: 'plan_get', rfq_id: rfqId })).plan;
-      if (!plan) plan = (await agentApi({ action: 'plan_start', rfq_id: rfqId })).plan;
-      while (plan.status !== 'done' && planRfq === rfqId) {
-        renderPlanProgress(plan);
-        plan = (await agentApi({ action: 'plan_step', rfq_id: rfqId })).plan;
-      }
-      if (planRfq === rfqId) renderPlan(plan);
-    } catch (e) {
-      body.innerHTML = `<div class="s-card"><div class="s-title"><span class="s-pill bad">Didn't finish</span>${esc(e.message)}</div><div class="s-note">Close and open the plan again to continue where it stopped.</div></div>`;
-    }
-  }
-  function renderPlanProgress(plan) {
-    const total = plan.lines.length, done = plan.lines.filter(l => l.status !== 'pending').length;
-    $('plan-body').innerHTML = `<div style="padding:30px 0;text-align:center"><b>Checking stock and prices…</b><div class="pl-sub">${done} of ${total} line${total === 1 ? '' : 's'} checked${total > 30 ? ' · long BOMs take about a minute per 30 lines' : ''}</div><div class="pl-progress"><i style="width:${Math.round(done / Math.max(total, 1) * 100)}%"></i></div></div>`;
-  }
-  function arrivalChart(sm, ctx) {
-    const pts = sm.curve || [];
-    if (!pts.length) return '';
-    const start = ctx.today, endD = [pts[pts.length - 1].date, sm.needed_by].filter(Boolean).sort().pop();
-    const t = (d) => new Date(d + 'T00:00:00Z').getTime();
-    const span = Math.max(t(endD) - t(start), 864e5 * 7) * 1.06;
-    const W = 1000, H = 130, x0 = 44, y = (p) => 115 - p;
-    const X = (d) => x0 + (t(d) - t(start)) / span * (W - x0 - 10);
-    let path = `M${x0},${y(0)}`;
-    for (const p of pts) path += ` L${X(p.date)},${path.split(' ').pop().split(',')[1]} L${X(p.date)},${y(p.pct)}`;
-    path += ` L${W - 10},${y(pts[pts.length - 1].pct)}`;
-    const ticks = [];
-    for (let i = 0; i <= 5; i++) { const d = new Date(t(start) + span * i / 5).toISOString().slice(0, 10); ticks.push(`<text x="${X(d) - 14}" y="${H + 2}" font-size="11" fill="#86868b">${fmtD(d)}</text>`); }
-    const last = pts[pts.length - 1];
-    const dl = sm.needed_by ? `<line x1="${X(sm.needed_by)}" y1="8" x2="${X(sm.needed_by)}" y2="${y(0)}" stroke="#d70015" stroke-dasharray="4 3"/><text x="${Math.min(X(sm.needed_by) + 5, W - 120)}" y="22" font-size="11.5" fill="#d70015" font-weight="600">Buyer needs: ${fmtD(sm.needed_by)}</text>` : '';
-    return `<svg viewBox="0 0 ${W} ${H + 8}" width="100%" role="img" aria-label="Share of lines arrived over time">
-      <g stroke="#e5e5ea"><line x1="${x0}" y1="${y(100)}" x2="${W - 10}" y2="${y(100)}"/><line x1="${x0}" y1="${y(50)}" x2="${W - 10}" y2="${y(50)}"/><line x1="${x0}" y1="${y(0)}" x2="${W - 10}" y2="${y(0)}"/></g>
-      <g font-size="11" fill="#86868b"><text x="0" y="${y(100) + 4}">100%</text><text x="8" y="${y(50) + 4}">50%</text><text x="16" y="${y(0) + 4}">0%</text></g>
-      ${ticks.join('')}
-      <path d="${path} L${W - 10},${y(0)} Z" fill="#0071e3" opacity=".07"/><path d="${path}" fill="none" stroke="#0071e3" stroke-width="2.5"/>
-      ${dl}<circle cx="${X(last.date)}" cy="${y(last.pct)}" r="4.5" fill="#0071e3"/>
-      <text x="${Math.max(X(last.date) - 150, x0)}" y="${y(last.pct) - 8}" font-size="11.5" fill="#0071e3" font-weight="600">${last.pct}% of lines by ${fmtD(last.date)}</text></svg>`;
-  }
-  function renderPlan(plan) {
-    const sm = plan.summary, ctx = plan.ctx, lines = plan.lines;
-    const c = sm.counts, lateSet = new Set(sm.late), sourced = c.total - c.not_found;
-    const heroLate = sm.late.length || sm.open.length;
-    const hero = sm.kit_date
-      ? `<div class="pl-kpi hero${sm.late.length ? ' late' : ''}"><b>${sourced === c.total ? 'Full kit' : sourced + ' lines'} by ${fmtD(sm.kit_date)}</b><span>${sm.needed_by ? (sm.late.length ? `${sm.late.length} line${sm.late.length === 1 ? '' : 's'} after the buyer's ${fmtD(sm.needed_by)}` : `on time for the buyer's ${fmtD(sm.needed_by)}`) : 'no needed-by date given'}${sm.open.length ? ` · ${sm.open.length} still open` : ''}</span></div>`
-      : `<div class="pl-kpi hero late"><b>Nothing sourced yet</b><span>${sm.open.length} line${sm.open.length === 1 ? '' : 's'} need broker sourcing</span></div>`;
-    const seg = (k) => c[k] ? `<i style="width:${c[k] / c.total * 100}%;background:${ST[k][2]}"></i>` : '';
-    const lg = (k) => c[k] ? `<span><i style="background:${ST[k][2]}"></i>${c[k]} ${ST[k][0].toLowerCase()}</span>` : '';
-    const ships = sm.shipments.map((s, i) => `<tr><td>${i + 1}</td><td><b>${esc(s.name)}</b> <span class="dim">· ${esc(s.origin)}</span></td><td class="n">${s.lines}</td><td class="n">${usd(s.value)}</td><td class="n">${usd(s.freight)} <span class="dim">est.</span></td><td>${fmtD(s.arrive)}</td></tr>`).join('');
-    const rank = (l) => l.status === 'not_found' ? 0 : lateSet.has(l.n) ? 1 : l.status !== 'in_stock' ? 2 : 3;
-    const attention = lines.filter(l => rank(l) < 3).sort((a, b) => rank(a) - rank(b) || a.n - b.n);
-    const shown = planFilter === 'attention' ? attention : [...lines].sort((a, b) => rank(a) - rank(b) || a.n - b.n);
-    const vsCell = (l) => l.status === 'not_found' ? '<span class="s-pill bad">Blocks kit</span>' : lateSet.has(l.n) ? '<span class="s-pill bad">Late</span>' : sm.needed_by ? '<span class="s-pill ok">On time</span>' : '—';
-    const rows = shown.slice(0, 200).map(l => `<tr>
-      <td>${l.n}</td>
-      <td><span class="mono">${esc(l.mpn)}</span>${l.manufacturer ? `<br><span class="dim">${esc(l.manufacturer)}</span>` : ''}</td>
-      <td class="n">${Number(l.qty).toLocaleString('en-US')}</td>
-      <td><span class="s-pill ${ST[l.status][1]}">${ST[l.status][0]}</span>${l.note ? `<br><span class="dim">${esc(l.note)}</span>` : ''}</td>
-      <td>${l.source ? esc(l.source) + ` <span class="dim">· ${esc(l.origin || '')}</span>` : '—'}</td>
-      <td class="n">${usd2(l.unit)}</td><td class="n"><b>${usd2(l.landed_unit)}</b></td>
-      <td>${fmtD(l.arrive_date)}</td><td>${vsCell(l)}</td>
-      <td>${l.link ? `<a href="${esc(l.link)}" target="_blank" rel="noopener">↗</a>` : ''}</td></tr>`).join('');
-    $('plan-body').innerHTML = `
-      <div class="pl-sub">${c.total} line${c.total === 1 ? '' : 's'} → ${esc([ctx.drop, ctx.dest].filter(Boolean).join(', '))}${ctx.urgent ? ' · <b style="color:var(--danger)">urgent</b>' : ''} · checked ${fmtD(ctx.today)}</div>
-      <div class="pl-kpis">${hero}
-        <div class="pl-kpi"><b>${sourced} / ${c.total}</b><span>lines with a source</span></div>
-        <div class="pl-kpi"><b>${usd(sm.landed_total)}</b><span>landed cost (parts + freight + duty)</span></div>
-        <div class="pl-kpi"><b>${usd(sm.quote_total)}</b><span>suggested quote (${sm.margin_pct}% on landed${ctx.urgent ? ', urgent' : ''})</span></div></div>
-      ${sm.curve.length ? `<div class="pl-h">When the parts arrive</div>${arrivalChart(sm, ctx)}` : ''}
-      <div class="pl-bar">${seg('in_stock')}${seg('partial')}${seg('factory')}${seg('not_found')}</div>
-      <div class="pl-lg">${lg('in_stock')}${lg('partial')}${lg('factory')}${lg('not_found')}</div>
-      ${ships ? `<div class="pl-h">Shipments to ${esc(ctx.drop || ctx.dest)}</div><div class="pl-scroll"><table class="pl-table"><tr><th>#</th><th>From</th><th class="n">Lines</th><th class="n">Value</th><th class="n">Freight</th><th>Arrives</th></tr>${ships}</table></div>` : ''}
-      <div class="pl-h">Lines</div>
-      <div class="pl-chips"><button data-pf="attention" class="${planFilter === 'attention' ? 'on' : ''}">Needs attention ${attention.length}</button><button data-pf="all" class="${planFilter === 'all' ? 'on' : ''}">All ${c.total}</button></div>
-      ${shown.length ? `<div class="pl-scroll"><table class="pl-table"><tr><th>#</th><th>Part</th><th class="n">Qty</th><th>Status</th><th>From</th><th class="n">Unit</th><th class="n">Landed / unit</th><th>Arrives</th><th>vs needed</th><th></th></tr>${rows}</table></div>` : '<div class="pl-sub">Nothing needs attention: every line is in stock and on time.</div>'}
-      <div class="pl-verdict"><b>Sonar's verdict</b><ul>${sm.verdict.map(v => `<li>${esc(v)}</li>`).join('')}</ul></div>
-      <div class="pl-basis">${esc(sm.basis)} Import tax shown separately; duty on ICs is usually 0% under the WTO IT Agreement.</div>`;
-    $('plan-body').querySelectorAll('[data-pf]').forEach(b => b.addEventListener('click', () => { planFilter = b.dataset.pf; renderPlan(plan); }));
-  }
-  document.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-plan]');
-    if (b) openPlan(b.dataset.plan, false);
-  });
-  $('plan-close').addEventListener('click', () => { planRfq = null; $('plan-backdrop').classList.remove('show'); });
-  $('plan-refresh').addEventListener('click', () => { if (planRfq) openPlan(planRfq, true); });
-
-  // ---- Sonar rendering: plain-language steps + result cards. Raw data only behind "Raw data".
-  function mdLite(t) {
-    const lines = esc(t || '').split('\n');
-    let html = '', inList = false;
-    const inline = (x) => x.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`([^`]+)`/g, '<code>$1</code>');
-    for (let raw of lines) {
-      const l = raw.trim();
-      const li = l.match(/^(?:[-•*]|\d+\.)\s+(.*)/);
-      if (li) { if (!inList) { html += '<ul>'; inList = true; } html += '<li>' + inline(li[1]) + '</li>'; continue; }
-      if (inList) { html += '</ul>'; inList = false; }
-      if (!l) continue;
-      html += '<p>' + inline(l.replace(/^#{1,4}\s*/, '')) + '</p>';
-    }
-    return html + (inList ? '</ul>' : '');
-  }
-  const nrm = (x) => String(x || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-  function stepLine(tc) {
-    const a = tc.args || {};
-    const map = {
-      search_parts: ['🔍', `Checked distributors for <strong>${esc(a.mpn || '')}</strong>${a.qty ? ` · qty ${esc(a.qty)}` : ''}`],
-      get_rfq: ['📄', 'Opened the RFQ'],
-      list_rfqs: ['📋', `Looked at ${a.status ? esc(a.status) + ' ' : ''}RFQs`],
-      draft_quote: ['✉️', `Drafted a quote for <strong>${esc(a.mpn || '')}</strong>`],
-    };
-    const [ico, txt] = map[tc.name] || ['⚙️', esc(tc.name)];
-    return `<div class="s-step"><span class="s-ico">${ico}</span><span>${txt}</span></div>`;
-  }
-  const rawBox = (obj) => `<details class="raw"><summary>Raw data</summary><pre>${esc(JSON.stringify(obj, null, 2))}</pre></details>`;
-  function resultCard(name, r, args) {
-    r = r || {};
-    if (r.error && name !== 'search_parts') return `<div class="s-card"><div class="s-title"><span class="s-pill bad">Failed</span>${esc(r.error)}</div></div>`;
-    if (name === 'search_parts') {
-      const query = r.query || (args && args.mpn) || '';
-      // Older results stored every keyword hit; keep only the actual part.
-      const list = r.matches || (r.parts || []).filter(p => { const m = nrm(p.mpn), q = nrm(query); return m.length >= 4 && (m.includes(q) || q.includes(m)); });
-      if (r.error && !list.length) return `<div class="s-card"><div class="s-title"><span class="s-pill bad">Search unavailable</span>${esc(query)}</div><div class="s-note">The distributor search didn't respond. Try again in a minute.</div>${rawBox(r)}</div>`;
-      if (!list.length) return `<div class="s-card"><div class="s-title"><span class="s-pill warn">Not at distributors</span>${esc(query)}</div><div class="s-note">Not listed at Octopart or Mouser. Normal for obsolete, allocated or OEM-only parts: this one needs broker sourcing.</div>${rawBox(r)}</div>`;
-      const price = (p) => { const b = (p.price_breaks || [])[0]; return b ? `${esc(b.price)} @ ${esc(b.qty)}+` : (p.median_1k_price ? `$${esc(p.median_1k_price)} @ 1k (median)` : '—'); };
-      const stock = (p) => esc(p.availability || p.stock || p.total_avail || '—');
-      const rows = list.map(p => `<tr><td><strong>${esc(p.mpn)}</strong><br><span style="color:var(--ink-3)">${esc(p.manufacturer || '')}</span></td><td>${stock(p)}</td><td>${esc(p.lead_time || '—')}</td><td>${price(p)}</td></tr>`).join('');
-      return `<div class="s-card"><div class="s-title"><span class="s-pill ok">Found at ${esc(r.source || 'distributor')}</span>${esc(query)}</div><div class="s-scroll"><table><tr><th>Part</th><th>Stock</th><th>Lead time</th><th>Price</th></tr>${rows}</table></div>${rawBox(r)}</div>`;
-    }
-    if (name === 'get_rfq' && r.rfq) {
-      const q = r.rfq;
-      const kv = [['Buyer', `${q.name || ''} · ${q.company || ''}`], ['Part', (q.mpn || '').trim()], ['Quantity', q.qty], ['Needed by', q.needed_by], ['Urgency', q.urgency], ['Ship to', [q.drop_off_location, q.country].filter(Boolean).join(', ')]].filter(x => x[1]);
-      return `<div class="s-card"><div class="s-title">RFQ details</div><dl class="s-kv">${kv.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></div>`;
-    }
-    if (name === 'list_rfqs' && r.rfqs) {
-      const rows = r.rfqs.slice(0, 10).map(q => `<tr><td>${esc((q.mpn || '').split('\n')[0].slice(0, 40))}</td><td>${esc(q.qty || '—')}</td><td>${esc(q.company || '')}</td><td>${esc(q.status || 'new')}</td></tr>`).join('');
-      return `<div class="s-card"><div class="s-title">${r.rfqs.length} RFQ${r.rfqs.length === 1 ? '' : 's'}</div><div class="s-scroll"><table><tr><th>Part</th><th>Qty</th><th>Company</th><th>Status</th></tr>${rows}</table></div></div>`;
-    }
-    if (name === 'draft_quote') return `<div class="s-card"><div class="s-title"><span class="s-pill ok">Saved</span>Quote draft is waiting for your approval in Tasks</div></div>`;
-    return `<div class="s-card">${rawBox(r)}</div>`;
-  }
-  function friendlyError(t) {
-    if (/429|rate limit/i.test(t)) return 'The AI provider is busy (free-plan limit). Wait a minute and send again.';
-    if (/401|403|invalid api key|unauthor/i.test(t)) return 'The AI provider rejected the API key. Check it in ⚙ Settings.';
-    if (/404|model/i.test(t) && /not found|does not exist/i.test(t)) return 'That model name isn\'t available at this provider. Check ⚙ Settings.';
-    return 'Something went wrong talking to the AI provider.';
-  }
-
-  function renderMsgs(agentId) {
-    const list = $(agentId + '-msgs');
-    const msgs = agentState[agentId].msgs;
-    if (!msgs.length) {
-      list.innerHTML = `<div class="empty-chat"><h4>Fresh conversation. Ask Sonar something.</h4></div>`;
-      return;
-    }
-    const lastArgs = {};
-    const html = msgs.map(m => {
-      if (m.role === 'user') {
-        const txt = m.content || '';
-        const trig = txt.match(/^SYSTEM (?:TRIGGER|AUTORUN)[^:]*:\s*RFQ #\S+ from (.*?) at (.*?)\. MPN: ([\s\S]*?), qty: ([^,]*),/i);
-        if (trig) return `<div class="trigger-tile"><span class="tt-dot"></span><div class="tt-body"><span class="tt-kind">New RFQ</span><span class="tt-peek">${esc(trig[3].trim().slice(0, 80))} · qty ${esc(trig[4])} · ${esc(trig[2])}</span></div></div>`;
-        if (/^SYSTEM (TRIGGER|AUTORUN)/i.test(txt)) return `<div class="trigger-tile"><span class="tt-dot"></span><div class="tt-body"><span class="tt-kind">Automatic run</span></div></div>`;
-        return `<div class="bubble user">${esc(txt)}</div>`;
-      }
-      if (m.role === 'assistant') {
-        let out = '';
-        if (m._thinking) return `<div class="bubble thinking">Sonar is working on it…</div>`;
-        if (m.content && m.content.startsWith('[error]')) {
-          const detail = m.content.replace(/^\[error\]\s*/, '');
-          return `<div class="s-card"><div class="s-title"><span class="s-pill bad">Didn't finish</span>${esc(friendlyError(detail))}</div>${rawBox(detail)}</div>`;
-        }
-        if (m.content) out += `<div class="bubble assistant md">${mdLite(m.content)}</div>`;
-        for (const tc of (m.tool_calls || [])) { lastArgs[tc.name] = tc.args || {}; out += stepLine(tc); }
-        return out;
-      }
-      if (m.role === 'tool') return resultCard(m.tool_name, m.tool_result, lastArgs[m.tool_name]);
-      return '';
+// ---------------- render: insights ----------------
+function renderInsights() {
+  if (view !== 'insights') return;
+  const won = rfqs.filter(r => r.status === 'won'), quoted = rfqs.filter(r => r.quote_amount_cents);
+  const val = (rs) => rs.reduce((a, r) => a + (r.quote_amount_cents || 0), 0) / 100;
+  $('ins-kpis').innerHTML = [[rfqs.length, 'requests'], [quoted.length, 'quoted'], [won.length, 'won'], [money(val(won), 0), 'won value']].map(([b, s]) => `<div class="num"><b>${b}</b><span>${s}</span></div>`).join('');
+  const table = (keyOf, label) => {
+    const keys = [...new Set(rfqs.map(keyOf))].sort((a, b) => rfqs.filter(r => keyOf(r) === b).length - rfqs.filter(r => keyOf(r) === a).length);
+    return `<tr><th>${label}</th><th class="n">Requests</th><th class="n">Quoted</th><th class="n">Won</th><th class="n">Won value</th><th class="n">Win rate</th></tr>` + keys.map(k => {
+      const rs = rfqs.filter(r => keyOf(r) === k), w = rs.filter(r => r.status === 'won');
+      return `<tr><td>${esc(k)}</td><td class="n">${rs.length}</td><td class="n">${rs.filter(r => r.quote_amount_cents).length}</td><td class="n">${w.length}</td><td class="n">${money(val(w), 0)}</td><td class="n">${rs.length ? Math.round(w.length / rs.length * 100) : 0}%</td></tr>`;
     }).join('');
-    list.innerHTML = html;
-    list.scrollTop = list.scrollHeight;
+  };
+  $('ins-lines').innerHTML = table(r => TYPES[r.type || 'part'] || r.type, 'Business line');
+  $('ins-sources').innerHTML = table(r => (r.meta && r.meta.source && (r.meta.source.utm_campaign ? r.meta.source.channel + ' · ' + r.meta.source.utm_campaign : r.meta.source.channel)) || 'unknown (before tracking)', 'Source');
+}
+
+function renderAll() { renderInbox(); renderWorkspace(); renderApprovals(); renderInsights(); lastWs = wsSig(); lastAppr = apprSig(); }
+// Background refresh: only redraw a panel when its data changed and you aren't typing in it.
+let lastWs = '', lastAppr = '';
+const wsSig = () => { const r = rfqs.find(x => x.id === selId); return JSON.stringify([r, full[selId] && [full[selId].status, full[selId].updated_at, full[selId].decisions], tasks.filter(t => t.payload && t.payload.rfq_id === selId).map(t => t.status)]); };
+const apprSig = () => JSON.stringify(tasks.map(t => [t.id, t.status]));
+const typingIn = (el) => el && el.contains(document.activeElement) && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+function renderSoft() {
+  renderInbox(); renderInsights();
+  const n = tasks.filter(t => t.status === 'pending').length; $('appr-cnt').textContent = n; $('appr-cnt').classList.toggle('hidden', !n);
+  if (wsSig() !== lastWs && !typingIn($('ws')) && !(full[selId] && full[selId]._manualOpen)) { renderWorkspace(); lastWs = wsSig(); }
+  if (apprSig() !== lastAppr && !typingIn($('appr-list'))) { renderApprovals(); lastAppr = apprSig(); }
+}
+
+// ---------------- data ----------------
+async function loadAll(initial) {
+  try {
+    const [rl, pl, tl] = await Promise.all([api('/list'), agent({ action: 'plan_list' }).catch(() => ({ plans: [] })), agent({ action: 'list_tasks' }).catch(() => ({ tasks: [] }))]);
+    const incoming = rl.rfqs || [];
+    if (known && !initial) for (const r of incoming) if (!known.has(r.id)) { fresh.add(r.id); toast(`${r.company || r.name}`, whatOf(r), isUrgent(r)); if (isUrgent(r)) ping(); }
+    known = new Set(incoming.map(r => r.id));
+    rfqs = incoming;
+    plans = {}; for (const p of pl.plans || []) plans[p.rfq_id] = p;
+    for (const id in full) if (plans[id] && full[id] && plans[id].updated_at === full[id].updated_at) plans[id].decisions = full[id].decisions;
+    tasks = tl.tasks || [];
+    // keep the open RFQ's full plan fresh when Sonar finished it in the background
+    if (selId && plans[selId] && full[selId] && plans[selId].updated_at !== full[selId].updated_at && !running[selId]) await loadPlan(selId);
+    if (selId && !rfqs.find(r => r.id === selId)) selId = null;
+    $('live').innerHTML = '<span class="live-dot"></span>Live';
+    initial ? renderAll() : renderSoft();
+  } catch (e) {
+    $('live').innerHTML = '<span class="live-dot" style="background:var(--ink3)"></span>Offline';
+    if (initial) $('list').innerHTML = `<div class="empty">${esc(e.message)}</div>`;
   }
-
-  async function sendChat(agentId) {
-    const input = $(agentId + '-input');
-    const sendBtn = $(agentId + '-send');
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = '';
-    input.style.height = '44px';
-    sendBtn.disabled = true;
-
-    // Optimistic: add user bubble + thinking
-    agentState[agentId].msgs.push({ role: 'user', content: text });
-    agentState[agentId].msgs.push({ role: 'assistant', content: '…thinking…', _thinking: true });
-    renderMsgs(agentId);
-
-    try {
-      const resp = await agentApi({
-        action: 'send',
-        agent_id: agentId,
-        message: text,
-        conversation_id: agentState[agentId].convId || undefined,
-      });
-      agentState[agentId].convId = resp.conversation_id;
-      // Drop the optimistic entries, append real messages
-      agentState[agentId].msgs = agentState[agentId].msgs.filter(m => !m._thinking && m.content !== text);
-      // Add user back + all server-returned messages
-      agentState[agentId].msgs.push({ role: 'user', content: text });
-      for (const m of (resp.messages || [])) agentState[agentId].msgs.push(m);
-      renderMsgs(agentId);
-      loadConvs(agentId); // refresh sidebar order
-      // If tasks changed, refresh the badge
-      refreshTasksPill();
-    } catch (e) {
-      agentState[agentId].msgs = agentState[agentId].msgs.filter(m => !m._thinking);
-      agentState[agentId].msgs.push({ role: 'assistant', content: '[error] ' + e.message, _err: true });
-      renderMsgs(agentId);
-    } finally {
-      sendBtn.disabled = false;
-      input.focus();
+}
+async function loadPlan(id) {
+  const r = rfqs.find(x => x.id === id);
+  if (!r || !PLANNABLE.includes(r.type || 'part')) return;
+  try { const { plan } = await agent({ action: 'plan_get', rfq_id: id }); full[id] = plan; if (plan) plans[id] = Object.assign(plans[id] || {}, { status: plan.status, summary: plan.summary, decisions: plan.decisions, updated_at: plan.updated_at, error: plan.error }); }
+  catch (e) { toast("Couldn't load Sonar's plan", e.message); }
+}
+async function openRfq(id) {
+  selId = id; clearInterval(planPoll); showAllLines = false;
+  renderInbox(); renderWorkspace();
+  await loadPlan(id); renderAll();
+  planPoll = setInterval(async () => {   // follow a background run while this RFQ is open
+    const p = full[selId];
+    if (!selId || running[selId] || !p || p.status !== 'running') return;
+    await loadPlan(selId); renderAll();
+  }, 3000);
+}
+// Drive the plan from this page (older RFQs, retries, or "Continue" after a stall).
+async function runSonar(id, cont) {
+  if (running[id]) return; running[id] = true;
+  try {
+    let plan = cont ? full[id] : (await agent({ action: 'plan_start', rfq_id: id })).plan;
+    full[id] = plan; plans[id] = { status: plan.status, updated_at: new Date().toISOString() }; renderAll();
+    while (plan.status !== 'done') {
+      plan = (await agent({ action: 'plan_step', rfq_id: id })).plan;
+      full[id] = Object.assign(full[id] || {}, plan); plans[id] = { status: plan.status, summary: plan.summary, decisions: plan.decisions, updated_at: new Date().toISOString() };
+      if (selId === id) renderWorkspace();
     }
-  }
+    await loadPlan(id);
+  } catch (e) { toast('Sonar stopped', e.message); await loadPlan(id); }
+  finally { running[id] = false; renderAll(); }
+}
+async function decide(n, choice) {
+  const plan = full[selId]; if (!plan) return;
+  plan.decisions = Object.assign({}, plan.decisions);
+  if (choice == null) delete plan.decisions[String(n)]; else plan.decisions[String(n)] = choice;
+  if (plans[selId]) plans[selId].decisions = plan.decisions;
+  renderAll();
+  try { await agent({ action: 'plan_decide', rfq_id: selId, n, choice }); }
+  catch (e) { toast("Couldn't save that choice", e.message); await loadPlan(selId); renderAll(); }
+}
 
-  async function loadTasks() {
-    const list = $('task-list');
-    list.innerHTML = '<div class="loading">Loading tasks…</div>';
-    try {
-      const q = currentTaskFilter === 'all' ? {} : { status: currentTaskFilter };
-      const { tasks } = await agentApi({ action: 'list_tasks', ...q });
-      if (!tasks || !tasks.length) {
-        list.innerHTML = '<div class="empty">No tasks here yet. Agents queue their drafts here for your approval.</div>';
-        return;
-      }
-      list.innerHTML = tasks.map(t => {
-        const payload = t.payload || {};
-        const draft = payload.draft || payload;
-        const subject = draft.subject || payload.subject || t.title;
-        const body = draft.body || payload.body || (typeof draft === 'string' ? draft : JSON.stringify(payload, null, 2));
-        const guessedTo = payload.contact_email || payload.to || '';
-        const sendable = ['send_cold_email', 'send_quote_email'].includes(t.type);
-        const sent = t.status === 'executed' && t.result?.sent_to;
-        return `<div class="task-tile ${esc(t.status)}" data-task="${t.id}">
-          <div class="task-head">
-            <div><div class="task-title">${esc(t.title)}</div><div class="task-meta"><span class="task-tag ${esc(t.agent_id)}">${esc(t.agent_id)}</span> · ${esc(t.type)} · ${fmtTime(t.created_at)} · ${esc(t.status)}${sent ? ` → sent to ${esc(t.result.sent_to)}` : ''}</div></div>
-          </div>
-          ${sendable ? `
-            <div class="task-fields">
-              <label>To <input type="email" class="task-to" placeholder="recipient@company.com" value="${esc(guessedTo)}"></label>
-              <label>Subject <input type="text" class="task-subject" value="${esc(subject)}"></label>
-              <label>Body <textarea class="task-body-edit" rows="8">${esc(body)}</textarea></label>
-            </div>
-          ` : `<div class="task-body">${esc(body)}</div>`}
-          <div class="task-actions">
-            ${t.status === 'pending' ? (sendable
-              ? `<button class="approve-send" data-send="${t.id}">Approve &amp; Send</button>`
-              : `<button class="approve" data-approve="${t.id}">Approve</button>`) : ''}
-            ${t.status === 'pending' ? `<button class="decline" data-decline="${t.id}">Decline</button>` : ''}
-            <button class="rfq-del" data-del-task="${t.id}" title="Delete this task permanently" style="margin-left:auto;">Delete</button>
-            ${t.status === 'pending' && sendable ? '<span class="task-note" style="flex-basis:100%;">Edit To field with the real contact. Send blocked for example.com / .test / invented domains.</span>' : ''}
-          </div>
-        </div>`;
-      }).join('');
-      list.querySelectorAll('[data-approve]').forEach(b => b.addEventListener('click', () => actOnTask(b.dataset.approve, 'approve_task')));
-      list.querySelectorAll('[data-decline]').forEach(b => b.addEventListener('click', () => actOnTask(b.dataset.decline, 'decline_task')));
-      list.querySelectorAll('[data-send]').forEach(b => b.addEventListener('click', () => sendTaskNow(b.dataset.send, b.closest('.task-tile'))));
-      list.querySelectorAll('[data-del-task]').forEach(b => b.addEventListener('click', async () => {
-        if (!confirm('Delete this task permanently?')) return;
-        try { await agentApi({ action: 'delete_task', task_id: b.dataset.delTask }); await loadTasks(); refreshTasksPill(); }
-        catch (e) { alert('Delete failed: ' + e.message); }
-      }));
-    } catch (e) {
-      list.innerHTML = '<div class="empty" style="color:var(--danger)">' + esc(e.message) + '</div>';
+// ---------------- quote + email ----------------
+async function sendQuote(id) {
+  const r = rfqs.find(x => x.id === id); const plan = full[id];
+  const plannable = PLANNABLE.includes(r.type || 'part') && plan && plan.status === 'done';
+  let amount;
+  if (plannable) amount = Math.round(computeQuote(r, plan).total * 100) / 100;
+  else { const v = ($('manual-amt') || {}).value || ''; amount = parseFloat(v.replace(/[$,\s]/g, '')); }
+  if (!amount || amount < 0.5) { toast('Enter a quote amount', 'Minimum $0.50.'); return; }
+  const btns = document.querySelectorAll(`[data-quote="${id}"]`); btns.forEach(b => { b.disabled = true; b.textContent = 'Creating payment link…'; });
+  try {
+    const res = await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify({ quote_amount_cents: Math.round(amount * 100), quote_currency: 'USD', status: 'quoted' }) });
+    if (res.rfq) Object.assign(r, res.rfq); else Object.assign(r, { quote_amount_cents: Math.round(amount * 100), status: 'quoted' });
+    await openComposer(id, 'quote_ready', plannable ? quoteSummary(r, plan) : '');
+  } catch (e) { toast("Couldn't save the quote", e.message); }
+  finally { renderAll(); }
+}
+// Plain-text breakdown appended to the buyer email for BOM / multi-line quotes.
+function quoteSummary(r, plan) {
+  const q = computeQuote(r, plan);
+  if ((plan.lines || []).length < 2) return '';
+  const notIn = new Set([...q.out, ...q.open]);   // same rule as the quote panel
+  const inc = plan.lines.filter(l => !notIn.has(l.n)), out = plan.lines.filter(l => notIn.has(l.n));
+  let s = `\n\nThis quote covers ${inc.length} of the ${plan.lines.length} lines on your BOM${q.arrive ? `, delivered by ${fmtD(q.arrive)}` : ''}.`;
+  if (out.length) s += `\n\nQuote to follow for ${out.length} line${out.length === 1 ? '' : 's'}:\n` + out.map(l => `• ${l.mpn} × ${Number(l.qty).toLocaleString('en-US')}`).join('\n');
+  return s;
+}
+async function openComposer(id, type, extra) {
+  composeCtx = { id, type };
+  $('compose-title').textContent = type === 'cannot_source' ? "Tell the buyer we can't source it" : 'Send the quote';
+  $('compose-send').textContent = type === 'cannot_source' ? 'Send & close RFQ' : 'Send to buyer';
+  $('compose-status').textContent = 'Drafting…'; $('compose-status').classList.remove('err');
+  $('compose-to').value = ''; $('compose-subject').value = ''; $('compose-body').value = '';
+  $('compose-mb').classList.add('show');
+  try {
+    const d = await api('/draft-email', { method: 'POST', body: JSON.stringify({ rfq_id: id, type }) });
+    $('compose-to').value = d.to || ''; $('compose-subject').value = d.subject || '';
+    let body = d.body || '';
+    if (extra) { const cut = body.lastIndexOf('\n\n'); body = cut > 0 ? body.slice(0, cut) + extra + body.slice(cut) : body + extra; }
+    $('compose-body').value = body;
+    $('compose-status').textContent = 'Check it, edit anything, then send.';
+  } catch (e) { $('compose-status').textContent = "Couldn't draft: " + e.message; $('compose-status').classList.add('err'); }
+}
+$('compose-send').addEventListener('click', async () => {
+  if (!composeCtx) return;
+  const { id, type } = composeCtx, subject = $('compose-subject').value.trim(), body = $('compose-body').value.trim();
+  if (!subject || !body) { $('compose-status').textContent = 'Subject and message are required.'; $('compose-status').classList.add('err'); return; }
+  const b = $('compose-send'); b.disabled = true; $('compose-status').textContent = 'Sending…';
+  try {
+    await api('/send-email', { method: 'POST', body: JSON.stringify({ rfq_id: id, type, subject, body }) });
+    const r = rfqs.find(x => x.id === id);
+    if (r) { r.last_email_type = type; r.last_email_sent_at = new Date().toISOString(); if (type === 'cannot_source') r.status = 'unable_to_source'; }
+    toast('Email sent', type === 'cannot_source' ? 'RFQ closed' : 'Quote is with the buyer');
+    closeModal('compose-mb'); renderAll();
+  } catch (e) { $('compose-status').textContent = 'Send failed: ' + e.message; $('compose-status').classList.add('err'); }
+  finally { b.disabled = false; }
+});
+
+// ---------------- approvals actions ----------------
+async function taskAct(action, id, extra) {
+  try { await agent(Object.assign({ action, task_id: id }, extra || {})); const tl = await agent({ action: 'list_tasks' }); tasks = tl.tasks || []; renderAll(); }
+  catch (e) { toast('That didn\'t work', e.message); }
+}
+
+// ---------------- settings ----------------
+async function openSettings() {
+  $('settings-mb').classList.add('show'); $('s-msg').textContent = 'Loading…';
+  try {
+    const c = await api('/sonar-config');
+    $('s-provider').value = c.provider || 'openai_compat'; $('s-baseurl').value = c.base_url || ''; $('s-model').value = c.model || '';
+    $('s-keystate').textContent = c.has_key ? '(a key is saved)' : '(no key saved)';
+    $('s-baseurl-row').classList.toggle('hidden', $('s-provider').value !== 'openai_compat'); $('s-msg').textContent = '';
+  } catch (e) { $('s-msg').textContent = "Couldn't load: " + e.message; }
+}
+$('s-provider').addEventListener('change', () => $('s-baseurl-row').classList.toggle('hidden', $('s-provider').value !== 'openai_compat'));
+$('s-save').addEventListener('click', async () => {
+  const p = { provider: $('s-provider').value, model: $('s-model').value.trim(), base_url: $('s-baseurl').value.trim() };
+  const k = $('s-apikey').value.trim(); if (k) p.api_key = k;
+  $('s-msg').textContent = 'Saving…';
+  try { await api('/sonar-config', { method: 'POST', body: JSON.stringify(p) }); $('s-msg').textContent = 'Saved.'; $('s-apikey').value = ''; if (k) $('s-keystate').textContent = '(a key is saved)'; }
+  catch (e) { $('s-msg').textContent = 'Save failed: ' + e.message; }
+});
+
+// ---------------- events ----------------
+function closeModal(id) { $(id).classList.remove('show'); if (id === 'compose-mb') composeCtx = null; }
+document.addEventListener('click', async (e) => {
+  const t = e.target.closest('button, .item, [data-close]'); if (!t) return;
+  const d = t.dataset;
+  if (d.close) return closeModal(d.close);
+  if (t.classList.contains('item')) return openRfq(d.id);
+  if (d.b) { bucket = d.b; return renderInbox(); }
+  if (d.view) return switchView(d.view);
+  if (d.goto) return switchView(d.goto);
+  if (d.back !== undefined) { selId = null; clearInterval(planPoll); return renderAll(); }
+  if (d.run) return runSonar(d.run, !!d.cont);
+  if (d.jump) return $(d.jump) && $(d.jump).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (d.quote) return sendQuote(d.quote);
+  if (d.cant) return openComposer(d.cant, 'cannot_source', '');
+  if (d.margin) return decide('margin', Number(d.margin));
+  if (d.toggleLines !== undefined) { showAllLines = !showAllLines; return renderWorkspace(); }
+  if (d.dec) {
+    const n = Number(d.dec), v = d.v, cur = (full[selId].decisions || {})[String(n)];
+    if (v === 'manual') { full[selId]._manualOpen = n; return renderWorkspace(); }
+    full[selId]._manualOpen = null;
+    if (cur === v) return decide(n, null);   // click again to undo
+    if (v === 'ask_brokers') {
+      try { await agent({ action: 'broker_draft', rfq_id: selId, lines: [n] }); const tl = await agent({ action: 'list_tasks' }); tasks = tl.tasks || []; toast('Broker inquiry drafted', 'Add the broker\'s email in Approvals, then send.'); }
+      catch (err) { return toast("Couldn't draft the inquiry", err.message); }
     }
+    return decide(n, v);
   }
-
-  async function actOnTask(id, action) {
-    try { await agentApi({ action, task_id: id }); await loadTasks(); refreshTasksPill(); }
-    catch (e) { alert(e.message); }
+  if (d.manual) {
+    const n = Number(d.manual), unit = parseFloat($('mu-' + n).value), days = parseInt($('md-' + n).value || '0', 10);
+    if (!(unit > 0)) return toast('Enter a unit price', 'Price per piece in USD, delivered.');
+    full[selId]._manualOpen = null; return decide(n, { unit, days: isFinite(days) ? days : 0 });
   }
+  if (d.del) {
+    if (!confirm('Delete this RFQ permanently? This cannot be undone.')) return;
+    try { await api('/rfq?id=' + d.del, { method: 'DELETE' }); rfqs = rfqs.filter(r => r.id !== d.del); selId = null; renderAll(); toast('RFQ deleted', ''); }
+    catch (err) { toast('Delete failed', err.message); }
+    return;
+  }
+  if (d.tsend) {
+    const tile = t.closest('.task'), to = tile.querySelector('.t-to').value.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) return toast('Add a recipient', 'Enter one valid email address in To.');
+    t.disabled = true; t.textContent = 'Sending…';
+    return taskAct('send_task', d.tsend, { to, subject: tile.querySelector('.t-subj').value.trim(), body: tile.querySelector('.t-body').value });
+  }
+  if (d.tapprove) return taskAct('approve_task', d.tapprove);
+  if (d.tdecline) return taskAct('decline_task', d.tdecline);
+  if (d.tdel) { if (!confirm('Delete this draft?')) return; return taskAct('delete_task', d.tdel); }
+});
+document.addEventListener('change', async (e) => {
+  if (e.target.id !== 'status-sel' || !selId) return;
+  const v = e.target.value, r = rfqs.find(x => x.id === selId);
+  try { await api('/update?id=' + selId, { method: 'PATCH', body: JSON.stringify({ status: v }) }); r.status = v; renderAll(); toast('Status updated', ''); }
+  catch (err) { toast('Update failed', err.message); renderWorkspace(); }
+});
+$('search').addEventListener('input', (e) => { query = e.target.value.trim(); renderInbox(); });
+$('settings-btn').addEventListener('click', openSettings);
+$('logout-btn').addEventListener('click', logout);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.mb.show').forEach(m => closeModal(m.id)); });
 
-  async function sendTaskNow(id, tileEl) {
-    const to = tileEl.querySelector('.task-to')?.value.trim();
-    const subject = tileEl.querySelector('.task-subject')?.value.trim();
-    const bodyText = tileEl.querySelector('.task-body-edit')?.value;
-    if (!to || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) { alert('Enter a valid recipient email in the To field before sending.'); return; }
-    if (!confirm(`Send to ${to}?`)) return;
-    const btn = tileEl.querySelector('[data-send]');
-    btn.disabled = true; btn.textContent = 'Sending…';
-    try {
-      const resp = await agentApi({ action: 'send_task', task_id: id, to, subject, body: bodyText });
-      if (resp.error) throw new Error(resp.error);
-      await loadTasks(); refreshTasksPill();
-    } catch (e) {
-      alert('Send failed: ' + e.message);
-      btn.disabled = false; btn.textContent = 'Approve & Send';
+function switchView(v) {
+  view = v;
+  document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('on', b.dataset.view === v));
+  $('view-rfqs').classList.toggle('hidden', v !== 'rfqs'); $('view-approvals').classList.toggle('hidden', v !== 'approvals'); $('view-insights').classList.toggle('hidden', v !== 'insights');
+  renderAll();
+}
+function toast(title, sub, urgent) {
+  const el = document.createElement('div'); el.className = 'toast' + (urgent ? ' urg' : '');
+  el.innerHTML = `<div>${urgent ? '⚡ ' : ''}${esc(title)}</div>${sub ? `<div class="s">${esc(sub)}</div>` : ''}`;
+  $('toasts').appendChild(el); setTimeout(() => el.remove(), urgent ? 10000 : 5000);
+}
+function ping() {
+  try { const c = new (window.AudioContext || window.webkitAudioContext)(), o = c.createOscillator(), g = c.createGain(); o.frequency.value = 880; g.gain.setValueAtTime(0.12, c.currentTime); g.gain.linearRampToValueAtTime(0, c.currentTime + 0.4); o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + 0.4); } catch (e) {}
+}
+
+// ---------------- auth ----------------
+function showMsg(t, kind) { const m = $('login-msg'); m.textContent = t; m.className = 'msg ' + kind; }
+async function checkMode() {
+  try {
+    const d = await (await fetch(API + '/status')).json();
+    if (d.setup_required) {
+      mode = 'setup'; $('login-title').textContent = 'First-time setup';
+      $('login-help').textContent = 'Pick a password, 8+ characters. There is no email reset, so store it safely.';
+      $('pwd-in').placeholder = 'New password'; $('pwd-in').autocomplete = 'new-password';
+      $('pwd-in-2').classList.remove('hidden'); $('setup-token').classList.remove('hidden'); $('submit-btn').textContent = 'Create password';
     }
-  }
-
-  async function refreshTasksPill() {
-    try {
-      const { tasks } = await agentApi({ action: 'list_tasks', status: 'pending' });
-      const n = (tasks || []).length;
-      const pill = $('pill-tasks');
-      if (pill) { pill.textContent = n; pill.classList.toggle('alert', n > 0); }
-    } catch { /* non-fatal */ }
-  }
-
-  // ---- Sonar provider settings ----
-  let sonarSettingsLoaded = false;
-  async function toggleSonarSettings() {
-    const panel = $('sonar-settings');
-    const open = panel.style.display === 'none' || panel.style.display === '';
-    panel.style.display = open ? 'flex' : 'none';
-    if (open && !sonarSettingsLoaded) {
-      try {
-        const cfg = await api('/sonar-config');
-        $('sonar-provider').value = cfg.provider || 'openai_compat';
-        $('sonar-baseurl').value  = cfg.base_url || '';
-        $('sonar-model').value    = cfg.model || '';
-        $('sonar-key-status').textContent = cfg.has_key ? '(key set)' : '(no key set)';
-        $('sonar-key-status').classList.toggle('has-key', !!cfg.has_key);
-        $('sonar-baseurl-row').style.display = cfg.provider === 'openai_compat' ? '' : 'none';
-        sonarSettingsLoaded = true;
-      } catch (e) {
-        $('sonar-settings-msg').textContent = 'Load failed: ' + e.message;
-        $('sonar-settings-msg').className = 'settings-msg err';
-      }
+  } catch (e) { showMsg("Can't reach the admin API: " + e.message, 'err'); }
+  $('login-view').classList.remove('hidden');
+}
+$('submit-btn').addEventListener('click', async () => {
+  const p = $('pwd-in').value, btn = $('submit-btn'); if (!p) return;
+  btn.disabled = true; btn.textContent = mode === 'setup' ? 'Creating…' : 'Checking…';
+  try {
+    if (mode === 'setup') {
+      if (p.length < 8) throw new Error('Password must be at least 8 characters.');
+      if (p !== $('pwd-in-2').value) throw new Error("Passwords don't match.");
+      const s = await (await fetch(API + '/setup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: p, setup_token: $('setup-token').value.trim() }) })).json();
+      if (s.error) throw new Error(s.error);
     }
-  }
-  async function saveSonarSettings() {
-    const payload = {
-      provider: $('sonar-provider').value,
-      model:    $('sonar-model').value.trim(),
-      base_url: $('sonar-baseurl').value.trim(),
-    };
-    const key = $('sonar-apikey').value.trim();
-    if (key) payload.api_key = key;
-    const msg = $('sonar-settings-msg');
-    msg.textContent = 'Saving…'; msg.className = 'settings-msg';
-    try {
-      await api('/sonar-config', { method: 'POST', body: JSON.stringify(payload) });
-      msg.textContent = 'Saved.'; msg.className = 'settings-msg ok';
-      $('sonar-apikey').value = '';
-      if (key) {
-        $('sonar-key-status').textContent = '(key set)';
-        $('sonar-key-status').classList.add('has-key');
-      }
-      setTimeout(() => { msg.textContent = ''; }, 2500);
-    } catch (e) {
-      msg.textContent = 'Save failed: ' + e.message; msg.className = 'settings-msg err';
-    }
-  }
-
-  function fmtTime(iso) {
-    if (!iso) return '';
-    const d = new Date(iso), now = new Date();
-    const diffMin = Math.round((now - d) / 60000);
-    if (diffMin < 1) return 'just now';
-    if (diffMin < 60) return diffMin + 'm ago';
-    if (diffMin < 60 * 24) return Math.round(diffMin / 60) + 'h ago';
-    return d.toLocaleDateString();
-  }
-
-  function initAgents() {
-    // Tab clicks
-    document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => switchView(b.dataset.view)));
-    // Task filter chips
-    document.querySelectorAll('[data-task-filter]').forEach(b => b.addEventListener('click', () => {
-      currentTaskFilter = b.dataset.taskFilter;
-      document.querySelectorAll('[data-task-filter]').forEach(x => x.classList.toggle('active', x === b));
-      loadTasks();
-    }));
-    // New-chat buttons
-    document.querySelectorAll('.new-chat').forEach(b => b.addEventListener('click', () => newChat(b.dataset.agent)));
-    // Chat inputs: Enter sends, Shift+Enter newline, auto-resize
-    for (const ag of ['sonar']) {
-      const input = $(ag + '-input');
-      const send  = $(ag + '-send');
-      input.addEventListener('keydown', e => {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(ag); }
-      });
-      input.addEventListener('input', () => {
-        input.style.height = '44px';
-        input.style.height = Math.min(input.scrollHeight, 160) + 'px';
-      });
-      send.addEventListener('click', () => sendChat(ag));
-    }
-    // Sonar settings panel
-    $('sonar-settings-btn').addEventListener('click', () => toggleSonarSettings());
-    $('sonar-provider').addEventListener('change', () => {
-      $('sonar-baseurl-row').style.display = $('sonar-provider').value === 'openai_compat' ? '' : 'none';
-    });
-    $('sonar-settings-save').addEventListener('click', () => saveSonarSettings());
-    // Pre-populate pending tasks badge
-    refreshTasksPill();
-    // Update RFQs pill when RFQs load — hook into existing render path
-    setInterval(() => { const n = (allRfqs || []).filter(r => (r.status || 'new') === 'new').length; const pill = $('pill-rfqs'); if (pill) pill.textContent = n; }, 2000);
-    // Live-working detector: poll conversations every 6s, pulse dot if agent updated in last 25s
-    setInterval(async () => {
-      for (const ag of ['sonar']) {
-        try {
-          const { conversations } = await agentApi({ action: 'list_conversations', agent_id: ag });
-          const latest = conversations?.[0];
-          const working = latest && (Date.now() - new Date(latest.updated_at).getTime() < 25000);
-          document.querySelectorAll(`.tab-btn[data-view="${ag}"] .agent-dot`).forEach(d => d.classList.toggle('working', !!working));
-          // If current view IS this agent and the open conversation got new messages, refresh it
-          if (currentView === ag && working && agentState[ag].convId === latest.id) {
-            const { messages } = await agentApi({ action: 'list_messages', conversation_id: latest.id });
-            agentState[ag].msgs = messages;
-            renderMsgs(ag);
-          }
-        } catch { /* non-fatal */ }
-      }
-      refreshTasksPill();
-    }, 6000);
-  }
-
-  init();
+    const r = await (await fetch(API + '/verify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: p }) })).json();
+    if (!r.ok || !r.token) throw new Error(r.error || 'Wrong password.');
+    token = r.token; try { localStorage.setItem(TOKEN_KEY, token); } catch (e) {}
+    $('pwd-in').value = ''; $('pwd-in-2').value = ''; $('setup-token').value = '';
+    await start();
+  } catch (e) { showMsg(e.message, 'err'); }
+  finally { btn.disabled = false; btn.textContent = mode === 'setup' ? 'Create password' : 'Log in'; }
+});
+$('pwd-in').addEventListener('keydown', e => { if (e.key === 'Enter') $('submit-btn').click(); });
+$('pwd-in-2').addEventListener('keydown', e => { if (e.key === 'Enter') $('submit-btn').click(); });
+async function start() {
+  $('login-view').classList.add('hidden'); $('app-view').classList.remove('hidden');
+  $('list').innerHTML = '<div class="empty">Loading…</div>';
+  await loadAll(true);
+  clearInterval(pollTimer); pollTimer = setInterval(() => loadAll(false), POLL_MS);
+}
+function logout() {
+  clearInterval(pollTimer); clearInterval(planPoll);
+  try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+  token = null; $('app-view').classList.add('hidden'); $('login-view').classList.remove('hidden');
+}
+async function init() {
+  let stored = null; try { stored = localStorage.getItem(TOKEN_KEY); localStorage.removeItem('chipshark_admin_pwd_v1'); } catch (e) {}
+  if (stored) { token = stored; try { await api('/session'); return start(); } catch (e) { token = null; try { localStorage.removeItem(TOKEN_KEY); } catch (_) {} } }
+  checkMode();
+}
+init();
 </script>
-
 </body>
 </html>
