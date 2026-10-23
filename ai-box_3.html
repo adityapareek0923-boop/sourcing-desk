@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI boxes — ChipShark</title>
+<meta name="description" content="Configure an AI box for your workload: agent box, local 30B or local 70B. Swap or remove any part, see the estimate, and we source it through the shortage.">
+<link rel="canonical" href="https://chipsharksupply.com/ai-box.html">
+<meta property="og:title" content="AI boxes, built from a parts list you control — ChipShark">
+<meta property="og:description" content="Pick a workload, swap or remove any part, and we source it through the GPU and memory shortage.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="cs.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body class="cs">
+
+<div class="cs-urgent"><div class="cs-wrap">
+  <span><span class="cs-pulse" aria-hidden="true"></span>GPU and memory prices are moving weekly. Quotes are held for 48 hours.</span>
+  <a href="shortage.html">See the shortage board</a>
+</div></div>
+
+<nav class="cs-nav"><div class="cs-wrap">
+  <a class="cs-brand" href="index.html"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg>ChipShark</a>
+  <div class="cs-nav-links">
+    <a href="index.html">Find a part</a>
+    <a href="shortage.html">Shortage desk</a>
+    <a href="ai-box.html" aria-current="page">AI boxes</a>
+    <a href="services.html">Hire us</a>
+    <a class="cs-btn cs-sm" href="#request">Source this build</a>
+  </div>
+</div></nav>
+
+<header class="cs-hero" style="padding-bottom:24px"><div class="cs-wrap">
+  <h1 class="cs-display" style="max-width:14ch">Your AI box, built from a parts list you control.</h1>
+  <p class="cs-lead">Pick what it needs to run. Swap any part, remove what you already own, and watch the estimate change. We source every line through the GPU and memory shortage.</p>
+</div></header>
+
+<section style="padding-bottom:96px"><div class="cs-wrap">
+  <div class="cs-seg" role="group" aria-label="What the box needs to run">
+    <button type="button" data-tier="agent" aria-pressed="true"><strong>AI agents</strong><span>Agents on cloud models, running 24/7</span></button>
+    <button type="button" data-tier="pro" aria-pressed="false"><strong>Local models up to 30B</strong><span>Private models on a 24 GB GPU</span></button>
+    <button type="button" data-tier="max" aria-pressed="false"><strong>Local 70B-class models</strong><span>Two GPUs, 64 GB of VRAM</span></button>
+  </div>
+
+  <div class="cs-explode" id="explode" data-cs-in>
+    <svg class="cs-wires" id="wires" aria-hidden="true"></svg>
+    <div class="cs-core">
+      <svg viewBox="0 0 120 90" aria-hidden="true">
+        <rect x="8" y="10" width="104" height="70" rx="12" fill="#2c2c2e" stroke="#48484a"/>
+        <g stroke="#48484a" stroke-width="2" stroke-linecap="round"><line x1="24" y1="30" x2="70" y2="30"/><line x1="24" y1="40" x2="70" y2="40"/><line x1="24" y1="50" x2="70" y2="50"/><line x1="24" y1="60" x2="70" y2="60"/></g>
+        <circle cx="94" cy="62" r="4" fill="#0071e3"><animate attributeName="opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/></circle>
+      </svg>
+      <div>
+        <div class="cs-small" id="core-name">Agent box</div>
+        <div class="cs-total"><span class="cs-num" id="total" style="font-family:var(--cs-serif)">$0</span></div>
+        <div class="cs-small"><span id="count">0</span> parts · estimate</div>
+      </div>
+    </div>
+  </div>
+  <p class="cs-explode-note" id="note" aria-live="polite">Estimates in USD. Your quote confirms every line, held for 48 hours.</p>
+  <div class="cs-actions" style="margin-top:20px">
+    <a class="cs-btn" href="#request">Source this build</a>
+    <button class="cs-btn cs-ghost" type="button" id="reset">Reset to recommended</button>
+  </div>
+</div></section>
+
+<section class="cs-section cs-tint"><div class="cs-wrap">
+  <h2 class="cs-h2">What it does for your business</h2>
+  <p class="cs-lead">A box on your desk instead of another cloud bill, set up so it keeps working when you're not watching it.</p>
+  <div class="cs-outcomes">
+    <div class="cs-outcome">
+      <svg viewBox="0 0 440 110" role="img" aria-label="Over 24 hours the power cuts once; the UPS keeps the box running and it restarts itself">
+        <rect x="10" y="40" width="420" height="22" rx="11" fill="#e9f6ec"/>
+        <rect x="10" y="40" width="420" height="22" rx="11" fill="none" stroke="#248a3d" stroke-width="2"/>
+        <rect x="236" y="40" width="34" height="22" fill="#fdf1e6"/>
+        <line x1="253" y1="22" x2="253" y2="80" stroke="#b25000" stroke-width="2" stroke-dasharray="3 4"/>
+        <g font-family="Inter, sans-serif" font-size="12">
+          <text x="253" y="16" text-anchor="middle" fill="#b25000" font-weight="600">Power cut</text>
+          <text x="253" y="98" text-anchor="middle" fill="#424245">UPS carries it, BIOS restarts it</text>
+          <text x="10" y="30" fill="#6e6e73">00:00</text><text x="430" y="30" text-anchor="end" fill="#6e6e73">24:00</text>
+        </g>
+      </svg>
+      <h3 class="cs-h3">Runs around the clock</h3>
+      <p>Every build ships with a UPS line and is set to power back on by itself, so agents keep working through outages.</p>
+    </div>
+    <div class="cs-outcome">
+      <svg viewBox="0 0 440 110" role="img" aria-label="Your data and models stay inside the box; nothing goes to a cloud model provider on local builds">
+        <rect x="150" y="18" width="140" height="74" rx="16" fill="#1d1d1f"/>
+        <text x="220" y="52" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#fff">Your box</text>
+        <text x="220" y="70" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#a1a1a6">model + your files</text>
+        <g font-family="Inter, sans-serif" font-size="12" fill="#424245">
+          <rect x="10" y="38" width="100" height="34" rx="10" fill="#e8f2fd"/><text x="60" y="59" text-anchor="middle" fill="#0071e3">Your team</text>
+          <line x1="110" y1="55" x2="150" y2="55" stroke="#0071e3" stroke-width="2" class="cs-flow"/>
+          <rect x="330" y="38" width="100" height="34" rx="10" fill="#f5f5f7"/><text x="380" y="59" text-anchor="middle" fill="#6e6e73">Cloud AI</text>
+          <line x1="290" y1="55" x2="330" y2="55" stroke="#d2d2d7" stroke-width="2"/>
+          <line x1="302" y1="45" x2="318" y2="65" stroke="#d70015" stroke-width="2.5" stroke-linecap="round"/><line x1="318" y1="45" x2="302" y2="65" stroke="#d70015" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <h3 class="cs-h3">Private models stay private</h3>
+      <p>On the local builds, prompts and files never leave the box. Useful for client data, contracts and anything under NDA.</p>
+    </div>
+    <div class="cs-outcome">
+      <svg viewBox="0 0 440 110" role="img" aria-label="Reinstall from the recovery drive in about 15 minutes">
+        <rect x="10" y="44" width="420" height="16" rx="8" fill="#ececf0"/>
+        <rect x="10" y="44" width="420" height="16" rx="8" fill="#0071e3"/>
+        <g font-family="Inter, sans-serif" font-size="12">
+          <text x="10" y="34" fill="#424245">Recovery drive plugged in</text>
+          <text x="430" y="34" text-anchor="end" fill="#0071e3" font-weight="600">Back to work</text>
+          <text x="220" y="86" text-anchor="middle" fill="#6e6e73">about 15 minutes</text>
+        </g>
+      </svg>
+      <h3 class="cs-h3">Back to work in 15 minutes</h3>
+      <p>A recovery drive with your setup on it ships in the box. If something breaks, plug it in and reinstall.</p>
+    </div>
+    <div class="cs-outcome">
+      <svg viewBox="0 0 440 110" role="img" aria-label="Each part is checked against shortage stock before purchase">
+        <g font-family="Inter, sans-serif" font-size="12">
+          <rect x="10" y="14" width="200" height="28" rx="8" fill="#fdecee"/><text x="22" y="32" fill="#d70015">GPU · shortage</text>
+          <rect x="10" y="50" width="200" height="28" rx="8" fill="#fdecee"/><text x="22" y="68" fill="#d70015">DDR5 · shortage</text>
+          <rect x="230" y="14" width="200" height="28" rx="8" fill="#e9f6ec"/><text x="242" y="32" fill="#248a3d">Verified stock, price held</text>
+          <rect x="230" y="50" width="200" height="28" rx="8" fill="#e9f6ec"/><text x="242" y="68" fill="#248a3d">Verified stock, price held</text>
+          <text x="220" y="100" text-anchor="middle" fill="#6e6e73">We find the stock before you pay</text>
+        </g>
+      </svg>
+      <h3 class="cs-h3">Shortage parts, found for you</h3>
+      <p>GPUs and DDR5 are the hard lines. We source them like any other shortage order: verified stock first, then you pay.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="cs-section"><div class="cs-wrap">
+  <h2 class="cs-h2">From parts list to your desk</h2>
+  <div class="cs-steps cs-four">
+    <div class="cs-step"><h3 class="cs-h3">Configure</h3><p>Pick the workload, swap or remove parts, send the list.</p></div>
+    <div class="cs-step"><h3 class="cs-h3">We source</h3><p>Every line priced and verified, with the quote held for 48 hours.</p></div>
+    <div class="cs-step"><h3 class="cs-h3">Assemble or not</h3><p>Take the parts and build it yourself, or ask for assembly and a burn-in test, quoted separately.</p></div>
+    <div class="cs-step"><h3 class="cs-h3">Ships ready</h3><p>Preloaded setup, recovery drive and a five-step start card.</p></div>
+  </div>
+</div></section>
+
+<section class="cs-section cs-tint" id="request"><div class="cs-narrow">
+  <h2 class="cs-h2">Source this build</h2>
+  <p class="cs-lead">We'll quote every line within 24 business hours.</p>
+  <div class="cs-panel" style="background:#fff;margin-bottom:20px">
+    <p style="margin:0 0 6px;font-weight:600">Your build: <span id="sum-tier"></span></p>
+    <p class="cs-small" id="sum-lines" style="margin:0"></p>
+  </div>
+  <div class="cs-done" id="cs-done"><h3>Build sent.</h3><p>We'll email a line-by-line quote within 24 business hours. Questions? <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a></p></div>
+  <form class="cs-form" id="f">
+    <input class="cs-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="cs-row">
+      <label>How should it arrive?
+        <select name="build"><option value="parts_only">Parts only, I'll assemble</option><option value="assembled">Assembled and burn-in tested</option></select>
+      </label>
+      <label>How many boxes?<input name="qty" required value="1" inputmode="numeric"></label>
+    </div>
+    <label>What will it run? (optional)<textarea name="workload" placeholder="e.g. Five browser agents for lead research, or Llama 70B for contract review"></textarea></label>
+    <div class="cs-row">
+      <label>Your name<input name="name" required autocomplete="name"></label>
+      <label>Company<input name="company" required autocomplete="organization"></label>
+    </div>
+    <div class="cs-row">
+      <label>Work email<input name="email" type="email" required autocomplete="email"></label>
+      <label>Phone (optional)<input name="phone" autocomplete="tel"></label>
+    </div>
+    <div class="cs-row">
+      <label>Ship-to country<select name="country" required data-cs-countries></select></label>
+      <label>Drop-off: city, ZIP or port<input name="drop_off" required placeholder="e.g. Jaipur 302021 · 94107 San Francisco"></label>
+    </div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFPyjK0P_am6Bifm" data-size="flexible"></div>
+    <p class="cs-err" role="alert"></p>
+    <button class="cs-btn" type="submit">Source this build</button>
+  </form>
+</div></section>
+
+<footer class="cs-footer"><div class="cs-wrap">
+  <span>© 2026 ChipShark · Independent components sourcing</span>
+  <span><a href="index.html">Find a part</a><a href="shortage.html">Shortage desk</a><a href="services.html">Hire us</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="refund.html">Refunds</a><a href="counterfeit-policy.html">Counterfeit policy</a><a href="glossary.html">Glossary</a></span>
+</div></footer>
+
+<script src="cs.js"></script>
+<script>
+(function () {
+  // Estimates in USD [low, high]. First option is the recommended one. off:true = optional, starts removed.
+  const TIERS = {
+    agent: { name: "Agent box", parts: [
+      { cat: "Compute", name: "Mini PC", opts: [["Ryzen 5 7530U class", 210, 260], ["Ryzen 7 8845HS class", 380, 450], ["Intel N305, low power", 150, 190]] },
+      { cat: "Memory", name: "RAM", opts: [["16 GB DDR5 SO-DIMM", 60, 90], ["32 GB DDR5 SO-DIMM", 120, 170], ["64 GB DDR5 SO-DIMM", 260, 340]] },
+      { cat: "Storage", name: "NVMe SSD", opts: [["512 GB", 45, 60], ["1 TB", 70, 95], ["2 TB", 130, 170]] },
+      { cat: "Power", name: "UPS", opts: [["600–800 VA", 45, 60], ["1000 VA", 75, 100]] },
+      { cat: "Power", name: "Surge protector", opts: [["4 socket", 8, 14]] },
+      { cat: "Network", name: "Ethernet cable", opts: [["Cat6, 1.5 m", 3, 5]] },
+      { cat: "Network", name: "4G / 5G failover", off: true, opts: [["USB LTE modem", 30, 45]] },
+      { cat: "Backup", name: "External SSD", off: true, opts: [["1 TB USB", 60, 80]] },
+      { cat: "Recovery", name: "Recovery drive", opts: [["32 GB USB, preloaded", 6, 10]] },
+      { cat: "Service", name: "Setup and burn-in", opts: [["Golden image, 24 h test", 150, 250]] },
+    ]},
+    pro: { name: "Local AI, up to 30B", parts: [
+      { cat: "GPU", name: "Graphics card", opts: [["RTX 4090 24 GB, used, vetted seller", 1500, 1900], ["RTX 3090 24 GB, used, vetted seller", 750, 950], ["RTX 5080 16 GB, new", 1200, 1500]] },
+      { cat: "CPU", name: "Processor", opts: [["Ryzen 7 9700X", 280, 330], ["Ryzen 9 9900X", 380, 450]] },
+      { cat: "Board", name: "Motherboard", opts: [["B650 ATX", 160, 220], ["X870 ATX", 280, 360]] },
+      { cat: "Memory", name: "RAM", opts: [["64 GB DDR5 (2×32)", 450, 550], ["32 GB DDR5", 230, 290], ["128 GB DDR5", 900, 1100]] },
+      { cat: "Storage", name: "NVMe SSD", opts: [["2 TB Gen4", 140, 190], ["4 TB Gen4", 280, 360]] },
+      { cat: "Power", name: "Power supply", opts: [["1000 W Gold", 140, 180], ["1200 W Platinum", 220, 280]] },
+      { cat: "Case", name: "Case", opts: [["Mid tower, high airflow", 100, 150]] },
+      { cat: "Cooling", name: "CPU cooler", opts: [["240 mm liquid", 90, 130], ["Air tower", 40, 70]] },
+      { cat: "Power", name: "UPS", opts: [["1500 VA", 180, 240]] },
+      { cat: "Service", name: "Setup and burn-in", opts: [["Ubuntu, Ollama, 24 h test", 250, 400]] },
+    ]},
+    max: { name: "Local AI, 70B-class", parts: [
+      { cat: "GPU", name: "Graphics card 1", opts: [["RTX 5090 32 GB", 2800, 3600], ["RTX Pro 6000 96 GB", 8000, 9500]] },
+      { cat: "GPU", name: "Graphics card 2", opts: [["RTX 5090 32 GB", 2800, 3600]] },
+      { cat: "CPU", name: "Processor", opts: [["Ryzen 9 9950X", 520, 600], ["Threadripper 7960X", 1400, 1600]] },
+      { cat: "Board", name: "Motherboard", opts: [["X870E, two x8 GPU slots", 380, 480], ["TRX50 workstation", 750, 900]] },
+      { cat: "Memory", name: "RAM", opts: [["128 GB DDR5", 1000, 1250], ["256 GB DDR5 (Threadripper)", 2200, 2700]] },
+      { cat: "Storage", name: "NVMe SSD", opts: [["4 TB Gen4", 280, 360], ["8 TB Gen4", 600, 750]] },
+      { cat: "Power", name: "Power supply", opts: [["1600 W Platinum", 400, 500]] },
+      { cat: "Case", name: "Case and cooling", opts: [["Full tower, 360 mm liquid", 320, 450]] },
+      { cat: "Power", name: "UPS", opts: [["2200 VA", 380, 500]] },
+      { cat: "Service", name: "Setup and burn-in", opts: [["Multi-GPU setup, 48 h test", 400, 600]] },
+    ]},
+  };
+
+  const box = document.getElementById("explode"), wires = document.getElementById("wires");
+  const core = box.querySelector(".cs-core"), note = document.getElementById("note");
+  const reduce = CS.reduce;
+  let tier = "agent", state = [], shownTotal = [0, 0], demoTimers = [], revealed = false;
+  const usd = (n) => "$" + Math.round(n).toLocaleString("en-US");
+
+  function fresh(t) { return TIERS[t].parts.map((p) => ({ on: !p.off, pick: 0 })); }
+
+  // mode: "fly" = build collapsed then fly out, "packed" = build collapsed and wait, "static" = build in place.
+  function render(mode) {
+    box.querySelectorAll(".cs-part").forEach((n) => n.remove());
+    const parts = TIERS[tier].parts, packed = mode !== "static";
+    parts.forEach((p, i) => {
+      const s = state[i], el = document.createElement("div");
+      el.className = "cs-part" + (s.on ? "" : " cs-off") + (packed ? " cs-packed" : "");
+      el.dataset.i = i;
+      el.innerHTML =
+        `<div class="cs-part-top"><span class="cs-cat">${p.cat}</span>` +
+        `<button type="button" class="cs-x" aria-label="${s.on ? "Remove" : "Add back"} ${p.name}" title="${s.on ? "Remove" : "Add back"}">${s.on ? "×" : "+"}</button></div>` +
+        `<strong>${p.name}</strong>` +
+        (p.opts.length > 1
+          ? `<select aria-label="${p.name} option">${p.opts.map((o, k) => `<option value="${k}"${k === s.pick ? " selected" : ""}>${o[0]}</option>`).join("")}</select>`
+          : `<span class="cs-small">${p.opts[0][0]}</span>`) +
+        `<span class="cs-price-line">${usd(p.opts[s.pick][1])}–${usd(p.opts[s.pick][2])}</span>`;
+      box.appendChild(el);
+    });
+    document.getElementById("core-name").textContent = TIERS[tier].name;
+    if (mode === "fly") fly(); else if (mode === "static") drawWires(); else wires.innerHTML = "";
+    total();
+    summary();
+  }
+
+  // Parts start collapsed into the box and fly out to their slots, one after another.
+  function fly() {
+    const c = core.getBoundingClientRect(), cx = c.left + c.width / 2, cy = c.top + c.height / 2;
+    const els = [...box.querySelectorAll(".cs-part")];
+    // Jump (no transition) to the box centre while invisible, then animate out.
+    els.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      el.style.transition = "none";
+      el.style.setProperty("--cs-from", `translate(${cx - (r.left + r.width / 2)}px, ${cy - (r.top + r.height / 2)}px)`);
+    });
+    wires.innerHTML = "";
+    void box.offsetWidth;
+    if (reduce) { els.forEach((el) => { el.style.transition = ""; el.classList.remove("cs-packed"); }); drawWires(); return; }
+    requestAnimationFrame(() => {
+      els.forEach((el, k) => { el.style.transition = ""; el.style.transitionDelay = k * 70 + "ms"; el.classList.remove("cs-packed"); });
+      setTimeout(() => { els.forEach((el) => (el.style.transitionDelay = "0ms")); drawWires(); }, els.length * 70 + 750);
+    });
+  }
+
+  function drawWires() {
+    const b = box.getBoundingClientRect(), c = core.getBoundingClientRect();
+    if (getComputedStyle(wires).display === "none") return;
+    const ccx = c.left + c.width / 2 - b.left, ccy = c.top + c.height / 2 - b.top;
+    wires.setAttribute("viewBox", `0 0 ${b.width} ${b.height}`);
+    wires.innerHTML = [...box.querySelectorAll(".cs-part")].map((el) => {
+      const r = el.getBoundingClientRect(), tx = r.left + r.width / 2 - b.left, ty = r.top + r.height / 2 - b.top;
+      const mx = (ccx + tx) / 2;
+      return `<path class="${el.classList.contains("cs-off") ? "" : "cs-live"}" d="M${ccx} ${ccy} C ${mx} ${ccy}, ${mx} ${ty}, ${tx} ${ty}"/>`;
+    }).join("");
+  }
+
+  function sums() {
+    let lo = 0, hi = 0, n = 0;
+    TIERS[tier].parts.forEach((p, i) => { if (state[i].on) { lo += p.opts[state[i].pick][1]; hi += p.opts[state[i].pick][2]; n++; } });
+    return { lo, hi, n };
+  }
+
+  // Total counts from the old value to the new one so the change is visible.
+  function total() {
+    const { lo, hi, n } = sums(), from = shownTotal.slice(), el = document.getElementById("total");
+    document.getElementById("count").textContent = n;
+    if (reduce || !revealed) { shownTotal = [lo, hi]; el.textContent = `${usd(lo)}–${usd(hi)}`; return; }
+    const t0 = performance.now();
+    (function step(t) {
+      const p = Math.min(1, (t - t0) / 500), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = `${usd(from[0] + (lo - from[0]) * e)}–${usd(from[1] + (hi - from[1]) * e)}`;
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+    shownTotal = [lo, hi];
+  }
+
+  function summary() {
+    const parts = TIERS[tier].parts;
+    document.getElementById("sum-tier").textContent = TIERS[tier].name;
+    document.getElementById("sum-lines").textContent = parts.map((p, i) => state[i].on ? `${p.name}: ${p.opts[state[i].pick][0]}` : null).filter(Boolean).join("; ") + `. Estimate ${usd(sums().lo)}–${usd(sums().hi)}`;
+  }
+
+  function update(i, patch) {
+    Object.assign(state[i], patch);
+    const p = TIERS[tier].parts[i], el = box.querySelector(`.cs-part[data-i="${i}"]`), s = state[i];
+    el.classList.toggle("cs-off", !s.on);
+    const x = el.querySelector(".cs-x");
+    x.textContent = s.on ? "×" : "+"; x.title = s.on ? "Remove" : "Add back"; x.setAttribute("aria-label", `${s.on ? "Remove" : "Add back"} ${p.name}`);
+    el.querySelector(".cs-price-line").textContent = `${usd(p.opts[s.pick][1])}–${usd(p.opts[s.pick][2])}`;
+    const sel = el.querySelector("select"); if (sel) sel.value = s.pick;
+    const path = wires.children[i]; if (path) path.setAttribute("class", s.on ? "cs-live" : "");
+    total(); summary();
+  }
+
+  function stopDemo() { demoTimers.forEach(clearTimeout); demoTimers = []; box.querySelectorAll(".cs-demo").forEach((n) => n.classList.remove("cs-demo")); }
+
+  box.addEventListener("click", (e) => {
+    const x = e.target.closest(".cs-x"); if (!x) return;
+    stopDemo();
+    const i = +x.closest(".cs-part").dataset.i;
+    update(i, { on: !state[i].on });
+    note.textContent = state[i].on ? `${TIERS[tier].parts[i].name} added back.` : `${TIERS[tier].parts[i].name} removed. Tap + to add it back.`;
+  });
+  box.addEventListener("change", (e) => {
+    if (e.target.tagName !== "SELECT") return;
+    stopDemo();
+    const i = +e.target.closest(".cs-part").dataset.i;
+    update(i, { pick: +e.target.value });
+  });
+
+  // One-time walkthrough after the parts fly out: swap a part, remove a part, put it back.
+  function demo() {
+    if (reduce) return;
+    const say = (t) => (note.textContent = t);
+    const mark = (i, on) => { const el = box.querySelector(`.cs-part[data-i="${i}"]`); if (el) el.classList.toggle("cs-demo", on); };
+    const at = (ms, fn) => demoTimers.push(setTimeout(fn, ms));
+    at(1500, () => { mark(1, true); say("Swap any part: upgrading the RAM…"); });
+    at(2300, () => update(1, { pick: 1 }));
+    at(3400, () => { mark(1, false); mark(3, true); say("Remove what you already own: dropping the UPS…"); });
+    at(4200, () => update(3, { on: false }));
+    at(5400, () => { update(1, { pick: 0 }); update(3, { on: true }); mark(3, false); say("Your turn. Change anything, then send the list."); });
+  }
+
+  document.querySelectorAll("[data-tier]").forEach((b) => b.addEventListener("click", () => {
+    stopDemo();
+    tier = b.dataset.tier;
+    document.querySelectorAll("[data-tier]").forEach((x) => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    state = fresh(tier);
+    render(revealed ? "fly" : "packed");
+    note.textContent = "Estimates in USD. Your quote confirms every line, held for 48 hours.";
+  }));
+  document.getElementById("reset").addEventListener("click", () => { stopDemo(); state = fresh(tier); render("static"); });
+
+  state = fresh(tier);
+  render("packed");
+  box.addEventListener("cs:in", () => { revealed = true; fly(); demo(); });
+  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(drawWires, 120); });
+
+  csForm(document.getElementById("f"), {
+    type: "ai_box",
+    build: (fd) => {
+      const parts = TIERS[tier].parts, { lo, hi } = sums();
+      const items = parts.map((p, i) => state[i].on ? { cat: p.cat, part: p.name, choice: p.opts[state[i].pick][0], est_low: p.opts[state[i].pick][1], est_high: p.opts[state[i].pick][2] } : null).filter(Boolean);
+      const lines = items.map((it) => `${it.part} | ${it.choice} | Qty: ${fd.get("qty") || 1}`).join("\n");
+      return {
+        mpn: `AI box — ${TIERS[tier].name}\n${lines}`,
+        qty: fd.get("qty"),
+        notes: [fd.get("workload") ? "Workload: " + fd.get("workload") : "", "Build: " + (fd.get("build") === "assembled" ? "assembled and burn-in tested" : "parts only"), `Estimate shown: ${usd(lo)}–${usd(hi)} per box`].filter(Boolean).join("\n"),
+        meta: { tier, items, build: fd.get("build"), estimate: { low: lo, high: hi }, workload: fd.get("workload") || null },
+      };
+    },
+  });
+})();
+</script>
+</body>
+</html>
