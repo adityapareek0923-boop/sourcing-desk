@@ -205,6 +205,7 @@ tr.out td { color:var(--ink3); text-decoration:line-through; text-decoration-col
 <div id="login-view" class="login hidden">
   <h1 id="login-title">ChipShark Desk</h1>
   <p id="login-help">Enter your password to log in.</p>
+  <input type="text" name="username" autocomplete="username" value="admin" hidden>
   <input id="pwd-in" type="password" placeholder="Password" autocomplete="current-password">
   <input id="pwd-in-2" type="password" placeholder="Confirm password" autocomplete="new-password" class="hidden">
   <input id="setup-token" type="text" placeholder="Setup token (from Supabase reset)" autocomplete="off" class="hidden">
@@ -231,7 +232,7 @@ tr.out td { color:var(--ink3); text-decoration:line-through; text-decoration-col
   <div id="view-rfqs" class="app">
     <aside class="inbox">
       <div class="ib-head">
-        <input class="search" id="search" placeholder="Search company, part number, email…" autocomplete="off">
+        <input class="search" id="search" type="search" name="rfq-filter" placeholder="Search company, part number, email…" autocomplete="off" data-lpignore="true" data-1p-ignore>
         <div class="seg" id="buckets"></div>
       </div>
       <div class="list" id="list"></div>
@@ -274,7 +275,7 @@ tr.out td { color:var(--ink3); text-decoration:line-through; text-decoration-col
     <select id="s-provider"><option value="openai_compat">OpenAI-compatible (Groq, OpenRouter, DeepSeek, OpenAI…)</option><option value="anthropic">Anthropic</option><option value="google">Google Gemini</option></select>
     <div id="s-baseurl-row"><label>Base URL</label><input id="s-baseurl" placeholder="https://api.groq.com/openai/v1"></div>
     <label>Model</label><input id="s-model" placeholder="openai/gpt-oss-120b">
-    <label>API key <span id="s-keystate" class="dim"></span></label><input id="s-apikey" type="password" placeholder="Leave blank to keep the current key" autocomplete="off">
+    <label>API key <span id="s-keystate" class="dim"></span></label><input id="s-apikey" type="password" placeholder="Leave blank to keep the current key" autocomplete="new-password">
   </div>
   <div class="mf"><span class="status" id="s-msg"></span><button class="btn" data-close="settings-mb">Close</button><button class="btn p" id="s-save">Save</button></div>
 </div></div>
@@ -863,7 +864,9 @@ document.addEventListener('change', async (e) => {
   try { await api('/update?id=' + selId, { method: 'PATCH', body: JSON.stringify({ status: v }) }); r.status = v; renderAll(); toast('Status updated', ''); }
   catch (err) { toast('Update failed', err.message); renderWorkspace(); }
 });
-$('search').addEventListener('input', (e) => { query = e.target.value.trim(); renderInbox(); });
+let typed = false;
+$('search').addEventListener('keydown', () => { typed = true; });
+$('search').addEventListener('input', (e) => { if (!typed) { e.target.value = ''; return; } query = e.target.value.trim(); renderInbox(); });
 $('settings-btn').addEventListener('click', openSettings);
 $('logout-btn').addEventListener('click', logout);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.mb.show').forEach(m => closeModal(m.id)); });
