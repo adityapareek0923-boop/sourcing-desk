@@ -118,6 +118,35 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   .toast .t-title { font-weight: 500; margin-bottom: 2px; }
   .toast .t-sub { font-size: 12px; color: var(--ink-3); }
   @keyframes toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
+  /* ---------- Sourcing plan ---------- */
+  .modal.wide { max-width: 1100px; }
+  .pl-sub { color: var(--ink-3); font-size: 12.5px; margin: 2px 0 14px; }
+  .pl-kpis { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .pl-kpi { background: var(--bg); border-radius: 10px; padding: 10px 12px; }
+  .pl-kpi b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .pl-kpi span { color: var(--ink-3); font-size: 11.5px; }
+  .pl-kpi.hero { background: color-mix(in srgb, var(--accent) 10%, transparent); } .pl-kpi.hero b { color: var(--accent); }
+  .pl-kpi.hero.late { background: color-mix(in srgb, var(--danger) 10%, transparent); } .pl-kpi.hero.late b { color: var(--danger); }
+  .pl-h { font-size: 14px; font-weight: 600; margin: 18px 0 8px; }
+  .pl-bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin: 8px 0 6px; background: var(--bg); }
+  .pl-lg { display: flex; gap: 14px; flex-wrap: wrap; font-size: 11.5px; color: var(--ink-2); }
+  .pl-lg i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+  .pl-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .pl-table th, .pl-table td { text-align: left; padding: 7px 8px 7px 0; border-top: 1px solid var(--line); vertical-align: middle; }
+  .pl-table th { color: var(--ink-3); font-weight: 500; font-size: 11.5px; border-top: 0; }
+  .pl-table td.n, .pl-table th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .pl-table .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+  .pl-table .dim { color: var(--ink-3); font-size: 11.5px; }
+  .pl-chips { display: flex; gap: 6px; margin: 4px 0 8px; }
+  .pl-chips button { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 14px; padding: 3px 11px; font-size: 12px; cursor: pointer; font-family: inherit; }
+  .pl-chips button.on { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .pl-verdict { margin-top: 14px; padding: 12px 14px; background: var(--bg); border-radius: 10px; font-size: 13px; }
+  .pl-verdict ul { margin: 4px 0 0; padding-left: 18px; } .pl-verdict li { margin: 3px 0; }
+  .pl-basis { color: var(--ink-3); font-size: 11.5px; margin-top: 10px; }
+  .pl-progress { height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; margin: 10px 0; }
+  .pl-progress i { display: block; height: 100%; background: var(--accent); transition: width .4s ease; }
+  .pl-scroll { overflow-x: auto; }
+  @media (max-width: 760px) { .pl-kpis { grid-template-columns: 1fr 1fr; } }
   /* ---------- Email composer modal ---------- */
   .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
   .modal-backdrop.show { display: flex; }
@@ -204,6 +233,27 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   .bubble.tool { background: #fff; color: var(--ink-2); align-self: flex-start; border: 1px solid var(--line); border-radius: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; max-width: 760px; padding: 10px 12px; }
   .bubble.tool .tool-head { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); font-family: "Inter", sans-serif; margin-bottom: 5px; }
   .bubble.tool pre { margin: 0; white-space: pre-wrap; max-height: 220px; overflow-y: auto; }
+  /* Sonar: readable steps and result cards instead of raw JSON */
+  .bubble.assistant.md { white-space: normal; }
+  .bubble.assistant.md p { margin: 0 0 8px; } .bubble.assistant.md p:last-child { margin-bottom: 0; }
+  .bubble.assistant.md ul { margin: 4px 0 10px; padding-left: 18px; } .bubble.assistant.md li { margin: 2px 0; }
+  .s-step { align-self: flex-start; display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-2); padding: 2px 4px; }
+  .s-step .s-ico { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--surface-2); font-size: 12px; flex: none; }
+  .s-card { align-self: flex-start; max-width: 760px; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 13px; }
+  .s-card .s-title { font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .s-pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+  .s-pill.ok { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); }
+  .s-pill.warn { background: color-mix(in srgb, #b25000 14%, transparent); color: #b25000; }
+  .s-pill.bad { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
+  .s-card table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 4px; }
+  .s-card th, .s-card td { text-align: left; padding: 6px 8px 6px 0; border-top: 1px solid var(--line); vertical-align: top; }
+  .s-card th { color: var(--ink-3); font-weight: 500; font-size: 11.5px; border-top: 0; }
+  .s-card .s-kv { display: grid; grid-template-columns: 110px 1fr; gap: 4px 10px; }
+  .s-card .s-kv dt { color: var(--ink-3); } .s-card .s-kv dd { margin: 0; }
+  .s-card .s-note { color: var(--ink-3); margin-top: 6px; }
+  .s-card details.raw { margin-top: 8px; font-size: 11px; color: var(--ink-3); }
+  .s-card details.raw pre { font-size: 11px; max-height: 200px; overflow: auto; white-space: pre-wrap; }
+  .s-scroll { overflow-x: auto; }
   .bubble.thinking { background: var(--surface-2); color: var(--ink-3); align-self: flex-start; font-style: italic; }
   .bubble.err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); align-self: flex-start; }
   .trigger-tile { align-self: stretch; display: flex; align-items: center; gap: 10px; padding: 7px 14px; background: color-mix(in srgb, var(--accent) 5%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); border-radius: 10px; font-size: 11px; color: var(--ink-3); max-width: 760px; }
@@ -399,6 +449,20 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   </div>
 </div>
 
+<!-- Sourcing plan modal -->
+<div class="modal-backdrop" id="plan-backdrop">
+  <div class="modal wide">
+    <div class="modal-head">
+      <h2 id="plan-title">Sourcing plan</h2>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="ghost" id="plan-refresh" style="font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:8px;background:transparent;padding:5px 10px;cursor:pointer">Re-check prices</button>
+        <button class="close" id="plan-close" aria-label="Close">&times;</button>
+      </div>
+    </div>
+    <div class="modal-body" id="plan-body"></div>
+  </div>
+</div>
+
 <div class="toast-stack" id="toasts"></div>
 
 <script>
@@ -580,6 +644,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
             <option value="lost"${status==='lost'?' selected':''}>lost</option>
             <option value="unable_to_source"${status==='unable_to_source'?' selected':''}>unable to source</option>
           </select>
+          ${['part', 'shortage', 'bom_check'].includes(r.type || 'part') ? `<button class="ghost" data-plan="${r.id}">📦 Sourcing plan</button>` : ''}
           <a href="/track.html?id=${r.id}" target="_blank">View buyer page</a>
           <button class="rfq-del" data-del-rfq="${r.id}" title="Delete this RFQ permanently">Delete</button>
         </div>
@@ -1010,6 +1075,169 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     loadConvs(agentId);
   }
 
+  // ---- Sourcing plan: per-line stock, landed cost, arrival dates, shipments, verdict.
+  let planRfq = null, planFilter = 'attention';
+  const usd = (n) => n == null ? '—' : '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: n < 10 ? 2 : 0, maximumFractionDigits: n < 10 ? 4 : 0 });
+  const usd2 = (n) => n == null ? '—' : '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: n < 1 ? 4 : 2 });
+  const fmtD = (d) => d ? new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '—';
+  const ST = {
+    in_stock: ['In stock', 'ok', '#248a3d'], partial: ['Part stock', 'warn', '#7cc38f'], factory: ['Factory lead time', 'warn', '#f0a254'],
+    not_found: ['Not found yet', 'bad', '#d70015'], pending: ['Checking…', '', '#d2d2d7'],
+  };
+  async function openPlan(rfqId, refresh) {
+    planRfq = rfqId; planFilter = 'attention';
+    const r = allRfqs.find(x => x.id === rfqId) || {};
+    $('plan-title').textContent = 'Sourcing plan · ' + (r.company || r.name || 'RFQ');
+    $('plan-backdrop').classList.add('show');
+    const body = $('plan-body');
+    body.innerHTML = '<div class="loading">Loading…</div>';
+    try {
+      let plan = refresh ? null : (await agentApi({ action: 'plan_get', rfq_id: rfqId })).plan;
+      if (!plan) plan = (await agentApi({ action: 'plan_start', rfq_id: rfqId })).plan;
+      while (plan.status !== 'done' && planRfq === rfqId) {
+        renderPlanProgress(plan);
+        plan = (await agentApi({ action: 'plan_step', rfq_id: rfqId })).plan;
+      }
+      if (planRfq === rfqId) renderPlan(plan);
+    } catch (e) {
+      body.innerHTML = `<div class="s-card"><div class="s-title"><span class="s-pill bad">Didn't finish</span>${esc(e.message)}</div><div class="s-note">Close and open the plan again to continue where it stopped.</div></div>`;
+    }
+  }
+  function renderPlanProgress(plan) {
+    const total = plan.lines.length, done = plan.lines.filter(l => l.status !== 'pending').length;
+    $('plan-body').innerHTML = `<div style="padding:30px 0;text-align:center"><b>Checking stock and prices…</b><div class="pl-sub">${done} of ${total} line${total === 1 ? '' : 's'} checked${total > 30 ? ' · long BOMs take about a minute per 30 lines' : ''}</div><div class="pl-progress"><i style="width:${Math.round(done / Math.max(total, 1) * 100)}%"></i></div></div>`;
+  }
+  function arrivalChart(sm, ctx) {
+    const pts = sm.curve || [];
+    if (!pts.length) return '';
+    const start = ctx.today, endD = [pts[pts.length - 1].date, sm.needed_by].filter(Boolean).sort().pop();
+    const t = (d) => new Date(d + 'T00:00:00Z').getTime();
+    const span = Math.max(t(endD) - t(start), 864e5 * 7) * 1.06;
+    const W = 1000, H = 130, x0 = 44, y = (p) => 115 - p;
+    const X = (d) => x0 + (t(d) - t(start)) / span * (W - x0 - 10);
+    let path = `M${x0},${y(0)}`;
+    for (const p of pts) path += ` L${X(p.date)},${path.split(' ').pop().split(',')[1]} L${X(p.date)},${y(p.pct)}`;
+    path += ` L${W - 10},${y(pts[pts.length - 1].pct)}`;
+    const ticks = [];
+    for (let i = 0; i <= 5; i++) { const d = new Date(t(start) + span * i / 5).toISOString().slice(0, 10); ticks.push(`<text x="${X(d) - 14}" y="${H + 2}" font-size="11" fill="#86868b">${fmtD(d)}</text>`); }
+    const last = pts[pts.length - 1];
+    const dl = sm.needed_by ? `<line x1="${X(sm.needed_by)}" y1="8" x2="${X(sm.needed_by)}" y2="${y(0)}" stroke="#d70015" stroke-dasharray="4 3"/><text x="${Math.min(X(sm.needed_by) + 5, W - 120)}" y="22" font-size="11.5" fill="#d70015" font-weight="600">Buyer needs: ${fmtD(sm.needed_by)}</text>` : '';
+    return `<svg viewBox="0 0 ${W} ${H + 8}" width="100%" role="img" aria-label="Share of lines arrived over time">
+      <g stroke="#e5e5ea"><line x1="${x0}" y1="${y(100)}" x2="${W - 10}" y2="${y(100)}"/><line x1="${x0}" y1="${y(50)}" x2="${W - 10}" y2="${y(50)}"/><line x1="${x0}" y1="${y(0)}" x2="${W - 10}" y2="${y(0)}"/></g>
+      <g font-size="11" fill="#86868b"><text x="0" y="${y(100) + 4}">100%</text><text x="8" y="${y(50) + 4}">50%</text><text x="16" y="${y(0) + 4}">0%</text></g>
+      ${ticks.join('')}
+      <path d="${path} L${W - 10},${y(0)} Z" fill="#0071e3" opacity=".07"/><path d="${path}" fill="none" stroke="#0071e3" stroke-width="2.5"/>
+      ${dl}<circle cx="${X(last.date)}" cy="${y(last.pct)}" r="4.5" fill="#0071e3"/>
+      <text x="${Math.max(X(last.date) - 150, x0)}" y="${y(last.pct) - 8}" font-size="11.5" fill="#0071e3" font-weight="600">${last.pct}% of lines by ${fmtD(last.date)}</text></svg>`;
+  }
+  function renderPlan(plan) {
+    const sm = plan.summary, ctx = plan.ctx, lines = plan.lines;
+    const c = sm.counts, lateSet = new Set(sm.late), sourced = c.total - c.not_found;
+    const heroLate = sm.late.length || sm.open.length;
+    const hero = sm.kit_date
+      ? `<div class="pl-kpi hero${sm.late.length ? ' late' : ''}"><b>${sourced === c.total ? 'Full kit' : sourced + ' lines'} by ${fmtD(sm.kit_date)}</b><span>${sm.needed_by ? (sm.late.length ? `${sm.late.length} line${sm.late.length === 1 ? '' : 's'} after the buyer's ${fmtD(sm.needed_by)}` : `on time for the buyer's ${fmtD(sm.needed_by)}`) : 'no needed-by date given'}${sm.open.length ? ` · ${sm.open.length} still open` : ''}</span></div>`
+      : `<div class="pl-kpi hero late"><b>Nothing sourced yet</b><span>${sm.open.length} line${sm.open.length === 1 ? '' : 's'} need broker sourcing</span></div>`;
+    const seg = (k) => c[k] ? `<i style="width:${c[k] / c.total * 100}%;background:${ST[k][2]}"></i>` : '';
+    const lg = (k) => c[k] ? `<span><i style="background:${ST[k][2]}"></i>${c[k]} ${ST[k][0].toLowerCase()}</span>` : '';
+    const ships = sm.shipments.map((s, i) => `<tr><td>${i + 1}</td><td><b>${esc(s.name)}</b> <span class="dim">· ${esc(s.origin)}</span></td><td class="n">${s.lines}</td><td class="n">${usd(s.value)}</td><td class="n">${usd(s.freight)} <span class="dim">est.</span></td><td>${fmtD(s.arrive)}</td></tr>`).join('');
+    const rank = (l) => l.status === 'not_found' ? 0 : lateSet.has(l.n) ? 1 : l.status !== 'in_stock' ? 2 : 3;
+    const attention = lines.filter(l => rank(l) < 3).sort((a, b) => rank(a) - rank(b) || a.n - b.n);
+    const shown = planFilter === 'attention' ? attention : [...lines].sort((a, b) => rank(a) - rank(b) || a.n - b.n);
+    const vsCell = (l) => l.status === 'not_found' ? '<span class="s-pill bad">Blocks kit</span>' : lateSet.has(l.n) ? '<span class="s-pill bad">Late</span>' : sm.needed_by ? '<span class="s-pill ok">On time</span>' : '—';
+    const rows = shown.slice(0, 200).map(l => `<tr>
+      <td>${l.n}</td>
+      <td><span class="mono">${esc(l.mpn)}</span>${l.manufacturer ? `<br><span class="dim">${esc(l.manufacturer)}</span>` : ''}</td>
+      <td class="n">${Number(l.qty).toLocaleString('en-US')}</td>
+      <td><span class="s-pill ${ST[l.status][1]}">${ST[l.status][0]}</span>${l.note ? `<br><span class="dim">${esc(l.note)}</span>` : ''}</td>
+      <td>${l.source ? esc(l.source) + ` <span class="dim">· ${esc(l.origin || '')}</span>` : '—'}</td>
+      <td class="n">${usd2(l.unit)}</td><td class="n"><b>${usd2(l.landed_unit)}</b></td>
+      <td>${fmtD(l.arrive_date)}</td><td>${vsCell(l)}</td>
+      <td>${l.link ? `<a href="${esc(l.link)}" target="_blank" rel="noopener">↗</a>` : ''}</td></tr>`).join('');
+    $('plan-body').innerHTML = `
+      <div class="pl-sub">${c.total} line${c.total === 1 ? '' : 's'} → ${esc([ctx.drop, ctx.dest].filter(Boolean).join(', '))}${ctx.urgent ? ' · <b style="color:var(--danger)">urgent</b>' : ''} · checked ${fmtD(ctx.today)}</div>
+      <div class="pl-kpis">${hero}
+        <div class="pl-kpi"><b>${sourced} / ${c.total}</b><span>lines with a source</span></div>
+        <div class="pl-kpi"><b>${usd(sm.landed_total)}</b><span>landed cost (parts + freight + duty)</span></div>
+        <div class="pl-kpi"><b>${usd(sm.quote_total)}</b><span>suggested quote (${sm.margin_pct}% on landed${ctx.urgent ? ', urgent' : ''})</span></div></div>
+      ${sm.curve.length ? `<div class="pl-h">When the parts arrive</div>${arrivalChart(sm, ctx)}` : ''}
+      <div class="pl-bar">${seg('in_stock')}${seg('partial')}${seg('factory')}${seg('not_found')}</div>
+      <div class="pl-lg">${lg('in_stock')}${lg('partial')}${lg('factory')}${lg('not_found')}</div>
+      ${ships ? `<div class="pl-h">Shipments to ${esc(ctx.drop || ctx.dest)}</div><div class="pl-scroll"><table class="pl-table"><tr><th>#</th><th>From</th><th class="n">Lines</th><th class="n">Value</th><th class="n">Freight</th><th>Arrives</th></tr>${ships}</table></div>` : ''}
+      <div class="pl-h">Lines</div>
+      <div class="pl-chips"><button data-pf="attention" class="${planFilter === 'attention' ? 'on' : ''}">Needs attention ${attention.length}</button><button data-pf="all" class="${planFilter === 'all' ? 'on' : ''}">All ${c.total}</button></div>
+      ${shown.length ? `<div class="pl-scroll"><table class="pl-table"><tr><th>#</th><th>Part</th><th class="n">Qty</th><th>Status</th><th>From</th><th class="n">Unit</th><th class="n">Landed / unit</th><th>Arrives</th><th>vs needed</th><th></th></tr>${rows}</table></div>` : '<div class="pl-sub">Nothing needs attention: every line is in stock and on time.</div>'}
+      <div class="pl-verdict"><b>Sonar's verdict</b><ul>${sm.verdict.map(v => `<li>${esc(v)}</li>`).join('')}</ul></div>
+      <div class="pl-basis">${esc(sm.basis)} Import tax shown separately; duty on ICs is usually 0% under the WTO IT Agreement.</div>`;
+    $('plan-body').querySelectorAll('[data-pf]').forEach(b => b.addEventListener('click', () => { planFilter = b.dataset.pf; renderPlan(plan); }));
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-plan]');
+    if (b) openPlan(b.dataset.plan, false);
+  });
+  $('plan-close').addEventListener('click', () => { planRfq = null; $('plan-backdrop').classList.remove('show'); });
+  $('plan-refresh').addEventListener('click', () => { if (planRfq) openPlan(planRfq, true); });
+
+  // ---- Sonar rendering: plain-language steps + result cards. Raw data only behind "Raw data".
+  function mdLite(t) {
+    const lines = esc(t || '').split('\n');
+    let html = '', inList = false;
+    const inline = (x) => x.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`([^`]+)`/g, '<code>$1</code>');
+    for (let raw of lines) {
+      const l = raw.trim();
+      const li = l.match(/^(?:[-•*]|\d+\.)\s+(.*)/);
+      if (li) { if (!inList) { html += '<ul>'; inList = true; } html += '<li>' + inline(li[1]) + '</li>'; continue; }
+      if (inList) { html += '</ul>'; inList = false; }
+      if (!l) continue;
+      html += '<p>' + inline(l.replace(/^#{1,4}\s*/, '')) + '</p>';
+    }
+    return html + (inList ? '</ul>' : '');
+  }
+  const nrm = (x) => String(x || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  function stepLine(tc) {
+    const a = tc.args || {};
+    const map = {
+      search_parts: ['🔍', `Checked distributors for <strong>${esc(a.mpn || '')}</strong>${a.qty ? ` · qty ${esc(a.qty)}` : ''}`],
+      get_rfq: ['📄', 'Opened the RFQ'],
+      list_rfqs: ['📋', `Looked at ${a.status ? esc(a.status) + ' ' : ''}RFQs`],
+      draft_quote: ['✉️', `Drafted a quote for <strong>${esc(a.mpn || '')}</strong>`],
+    };
+    const [ico, txt] = map[tc.name] || ['⚙️', esc(tc.name)];
+    return `<div class="s-step"><span class="s-ico">${ico}</span><span>${txt}</span></div>`;
+  }
+  const rawBox = (obj) => `<details class="raw"><summary>Raw data</summary><pre>${esc(JSON.stringify(obj, null, 2))}</pre></details>`;
+  function resultCard(name, r, args) {
+    r = r || {};
+    if (r.error && name !== 'search_parts') return `<div class="s-card"><div class="s-title"><span class="s-pill bad">Failed</span>${esc(r.error)}</div></div>`;
+    if (name === 'search_parts') {
+      const query = r.query || (args && args.mpn) || '';
+      // Older results stored every keyword hit; keep only the actual part.
+      const list = r.matches || (r.parts || []).filter(p => { const m = nrm(p.mpn), q = nrm(query); return m.length >= 4 && (m.includes(q) || q.includes(m)); });
+      if (r.error && !list.length) return `<div class="s-card"><div class="s-title"><span class="s-pill bad">Search unavailable</span>${esc(query)}</div><div class="s-note">The distributor search didn't respond. Try again in a minute.</div>${rawBox(r)}</div>`;
+      if (!list.length) return `<div class="s-card"><div class="s-title"><span class="s-pill warn">Not at distributors</span>${esc(query)}</div><div class="s-note">Not listed at Octopart or Mouser. Normal for obsolete, allocated or OEM-only parts: this one needs broker sourcing.</div>${rawBox(r)}</div>`;
+      const price = (p) => { const b = (p.price_breaks || [])[0]; return b ? `${esc(b.price)} @ ${esc(b.qty)}+` : (p.median_1k_price ? `$${esc(p.median_1k_price)} @ 1k (median)` : '—'); };
+      const stock = (p) => esc(p.availability || p.stock || p.total_avail || '—');
+      const rows = list.map(p => `<tr><td><strong>${esc(p.mpn)}</strong><br><span style="color:var(--ink-3)">${esc(p.manufacturer || '')}</span></td><td>${stock(p)}</td><td>${esc(p.lead_time || '—')}</td><td>${price(p)}</td></tr>`).join('');
+      return `<div class="s-card"><div class="s-title"><span class="s-pill ok">Found at ${esc(r.source || 'distributor')}</span>${esc(query)}</div><div class="s-scroll"><table><tr><th>Part</th><th>Stock</th><th>Lead time</th><th>Price</th></tr>${rows}</table></div>${rawBox(r)}</div>`;
+    }
+    if (name === 'get_rfq' && r.rfq) {
+      const q = r.rfq;
+      const kv = [['Buyer', `${q.name || ''} · ${q.company || ''}`], ['Part', (q.mpn || '').trim()], ['Quantity', q.qty], ['Needed by', q.needed_by], ['Urgency', q.urgency], ['Ship to', [q.drop_off_location, q.country].filter(Boolean).join(', ')]].filter(x => x[1]);
+      return `<div class="s-card"><div class="s-title">RFQ details</div><dl class="s-kv">${kv.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></div>`;
+    }
+    if (name === 'list_rfqs' && r.rfqs) {
+      const rows = r.rfqs.slice(0, 10).map(q => `<tr><td>${esc((q.mpn || '').split('\n')[0].slice(0, 40))}</td><td>${esc(q.qty || '—')}</td><td>${esc(q.company || '')}</td><td>${esc(q.status || 'new')}</td></tr>`).join('');
+      return `<div class="s-card"><div class="s-title">${r.rfqs.length} RFQ${r.rfqs.length === 1 ? '' : 's'}</div><div class="s-scroll"><table><tr><th>Part</th><th>Qty</th><th>Company</th><th>Status</th></tr>${rows}</table></div></div>`;
+    }
+    if (name === 'draft_quote') return `<div class="s-card"><div class="s-title"><span class="s-pill ok">Saved</span>Quote draft is waiting for your approval in Tasks</div></div>`;
+    return `<div class="s-card">${rawBox(r)}</div>`;
+  }
+  function friendlyError(t) {
+    if (/429|rate limit/i.test(t)) return 'The AI provider is busy (free-plan limit). Wait a minute and send again.';
+    if (/401|403|invalid api key|unauthor/i.test(t)) return 'The AI provider rejected the API key. Check it in ⚙ Settings.';
+    if (/404|model/i.test(t) && /not found|does not exist/i.test(t)) return 'That model name isn\'t available at this provider. Check ⚙ Settings.';
+    return 'Something went wrong talking to the AI provider.';
+  }
+
   function renderMsgs(agentId) {
     const list = $(agentId + '-msgs');
     const msgs = agentState[agentId].msgs;
@@ -1017,30 +1245,27 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       list.innerHTML = `<div class="empty-chat"><h4>Fresh conversation. Ask Sonar something.</h4></div>`;
       return;
     }
+    const lastArgs = {};
     const html = msgs.map(m => {
       if (m.role === 'user') {
         const txt = m.content || '';
-        // Render SYSTEM TRIGGER / SYSTEM AUTORUN messages as thin inline tiles, not user bubbles
-        if (/^SYSTEM (TRIGGER|AUTORUN)/i.test(txt)) {
-          const headerMatch = txt.match(/^SYSTEM (TRIGGER|AUTORUN)\s*(?:\(([^)]+)\))?\s*:?\s*(.{0,120})/i);
-          const kind = headerMatch ? headerMatch[1].toLowerCase() : 'trigger';
-          const sub  = headerMatch && headerMatch[2] ? headerMatch[2] : (kind === 'autorun' ? 'scheduled run' : 'event');
-          const peek = headerMatch && headerMatch[3] ? headerMatch[3].trim() : '';
-          return `<div class="trigger-tile"><span class="tt-dot"></span><div class="tt-body"><span class="tt-kind">${esc(kind)}</span><span class="tt-sub">${esc(sub)}</span>${peek ? `<span class="tt-peek">${esc(peek)}</span>` : ''}</div></div>`;
-        }
+        const trig = txt.match(/^SYSTEM (?:TRIGGER|AUTORUN)[^:]*:\s*RFQ #\S+ from (.*?) at (.*?)\. MPN: ([\s\S]*?), qty: ([^,]*),/i);
+        if (trig) return `<div class="trigger-tile"><span class="tt-dot"></span><div class="tt-body"><span class="tt-kind">New RFQ</span><span class="tt-peek">${esc(trig[3].trim().slice(0, 80))} · qty ${esc(trig[4])} · ${esc(trig[2])}</span></div></div>`;
+        if (/^SYSTEM (TRIGGER|AUTORUN)/i.test(txt)) return `<div class="trigger-tile"><span class="tt-dot"></span><div class="tt-body"><span class="tt-kind">Automatic run</span></div></div>`;
         return `<div class="bubble user">${esc(txt)}</div>`;
       }
       if (m.role === 'assistant') {
         let out = '';
-        if (m.content) out += `<div class="bubble assistant">${esc(m.content)}</div>`;
-        if (m.tool_calls) {
-          for (const tc of m.tool_calls) {
-            out += `<div class="bubble tool"><div class="tool-head">→ ${esc(tc.name)}(${esc(JSON.stringify(tc.args))})</div></div>`;
-          }
+        if (m._thinking) return `<div class="bubble thinking">Sonar is working on it…</div>`;
+        if (m.content && m.content.startsWith('[error]')) {
+          const detail = m.content.replace(/^\[error\]\s*/, '');
+          return `<div class="s-card"><div class="s-title"><span class="s-pill bad">Didn't finish</span>${esc(friendlyError(detail))}</div>${rawBox(detail)}</div>`;
         }
+        if (m.content) out += `<div class="bubble assistant md">${mdLite(m.content)}</div>`;
+        for (const tc of (m.tool_calls || [])) { lastArgs[tc.name] = tc.args || {}; out += stepLine(tc); }
         return out;
       }
-      if (m.role === 'tool') return `<div class="bubble tool"><div class="tool-head">← ${esc(m.tool_name)} result</div><pre>${esc(JSON.stringify(m.tool_result, null, 2))}</pre></div>`;
+      if (m.role === 'tool') return resultCard(m.tool_name, m.tool_result, lastArgs[m.tool_name]);
       return '';
     }).join('');
     list.innerHTML = html;
