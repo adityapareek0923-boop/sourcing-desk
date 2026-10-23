@@ -125,6 +125,39 @@ a { color:var(--blue); text-decoration:none; }
 .bar i.late { background:var(--bad); }
 .bar .need { position:absolute; top:-4px; width:2px; height:14px; background:var(--bad); }
 .tbl-wrap { overflow-x:auto; }
+.plan .verdict { font-size:15px; font-weight:600; margin:2px 0 4px; letter-spacing:-.005em; }
+.plan .verdict-sub { color:var(--ink2); margin-bottom:12px; }
+.kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:14px; }
+.kpis .num b { font-size:17px; }
+.lf { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+.lf button { border:1px solid var(--line); background:#fff; border-radius:8px; padding:4px 10px; font-size:12px; color:var(--ink2); }
+.lf button.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+.ptbl td { vertical-align:middle; }
+.ptbl .why { color:var(--ink3); font-size:11.5px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.ptbl td.tlc, .ptbl th.tlc { width:190px; min-width:190px; padding-right:4px; }
+.ptbl .u { color:var(--ink3); font-size:11px; }
+.ptbl .from { font-weight:600; white-space:nowrap; }
+.strip { position:relative; height:86px; margin:6px 4px 16px; }
+.strip .rail { position:absolute; left:0; right:0; top:40px; height:4px; border-radius:2px; background:var(--bg); }
+.strip .huntrun { position:absolute; left:0; top:38px; height:8px; border-radius:4px; background:repeating-linear-gradient(90deg,#f0b37a 0 8px,transparent 8px 12px); }
+.strip .huntrun span { position:absolute; left:0; top:14px; font-size:11px; color:var(--warn); white-space:nowrap; }
+.strip .end { position:absolute; top:0; font-size:11px; color:var(--ink3); }
+.strip .nbdl { position:absolute; top:12px; bottom:0; width:2px; background:var(--bad); }
+.strip .nbdl span { position:absolute; top:-12px; right:4px; font-size:11px; font-weight:650; color:var(--bad); white-space:nowrap; }
+.strip .dot { position:absolute; top:35px; }
+.strip .dot i { display:block; width:14px; height:14px; border-radius:50%; margin-left:-7px; border:2px solid #fff; box-shadow:0 0 0 1px var(--line); }
+.strip .dot.ok i { background:var(--ok); } .strip .dot.late i { background:var(--bad); }
+.strip .dot span { position:absolute; top:-20px; left:-7px; font-size:11px; font-weight:600; white-space:nowrap; }
+.strip .dot span.dn { top:18px; } .strip .dot span.rt { left:auto; right:-7px; }
+.tl { position:relative; height:16px; }
+.tl .rail { position:absolute; left:0; right:0; top:7px; height:2px; background:var(--bg); }
+.tl i { position:absolute; top:4px; height:8px; border-radius:4px; left:0; }
+.tl i.ok { background:var(--ok); } .tl i.late { background:var(--bad); }
+.tl i.hunt { background:repeating-linear-gradient(90deg,var(--warn) 0 6px,transparent 6px 10px); opacity:.8; }
+.tl .nbd { position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--bad); }
+.tl-axis { position:relative; height:16px; font-size:10.5px; color:var(--ink3); }
+.tl-axis span { position:absolute; white-space:nowrap; transform:translateX(-50%); } .tl-axis span.l { transform:none; } .tl-axis span.nbd { color:var(--bad); font-weight:600; }
+@media (max-width:760px) { .kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 table { width:100%; border-collapse:collapse; font-size:12.5px; }
 th, td { text-align:left; padding:7px 10px 7px 0; border-top:1px solid var(--line); vertical-align:top; }
 th { color:var(--ink3); font-weight:500; font-size:11.5px; border-top:0; white-space:nowrap; }
@@ -320,7 +353,7 @@ async function agent(body) {
 
 // ---------------- formatting ----------------
 const money = (n, dp) => n == null || !isFinite(n) ? '—' : '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: dp ?? (n < 10 ? 2 : 0), maximumFractionDigits: dp ?? (n < 1 ? 4 : n < 10 ? 2 : 0) });
-const fmtD = (d) => d ? new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '—';
+const fmtD = (d) => d ? new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', ...(d.slice(0, 4) !== String(new Date().getFullYear()) ? { year: 'numeric' } : {}), timeZone: 'UTC' }) : '—';
 const dayDiff = (a, b) => Math.round((new Date(b + 'T00:00:00Z') - new Date(a + 'T00:00:00Z')) / 864e5);
 const addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
 const today = () => new Date().toISOString().slice(0, 10);
@@ -511,7 +544,71 @@ function shipmentsCard(plan) {
   return `<div class="card"><div class="sec">Shipments <span class="dim">to ${esc(plan.ctx.drop || plan.ctx.dest)}</span></div>${rows}
     <div class="dim" style="font-size:11.5px;margin-top:8px">Bar runs from today to arrival${sm.needed_by ? '; red mark is the buyer\'s date' : ''}. Freight and transit are estimates.</div></div>`;
 }
-let showAllLines = false;
+let showAllLines = false, lineFilter = 'all';
+// Where each line comes from and why. A line Mouser can't fill is never a dead end: it says where Sonar looks next.
+const MFR_STORE = [[/^STMicro/i, 'ST eStore'], [/^Texas Instruments/i, 'TI.com'], [/^Microchip|^Atmel/i, 'Microchip Direct'], [/^Analog Devices|^Linear Tech|^Maxim/i, 'ADI store'], [/^NXP/i, 'NXP store'], [/^Infineon|^Cypress/i, 'Infineon store']];
+function routeOf(l, plan) {
+  const d = (plan.decisions || {})[String(l.n)], need = plan.summary.needed_by, today = plan.ctx.today;
+  const vsNeed = (a) => !need || !a ? 'ok' : a <= need ? 'ok' : 'late';
+  if (d && typeof d === 'object' && d.unit != null) { const a = addDays(today, Number(d.days) || 0); return { from: 'Your source', why: `Price you entered: ${money(Number(d.unit), 4)}/unit, ${d.days} days`, state: vsNeed(a), arrive: a, unit: Number(d.unit), cost: Number(d.unit) * l.qty }; }
+  if (d === 'leave_out') return { from: 'Left out', why: 'Listed as "quote to follow"', state: 'out' };
+  const stock = Number(l.stock || 0).toLocaleString('en-US'), raw = l.raw || {};
+  if (l.status === 'in_stock') return { from: `${l.source} · ${l.origin}`, why: `${stock} in stock, authorized distributor`, state: vsNeed(l.arrive_date), arrive: l.arrive_date, unit: l.unit, cost: (l.landed_unit || 0) * (l.covered || 0) };
+  if (l.status === 'partial' || l.status === 'factory') {
+    const why = l.status === 'partial' ? `${stock} in stock now, rest on ${l.lead_days}-day factory lead time` : `No stock now, ${l.lead_days}-day factory lead time`;
+    return { from: `${l.source} factory order`, why: why + (vsNeed(l.arrive_date) === 'late' ? '. Too slow: Sonar looks for faster stock' : ''), state: vsNeed(l.arrive_date), arrive: l.arrive_date, unit: l.unit, cost: l.landed_unit != null ? l.landed_unit * (l.covered || 0) : null };
+  }
+  const mfr = l.manufacturer || 'the maker', store = (MFR_STORE.find(([re]) => re.test(mfr)) || [])[1];
+  const asked = d === 'ask_brokers' ? 'Broker inquiry drafted. ' : '';
+  const eol = /obsolete|end of life|eol|nrnd|not recommended/i.test(raw.lifecycle || l.note || '');
+  if (!eol && (raw.restriction || /resellers/.test(l.note || ''))) return { from: `Checking ${store ? store + ', ' : ''}Arrow, Avnet`, why: `${asked}${/region/i.test(raw.restriction || '') ? 'Mouser doesn\'t sell it in our region' : `Mouser blocks resellers on ${mfr}`}; vetted broker if none`, state: 'hunt', kind: 'blocked' };
+  if (eol) return { from: 'Checking Rochester, Flip', why: `${asked}${raw.lifecycle || 'Discontinued'}. Authorized sources for discontinued parts, then alternates, vetted broker`, state: 'hunt', kind: 'eol' };
+  return { from: 'Checking alternates, brokers', why: `${asked}Not listed at Mouser; confirm the part number with the buyer`, state: 'hunt', kind: 'unlisted' };
+}
+function planCard(r, plan, q) {
+  const lines = plan.lines || [], need = plan.summary.needed_by, today = plan.ctx.today;
+  const routes = lines.map(l => [l, routeOf(l, plan)]);
+  const ok = routes.filter(([, x]) => x.state === 'ok'), late = routes.filter(([, x]) => x.state === 'late'), hunt = routes.filter(([, x]) => x.state === 'hunt');
+  const lastOf = (rs) => rs.map(([, x]) => x.arrive).filter(Boolean).sort().pop() || null;
+  const kit = lastOf([...ok, ...late]);
+  // verdict in one line, then what Sonar is doing about the rest
+  const parts = [];
+  if (ok.length) parts.push(`${ok.length} of ${lines.length} line${lines.length === 1 ? '' : 's'} arrive by ${fmtD(lastOf(ok))}${need ? `, ${dayDiff(lastOf(ok), need)} days before the ${fmtD(need)} need-by` : ''}`);
+  else parts.push(`No line is bought and on time yet`);
+  const sub = [];
+  if (late.length) sub.push(`${late.length} only on factory lead time (latest ${fmtD(lastOf(late))}), too slow for the need-by`);
+  if (hunt.length) { const blk = hunt.filter(([, x]) => x.kind === 'blocked').length, eol = hunt.filter(([, x]) => x.kind === 'eol').length;
+    sub.push(`${hunt.length} being sourced${blk ? `: ${blk} blocked at Mouser for resellers` : ''}${eol ? `${blk ? ',' : ':'} ${eol} end-of-life` : ''}`); }
+  const pos = (() => { const end = [need, ...routes.map(([, x]) => x.arrive)].filter(Boolean).sort().pop() || addDays(today, 14);
+    const span = Math.max(dayDiff(today, end), 14)  * 1.22; return (d) => Math.min(100, Math.max(0, dayDiff(today, d) / span * 100)); })();
+  const nbd = need ? `<span class="nbd" style="left:${pos(need)}%"></span>` : '';
+  const bar = (x) => x.state === 'hunt' ? `<i class="hunt" style="width:${need ? pos(need) : 40}%"></i>` : x.arrive ? `<i class="${x.state}" style="width:${Math.max(pos(x.arrive), 1.5)}%"></i>` : '';
+  const show = routes.filter(([, x]) => lineFilter === 'all' || x.state === lineFilter);
+  const rows = show.map(([l, x]) => `<tr class="${x.state === 'out' ? 'out' : ''}"><td>${l.n}</td>
+    <td><span class="mono">${esc(l.mpn)}</span>${l.manufacturer ? `<div class="dim">${esc(l.manufacturer)}</div>` : ''}</td>
+    <td class="n">${Number(l.qty).toLocaleString('en-US')}</td>
+    <td><div class="from">${esc(x.from)}</div><div class="why">${esc(x.why)}</div></td>
+    <td class="n">${x.cost ? money(x.cost, 0) : '—'}${x.unit != null ? `<div class="u">${money(x.unit, x.unit < 1 ? 4 : 2)}/unit</div>` : ''}</td>
+    <td>${x.arrive ? `<span class="pill ${x.state === 'late' ? 'p-bad' : 'p-ok'}">${fmtD(x.arrive)}</span>` : x.state === 'hunt' ? `<span class="pill p-warn">${need ? 'aim ≤ ' + fmtD(need) : 'sourcing'}</span>` : '—'}</td>
+    <td>${l.link ? `<a href="${esc(l.link)}" target="_blank" rel="noopener" title="Open listing">↗</a>` : ''}</td></tr>`).join('');
+  // one strip for the whole kit: arrival dates as dots, the need-by as a red line, open lines as a dashed run up to it
+  const groups = {}; for (const [, x] of [...ok, ...late]) (groups[x.arrive] ||= []).push(x);
+  const dots = Object.entries(groups).sort().map(([d, xs], i) => `<div class="dot ${d > (need || d) ? 'late' : 'ok'}" style="left:${pos(d)}%"><i></i><span class="${i % 2 ? 'dn' : ''}${pos(d) > 80 ? ' rt' : ''}">${xs.length} line${xs.length === 1 ? '' : 's'} · ${fmtD(d)}</span></div>`).join('');
+  const strip = `<div class="strip"><div class="rail"></div>${hunt.length ? `<div class="huntrun" style="width:${need ? pos(need) : 50}%"><span>${hunt.length} being sourced${need ? ', aim before need-by' : ''}</span></div>` : ''}
+    <div class="end l">Today ${fmtD(today)}</div>${need ? `<div class="nbdl" style="left:${pos(need)}%"><span>Need-by ${fmtD(need)}</span></div>` : ''}${dots}</div>`;
+  const f = [['all', 'All', routes.length], ['hunt', 'Being sourced', hunt.length], ['late', 'Too slow', late.length], ['ok', 'On time', ok.length]].filter(([k, , n]) => k === 'all' || n);
+  return `<div class="card plan"><div class="lab" style="color:var(--blue);font-size:11.5px;font-weight:650;letter-spacing:.04em">✦ DELIVERY PLAN</div>
+    <div class="verdict">${esc(parts.join(''))}.</div><div class="verdict-sub">${esc(sub.join('. ') + (sub.length ? '.' : 'Everything is bought and on time.'))}</div>
+    <div class="kpis">
+      <div class="num"><b>${need ? fmtD(need) : '—'}</b><span>buyer's need-by</span></div>
+      <div class="num ${hunt.length || late.length ? 'bad' : 'good'}"><b>${hunt.length ? `${ok.length + late.length}/${lines.length} lines` : kit ? fmtD(kit) : '—'}</b><span>${hunt.length ? 'have a date so far' : 'full kit arrives'}</span></div>
+      <div class="num ${ok.length === lines.length ? 'good' : ''}"><b>${ok.length} / ${lines.length}</b><span>on time for the build</span></div>
+      <div class="num"><b>${money(q.total || 0, 0)}</b><span>quote so far · ${q.inc || 0} line${q.inc === 1 ? '' : 's'}</span></div></div>
+    ${strip}
+    <div class="lf">${f.map(([k, t, n]) => `<button data-lf="${k}" class="${lineFilter === k ? 'on' : ''}">${t} ${n}</button>`).join('')}</div>
+    <div class="tbl-wrap"><table class="ptbl"><tr><th>#</th><th>Part</th><th class="n">Qty</th><th>Buy from · why</th><th class="n">Delivered</th><th>Arrives</th><th></th></tr>${rows}</table></div>
+    <div class="dim" style="font-size:11.5px;margin-top:8px">Green: before the need-by. Red: after it. Dashed: still being sourced. ${esc(plan.summary.basis)}</div></div>`;
+}
 function linesCard(plan) {
   const dec = plan.decisions || {}, lines = plan.lines || [];
   const okCount = lines.filter(l => !issueOf(l, plan)).length;
@@ -599,10 +696,8 @@ function renderWorkspace() {
       ${stepsFor(r, plan)}
     </div>
     <div class="col">
-      ${sonarCard(r, plan, q)}
-      ${numsFor(plan, q)}
-      ${issues.length ? `<div class="card" id="issues"><div class="sec">Needs your decision <span class="dim">${issues.length} line${issues.length === 1 ? '' : 's'}</span></div>${issues.map(l => issueCard(l, plan)).join('')}</div>` : ''}
-      ${plan && plan.status === 'done' ? shipmentsCard(plan) + linesCard(plan) : ''}
+      ${plan && plan.status === 'done' && plan.summary ? planCard(r, plan, q) : sonarCard(r, plan, q)}
+      ${issues.length ? `<div class="card" id="issues"><div class="sec">Your call on these lines <span class="dim">${issues.length} · Sonar keeps sourcing until you decide</span></div>${issues.map(l => issueCard(l, plan)).join('')}</div>` : ''}
       ${requestCard(r)}
     </div>
     <div class="side">${quoteCard(r, plan, q)}${approvalsFor(r)}${logFor(r, plan)}</div>
@@ -693,7 +788,7 @@ async function loadPlan(id) {
   catch (e) { toast("Couldn't load Sonar's plan", e.message); }
 }
 async function openRfq(id) {
-  selId = id; clearInterval(planPoll); showAllLines = false;
+  selId = id; clearInterval(planPoll); showAllLines = false; lineFilter = 'all';
   renderInbox(); renderWorkspace();
   await loadPlan(id); renderAll();
   planPoll = setInterval(async () => {   // follow a background run while this RFQ is open
@@ -825,6 +920,7 @@ document.addEventListener('click', async (e) => {
   if (d.quote) return sendQuote(d.quote);
   if (d.cant) return openComposer(d.cant, 'cannot_source', '');
   if (d.margin) return decide('margin', Number(d.margin));
+  if (d.lf) { lineFilter = d.lf; return renderWorkspace(); }
   if (d.toggleLines !== undefined) { showAllLines = !showAllLines; return renderWorkspace(); }
   if (d.dec) {
     const n = Number(d.dec), v = d.v, cur = (full[selId].decisions || {})[String(n)];
