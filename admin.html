@@ -14,16 +14,15 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
 :root { --ink:#1d1d1f; --ink2:#48484a; --ink3:#86868b; --line:#e5e5ea; --bg:#f5f5f7; --card:#fff; --blue:#0071e3; --blue-h:#0077ed; --blue-bg:#eef5fe;
   --ok:#1f7a36; --ok-bg:#e9f6ec; --warn:#a34d00; --warn-bg:#fff3e6; --bad:#c4001a; --bad-bg:#fdecee; --mono:ui-monospace,SFMono-Regular,Menlo,monospace; }
 * { box-sizing:border-box; }
-html, body { margin:0; height:100%; }
+html, body { margin:0; }
 body { font:13.5px/1.45 "Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif; color:var(--ink); background:var(--bg); -webkit-font-smoothing:antialiased; }
 button, input, select, textarea { font:inherit; color:inherit; }
 button { cursor:pointer; }
 a { color:var(--blue); text-decoration:none; }
 .mono { font-family:var(--mono); font-size:12.5px; }
-.dim { color:var(--ink3); }
+.dim { color:var(--ink3); font-size:12px; }
 .hidden { display:none !important; }
 
-/* login */
 .login { max-width:360px; margin:12vh auto; background:#fff; border:1px solid var(--line); border-radius:16px; padding:28px; }
 .login h1 { font-size:20px; margin:0 0 4px; }
 .login p { color:var(--ink2); margin:0 0 16px; }
@@ -31,174 +30,83 @@ a { color:var(--blue); text-decoration:none; }
 .login .msg { margin-top:10px; padding:9px 11px; border-radius:9px; font-size:12.5px; }
 .login .msg.err { background:var(--bad-bg); color:var(--bad); } .login .msg.ok { background:var(--ok-bg); color:var(--ok); }
 .login .note { color:var(--ink3); font-size:12px; margin-top:14px; }
-
-/* buttons */
-.btn { border:1px solid var(--line); background:#fff; border-radius:9px; padding:7px 13px; font-weight:550; white-space:nowrap; }
-.btn:hover { border-color:#c7c7cc; }
-.btn.p { background:var(--blue); border-color:var(--blue); color:#fff; } .btn.p:hover { background:var(--blue-h); }
-.btn.sm { padding:4px 10px; font-size:12.5px; }
-.btn.link { border-color:transparent; background:transparent; color:var(--blue); padding-left:2px; padding-right:2px; }
-.btn.danger { color:var(--bad); }
-.btn:disabled { opacity:.55; cursor:default; }
 .login .btn.p { width:100%; padding:10px; }
 
-/* top bar */
-.top { height:52px; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:24px; padding:0 18px; position:sticky; top:0; z-index:20; }
-.brand { font-weight:650; display:flex; gap:8px; align-items:center; white-space:nowrap; }
-.brand svg { width:24px; height:24px; }
-.nav { display:flex; gap:2px; }
-.nav button { border:0; background:transparent; padding:6px 12px; border-radius:8px; color:var(--ink2); }
-.nav button.on { background:var(--bg); color:var(--ink); font-weight:600; }
-.nav .cnt { background:var(--bad); color:#fff; border-radius:9px; padding:0 6px; font-size:11px; margin-left:5px; }
-.top .r { margin-left:auto; display:flex; gap:12px; align-items:center; color:var(--ink3); font-size:12.5px; }
+.btn { border:1px solid var(--line); background:#fff; border-radius:10px; padding:8px 14px; font-weight:600; white-space:nowrap; }
+.btn:hover { border-color:#c7c7cc; }
+.btn.p { background:var(--blue); border-color:var(--blue); color:#fff; } .btn.p:hover { background:var(--blue-h); }
+.btn.sm { padding:4px 10px; font-size:12.5px; font-weight:550; }
+.btn.danger { color:var(--bad); }
+.btn:disabled { opacity:.5; cursor:default; }
+.link { border:0; background:none; color:var(--blue); padding:0; }
+
+header { height:52px; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:22px; padding:0 20px; position:sticky; top:0; z-index:10; }
+.brand { font-weight:700; display:flex; gap:8px; align-items:center; white-space:nowrap; letter-spacing:-.01em; }
+.brand svg { width:22px; height:22px; }
+nav { display:flex; gap:2px; overflow-x:auto; }
+nav a { padding:7px 12px; border-radius:8px; color:var(--ink2); white-space:nowrap; }
+nav a.on { background:var(--bg); color:var(--ink); font-weight:600; }
+nav a b { font-weight:500; color:var(--ink3); margin-left:5px; }
+header .r { margin-left:auto; display:flex; gap:10px; align-items:center; color:var(--ink3); font-size:12.5px; }
 .live-dot { width:7px; height:7px; border-radius:50%; background:var(--ok); display:inline-block; margin-right:5px; }
 
-/* RFQ view layout */
-.app { display:grid; grid-template-columns:360px 1fr; height:calc(100vh - 52px); }
-.inbox { border-right:1px solid var(--line); background:#fff; display:flex; flex-direction:column; min-height:0; }
-.ib-head { padding:12px 14px 10px; }
-.search { width:100%; border:1px solid var(--line); background:var(--bg); border-radius:9px; padding:8px 10px; }
-.seg { display:flex; gap:4px; margin-top:10px; flex-wrap:wrap; }
-.seg button { border:0; background:transparent; border-radius:8px; padding:5px 9px; color:var(--ink2); font-size:12.5px; }
-.seg button.on { background:var(--ink); color:#fff; }
-.seg b { font-weight:600; margin-left:4px; opacity:.75; }
-.list { overflow:auto; flex:1; }
-.item { padding:12px 14px; border-top:1px solid var(--line); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:2px 8px; }
-.item:hover { background:#fafafa; }
-.item.on { background:var(--blue-bg); box-shadow:inset 3px 0 var(--blue); }
-.item .co { font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.item .v { font-variant-numeric:tabular-nums; font-weight:600; }
-.item .what { color:var(--ink2); grid-column:1/-1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.item .meta { color:var(--ink3); font-size:12px; grid-column:1/-1; display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
-.item.fresh { animation:fresh 2s ease; } @keyframes fresh { from { background:#fff8d6; } }
-.empty { padding:30px 18px; color:var(--ink3); text-align:center; }
-.chip { font-size:11px; font-weight:600; border-radius:7px; padding:1px 7px; white-space:nowrap; }
-.c-you { background:var(--blue); color:#fff; } .c-work { background:var(--bg); color:var(--ink2); } .c-wait { background:var(--warn-bg); color:var(--warn); }
-.c-won { background:var(--ok-bg); color:var(--ok); } .c-lost { background:var(--bg); color:var(--ink3); } .c-urg { background:var(--bad-bg); color:var(--bad); }
-.pulse { width:7px; height:7px; border-radius:50%; background:var(--blue); display:inline-block; margin-right:4px; animation:pl 1.4s infinite; } @keyframes pl { 50% { opacity:.25; } }
-
-/* workspace */
-.ws { overflow:auto; padding:22px 28px 60px; }
-.blank { height:100%; display:flex; align-items:center; justify-content:center; color:var(--ink3); text-align:center; }
-.wgrid { max-width:1060px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:18px; align-items:start; }
-.full { grid-column:1/-1; }
-.back { display:none; }
-.h1 { font-size:21px; font-weight:650; letter-spacing:-.01em; margin:0; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-.sub { color:var(--ink2); margin-top:4px; display:flex; gap:6px 14px; flex-wrap:wrap; }
-.sub span { white-space:nowrap; }
-.hdr-acts { display:flex; gap:6px; margin-left:auto; }
-.steps { display:flex; margin-top:14px; font-size:12px; color:var(--ink3); }
-.steps div { flex:1; border-top:3px solid var(--line); padding-top:6px; }
-.steps .d { border-color:var(--ok); color:var(--ink2); } .steps .c { border-color:var(--blue); color:var(--blue); font-weight:600; } .steps .x { border-color:var(--ink3); }
-.col { display:flex; flex-direction:column; gap:16px; min-width:0; }
-.card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
-.sonar { border:1.5px solid transparent; background:linear-gradient(#fff,#fff) padding-box, linear-gradient(90deg,#0071e3,#6e5ce6) border-box; }
-.sonar .lab { font-size:11.5px; font-weight:650; color:var(--blue); letter-spacing:.03em; text-transform:uppercase; }
-.sonar .say { font-size:16px; font-weight:600; margin:6px 0 4px; letter-spacing:-.005em; }
-.sonar .why { color:var(--ink2); }
-.acts { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
-.prog { height:6px; background:var(--bg); border-radius:3px; overflow:hidden; margin-top:10px; } .prog i { display:block; height:100%; background:var(--blue); transition:width .4s; }
-.nums { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
-.num { background:#fff; border:1px solid var(--line); border-radius:12px; padding:11px 13px; }
-.num b { display:block; font-size:19px; font-variant-numeric:tabular-nums; letter-spacing:-.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.num span { color:var(--ink3); font-size:12px; }
-.num.good b { color:var(--ok); } .num.bad b { color:var(--bad); }
-.sec { font-size:13px; font-weight:650; margin:0 0 10px; display:flex; align-items:center; gap:10px; }
-.sec .dim { font-weight:400; }
-.issue { border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:8px; display:grid; grid-template-columns:auto minmax(0,1fr); gap:3px 12px; }
-.issue:last-child { margin-bottom:0; }
-.issue .ic { width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; grid-row:span 3; }
-.ic.bad { background:var(--bad-bg); color:var(--bad); } .ic.warn { background:var(--warn-bg); color:var(--warn); } .ic.ok { background:var(--ok-bg); color:var(--ok); }
-.issue .t { font-weight:600; } .issue .t .mono { font-weight:600; }
-.issue .d { color:var(--ink2); }
-.opts { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
-.opt { border:1px solid var(--line); border-radius:9px; padding:6px 10px; background:#fff; font-size:12.5px; text-align:left; }
-.opt small { display:block; color:var(--ink3); font-size:11.5px; }
-.opt.sel { border-color:var(--blue); background:var(--blue-bg); box-shadow:0 0 0 1px var(--blue) inset; }
-.manual { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:8px; font-size:12.5px; color:var(--ink2); }
-.manual input { width:96px; border:1px solid var(--line); border-radius:8px; padding:5px 8px; }
-.ready { display:flex; align-items:center; justify-content:space-between; gap:10px; border:1px dashed #d2d2d7; border-radius:12px; padding:10px 14px; color:var(--ink2); }
-.ship { display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:4px 16px; padding:9px 0; border-top:1px solid var(--line); align-items:center; }
-.ship:first-of-type { border-top:0; padding-top:0; }
-.bar { height:6px; border-radius:3px; background:var(--bg); position:relative; grid-column:1/-1; margin-top:3px; }
-.bar i { position:absolute; left:0; height:100%; border-radius:3px; background:var(--blue); }
-.bar i.late { background:var(--bad); }
-.bar .need { position:absolute; top:-4px; width:2px; height:14px; background:var(--bad); }
-.tbl-wrap { overflow-x:auto; }
-.plan .verdict { font-size:15px; font-weight:600; margin:2px 0 4px; letter-spacing:-.005em; }
-.plan .verdict-sub { color:var(--ink2); margin-bottom:12px; }
-.kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:14px; }
-.kpis .num b { font-size:17px; }
-.lf { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
-.lf button { border:1px solid var(--line); background:#fff; border-radius:8px; padding:4px 10px; font-size:12px; color:var(--ink2); }
-.lf button.on { background:var(--ink); color:#fff; border-color:var(--ink); }
-.ptbl td { vertical-align:middle; }
-.ptbl .why { color:var(--ink3); font-size:11.5px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.ptbl td.tlc, .ptbl th.tlc { width:190px; min-width:190px; padding-right:4px; }
-.ptbl .u { color:var(--ink3); font-size:11px; }
-.ptbl .from { font-weight:600; white-space:nowrap; }
-.strip { position:relative; height:86px; margin:6px 4px 16px; }
-.strip .rail { position:absolute; left:0; right:0; top:40px; height:4px; border-radius:2px; background:var(--bg); }
-.strip .huntrun { position:absolute; left:0; top:38px; height:8px; border-radius:4px; background:repeating-linear-gradient(90deg,#f0b37a 0 8px,transparent 8px 12px); }
-.strip .huntrun span { position:absolute; left:0; top:14px; font-size:11px; color:var(--warn); white-space:nowrap; }
-.strip .end { position:absolute; top:0; font-size:11px; color:var(--ink3); }
-.strip .nbdl { position:absolute; top:12px; bottom:0; width:2px; background:var(--bad); }
-.strip .nbdl span { position:absolute; top:-12px; right:4px; font-size:11px; font-weight:650; color:var(--bad); white-space:nowrap; }
-.strip .dot { position:absolute; top:35px; }
-.strip .dot i { display:block; width:14px; height:14px; border-radius:50%; margin-left:-7px; border:2px solid #fff; box-shadow:0 0 0 1px var(--line); }
-.strip .dot.ok i { background:var(--ok); } .strip .dot.late i { background:var(--bad); }
-.strip .dot span { position:absolute; top:-20px; left:-7px; font-size:11px; font-weight:600; white-space:nowrap; }
-.strip .dot span.dn { top:18px; } .strip .dot span.rt { left:auto; right:-7px; }
-.tl { position:relative; height:16px; }
-.tl .rail { position:absolute; left:0; right:0; top:7px; height:2px; background:var(--bg); }
-.tl i { position:absolute; top:4px; height:8px; border-radius:4px; left:0; }
-.tl i.ok { background:var(--ok); } .tl i.late { background:var(--bad); }
-.tl i.hunt { background:repeating-linear-gradient(90deg,var(--warn) 0 6px,transparent 6px 10px); opacity:.8; }
-.tl .nbd { position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--bad); }
-.tl-axis { position:relative; height:16px; font-size:10.5px; color:var(--ink3); }
-.tl-axis span { position:absolute; white-space:nowrap; transform:translateX(-50%); } .tl-axis span.l { transform:none; } .tl-axis span.nbd { color:var(--bad); font-weight:600; }
-@media (max-width:760px) { .kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-table { width:100%; border-collapse:collapse; font-size:12.5px; }
-th, td { text-align:left; padding:7px 10px 7px 0; border-top:1px solid var(--line); vertical-align:top; }
-th { color:var(--ink3); font-weight:500; font-size:11.5px; border-top:0; white-space:nowrap; }
+main { max-width:1280px; margin:0 auto; padding:22px 20px 70px; }
+h1 { font-size:22px; letter-spacing:-.02em; margin:0 0 4px; }
+.sub { color:var(--ink3); margin-bottom:16px; }
+.listhead { display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+.search { width:280px; max-width:100%; border:1px solid var(--line); background:#fff; border-radius:10px; padding:8px 11px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+.wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; }
+th, td { text-align:left; padding:11px 14px; border-top:1px solid var(--line); vertical-align:middle; }
+th { font-size:11.5px; font-weight:500; color:var(--ink3); border-top:0; white-space:nowrap; }
 td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
-tr.out td { color:var(--ink3); text-decoration:line-through; text-decoration-color:#c7c7cc; }
-.pill { font-size:11px; font-weight:600; border-radius:7px; padding:1px 7px; white-space:nowrap; }
-.p-ok { background:var(--ok-bg); color:var(--ok); } .p-warn { background:var(--warn-bg); color:var(--warn); } .p-bad { background:var(--bad-bg); color:var(--bad); } .p-gray { background:var(--bg); color:var(--ink2); }
-.req dl { display:grid; grid-template-columns:120px minmax(0,1fr); gap:6px 12px; margin:0; }
-.req dt { color:var(--ink3); } .req dd { margin:0; word-break:break-word; }
-.req pre { margin:0; white-space:pre-wrap; font-family:var(--mono); font-size:12px; max-height:220px; overflow:auto; background:var(--bg); padding:8px 10px; border-radius:8px; }
+tr.row { cursor:pointer; } tr.row:hover td { background:#fafafc; }
+tr.out td { color:var(--ink3); } tr.out .mono { text-decoration:line-through; }
+.rlink { color:var(--ink); font-weight:600; }
+.empty { padding:40px; text-align:center; color:var(--ink3); }
+.pill { display:inline-block; font-size:11px; font-weight:600; border-radius:7px; padding:2px 8px; white-space:nowrap; }
+.ok { background:var(--ok-bg); color:var(--ok); } .warn { background:var(--warn-bg); color:var(--warn); } .bad { background:var(--bad-bg); color:var(--bad); } .gray { background:var(--bg); color:var(--ink2); } .blue { background:var(--blue-bg); color:var(--blue); }
 
-/* quote panel */
-.side { position:sticky; top:0; display:flex; flex-direction:column; gap:14px; }
-.q .row { display:flex; justify-content:space-between; gap:10px; padding:5px 0; color:var(--ink2); }
-.q .row b { color:var(--ink); font-variant-numeric:tabular-nums; }
-.q .tot { border-top:1px solid var(--line); margin-top:6px; padding-top:10px; font-size:15px; } .q .tot b { font-size:20px; }
-.mg { display:flex; gap:4px; margin:8px 0 6px; }
-.mg button { flex:1; border:1px solid var(--line); background:#fff; border-radius:8px; padding:5px 0; font-size:12.5px; }
-.mg button.on { background:var(--ink); color:#fff; border-color:var(--ink); }
-.q .amt { width:100%; border:1px solid var(--line); border-radius:9px; padding:8px 10px; font-size:15px; font-variant-numeric:tabular-nums; margin-top:4px; }
-.q .note { color:var(--ink3); font-size:11.5px; margin-top:8px; }
-.q .linkbox { margin-top:10px; font-size:12px; display:flex; gap:10px; align-items:center; word-break:break-all; }
-.q .linkbox img { width:64px; height:64px; flex:none; }
-.appr { background:var(--warn-bg); border-radius:10px; padding:10px 12px; font-size:12.5px; color:var(--warn); }
-.appr button { margin-top:6px; }
-.log > div:not(.sec) { display:grid; grid-template-columns:56px minmax(0,1fr); gap:8px; padding:4px 0; color:var(--ink2); font-size:12.5px; }
-.log span { color:var(--ink3); font-variant-numeric:tabular-nums; }
+.back { display:inline-block; margin-bottom:12px; }
+.top { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:14px; }
+.meta { display:flex; gap:18px; flex-wrap:wrap; color:var(--ink2); } .meta b { color:var(--ink); }
+.acts { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.steps { display:flex; margin:0 0 16px; font-size:12px; overflow-x:auto; }
+.steps div { flex:1; min-width:96px; padding:8px 0 0; border-top:3px solid var(--line); color:var(--ink3); }
+.steps .d { border-color:var(--ok); color:var(--ink2); } .steps .c { border-color:var(--blue); color:var(--blue); font-weight:650; }
+.banner { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-radius:12px; background:var(--blue-bg); color:var(--ink2); margin-bottom:14px; }
+.prog { height:5px; background:#fff; border-radius:3px; overflow:hidden; margin-top:6px; width:260px; max-width:100%; } .prog i { display:block; height:100%; background:var(--blue); }
+.src b { font-weight:600; } .hint { color:var(--warn); font-size:12px; max-width:340px; }
+tr.exp > td { background:var(--bg); padding:0; }
+.offers { padding:10px 14px 14px 46px; }
+.offers table { background:#fff; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+.offers td, .offers th { padding:8px 12px; } .offers td.n, .offers th.n { padding-right:22px; }
+.offers .acts { margin-top:10px; }
+.addf { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; margin-top:10px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px; }
+.addf label { font-size:11px; color:var(--ink3); display:block; } .addf input, .addf select { width:100%; border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:#fff; }
+.addf .full { grid-column:1/-1; display:flex; gap:8px; justify-content:flex-end; }
+tfoot td { font-weight:650; }
+.bar { display:flex; gap:24px; flex-wrap:wrap; align-items:center; padding:14px 16px; border-top:1px solid var(--line); }
+.bar .k { color:var(--ink3); font-size:12px; display:block; } .bar .v { font-size:17px; font-weight:650; font-variant-numeric:tabular-nums; }
+.bar select { border:1px solid var(--line); border-radius:8px; padding:4px 6px; background:#fff; }
+.section { margin-top:16px; }
+.section h2 { font-size:14px; margin:0 0 8px; }
+.kv { display:grid; grid-template-columns:140px minmax(0,1fr); gap:6px 14px; padding:14px 16px; }
+.kv dt { color:var(--ink3); } .kv dd { margin:0; word-break:break-word; }
+pre { margin:0; white-space:pre-wrap; font-family:var(--mono); font-size:12px; background:var(--bg); padding:8px 10px; border-radius:8px; }
+.draft { padding:14px 16px; border-top:1px solid var(--line); }
+.draft:first-child { border-top:0; }
+.draft input, .draft textarea { width:100%; border:1px solid var(--line); border-radius:9px; padding:8px 10px; margin-top:4px; background:#fff; }
+.draft textarea { min-height:140px; resize:vertical; }
+.draft label { display:block; font-size:11.5px; color:var(--ink3); margin-top:10px; }
+.amt { width:180px; border:1px solid var(--line); border-radius:9px; padding:8px 10px; }
+.board { display:grid; grid-template-columns:repeat(4,minmax(220px,1fr)); gap:12px; overflow-x:auto; }
+.col { background:#fff; border:1px solid var(--line); border-radius:14px; padding:12px; min-height:240px; }
+.col h3 { font-size:12px; color:var(--ink3); font-weight:600; margin:0 0 10px; }
+.tile { display:block; border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:8px; background:var(--bg); color:var(--ink); }
+.tile:hover { border-color:#c7c7cc; }
 
-/* other views */
-.page { max-width:980px; margin:0 auto; padding:24px 20px 60px; }
-.page h2 { font-size:19px; margin:0 0 4px; } .page .lead { color:var(--ink2); margin:0 0 16px; }
-.task { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:10px; }
-.task.pending { border-left:3px solid var(--warn); }
-.task .tt { font-weight:600; } .task .tm { color:var(--ink3); font-size:12px; margin-top:2px; }
-.task label { display:block; color:var(--ink3); font-size:11.5px; margin-top:10px; }
-.task input, .task textarea { width:100%; border:1px solid var(--line); border-radius:9px; padding:8px 10px; margin-top:3px; background:#fff; }
-.task textarea { min-height:150px; resize:vertical; line-height:1.5; }
-.task .body { margin-top:10px; background:var(--bg); padding:10px 12px; border-radius:9px; white-space:pre-wrap; font-size:12.5px; color:var(--ink2); }
-.ins-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
-
-/* modals */
 .mb { position:fixed; inset:0; background:rgba(0,0,0,.38); display:none; align-items:center; justify-content:center; z-index:100; padding:20px; }
 .mb.show { display:flex; }
 .modal { background:#fff; border-radius:16px; width:100%; max-width:640px; max-height:90vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.25); }
@@ -211,25 +119,13 @@ tr.out td { color:var(--ink3); text-decoration:line-through; text-decoration-col
 .mbody textarea { min-height:260px; line-height:1.55; resize:vertical; }
 .mf { padding:12px 20px 16px; border-top:1px solid var(--line); display:flex; gap:8px; align-items:center; }
 .mf .status { margin-right:auto; color:var(--ink3); font-size:12.5px; } .mf .status.err { color:var(--bad); }
-
+.linkbox { display:flex; gap:12px; align-items:center; padding:12px 16px; border-top:1px solid var(--line); font-size:12.5px; word-break:break-all; }
 .toasts { position:fixed; right:16px; bottom:16px; display:flex; flex-direction:column; gap:8px; z-index:200; }
 .toast { background:#1d1d1f; color:#fff; border-radius:12px; padding:10px 14px; min-width:240px; box-shadow:0 8px 24px rgba(0,0,0,.2); }
 .toast .s { opacity:.75; font-size:12.5px; } .toast.urg { background:var(--bad); }
-
-@media (max-width: 960px) {
-  .wgrid { grid-template-columns:minmax(0,1fr); }
-  .side { position:static; }
-  .nums { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .ins-grid { grid-template-columns:repeat(2,1fr); }
-}
-@media (max-width: 760px) {
-  .top { gap:6px; padding:0 10px; } .brand span { display:none; } .top .r .hide-m { display:none; } .top .r { gap:6px; } .nav button { padding:6px 7px; }
-  .app { grid-template-columns:1fr; }
-  .app.sel .inbox { display:none; } .app:not(.sel) .ws { display:none; }
-  .ws { padding:16px 14px 50px; }
-  .back { display:inline-block; margin-bottom:8px; }
-  .hdr-acts { margin-left:0; }
-  .req dl { grid-template-columns:96px minmax(0,1fr); }
+@media (max-width:760px) {
+  header { gap:10px; padding:0 10px; } .brand span, .hide-m { display:none; }
+  main { padding:16px 12px 60px; } .addf { grid-template-columns:repeat(2,minmax(0,1fr)); } .kv { grid-template-columns:100px minmax(0,1fr); }
 }
 </style>
 </head>
@@ -248,47 +144,18 @@ tr.out td { color:var(--ink3); text-decoration:line-through; text-decoration-col
 </div>
 
 <div id="app-view" class="hidden">
-  <div class="top">
-    <div class="brand"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg><span>ChipShark Desk</span></div>
-    <nav class="nav">
-      <button data-view="rfqs" class="on">RFQs</button>
-      <button data-view="approvals">Approvals<span class="cnt hidden" id="appr-cnt">0</span></button>
-      <button data-view="insights">Insights</button>
-    </nav>
+  <header>
+    <a class="brand" href="#tab=part" style="color:inherit"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg><span>ChipShark Desk</span></a>
+    <nav id="tabs"></nav>
     <div class="r">
       <span class="hide-m" id="live"><span class="live-dot"></span>Live</span>
       <button class="btn sm" id="settings-btn" title="Settings">⚙︎</button>
       <button class="btn sm" id="logout-btn">Log out</button>
     </div>
-  </div>
-
-  <div id="view-rfqs" class="app">
-    <aside class="inbox">
-      <div class="ib-head">
-        <input class="search" id="search" type="search" name="rfq-filter" placeholder="Search company, part number, email…" autocomplete="off" data-lpignore="true" data-1p-ignore>
-        <div class="seg" id="buckets"></div>
-      </div>
-      <div class="list" id="list"></div>
-    </aside>
-    <main class="ws" id="ws"><div class="blank">Pick an RFQ on the left.</div></main>
-  </div>
-
-  <div id="view-approvals" class="hidden"><div class="page">
-    <h2>Approvals</h2>
-    <p class="lead">Emails Sonar drafted. Nothing is sent until you press Send.</p>
-    <div id="appr-list"></div>
-  </div></div>
-
-  <div id="view-insights" class="hidden"><div class="page">
-    <h2>Insights</h2>
-    <p class="lead">How requests turn into revenue, by business line and by where buyers came from.</p>
-    <div class="ins-grid" id="ins-kpis"></div>
-    <div class="card" style="margin-bottom:14px"><div class="sec">By business line</div><div class="tbl-wrap"><table id="ins-lines"></table></div></div>
-    <div class="card"><div class="sec">By source</div><div class="tbl-wrap"><table id="ins-sources"></table></div></div>
-  </div></div>
+  </header>
+  <main id="app"></main>
 </div>
 
-<!-- buyer email composer -->
 <div class="mb" id="compose-mb"><div class="modal">
   <div class="mh"><h3 id="compose-title">Email buyer</h3><button class="x" data-close="compose-mb" aria-label="Close">&times;</button></div>
   <div class="mbody">
@@ -299,11 +166,10 @@ tr.out td { color:var(--ink3); text-decoration:line-through; text-decoration-col
   <div class="mf"><span class="status" id="compose-status"></span><button class="btn" data-close="compose-mb">Cancel</button><button class="btn p" id="compose-send">Send</button></div>
 </div></div>
 
-<!-- settings -->
 <div class="mb" id="settings-mb"><div class="modal">
   <div class="mh"><h3>Settings</h3><button class="x" data-close="settings-mb" aria-label="Close">&times;</button></div>
   <div class="mbody">
-    <div class="dim" style="margin-bottom:10px">Sonar's AI model (used for written analysis). Part search and plans don't need it.</div>
+    <div class="dim" style="margin-bottom:10px">Sonar's AI model (used for written analysis). Part search doesn't need it.</div>
     <label>Provider</label>
     <select id="s-provider"><option value="openai_compat">OpenAI-compatible (Groq, OpenRouter, DeepSeek, OpenAI…)</option><option value="anthropic">Anthropic</option><option value="google">Google Gemini</option></select>
     <div id="s-baseurl-row"><label>Base URL</label><input id="s-baseurl" placeholder="https://api.groq.com/openai/v1"></div>
@@ -322,15 +188,24 @@ const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsIn
 const TOKEN_KEY = "chipshark_admin_token_v1";
 const POLL_MS = 10000;
 const PLANNABLE = ['part', 'shortage', 'bom_check'];
-const TYPES = { part: 'Part', shortage: 'Shortage', ai_box: 'AI box', retainer: 'Retainer', bom_check: 'BOM check', sell: 'Buyback' };
+// One tab per service on the website. Hire us is a sales pipeline, so it's a board.
+const TABS = [['part', 'Find a part'], ['shortage', 'Shortage'], ['ai', 'AI boxes'], ['hire', 'Hire us']];
+const tabOf = (r) => ({ shortage: 'shortage', ai_box: 'ai', retainer: 'hire', bom_check: 'hire' }[r.type] || 'part');
+const STEPS = {
+  part: ['Received', 'Shortlist sources', 'Quote sent', 'Paid', 'POs placed', 'Shipped'],
+  shortage: ['Received', 'Verify stock', 'Quote sent (48h hold)', 'Paid', 'Shipped'],
+  ai: ['Received', 'Source the build', 'Quote sent', 'Paid', 'Assembled', 'Shipped'],
+  hire: ['Lead', 'Proposal sent', 'Active client'],
+};
+const STAGES = [['new', 'Open'], ['quoted', 'Quote sent'], ['won', 'Won · paid'], ['lost', 'Lost'], ['unable_to_source', "Couldn't source"]];
+const TIERS = ['Franchise', 'Factory direct', 'Authorized EOL', 'OEM excess', 'Independent'];
 const $ = (id) => document.getElementById(id);
 const esc = (s) => (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 let mode = 'login', token = null;
-let rfqs = [], plans = {}, tasks = [], known = null, fresh = new Set();
-let view = 'rfqs', bucket = 'you', selId = null, query = '';
-let full = {};            // rfq_id -> full plan (lines, decisions)
-let running = {};         // rfq_id -> true while this page drives a plan
+let rfqs = [], plans = {}, tasks = [], known = null;
+let full = {}, running = {};
+let route = { tab: 'part', id: null }, query = '', expanded = new Set(), adding = null;
 let pollTimer = null, planPoll = null, composeCtx = null;
 
 // ---------------- API ----------------
@@ -354,7 +229,6 @@ async function agent(body) {
 // ---------------- formatting ----------------
 const money = (n, dp) => n == null || !isFinite(n) ? '—' : '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: dp ?? (n < 10 ? 2 : 0), maximumFractionDigits: dp ?? (n < 1 ? 4 : n < 10 ? 2 : 0) });
 const fmtD = (d) => d ? new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', ...(d.slice(0, 4) !== String(new Date().getFullYear()) ? { year: 'numeric' } : {}), timeZone: 'UTC' }) : '—';
-const dayDiff = (a, b) => Math.round((new Date(b + 'T00:00:00Z') - new Date(a + 'T00:00:00Z')) / 864e5);
 const addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
 const today = () => new Date().toISOString().slice(0, 10);
 function ago(iso) {
@@ -363,495 +237,313 @@ function ago(iso) {
   if (m < 1) return 'just now'; if (m < 60) return m + 'm ago'; if (m < 1440) return Math.round(m / 60) + 'h ago';
   return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 }
-const clock = (iso) => iso ? new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : '';
 const isUrgent = (r) => /urgent|line down|critical/i.test(r.urgency || '');
 const firstLine = (s) => String(s || '').split('\n').map(x => x.trim()).filter(Boolean);
 function whatOf(r) {
   const ls = firstLine(r.mpn);
   if (ls.length > 1) return `${ls.length}-line ${r.type === 'ai_box' ? 'build' : 'BOM'}`;
   const one = (ls[0] || '').replace(/\s*\|\s*qty:.*$/i, '');
-  return one.slice(0, 60) + (r.qty ? ` × ${Number(String(r.qty).replace(/[^\d]/g, '')).toLocaleString('en-US') || r.qty}` : '');
+  return one.slice(0, 70) + (r.qty ? ` × ${Number(String(r.qty).replace(/[^\d]/g, '')).toLocaleString('en-US') || r.qty}` : '');
 }
-function placeOf(r) {
-  const c = r.country || '';
-  const city = String(r.drop_off_location || '').split(',')[0].trim();
-  const short = { 'United States': 'US', 'United Kingdom': 'UK', 'United Arab Emirates': 'UAE' }[c] || c;
-  return [city, short].filter(Boolean).join(', ');
+// The site promises a quote within 24 hours of the request.
+function dueIn(r) {
+  if ((r.status || 'new') !== 'new') return null;
+  return Math.round((new Date(r.created_at).getTime() + 24 * 3600e3 - Date.now()) / 3600e3);
 }
+const dueText = (h) => h == null ? '—' : h >= 0 ? `${h}h` : `${-h}h overdue`;
 
-// ---------------- plan maths (decisions applied) ----------------
-// Line problems Sonar raises; decisions are stored per line number.
-function issueOf(l, plan) {
-  if (l.status === 'not_found') return 'missing';
-  const late = plan.summary && plan.summary.late && plan.summary.late.includes(l.n);
-  if (late) return 'late';
-  if (l.status === 'partial' && !l.lead_days) return 'short';
-  return null;
+// ---------------- offers ----------------
+// Each line can have several sources: Mouser's live match from Sonar, plus sources you add
+// from broker emails. Added sources and your pick live in plan.decisions ("o12", "p12").
+function offersOf(l, plan) {
+  const dec = plan.decisions || {}, out = [];
+  if (l.source && l.unit != null && (l.covered || l.stock)) out.push({
+    auto: true, source: l.source, tier: 'Franchise', from: (l.origin || '').split(',').pop().trim() || 'US', unit: l.landed_unit ?? l.unit,
+    stock: l.stock, arrive: l.arrive_date, lead: l.status === 'in_stock' ? 'In stock' : (l.lead_days ? l.lead_days + '-day factory' : ''),
+    dc: 'Factory fresh', docs: 'Mfr CoC', risk: 'Low', link: l.link, covered: l.covered || l.qty });
+  const legacy = dec[String(l.n)];
+  if (legacy && typeof legacy === 'object' && legacy.unit != null) out.push({ source: 'Your price', tier: '—', from: '—', unit: Number(legacy.unit), arrive: addDays(plan.ctx.today, Number(legacy.days) || 0), lead: (legacy.days || 0) + ' days', dc: '—', docs: '—', risk: '—' });
+  for (const o of dec['o' + l.n] || []) out.push(Object.assign({}, o, { arrive: addDays(o.added || plan.ctx.today, Number(o.days) || 0), lead: (o.days || 0) + ' days' }));   // days count from when you added it
+  return out;
 }
-function computeQuote(r, plan) {
+function pickOf(l, plan, offers) {
+  const p = (plan.decisions || {})['p' + l.n];
+  if (p != null && offers[p]) return p;
+  return offers.length ? 0 : null;
+}
+// Why a line has no source yet, and where to look next. Never a dead end.
+const MFR_STORE = [[/^STMicro/i, 'ST eStore'], [/^Texas Instruments/i, 'TI.com'], [/^Microchip|^Atmel/i, 'Microchip Direct'], [/^Analog Devices|^Linear Tech|^Maxim/i, 'ADI store'], [/^NXP/i, 'NXP store'], [/^Infineon|^Cypress/i, 'Infineon store']];
+function hintOf(l) {
+  const raw = l.raw || {}, store = (MFR_STORE.find(([re]) => re.test(l.manufacturer || '')) || [])[1];
+  if (/obsolete|end of life|eol|nrnd/i.test(raw.lifecycle || l.note || '')) return 'End-of-life · try Rochester, Flip, alternates, vetted broker';
+  if (raw.restriction || /resellers/.test(l.note || '')) return `Mouser blocks resellers · try ${store ? store + ', ' : ''}Arrow, Avnet`;
+  if (l.status === 'factory' || l.status === 'partial') return l.note || 'Factory lead time only';
+  return 'Not at Mouser · confirm part number, alternates, broker';
+}
+function quoteOf(r, plan) {
   const dec = (plan && plan.decisions) || {};
-  const urgent = isUrgent(r);
-  const margin = Number(dec.margin) || (urgent ? 25 : 15);
-  if (!plan || plan.status !== 'done' || !plan.summary) return { margin, ready: false };
-  const sm = plan.summary, lines = plan.lines || [];
-  let cost = 0, inc = 0, arrive = null; const out = [], open = [];
-  for (const l of lines) {
-    const d = dec[String(l.n)];
-    if (d === 'leave_out' || d === 'ask_brokers') { out.push(l.n); continue; }
-    if (d && typeof d === 'object' && d.unit != null) {
-      cost += Number(d.unit) * l.qty; inc++;
-      const a = addDays(plan.ctx.today, Number(d.days) || 0); if (!arrive || a > arrive) arrive = a; continue;
-    }
-    if (l.status === 'not_found' || l.landed_unit == null || (issueOf(l, plan) && d !== 'accept')) { open.push(l.n); continue; }   // problem lines count only once you accept them
-    cost += l.landed_unit * (l.covered || l.qty); inc++;
-    if (l.arrive_date && (!arrive || l.arrive_date > arrive)) arrive = l.arrive_date;
-  }
-  const profit = cost * margin / 100;
-  return { ready: true, margin, cost, profit, total: cost + profit, inc, total_lines: lines.length, out, open, arrive, needed: sm.needed_by };
+  const margin = Number(dec.margin) || (isUrgent(r) ? 25 : 15);
+  if (!plan || plan.status !== 'done') return { margin, ready: false, rows: [] };
+  let cost = 0, inc = 0, arrive = null;
+  const rows = (plan.lines || []).map(l => {
+    const offers = offersOf(l, plan), pi = pickOf(l, plan, offers), out = dec[String(l.n)] === 'leave_out';
+    const o = !out && pi != null ? offers[pi] : null;
+    if (o) { cost += o.unit * (o.covered || l.qty); inc++; if (o.arrive && (!arrive || o.arrive > arrive)) arrive = o.arrive; }
+    return { l, offers, pi, o, out };
+  });
+  const total = cost * (1 + margin / 100);
+  return { margin, ready: true, rows, cost, inc, total, profit: total - cost, arrive, lines: rows.length };
 }
 
-// ---------------- buckets ----------------
-function bucketOf(r) {
+// ---------------- routing ----------------
+// #tab=part shows a list; #rfq=<id> shows one request. Rows open in a new browser tab.
+function readRoute() {
+  const h = new URLSearchParams(location.hash.slice(1));
+  route = { tab: h.get('tab') || 'part', id: h.get('rfq') };
+  if (route.id) { const r = rfqs.find(x => x.id === route.id); if (r) route.tab = tabOf(r); }
+}
+window.addEventListener('hashchange', () => { readRoute(); expanded.clear(); adding = null; if (route.id) openRfq(route.id); else render(); });
+
+// ---------------- render ----------------
+function render() {
+  const counts = {}; for (const r of rfqs) if (!['won', 'lost', 'unable_to_source'].includes(r.status)) counts[tabOf(r)] = (counts[tabOf(r)] || 0) + 1;
+  $('tabs').innerHTML = TABS.map(([k, t]) => `<a href="#tab=${k}" class="${k === route.tab ? 'on' : ''}">${t}<b>${counts[k] || 0}</b></a>`).join('');
+  const r = route.id && rfqs.find(x => x.id === route.id);
+  $('app').innerHTML = r ? page(r) : route.id ? '<div class="empty">This request no longer exists.</div>' : route.tab === 'hire' ? board() : list();
+}
+function list() {
+  const q = query.toLowerCase(), closed = (r) => ['won', 'lost', 'unable_to_source'].includes(r.status);
+  const rows = rfqs.filter(r => tabOf(r) === route.tab && (!q || [r.company, r.name, r.email, r.mpn].some(x => String(x || '').toLowerCase().includes(q))))
+    .sort((a, b) => (closed(a) - closed(b)) || (isUrgent(b) - isUrgent(a)) || ((dueIn(a) ?? 1e9) - (dueIn(b) ?? 1e9)) || (new Date(b.created_at) - new Date(a.created_at)));
+  const title = TABS.find(t => t[0] === route.tab)[1];
+  return `<div class="listhead"><div><h1>${title}</h1><div class="sub" style="margin:0">Line-down first, then by quote deadline. Each request opens in its own tab.</div></div>
+    <input class="search" id="search" type="search" name="rfq-filter" placeholder="Search buyer, part, email…" autocomplete="off" data-lpignore="true" data-1p-ignore value="${esc(query)}"></div>
+    <div class="card wrap"><table><tr><th>Buyer</th><th>Request</th><th>Need-by</th><th>Step</th><th class="n">Quote due</th><th class="n">Value</th></tr>
+    ${rows.map(r => { const h = dueIn(r); return `<tr class="row" data-open="${r.id}"><td><a class="rlink" href="#rfq=${r.id}" target="_blank" rel="noopener">${esc(r.company || r.name)}</a> ${isUrgent(r) && !closed(r) ? '<span class="pill bad">Line down</span>' : ''}</td>
+      <td>${esc(whatOf(r))}</td><td>${fmtD(r.needed_by)}</td><td>${stepPill(r)}</td>
+      <td class="n" style="${h != null && h < 4 ? 'color:var(--bad);font-weight:600' : ''}">${dueText(h)}</td><td class="n">${valueOf(r)}</td></tr>`; }).join('')}
+    </table>${rows.length ? '' : '<div class="empty">Nothing here yet.</div>'}</div>`;
+}
+function stepIdx(r) {
+  const st = r.status || 'new', t = tabOf(r);
+  if (t === 'hire') return { new: 0, quoted: 1, won: 2 }[st] ?? 0;
+  if (st === 'quoted') return 2; if (st === 'won') return 3;
+  return PLANNABLE.includes(r.type || 'part') && plans[r.id] ? 1 : (t === 'ai' ? 1 : 0);
+}
+function stepPill(r) {
   const st = r.status || 'new';
-  if (['won', 'lost', 'unable_to_source'].includes(st)) return 'closed';
-  if (st === 'quoted') return 'wait';
-  if (!PLANNABLE.includes(r.type || 'part')) return 'you';
-  const p = plans[r.id];
-  if (!p) return (Date.now() - new Date(r.created_at) > 180000) ? 'you' : 'work';
-  if (p.status === 'running') return (Date.now() - new Date(p.updated_at) > 180000) ? 'you' : 'work';
-  return 'you';
-}
-const BUCKETS = [['you', 'Needs you'], ['work', 'Sonar working'], ['wait', 'Waiting on buyer'], ['closed', 'Closed']];
-
-function chipFor(r) {
-  const st = r.status || 'new', b = bucketOf(r), p = plans[r.id];
-  const urg = isUrgent(r) && b !== 'closed' ? '<span class="chip c-urg">Line down</span>' : '';
-  if (st === 'won') return '<span class="chip c-won">Won</span>';
-  if (st === 'lost') return '<span class="chip c-lost">Lost</span>';
-  if (st === 'unable_to_source') return '<span class="chip c-lost">Couldn\'t source</span>';
-  if (st === 'quoted') return `<span class="chip c-wait">Quote sent ${ago(r.last_email_sent_at || r.updated_at)}</span>`;
-  if (b === 'work') return urg + '<span class="chip c-work"><span class="pulse"></span>Sonar checking</span>';
-  return urg + '<span class="chip c-you">Review</span>';
-}
-function noteFor(r) {
-  const p = plans[r.id];
-  if (!PLANNABLE.includes(r.type || 'part')) return TYPES[r.type] || 'Request';
-  if (!p) return 'not checked yet';
-  if (p.status === 'error') return 'Sonar hit an error';
-  if (p.status !== 'done' || !p.summary) return '';
-  const c = p.summary.counts, need = (p.summary.open || []).length + (p.summary.late || []).length;
-  if (c.not_found === c.total) return 'not at distributors';
-  return need ? `${need} line${need === 1 ? '' : 's'} need you` : 'ready to send';
+  if (st === 'lost') return '<span class="pill gray">Lost</span>'; if (st === 'unable_to_source') return '<span class="pill gray">Couldn\'t source</span>';
+  if (st === 'won') return '<span class="pill ok">Paid</span>';
+  const name = STEPS[tabOf(r)][stepIdx(r)], p = plans[r.id];
+  const sub = p && p.status === 'running' ? ' · Sonar checking' : '';
+  return `<span class="pill ${stepIdx(r) ? 'blue' : 'gray'}">${esc(name)}${sub}</span>`;
 }
 function valueOf(r) {
   if (r.quote_amount_cents) return money(r.quote_amount_cents / 100, 0);
-  const p = plans[r.id];
-  const fp = full[r.id] || p;   // same maths as the RFQ page
-  if (fp && fp.status === 'done' && fp.summary && fp.lines) { const q = computeQuote(r, fp); return q.inc ? money(q.total, 0) : '—'; }
+  const p = full[r.id] || plans[r.id];
+  if (p && p.status === 'done' && p.lines) { const q = quoteOf(r, p); return q.inc ? money(q.total, 0) : '—'; }
   return '—';
 }
-
-// ---------------- render: inbox ----------------
-function renderInbox() {
-  const q = query.toLowerCase();
-  const match = (r) => !q || [r.company, r.name, r.email, r.mpn].some(x => String(x || '').toLowerCase().includes(q));
-  const counts = {}; for (const [k] of BUCKETS) counts[k] = rfqs.filter(r => bucketOf(r) === k && match(r)).length;
-  $('buckets').innerHTML = BUCKETS.map(([k, label]) => `<button data-b="${k}" class="${k === bucket ? 'on' : ''}">${label}<b>${counts[k]}</b></button>`).join('');
-  const rows = rfqs.filter(r => bucketOf(r) === bucket && match(r)).sort((a, b) => (isUrgent(b) - isUrgent(a)) || (new Date(b.created_at) - new Date(a.created_at)));
-  $('list').innerHTML = rows.length ? rows.map(r => `
-    <div class="item${r.id === selId ? ' on' : ''}${fresh.has(r.id) ? ' fresh' : ''}" data-id="${r.id}">
-      <span class="co">${esc(r.company || r.name)}</span><span class="v">${valueOf(r)}</span>
-      <span class="what">${esc(whatOf(r))}</span>
-      <span class="meta">${chipFor(r)}${esc([placeOf(r), r.needed_by ? 'needed ' + fmtD(r.needed_by) : '', noteFor(r)].filter(Boolean).join(' · '))}</span>
-    </div>`).join('') : `<div class="empty">${bucket === 'you' ? 'Nothing needs you right now.' : 'Nothing here.'}</div>`;
-  fresh.clear();
+function board() {
+  const rs = rfqs.filter(r => tabOf(r) === 'hire');
+  const cols = [['Lead', ['new']], ['Proposal sent', ['quoted']], ['Active client', ['won']], ['Closed', ['lost', 'unable_to_source']]];
+  return `<h1>Hire us</h1><div class="sub">Part-time procurement leads and BOM checks. Open a card to move it along.</div>
+    <div class="board">${cols.map(([h, sts]) => { const ts = rs.filter(r => sts.includes(r.status || 'new'));
+      return `<div class="col"><h3>${h} · ${ts.length}</h3>${ts.map(r => `<a class="tile" href="#rfq=${r.id}" target="_blank" rel="noopener"><b>${esc(r.company || r.name)}</b><div class="dim">${esc(r.type === 'bom_check' ? 'BOM health check · ' + whatOf(r) : whatOf(r))}</div><div class="dim">${ago(r.created_at)}</div></a>`).join('') || '<div class="dim">None</div>'}</div>`; }).join('')}</div>`;
 }
 
-// ---------------- render: workspace ----------------
-function stepsFor(r, plan) {
-  const st = r.status || 'new';
-  const planned = !PLANNABLE.includes(r.type || 'part') || (plan && plan.status === 'done');
-  const s = [['Received', 'd'], ["Sonar's plan", planned ? 'd' : 'c'], ['Your review', planned && st === 'new' ? 'c' : (st !== 'new' ? 'd' : '')], ['Quote sent', st === 'quoted' ? 'c' : (['won', 'lost'].includes(st) ? 'd' : '')], [st === 'lost' ? 'Lost' : st === 'unable_to_source' ? "Couldn't source" : 'Won · paid', st === 'won' ? 'd' : (['lost', 'unable_to_source'].includes(st) ? 'x' : '')]];
-  return '<div class="steps">' + s.map(([t, c]) => `<div class="${c}">${c === 'd' ? '✓ ' : c === 'c' ? '● ' : ''}${t}</div>`).join('') + '</div>';
+function page(r) {
+  const t = tabOf(r), plan = full[r.id] || null, plannable = PLANNABLE.includes(r.type || 'part');
+  const q = quoteOf(r, plan), h = dueIn(r), st = r.status || 'new';
+  const back = `<a class="back" href="#tab=${t}">← ${TABS.find(x => x[0] === t)[1]}</a>`;
+  const open = q.ready ? q.rows.filter(x => !x.o && !x.out) : [];
+  const head = `<div class="top"><div><h1>${esc(r.company || r.name)} · ${esc(whatOf(r))} ${isUrgent(r) ? '<span class="pill bad">Line down</span>' : ''}</h1>
+    <div class="meta"><span>${esc(r.name || '')}</span>${r.drop_off_location || r.country ? `<span>Ship to ${esc([r.drop_off_location, r.country].filter(Boolean).join(', '))}</span>` : ''}${r.needed_by ? `<span>Need-by <b>${fmtD(r.needed_by)}</b></span>` : ''}${h != null && t !== 'hire' ? `<span style="${h < 4 ? 'color:var(--bad)' : ''}">Quote due in <b>${dueText(h)}</b></span>` : ''}</div></div>
+    <div class="acts">${t !== 'hire' && plannable && open.length && st === 'new' ? `<button class="btn" data-interim="${r.id}">Send interim update</button>` : ''}
+      ${t === 'hire' ? '' : `<button class="btn p" data-quote="${r.id}" ${plannable && q.ready && !q.inc ? 'disabled' : ''}>${st === 'quoted' ? 'Re-send quote' : 'Send quote'}${plannable && q.ready ? ` · ${q.inc} of ${q.lines}` : ''}</button>`}
+      <select class="btn sm" id="status-sel" title="Status">${STAGES.map(([v, l]) => `<option value="${v}"${st === v ? ' selected' : ''}>${l}</option>`).join('')}</select></div></div>
+    <div class="steps">${STEPS[t].map((s, i) => { const k = stepIdx(r); return `<div class="${i < k ? 'd' : i === k ? 'c' : ''}">${i < k ? '✓ ' : i === k ? '● ' : ''}${esc(s)}</div>`; }).join('')}</div>`;
+  let body = '';
+  if (plannable) body = sonarBanner(r, plan) + (q.ready ? linesTable(r, plan, q) : '');
+  else if (t === 'ai') body = buildTable(r);
+  return back + head + body + draftsFor(r) + (t === 'hire' || !plannable ? manualQuote(r) : '') + requestCard(r);
 }
-function sonarCard(r, plan, q) {
-  const plannable = PLANNABLE.includes(r.type || 'part');
-  if (!plannable) return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">${esc(TYPES[r.type] || 'This request')} needs your own quote.</div><div class="why">Sonar only plans part, BOM and shortage requests. The buyer's details are below; set the amount in the quote panel.</div></div>`;
-  if (!plan) return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">Sonar hasn't checked this request yet.</div><div class="why">This usually happens for RFQs that came in before automatic checks were switched on.</div><div class="acts"><button class="btn p" data-run="${r.id}">Check stock and prices now</button></div></div>`;
-  if (plan.status === 'error') return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">Sonar couldn't finish this plan.</div><div class="why">${esc(plan.error || 'Unknown error')}</div><div class="acts"><button class="btn p" data-run="${r.id}">Try again</button></div></div>`;
+function sonarBanner(r, plan) {
+  if (!plan) return `<div class="banner"><span>Sonar hasn't checked this request yet.</span><button class="btn p" data-run="${r.id}">Check stock and prices</button></div>`;
+  if (plan.status === 'error') return `<div class="banner"><span>Sonar couldn't finish: ${esc(plan.error || 'unknown error')}</span><button class="btn p" data-run="${r.id}">Try again</button></div>`;
   if (plan.status !== 'done') {
-    const total = (plan.lines || []).length, done = (plan.lines || []).filter(l => l.status !== 'pending').length;
-    const stale = Date.now() - new Date(plan.updated_at) > 180000;
-    return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">${stale ? 'Sonar stopped part-way.' : 'Checking stock and prices…'}</div><div class="why">${done} of ${total} line${total === 1 ? '' : 's'} checked${total > 30 && !stale ? ' · about a minute per 30 lines' : ''}.</div><div class="prog"><i style="width:${Math.round(done / Math.max(total, 1) * 100)}%"></i></div>${stale ? `<div class="acts"><button class="btn p" data-run="${r.id}" data-cont="1">Continue</button></div>` : ''}</div>`;
+    const total = (plan.lines || []).length, done = (plan.lines || []).filter(l => l.status !== 'pending').length, stale = Date.now() - new Date(plan.updated_at) > 180000;
+    return `<div class="banner"><div>${stale ? 'Sonar stopped part-way.' : 'Sonar is checking stock and prices…'} ${done} of ${total} lines<div class="prog"><i style="width:${Math.round(done / Math.max(total, 1) * 100)}%"></i></div></div>${stale ? `<button class="btn p" data-run="${r.id}" data-cont="1">Continue</button>` : ''}</div>`;
   }
-  const sm = plan.summary, c = sm.counts, issues = (plan.lines || []).filter(l => issueOf(l, plan));
-  const undecided = issues.filter(l => !(plan.decisions || {})[String(l.n)]);
-  let say, why;
-  if (c.not_found === c.total) { say = `None of the ${c.total} line${c.total === 1 ? ' is' : 's are'} at distributors.`; why = 'This one needs broker sourcing. Draft a broker inquiry below, or enter prices you get yourself.'; }
-  else {
-    const early = q.arrive && q.needed ? dayDiff(q.arrive, q.needed) : null;
-    say = `${q.inc} of ${c.total} line${c.total === 1 ? '' : 's'} ${q.inc === 1 ? 'is' : 'are'} ready${q.arrive ? `, arriving by ${fmtD(q.arrive)}` : ''}${early != null ? (early >= 0 ? `, ${early} day${early === 1 ? '' : 's'} before the buyer's date` : `, ${-early} day${early === -1 ? '' : 's'} late`) : ''}.`;
-    why = undecided.length ? `${undecided.length} line${undecided.length === 1 ? ' needs' : 's need'} a decision from you below; they're not in the quote yet. The rest are priced from distributor stock.` : 'Every line is decided. Check the total on the right and send the quote.';
-  }
-  return `<div class="card sonar"><div class="lab">✦ Sonar</div><div class="say">${esc(say)}</div><div class="why">${esc(why)}</div>
-    <div class="acts">${undecided.length ? `<button class="btn p" data-jump="issues">Decide on ${undecided.length} line${undecided.length === 1 ? '' : 's'}</button>` : ''}${q.inc ? `<button class="btn${undecided.length ? '' : ' p'}" data-quote="${r.id}">Send quote for ${q.inc} line${q.inc === 1 ? '' : 's'}</button>` : ''}</div></div>`;
+  return '';
 }
-function numsFor(plan, q) {
-  if (!q.ready) return '';
-  const early = q.arrive && q.needed ? dayDiff(q.arrive, q.needed) : null;
-  return `<div class="nums">
-    <div class="num ${early == null ? '' : early >= 0 ? 'good' : 'bad'}"><b>${fmtD(q.arrive)}</b><span>arrives${q.needed ? ' · needed ' + fmtD(q.needed) : ''}</span></div>
-    <div class="num"><b>${q.inc} / ${q.total_lines}</b><span>lines in the quote</span></div>
-    <div class="num"><b>${money(q.cost, 0)}</b><span>your cost, delivered</span></div>
-    <div class="num"><b>${money(q.total, 0)}</b><span>quote to buyer</span></div></div>`;
-}
-const DESC = {
-  missing: (l) => l.note === 'Not listed at Mouser' ? 'Not at any distributor Sonar checks.' : (l.note || 'No usable stock at distributors.'),
-  late: (l, plan) => `${l.note ? l.note + '. ' : ''}Arrives ${fmtD(l.arrive_date)}, after the buyer's ${fmtD(plan.summary.needed_by)}.`,
-  short: (l) => l.note || 'Not enough stock for the full quantity.',
-};
-function issueCard(l, plan) {
-  const kind = issueOf(l, plan), d = (plan.decisions || {})[String(l.n)];
-  const manual = d && typeof d === 'object';
-  const sel = (v) => (v === 'manual' ? manual : d === v) ? ' sel' : '';
-  let opts;
-  if (kind === 'missing') opts = `
-    <button class="opt${sel('ask_brokers')}" data-dec="${l.n}" data-v="ask_brokers">Draft broker inquiry<small>email waits in Approvals</small></button>
-    <button class="opt${sel('leave_out')}" data-dec="${l.n}" data-v="leave_out">Leave out<small>“quote to follow”</small></button>
-    <button class="opt${sel('manual')}" data-dec="${l.n}" data-v="manual">I have a price<small>enter it below</small></button>`;
-  else opts = `
-    <button class="opt${sel('accept')}" data-dec="${l.n}" data-v="accept">Quote it anyway<small>${kind === 'late' ? 'buyer gets it ' + fmtD(l.arrive_date) : 'partial quantity'}</small></button>
-    <button class="opt${sel('ask_brokers')}" data-dec="${l.n}" data-v="ask_brokers">Ask brokers for faster stock<small>leaves it out for now</small></button>
-    <button class="opt${sel('leave_out')}" data-dec="${l.n}" data-v="leave_out">Leave out</button>
-    <button class="opt${sel('manual')}" data-dec="${l.n}" data-v="manual">I have a price</button>`;
-  const showManual = manual || (plan._manualOpen === l.n);
-  const mv = manual ? d : {};
-  const icon = kind === 'missing' ? ['bad', '!'] : ['warn', kind === 'late' ? '↯' : '½'];
-  const done = d ? `<div class="dim" style="font-size:12px;margin-top:4px">Decided${d === 'ask_brokers' ? ': inquiry drafted, see Approvals' : ''}.</div>` : '';
-  return `<div class="issue"><div class="ic ${icon[0]}">${icon[1]}</div>
-    <div class="t">Line ${l.n} · <span class="mono">${esc(l.mpn)}</span> × ${Number(l.qty).toLocaleString('en-US')}</div>
-    <div class="d">${esc(DESC[kind](l, plan))}</div>
-    <div><div class="opts">${opts}</div>
-    ${showManual ? `<div class="manual">Unit price $<input type="number" step="0.0001" min="0" id="mu-${l.n}" value="${mv.unit ?? ''}"> delivered in <input type="number" min="0" id="md-${l.n}" value="${mv.days ?? ''}" style="width:64px"> days <button class="btn sm p" data-manual="${l.n}">Use this price</button></div>` : ''}${done}</div></div>`;
-}
-function shipmentsCard(plan) {
-  const sm = plan.summary; if (!sm || !sm.shipments || !sm.shipments.length) return '';
-  const t0 = plan.ctx.today, last = [sm.needed_by, ...sm.shipments.map(s => s.arrive)].filter(Boolean).sort().pop();
-  const span = Math.max(dayDiff(t0, last), 7) * 1.08;
-  const pos = (d) => Math.min(100, Math.max(2, dayDiff(t0, d) / span * 100));
-  const rows = sm.shipments.map(s => `<div class="ship"><span><b>${esc(s.name)}</b> <span class="dim">· ${esc(s.origin)} · ${s.lines} line${s.lines === 1 ? '' : 's'}</span></span><span class="mono">${money(s.value, 0)}</span><span>${fmtD(s.arrive)}</span>
-    <div class="bar"><i class="${sm.needed_by && s.arrive > sm.needed_by ? 'late' : ''}" style="width:${pos(s.arrive)}%"></i>${sm.needed_by ? `<span class="need" style="left:${pos(sm.needed_by)}%"></span>` : ''}</div></div>`).join('');
-  return `<div class="card"><div class="sec">Shipments <span class="dim">to ${esc(plan.ctx.drop || plan.ctx.dest)}</span></div>${rows}
-    <div class="dim" style="font-size:11.5px;margin-top:8px">Bar runs from today to arrival${sm.needed_by ? '; red mark is the buyer\'s date' : ''}. Freight and transit are estimates.</div></div>`;
-}
-let showAllLines = false, lineFilter = 'all';
-// Where each line comes from and why. A line Mouser can't fill is never a dead end: it says where Sonar looks next.
-const MFR_STORE = [[/^STMicro/i, 'ST eStore'], [/^Texas Instruments/i, 'TI.com'], [/^Microchip|^Atmel/i, 'Microchip Direct'], [/^Analog Devices|^Linear Tech|^Maxim/i, 'ADI store'], [/^NXP/i, 'NXP store'], [/^Infineon|^Cypress/i, 'Infineon store']];
-function routeOf(l, plan) {
-  const d = (plan.decisions || {})[String(l.n)], need = plan.summary.needed_by, today = plan.ctx.today;
-  const vsNeed = (a) => !need || !a ? 'ok' : a <= need ? 'ok' : 'late';
-  if (d && typeof d === 'object' && d.unit != null) { const a = addDays(today, Number(d.days) || 0); return { from: 'Your source', why: `Price you entered: ${money(Number(d.unit), 4)}/unit, ${d.days} days`, state: vsNeed(a), arrive: a, unit: Number(d.unit), cost: Number(d.unit) * l.qty }; }
-  if (d === 'leave_out') return { from: 'Left out', why: 'Listed as "quote to follow"', state: 'out' };
-  const stock = Number(l.stock || 0).toLocaleString('en-US'), raw = l.raw || {};
-  if (l.status === 'in_stock') return { from: `${l.source} · ${l.origin}`, why: `${stock} in stock, authorized distributor`, state: vsNeed(l.arrive_date), arrive: l.arrive_date, unit: l.unit, cost: (l.landed_unit || 0) * (l.covered || 0) };
-  if (l.status === 'partial' || l.status === 'factory') {
-    const why = l.status === 'partial' ? `${stock} in stock now, rest on ${l.lead_days}-day factory lead time` : `No stock now, ${l.lead_days}-day factory lead time`;
-    return { from: `${l.source} factory order`, why: why + (vsNeed(l.arrive_date) === 'late' ? '. Too slow: Sonar looks for faster stock' : ''), state: vsNeed(l.arrive_date), arrive: l.arrive_date, unit: l.unit, cost: l.landed_unit != null ? l.landed_unit * (l.covered || 0) : null };
-  }
-  const mfr = l.manufacturer || 'the maker', store = (MFR_STORE.find(([re]) => re.test(mfr)) || [])[1];
-  const asked = d === 'ask_brokers' ? 'Broker inquiry drafted. ' : '';
-  const eol = /obsolete|end of life|eol|nrnd|not recommended/i.test(raw.lifecycle || l.note || '');
-  if (!eol && (raw.restriction || /resellers/.test(l.note || ''))) return { from: `Checking ${store ? store + ', ' : ''}Arrow, Avnet`, why: `${asked}${/region/i.test(raw.restriction || '') ? 'Mouser doesn\'t sell it in our region' : `Mouser blocks resellers on ${mfr}`}; vetted broker if none`, state: 'hunt', kind: 'blocked' };
-  if (eol) return { from: 'Checking Rochester, Flip', why: `${asked}${raw.lifecycle || 'Discontinued'}. Authorized sources for discontinued parts, then alternates, vetted broker`, state: 'hunt', kind: 'eol' };
-  return { from: 'Checking alternates, brokers', why: `${asked}Not listed at Mouser; confirm the part number with the buyer`, state: 'hunt', kind: 'unlisted' };
-}
-function planCard(r, plan, q) {
-  const lines = plan.lines || [], need = plan.summary.needed_by, today = plan.ctx.today;
-  const routes = lines.map(l => [l, routeOf(l, plan)]);
-  const ok = routes.filter(([, x]) => x.state === 'ok'), late = routes.filter(([, x]) => x.state === 'late'), hunt = routes.filter(([, x]) => x.state === 'hunt');
-  const lastOf = (rs) => rs.map(([, x]) => x.arrive).filter(Boolean).sort().pop() || null;
-  const kit = lastOf([...ok, ...late]);
-  // verdict in one line, then what Sonar is doing about the rest
-  const parts = [];
-  if (ok.length) parts.push(`${ok.length} of ${lines.length} line${lines.length === 1 ? '' : 's'} arrive by ${fmtD(lastOf(ok))}${need ? `, ${dayDiff(lastOf(ok), need)} days before the ${fmtD(need)} need-by` : ''}`);
-  else parts.push(`No line is bought and on time yet`);
-  const sub = [];
-  if (late.length) sub.push(`${late.length} only on factory lead time (latest ${fmtD(lastOf(late))}), too slow for the need-by`);
-  if (hunt.length) { const blk = hunt.filter(([, x]) => x.kind === 'blocked').length, eol = hunt.filter(([, x]) => x.kind === 'eol').length;
-    sub.push(`${hunt.length} being sourced${blk ? `: ${blk} blocked at Mouser for resellers` : ''}${eol ? `${blk ? ',' : ':'} ${eol} end-of-life` : ''}`); }
-  const pos = (() => { const end = [need, ...routes.map(([, x]) => x.arrive)].filter(Boolean).sort().pop() || addDays(today, 14);
-    const span = Math.max(dayDiff(today, end), 14)  * 1.22; return (d) => Math.min(100, Math.max(0, dayDiff(today, d) / span * 100)); })();
-  const nbd = need ? `<span class="nbd" style="left:${pos(need)}%"></span>` : '';
-  const bar = (x) => x.state === 'hunt' ? `<i class="hunt" style="width:${need ? pos(need) : 40}%"></i>` : x.arrive ? `<i class="${x.state}" style="width:${Math.max(pos(x.arrive), 1.5)}%"></i>` : '';
-  const show = routes.filter(([, x]) => lineFilter === 'all' || x.state === lineFilter);
-  const rows = show.map(([l, x]) => `<tr class="${x.state === 'out' ? 'out' : ''}"><td>${l.n}</td>
-    <td><span class="mono">${esc(l.mpn)}</span>${l.manufacturer ? `<div class="dim">${esc(l.manufacturer)}</div>` : ''}</td>
-    <td class="n">${Number(l.qty).toLocaleString('en-US')}</td>
-    <td><div class="from">${esc(x.from)}</div><div class="why">${esc(x.why)}</div></td>
-    <td class="n">${x.cost ? money(x.cost, 0) : '—'}${x.unit != null ? `<div class="u">${money(x.unit, x.unit < 1 ? 4 : 2)}/unit</div>` : ''}</td>
-    <td>${x.arrive ? `<span class="pill ${x.state === 'late' ? 'p-bad' : 'p-ok'}">${fmtD(x.arrive)}</span>` : x.state === 'hunt' ? `<span class="pill p-warn">${need ? 'aim ≤ ' + fmtD(need) : 'sourcing'}</span>` : '—'}</td>
-    <td>${l.link ? `<a href="${esc(l.link)}" target="_blank" rel="noopener" title="Open listing">↗</a>` : ''}</td></tr>`).join('');
-  // one strip for the whole kit: arrival dates as dots, the need-by as a red line, open lines as a dashed run up to it
-  const groups = {}; for (const [, x] of [...ok, ...late]) (groups[x.arrive] ||= []).push(x);
-  const dots = Object.entries(groups).sort().map(([d, xs], i) => `<div class="dot ${d > (need || d) ? 'late' : 'ok'}" style="left:${pos(d)}%"><i></i><span class="${i % 2 ? 'dn' : ''}${pos(d) > 80 ? ' rt' : ''}">${xs.length} line${xs.length === 1 ? '' : 's'} · ${fmtD(d)}</span></div>`).join('');
-  const strip = `<div class="strip"><div class="rail"></div>${hunt.length ? `<div class="huntrun" style="width:${need ? pos(need) : 50}%"><span>${hunt.length} being sourced${need ? ', aim before need-by' : ''}</span></div>` : ''}
-    <div class="end l">Today ${fmtD(today)}</div>${need ? `<div class="nbdl" style="left:${pos(need)}%"><span>Need-by ${fmtD(need)}</span></div>` : ''}${dots}</div>`;
-  const f = [['all', 'All', routes.length], ['hunt', 'Being sourced', hunt.length], ['late', 'Too slow', late.length], ['ok', 'On time', ok.length]].filter(([k, , n]) => k === 'all' || n);
-  return `<div class="card plan"><div class="lab" style="color:var(--blue);font-size:11.5px;font-weight:650;letter-spacing:.04em">✦ DELIVERY PLAN</div>
-    <div class="verdict">${esc(parts.join(''))}.</div><div class="verdict-sub">${esc(sub.join('. ') + (sub.length ? '.' : 'Everything is bought and on time.'))}</div>
-    <div class="kpis">
-      <div class="num"><b>${need ? fmtD(need) : '—'}</b><span>buyer's need-by</span></div>
-      <div class="num ${hunt.length || late.length ? 'bad' : 'good'}"><b>${hunt.length ? `${ok.length + late.length}/${lines.length} lines` : kit ? fmtD(kit) : '—'}</b><span>${hunt.length ? 'have a date so far' : 'full kit arrives'}</span></div>
-      <div class="num ${ok.length === lines.length ? 'good' : ''}"><b>${ok.length} / ${lines.length}</b><span>on time for the build</span></div>
-      <div class="num"><b>${money(q.total || 0, 0)}</b><span>quote so far · ${q.inc || 0} line${q.inc === 1 ? '' : 's'}</span></div></div>
-    ${strip}
-    <div class="lf">${f.map(([k, t, n]) => `<button data-lf="${k}" class="${lineFilter === k ? 'on' : ''}">${t} ${n}</button>`).join('')}</div>
-    <div class="tbl-wrap"><table class="ptbl"><tr><th>#</th><th>Part</th><th class="n">Qty</th><th>Buy from · why</th><th class="n">Delivered</th><th>Arrives</th><th></th></tr>${rows}</table></div>
-    <div class="dim" style="font-size:11.5px;margin-top:8px">Green: before the need-by. Red: after it. Dashed: still being sourced. ${esc(plan.summary.basis)}</div></div>`;
-}
-function linesCard(plan) {
-  const dec = plan.decisions || {}, lines = plan.lines || [];
-  const okCount = lines.filter(l => !issueOf(l, plan)).length;
-  const ST = { in_stock: ['In stock', 'p-ok'], partial: ['Part stock', 'p-warn'], factory: ['Lead time', 'p-warn'], not_found: ['Not found', 'p-bad'] };
-  const head = `<div class="ready"><span>✓ <b>${okCount} line${okCount === 1 ? '' : 's'} ready</b>: priced${plan.summary.needed_by ? ' and on time' : ''}</span><button class="btn link" data-toggle-lines>${showAllLines ? 'Hide lines' : 'Show all ' + lines.length + ' lines'}</button></div>`;
-  if (!showAllLines) return head;
-  const rows = lines.map(l => {
-    const d = dec[String(l.n)], out = d === 'leave_out' || d === 'ask_brokers';
-    const manual = d && typeof d === 'object';
-    const st = ST[l.status] || ['—', 'p-gray'];
-    return `<tr class="${out ? 'out' : ''}"><td>${l.n}</td><td><span class="mono">${esc(l.mpn)}</span>${l.manufacturer ? `<div class="dim">${esc(l.manufacturer)}</div>` : ''}</td>
-      <td class="n">${Number(l.qty).toLocaleString('en-US')}</td><td><span class="pill ${manual ? 'p-gray' : st[1]}">${manual ? 'Your price' : st[0]}</span></td>
-      <td class="n">${manual ? money(Number(d.unit), 4) : money(l.unit)}</td><td class="n">${manual ? money(Number(d.unit) * l.qty, 0) : money((l.landed_unit || 0) * (l.covered || 0) || null, 0)}</td>
-      <td>${manual ? fmtD(addDays(plan.ctx.today, Number(d.days) || 0)) : fmtD(l.arrive_date)}</td><td>${l.link ? `<a href="${esc(l.link)}" target="_blank" rel="noopener" title="Open listing">↗</a>` : ''}</td></tr>`;
+function linesTable(r, plan, q) {
+  const rows = q.rows.map(({ l, offers, pi, o, out }) => {
+    const sell = o ? o.unit * (1 + q.margin / 100) : null;
+    const status = out ? '<span class="pill gray">Left out</span>' : o ? '<span class="pill ok">Quoted</span>' : '<span class="pill warn">Open</span>';
+    const main = `<tr class="row${out ? ' out' : ''}" data-line="${l.n}"><td class="dim">${l.n}</td><td><span class="mono">${esc(l.mpn)}</span>${l.manufacturer ? `<div class="dim">${esc(l.manufacturer)}</div>` : ''}</td>
+      <td class="n">${Number(l.qty).toLocaleString('en-US')}</td>
+      <td class="src">${o ? `<b>${esc(o.source)}</b><div class="dim">${esc(o.tier)} · ${esc(o.from)}${offers.length > 1 ? ` · ${offers.length} sources` : ''}</div>` : `<div class="hint">${esc(hintOf(l))}</div>`}</td>
+      <td class="n">${o ? money(o.unit, o.unit < 1 ? 4 : 2) : '—'}</td><td class="n">${o ? money(sell, sell < 1 ? 4 : 2) : '—'}</td>
+      <td>${o ? `${fmtD(o.arrive)}${o.lead ? `<div class="dim">${esc(o.lead)}</div>` : ''}` : '—'}</td><td>${o ? esc(o.dc || '—') : '—'}</td><td>${o ? esc(o.docs || '—') : '—'}</td>
+      <td>${o && o.risk && o.risk !== '—' ? `<span class="pill ${o.risk === 'Low' ? 'ok' : o.risk === 'High' ? 'bad' : 'warn'}">${esc(o.risk)}</span>` : '—'}</td><td>${status}</td></tr>`;
+    if (!expanded.has(l.n)) return main;
+    const late = (o) => r.needed_by && o.arrive && o.arrive > r.needed_by;
+    const otab = offers.length ? `<table><tr><th></th><th>Source</th><th>Tier</th><th>From</th><th class="n">Unit cost</th><th class="n">Stock</th><th>Arrives</th><th>Date code</th><th>Docs</th><th>Risk</th><th></th></tr>
+      ${offers.map((x, i) => `<tr><td><input type="radio" name="pick${l.n}" data-pick="${l.n}" data-i="${i}" ${pi === i && !out ? 'checked' : ''} aria-label="Use ${esc(x.source)}"></td><td><b>${esc(x.source)}</b></td><td>${esc(x.tier)}</td><td>${esc(x.from)}</td>
+        <td class="n">${money(x.unit, x.unit < 1 ? 4 : 2)}</td><td class="n">${x.stock != null && x.stock !== '' ? Number(x.stock).toLocaleString('en-US') : '—'}</td><td style="${late(x) ? 'color:var(--bad)' : ''}">${fmtD(x.arrive)}</td><td>${esc(x.dc || '—')}</td><td>${esc(x.docs || '—')}</td><td>${esc(x.risk || '—')}</td>
+        <td>${x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">Listing ↗</a>` : x.auto ? '' : `<button class="link" data-delo="${l.n}" data-i="${i - offers.filter(y => y.auto || y.source === 'Your price').length}">Remove</button>`}</td></tr>`).join('')}</table>`
+      : `<div class="dim">No source yet. ${esc(hintOf(l))}.</div>`;
+    const form = adding === l.n ? `<div class="addf" id="addf">
+      <div><label>Source</label><input id="af-source" placeholder="e.g. Arrow, broker name"></div>
+      <div><label>Tier</label><select id="af-tier">${TIERS.map(x => `<option>${x}</option>`).join('')}</select></div>
+      <div><label>Ships from</label><input id="af-from" placeholder="Country"></div>
+      <div><label>Unit cost, delivered ($)</label><input id="af-unit" type="number" step="0.0001" min="0"></div>
+      <div><label>Stock</label><input id="af-stock" type="number" min="0"></div>
+      <div><label>Days to buyer's dock</label><input id="af-days" type="number" min="0"></div>
+      <div><label>Date code</label><input id="af-dc" placeholder="e.g. 2541"></div>
+      <div><label>Docs</label><select id="af-docs"><option>Mfr CoC</option><option>Supplier traceability</option><option>None</option></select></div>
+      <div><label>Risk</label><select id="af-risk"><option>Low</option><option>Medium</option><option>High</option></select></div>
+      <div class="full"><button class="btn sm" data-addcancel>Cancel</button><button class="btn sm p" data-addsave="${l.n}">Add source</button></div></div>` : '';
+    return main + `<tr class="exp"><td colspan="11"><div class="offers">${otab}${form}
+      <div class="acts">${adding === l.n ? '' : `<button class="btn sm" data-add="${l.n}">+ Add a source</button>`}<button class="btn sm" data-broker="${l.n}">Ask brokers</button>
+      <button class="btn sm" data-leave="${l.n}">${out ? 'Put back in quote' : 'Leave out of quote'}</button></div></div></td></tr>`;
   }).join('');
-  return `<div class="card">${head}<div class="tbl-wrap" style="margin-top:10px"><table><tr><th>#</th><th>Part</th><th class="n">Qty</th><th>Status</th><th class="n">Unit</th><th class="n">Delivered cost</th><th>Arrives</th><th></th></tr>${rows}</table></div>
-    <div class="dim" style="font-size:11.5px;margin-top:8px">${esc(plan.summary.basis)}</div></div>`;
+  return `<div class="card"><div class="wrap"><table><tr><th>#</th><th>Part</th><th class="n">Qty</th><th>Source</th><th class="n">Cost</th><th class="n">Sell</th><th>Arrives</th><th>Date code</th><th>Docs</th><th>Risk</th><th>Status</th></tr>${rows}
+    <tfoot><tr><td></td><td>Totals</td><td></td><td>${q.inc} of ${q.lines} lines have a source</td><td class="n">${money(q.cost, 0)}</td><td class="n">${money(q.total, 0)}</td><td>${q.arrive ? fmtD(q.arrive) : ''}</td><td colspan="4"></td></tr></tfoot></table></div>
+    <div class="bar"><div><span class="k">Margin</span><select id="margin-sel">${[10, 15, 20, 25, 30].map(m => `<option value="${m}"${m === q.margin ? ' selected' : ''}>${m}%</option>`).join('')}</select></div>
+      <div><span class="k">Your profit</span><span class="v">${money(q.profit, 0)}</span></div><div><span class="k">Buyer pays</span><span class="v">${money(q.total, 2)}</span></div>
+      <div><span class="k">Full kit at buyer</span><span class="v" style="${r.needed_by && q.arrive && q.arrive > r.needed_by ? 'color:var(--bad)' : ''}">${q.arrive ? fmtD(q.arrive) : '—'}</span></div>
+      <div class="dim" style="margin-left:auto">Click a line to see its sources, add one, or leave it out. Cost includes estimated freight.</div></div>
+    ${r.stripe_payment_link ? `<div class="linkbox">${qr(r.stripe_payment_link)}<div>Buyer's payment link<br><a href="${esc(r.stripe_payment_link)}" target="_blank" rel="noopener">${esc(r.stripe_payment_link)}</a></div></div>` : ''}</div>`;
+}
+function buildTable(r) {
+  const ls = firstLine(r.mpn);
+  return `<div class="card"><div class="wrap"><table><tr><th>#</th><th>Build part</th></tr>${ls.map((x, i) => `<tr><td class="dim">${i + 1}</td><td>${esc(x)}</td></tr>`).join('')}</table></div>
+    <div class="bar"><span class="dim">Quantity: ${esc(r.qty || '1')}. Price each part yourself, then set the build total below.</span></div></div>`;
+}
+function manualQuote(r) {
+  if (tabOf(r) === 'hire') return '';
+  return `<div class="section"><h2>Quote amount</h2><div class="card"><div class="bar"><input class="amt" id="manual-amt" inputmode="decimal" placeholder="Total in USD, e.g. 1250.00" value="${r.quote_amount_cents ? (r.quote_amount_cents / 100).toFixed(2) : ''}"><span class="dim">“Send quote” creates the Stripe payment link and opens the email for you to check.</span></div>
+    ${r.stripe_payment_link ? `<div class="linkbox">${qr(r.stripe_payment_link)}<div>Buyer's payment link<br><a href="${esc(r.stripe_payment_link)}" target="_blank" rel="noopener">${esc(r.stripe_payment_link)}</a></div></div>` : ''}</div></div>`;
+}
+function draftsFor(r) {
+  const mine = tasks.filter(t => t.status === 'pending' && t.payload && t.payload.rfq_id === r.id && ['send_cold_email', 'send_quote_email'].includes(t.type));
+  if (!mine.length) return '';
+  return `<div class="section"><h2>Emails waiting for your OK · ${mine.length}</h2><div class="card">${mine.map(t => { const p = t.payload || {}, d = p.draft || {};
+    return `<div class="draft" data-task="${t.id}"><b>${esc(t.title)}</b> <span class="dim">· drafted ${ago(t.created_at)}</span>
+      <label>To (one broker address)</label><input class="t-to" type="email" placeholder="broker@company.com" value="${esc(p.contact_email || p.to || '')}">
+      <label>Subject</label><input class="t-subj" value="${esc(d.subject || t.title)}"><label>Message</label><textarea class="t-body">${esc(d.body || '')}</textarea>
+      <div class="acts" style="margin-top:10px"><button class="btn p sm" data-tsend="${t.id}">Send</button><button class="btn sm danger" data-tdel="${t.id}">Delete draft</button></div></div>`; }).join('')}</div></div>`;
 }
 function requestCard(r) {
   const src = r.meta && r.meta.source ? [r.meta.source.channel, r.meta.source.utm_campaign, r.meta.source.utm_term && '“' + r.meta.source.utm_term + '”'].filter(Boolean).join(' · ') : '';
-  const rows = [['Buyer', `${r.name || ''}${r.company ? ' · ' + r.company : ''}`], ['Email', r.email ? `<a href="mailto:${esc(r.email)}">${esc(r.email)}</a>` : ''], ['Phone', r.phone ? `<a href="tel:${esc(String(r.phone).replace(/[^0-9+]/g, ''))}">${esc(r.phone)}</a>` : ''],
-    ['Ship to', esc([r.drop_off_location, r.country].filter(Boolean).join(', '))], ['Needed by', esc(r.needed_by ? fmtD(r.needed_by) : '')], ['Urgency', esc(r.urgency || '')],
-    ['Target price', esc(r.target || '')], ['Came from', esc(src)], ['Notes', r.notes ? `<pre>${esc(r.notes)}</pre>` : '']].filter(x => x[1]);
-  return `<div class="card req"><div class="sec">Request</div><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${k === 'Buyer' ? esc(v) : v}</dd>`).join('')}
-    <dt>As submitted</dt><dd><pre>${esc(r.mpn || '')}</pre></dd></dl></div>`;
-}
-function quoteCard(r, plan, q) {
-  const plannable = PLANNABLE.includes(r.type || 'part') && q.ready;
-  const st = r.status || 'new';
-  const sent = st !== 'new' && r.quote_amount_cents;
-  const linkBox = r.stripe_payment_link ? `<div class="linkbox">${qr(r.stripe_payment_link)}<div>Buyer's payment link<br><a href="${esc(r.stripe_payment_link)}" target="_blank" rel="noopener">${esc(r.stripe_payment_link)}</a></div></div>` : '';
-  let body;
-  if (plannable) {
-    body = `<div class="row"><span>Lines included</span><b>${q.inc} of ${q.total_lines}</b></div>
-      <div class="row"><span>Your cost, delivered</span><b>${money(q.cost, 2)}</b></div>
-      <div style="margin-top:8px;color:var(--ink2)">Margin</div>
-      <div class="mg">${[15, 20, 25].map(m => `<button data-margin="${m}" class="${q.margin === m ? 'on' : ''}">${m}%</button>`).join('')}</div>
-      <div class="row"><span>Your profit</span><b>${money(q.profit, 2)}</b></div>
-      <div class="row tot"><span>Buyer pays</span><b>${money(q.total, 2)}</b></div>`;
-  } else {
-    body = `<div style="color:var(--ink2)">Quote amount (USD)</div><input class="amt" id="manual-amt" inputmode="decimal" placeholder="e.g. 1250.00" value="${r.quote_amount_cents ? (r.quote_amount_cents / 100).toFixed(2) : ''}">`;
-  }
-  const label = sent ? 'Update quote & email again' : 'Preview & send quote';
-  const disabled = plannable && !q.inc ? ' disabled' : '';
-  return `<div class="card q"><div class="sec">Quote${sent ? ` <span class="pill p-ok">sent ${ago(r.last_email_sent_at)}</span>` : ''}</div>${body}
-    <div class="acts"><button class="btn p" style="flex:1" data-quote="${r.id}"${disabled}>${label}</button></div>
-    <div class="note">${plannable ? `${q.out.length ? q.out.length + ' line' + (q.out.length === 1 ? '' : 's') + ' left out (listed as “quote to follow”). ' : ''}${q.open.length ? q.open.length + ' undecided line' + (q.open.length === 1 ? ' is' : 's are') + ' not in the total. ' : ''}` : ''}Creates a Stripe payment link, then opens the email for you to check before it sends.</div>${linkBox}</div>`;
-}
-function approvalsFor(r) {
-  const mine = tasks.filter(t => t.status === 'pending' && t.payload && t.payload.rfq_id === r.id);
-  if (!mine.length) return '';
-  return `<div class="appr">⏳ <b>${mine.length} email${mine.length === 1 ? '' : 's'} waiting for your OK</b>: ${mine.map(t => esc(t.title)).join(', ')}. Sent only when you approve.<br><button class="btn sm" data-goto="approvals">Open Approvals</button></div>`;
-}
-function logFor(r, plan) {
-  const ev = [[r.created_at, `Request arrived${firstLine(r.mpn).length > 1 ? `: ${firstLine(r.mpn).length} lines` : ''}`]];
-  if (plan && plan.created_at) ev.push([plan.created_at, 'Sonar started checking stock']);
-  if (plan && plan.status === 'done') ev.push([plan.updated_at, `Plan ready: ${plan.summary.counts.total - plan.summary.counts.not_found} of ${plan.summary.counts.total} lines found`]);
-  for (const t of tasks.filter(t => t.payload && t.payload.rfq_id === r.id)) ev.push([t.created_at, `${t.title} drafted (${t.status === 'executed' ? 'sent' : t.status})`]);
-  if (r.last_email_sent_at) ev.push([r.last_email_sent_at, r.last_email_type === 'cannot_source' ? "Told buyer we can't source" : 'Quote emailed to buyer']);
-  ev.sort((a, b) => new Date(a[0]) - new Date(b[0]));
-  return `<div class="card log"><div class="sec">What happened</div>${ev.map(([t, s]) => `<div><span title="${esc(new Date(t).toLocaleString())}">${new Date(t).toDateString() === new Date().toDateString() ? clock(t) : new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</span>${esc(s)}</div>`).join('')}</div>`;
+  const rows = [['Buyer', esc(`${r.name || ''}${r.company ? ' · ' + r.company : ''}`)], ['Email', r.email ? `<a href="mailto:${esc(r.email)}">${esc(r.email)}</a>` : ''], ['Phone', r.phone ? `<a href="tel:${esc(String(r.phone).replace(/[^0-9+]/g, ''))}">${esc(r.phone)}</a>` : ''],
+    ['Ship to', esc([r.drop_off_location, r.country].filter(Boolean).join(', '))], ['Urgency', esc(r.urgency || '')], ['Target price', esc(r.target || '')], ['Came from', esc(src)],
+    ['Notes', r.notes ? `<pre>${esc(r.notes)}</pre>` : ''], ['As submitted', `<pre>${esc(r.mpn || '')}</pre>`], ['Received', esc(new Date(r.created_at).toLocaleString())]].filter(x => x[1]);
+  return `<div class="section"><h2>Request details</h2><div class="card"><dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+    <div class="bar" style="justify-content:flex-end"><button class="btn sm" data-cant="${r.id}">Tell buyer we can't source it</button><button class="btn sm danger" data-del="${r.id}">Delete request</button></div></div></div>`;
 }
 function qr(text) {
   try { const q = qrcode(0, 'M'); q.addData(text); q.make(); return `<img alt="QR code for the payment link" src="${q.createDataURL(3, 2)}">`; } catch (e) { return ''; }
 }
 
-function renderWorkspace() {
-  const ws = $('ws');
-  document.querySelector('#view-rfqs').classList.toggle('sel', !!selId);
-  const r = rfqs.find(x => x.id === selId);
-  if (!r) { ws.innerHTML = '<div class="blank">Pick an RFQ on the left.</div>'; return; }
-  const plan = full[r.id] || null;
-  const q = computeQuote(r, plan);
-  const issues = plan && plan.status === 'done' ? (plan.lines || []).filter(l => issueOf(l, plan)) : [];
-  const st = r.status || 'new';
-  const keep = ws.scrollTop;
-  ws.innerHTML = `<div class="wgrid">
-    <div class="full">
-      <button class="btn sm back" data-back>← All RFQs</button>
-      <h1 class="h1">${esc(r.company || r.name)} · ${esc(whatOf(r))}${isUrgent(r) ? ' <span class="chip c-urg">Line down</span>' : ''}
-        <span class="hdr-acts"><select class="btn sm" id="status-sel" title="Change status">
-          ${[['new', 'Open'], ['quoted', 'Quote sent'], ['won', 'Won · paid'], ['lost', 'Lost'], ['unable_to_source', "Couldn't source"]].map(([v, t]) => `<option value="${v}"${st === v ? ' selected' : ''}>${t}</option>`).join('')}
-        </select><button class="btn sm" data-cant="${r.id}" title="Email the buyer that we can't source this">Can't source</button><button class="btn sm danger" data-del="${r.id}" title="Delete permanently">Delete</button></span></h1>
-      <div class="sub"><span>${esc(r.name || '')}${r.email ? ' · ' + esc(r.email) : ''}</span>${placeOf(r) ? `<span>Ship to ${esc([r.drop_off_location, r.country].filter(Boolean).join(', '))}</span>` : ''}${r.needed_by ? `<span>Needed by <b>${fmtD(r.needed_by)}</b></span>` : ''}<span>Received ${ago(r.created_at)}</span></div>
-      ${stepsFor(r, plan)}
-    </div>
-    <div class="col">
-      ${plan && plan.status === 'done' && plan.summary ? planCard(r, plan, q) : sonarCard(r, plan, q)}
-      ${issues.length ? `<div class="card" id="issues"><div class="sec">Your call on these lines <span class="dim">${issues.length} · Sonar keeps sourcing until you decide</span></div>${issues.map(l => issueCard(l, plan)).join('')}</div>` : ''}
-      ${requestCard(r)}
-    </div>
-    <div class="side">${quoteCard(r, plan, q)}${approvalsFor(r)}${logFor(r, plan)}</div>
-  </div>`;
-  ws.scrollTop = keep;
-}
-
-// ---------------- render: approvals ----------------
-function renderApprovals() {
-  const n = tasks.filter(t => t.status === 'pending').length;
-  $('appr-cnt').textContent = n; $('appr-cnt').classList.toggle('hidden', !n);
-  if (view !== 'approvals') return;
-  const list = tasks.filter(t => t.status === 'pending');
-  const done = tasks.filter(t => t.status !== 'pending').slice(0, 15);
-  const tile = (t) => {
-    const p = t.payload || {}, dft = p.draft || {}, sendable = ['send_cold_email', 'send_quote_email'].includes(t.type);
-    const rf = rfqs.find(x => x.id === p.rfq_id);
-    return `<div class="task ${esc(t.status)}" data-task="${t.id}">
-      <div class="tt">${esc(t.title)}${rf ? ` <span class="dim">· for ${esc(rf.company || rf.name)}</span>` : ''}</div>
-      <div class="tm">${ago(t.created_at)} · ${t.status === 'pending' ? 'waiting for you' : esc(t.status)}${t.result && t.result.sent_to ? ' → sent to ' + esc(t.result.sent_to) : ''}</div>
-      ${t.status === 'pending' && sendable ? `
-        <label>To <span class="dim">(one address · for more brokers, draft the inquiry again from the RFQ)</span></label><input class="t-to" type="email" placeholder="broker@company.com" value="${esc(p.contact_email || p.to || '')}">
-        <label>Subject</label><input class="t-subj" value="${esc(dft.subject || p.subject || t.title)}">
-        <label>Message</label><textarea class="t-body">${esc(dft.body || p.body || '')}</textarea>
-        <div class="acts"><button class="btn p" data-tsend="${t.id}">Send</button><button class="btn" data-tdecline="${t.id}">Decline</button><button class="btn danger" data-tdel="${t.id}" style="margin-left:auto">Delete</button></div>`
-      : `<div class="body">${esc(dft.body || p.body || JSON.stringify(p, null, 2))}</div>${t.status === 'pending' ? `<div class="acts"><button class="btn p" data-tapprove="${t.id}">Approve</button><button class="btn" data-tdecline="${t.id}">Decline</button></div>` : `<div class="acts"><button class="btn sm danger" data-tdel="${t.id}">Delete</button></div>`}`}
-    </div>`;
-  };
-  $('appr-list').innerHTML = (list.length ? list.map(tile).join('') : '<div class="empty">Nothing waiting for your approval.</div>')
-    + (done.length ? `<h3 style="font-size:14px;margin:24px 0 10px">Recent</h3>${done.map(tile).join('')}` : '');
-}
-
-// ---------------- render: insights ----------------
-function renderInsights() {
-  if (view !== 'insights') return;
-  const won = rfqs.filter(r => r.status === 'won'), quoted = rfqs.filter(r => r.quote_amount_cents);
-  const val = (rs) => rs.reduce((a, r) => a + (r.quote_amount_cents || 0), 0) / 100;
-  $('ins-kpis').innerHTML = [[rfqs.length, 'requests'], [quoted.length, 'quoted'], [won.length, 'won'], [money(val(won), 0), 'won value']].map(([b, s]) => `<div class="num"><b>${b}</b><span>${s}</span></div>`).join('');
-  const table = (keyOf, label) => {
-    const keys = [...new Set(rfqs.map(keyOf))].sort((a, b) => rfqs.filter(r => keyOf(r) === b).length - rfqs.filter(r => keyOf(r) === a).length);
-    return `<tr><th>${label}</th><th class="n">Requests</th><th class="n">Quoted</th><th class="n">Won</th><th class="n">Won value</th><th class="n">Win rate</th></tr>` + keys.map(k => {
-      const rs = rfqs.filter(r => keyOf(r) === k), w = rs.filter(r => r.status === 'won');
-      return `<tr><td>${esc(k)}</td><td class="n">${rs.length}</td><td class="n">${rs.filter(r => r.quote_amount_cents).length}</td><td class="n">${w.length}</td><td class="n">${money(val(w), 0)}</td><td class="n">${rs.length ? Math.round(w.length / rs.length * 100) : 0}%</td></tr>`;
-    }).join('');
-  };
-  $('ins-lines').innerHTML = table(r => TYPES[r.type || 'part'] || r.type, 'Business line');
-  $('ins-sources').innerHTML = table(r => (r.meta && r.meta.source && (r.meta.source.utm_campaign ? r.meta.source.channel + ' · ' + r.meta.source.utm_campaign : r.meta.source.channel)) || 'unknown (before tracking)', 'Source');
-}
-
-function renderAll() { renderInbox(); renderWorkspace(); renderApprovals(); renderInsights(); lastWs = wsSig(); lastAppr = apprSig(); }
-// Background refresh: only redraw a panel when its data changed and you aren't typing in it.
-let lastWs = '', lastAppr = '';
-const wsSig = () => { const r = rfqs.find(x => x.id === selId); return JSON.stringify([r, full[selId] && [full[selId].status, full[selId].updated_at, full[selId].decisions], tasks.filter(t => t.payload && t.payload.rfq_id === selId).map(t => t.status)]); };
-const apprSig = () => JSON.stringify(tasks.map(t => [t.id, t.status]));
-const typingIn = (el) => el && el.contains(document.activeElement) && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
-function renderSoft() {
-  renderInbox(); renderInsights();
-  const n = tasks.filter(t => t.status === 'pending').length; $('appr-cnt').textContent = n; $('appr-cnt').classList.toggle('hidden', !n);
-  if (wsSig() !== lastWs && !typingIn($('ws')) && !(full[selId] && full[selId]._manualOpen)) { renderWorkspace(); lastWs = wsSig(); }
-  if (apprSig() !== lastAppr && !typingIn($('appr-list'))) { renderApprovals(); lastAppr = apprSig(); }
-}
+// Background refresh: don't redraw while you're typing on the page.
+const typing = () => /INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName || '') || adding != null;
+let lastSig = '';
+const sig = () => JSON.stringify([rfqs.map(r => [r.id, r.status, r.quote_amount_cents]), route.id && full[route.id] && [full[route.id].status, full[route.id].updated_at, full[route.id].decisions], tasks.map(t => [t.id, t.status])]);
+function renderSoft() { const s = sig(); if (s !== lastSig && !typing()) { render(); lastSig = s; } }
 
 // ---------------- data ----------------
 async function loadAll(initial) {
   try {
     const [rl, pl, tl] = await Promise.all([api('/list'), agent({ action: 'plan_list' }).catch(() => ({ plans: [] })), agent({ action: 'list_tasks' }).catch(() => ({ tasks: [] }))]);
     const incoming = rl.rfqs || [];
-    if (known && !initial) for (const r of incoming) if (!known.has(r.id)) { fresh.add(r.id); toast(`${r.company || r.name}`, whatOf(r), isUrgent(r)); if (isUrgent(r)) ping(); }
+    if (known && !initial) for (const r of incoming) if (!known.has(r.id)) { toast(`${r.company || r.name}`, whatOf(r), isUrgent(r)); if (isUrgent(r)) ping(); }
     known = new Set(incoming.map(r => r.id));
     rfqs = incoming;
     plans = {}; for (const p of pl.plans || []) plans[p.rfq_id] = p;
-    for (const id in full) if (plans[id] && full[id] && plans[id].updated_at === full[id].updated_at) plans[id].decisions = full[id].decisions;
+    for (const p of pl.plans || []) if (!running[p.rfq_id] && (!full[p.rfq_id] || full[p.rfq_id].updated_at !== p.updated_at)) full[p.rfq_id] = p;   // decisions saved from this page stay as they are
     tasks = tl.tasks || [];
-    // keep the open RFQ's full plan fresh when Sonar finished it in the background
-    if (selId && plans[selId] && full[selId] && plans[selId].updated_at !== full[selId].updated_at && !running[selId]) await loadPlan(selId);
-    if (selId && !rfqs.find(r => r.id === selId)) selId = null;
     $('live').innerHTML = '<span class="live-dot"></span>Live';
-    initial ? renderAll() : renderSoft();
+    if (initial) { readRoute(); if (route.id) await openRfq(route.id); else render(); lastSig = sig(); } else renderSoft();
   } catch (e) {
     $('live').innerHTML = '<span class="live-dot" style="background:var(--ink3)"></span>Offline';
-    if (initial) $('list').innerHTML = `<div class="empty">${esc(e.message)}</div>`;
+    if (initial) $('app').innerHTML = `<div class="empty">${esc(e.message)}</div>`;
   }
 }
 async function loadPlan(id) {
   const r = rfqs.find(x => x.id === id);
   if (!r || !PLANNABLE.includes(r.type || 'part')) return;
-  try { const { plan } = await agent({ action: 'plan_get', rfq_id: id }); full[id] = plan; if (plan) plans[id] = Object.assign(plans[id] || {}, { status: plan.status, summary: plan.summary, decisions: plan.decisions, updated_at: plan.updated_at, error: plan.error }); }
+  try { const { plan } = await agent({ action: 'plan_get', rfq_id: id }); if (plan) { full[id] = plan; plans[id] = Object.assign(plans[id] || {}, { status: plan.status, updated_at: plan.updated_at }); } }
   catch (e) { toast("Couldn't load Sonar's plan", e.message); }
 }
 async function openRfq(id) {
-  selId = id; clearInterval(planPoll); showAllLines = false; lineFilter = 'all';
-  renderInbox(); renderWorkspace();
-  await loadPlan(id); renderAll();
-  planPoll = setInterval(async () => {   // follow a background run while this RFQ is open
-    const p = full[selId];
-    if (!selId || running[selId] || !p || p.status !== 'running') return;
-    await loadPlan(selId); renderAll();
+  clearInterval(planPoll); render();
+  await loadPlan(id); render(); lastSig = sig();
+  planPoll = setInterval(async () => {   // follow a background run while this request is open
+    const p = full[route.id];
+    if (!route.id || running[route.id] || !p || p.status !== 'running') return;
+    await loadPlan(route.id); renderSoft();
   }, 3000);
 }
-// Drive the plan from this page (older RFQs, retries, or "Continue" after a stall).
 async function runSonar(id, cont) {
   if (running[id]) return; running[id] = true;
   try {
     let plan = cont ? full[id] : (await agent({ action: 'plan_start', rfq_id: id })).plan;
-    full[id] = plan; plans[id] = { status: plan.status, updated_at: new Date().toISOString() }; renderAll();
+    full[id] = plan; plans[id] = { status: plan.status, updated_at: new Date().toISOString() }; render();
     while (plan.status !== 'done') {
       plan = (await agent({ action: 'plan_step', rfq_id: id })).plan;
-      full[id] = Object.assign(full[id] || {}, plan); plans[id] = { status: plan.status, summary: plan.summary, decisions: plan.decisions, updated_at: new Date().toISOString() };
-      if (selId === id) renderWorkspace();
+      full[id] = Object.assign(full[id] || {}, plan); if (route.id === id) render();
     }
     await loadPlan(id);
   } catch (e) { toast('Sonar stopped', e.message); await loadPlan(id); }
-  finally { running[id] = false; renderAll(); }
+  finally { running[id] = false; render(); }
 }
-async function decide(n, choice) {
-  const plan = full[selId]; if (!plan) return;
+// Save one decision key ("12", "o12", "p12", "margin"); the page updates first, then the server.
+async function decide(key, choice) {
+  const id = route.id, plan = full[id]; if (!plan) return;
   plan.decisions = Object.assign({}, plan.decisions);
-  if (choice == null) delete plan.decisions[String(n)]; else plan.decisions[String(n)] = choice;
-  if (plans[selId]) plans[selId].decisions = plan.decisions;
-  renderAll();
-  try { await agent({ action: 'plan_decide', rfq_id: selId, n, choice }); }
-  catch (e) { toast("Couldn't save that choice", e.message); await loadPlan(selId); renderAll(); }
+  if (choice == null) delete plan.decisions[key]; else plan.decisions[key] = choice;
+  render();
+  try { await agent({ action: 'plan_decide', rfq_id: id, n: key, choice }); }
+  catch (e) { toast("Couldn't save that", e.message); await loadPlan(id); render(); }
 }
 
 // ---------------- quote + email ----------------
 async function sendQuote(id) {
-  const r = rfqs.find(x => x.id === id); const plan = full[id];
-  const plannable = PLANNABLE.includes(r.type || 'part') && plan && plan.status === 'done';
+  const r = rfqs.find(x => x.id === id), plan = full[id];
+  const planned = PLANNABLE.includes(r.type || 'part') && plan && plan.status === 'done';
   let amount;
-  if (plannable) amount = Math.round(computeQuote(r, plan).total * 100) / 100;
+  if (planned) amount = Math.round(quoteOf(r, plan).total * 100) / 100;
   else { const v = ($('manual-amt') || {}).value || ''; amount = parseFloat(v.replace(/[$,\s]/g, '')); }
   if (!amount || amount < 0.5) { toast('Enter a quote amount', 'Minimum $0.50.'); return; }
-  const btns = document.querySelectorAll(`[data-quote="${id}"]`); btns.forEach(b => { b.disabled = true; b.textContent = 'Creating payment link…'; });
+  document.querySelectorAll(`[data-quote="${id}"]`).forEach(b => { b.disabled = true; b.textContent = 'Creating payment link…'; });
   try {
     const res = await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify({ quote_amount_cents: Math.round(amount * 100), quote_currency: 'USD', status: 'quoted' }) });
-    if (res.rfq) Object.assign(r, res.rfq); else Object.assign(r, { quote_amount_cents: Math.round(amount * 100), status: 'quoted' });
-    await openComposer(id, 'quote_ready', plannable ? quoteSummary(r, plan) : '');
+    Object.assign(r, res.rfq || { quote_amount_cents: Math.round(amount * 100), status: 'quoted' });
+    await openComposer(id, 'quote_ready', planned ? quoteLines(r, plan) : '');
   } catch (e) { toast("Couldn't save the quote", e.message); }
-  finally { renderAll(); }
+  finally { render(); }
 }
-// Plain-text breakdown appended to the buyer email for BOM / multi-line quotes.
-function quoteSummary(r, plan) {
-  const q = computeQuote(r, plan);
-  if ((plan.lines || []).length < 2) return '';
-  const notIn = new Set([...q.out, ...q.open]);   // same rule as the quote panel
-  const inc = plan.lines.filter(l => !notIn.has(l.n)), out = plan.lines.filter(l => notIn.has(l.n));
-  let s = `\n\nThis quote covers ${inc.length} of the ${plan.lines.length} lines on your BOM${q.arrive ? `, delivered by ${fmtD(q.arrive)}` : ''}.`;
-  if (out.length) s += `\n\nQuote to follow for ${out.length} line${out.length === 1 ? '' : 's'}:\n` + out.map(l => `• ${l.mpn} × ${Number(l.qty).toLocaleString('en-US')}`).join('\n');
+// The same lines the buyer sees on the page: source tier, unit price, arrival, docs.
+function quoteLines(r, plan) {
+  const q = quoteOf(r, plan), inc = q.rows.filter(x => x.o), rest = q.rows.filter(x => !x.o);
+  let s = `\n\nLine by line (unit price, supplier tier, arrival at your dock, documents):\n` + inc.map(({ l, o }) =>
+    `• ${l.mpn} × ${Number(l.qty).toLocaleString('en-US')}: ${money(o.unit * (1 + q.margin / 100), 4)} each · ${o.tier} · arrives ${fmtD(o.arrive)} · ${o.docs}`).join('\n');
+  if (q.arrive) s += `\n\nFull kit at your dock by ${fmtD(q.arrive)}.`;
+  if (rest.length) s += `\n\nQuote to follow for ${rest.length} line${rest.length === 1 ? '' : 's'}:\n` + rest.map(({ l }) => `• ${l.mpn} × ${Number(l.qty).toLocaleString('en-US')}`).join('\n');
   return s;
+}
+function interimText(r, plan) {
+  const q = quoteOf(r, plan), open = q.rows.filter(x => !x.o && !x.out);
+  return `\n\nA quick update on your request: ${q.inc} of ${q.lines} lines are sourced and priced. We're still working on these ${open.length}:\n` +
+    open.map(({ l }) => `• ${l.mpn} × ${Number(l.qty).toLocaleString('en-US')}`).join('\n') + `\n\nYou'll have the full quote within the 24 hours we promised. If any of these have approved alternates, reply with them and we'll widen the search.`;
 }
 async function openComposer(id, type, extra) {
   composeCtx = { id, type };
-  $('compose-title').textContent = type === 'cannot_source' ? "Tell the buyer we can't source it" : 'Send the quote';
-  $('compose-send').textContent = type === 'cannot_source' ? 'Send & close RFQ' : 'Send to buyer';
+  $('compose-title').textContent = type === 'cannot_source' ? "Tell the buyer we can't source it" : type === 'custom' ? 'Send an interim update' : 'Send the quote';
+  $('compose-send').textContent = type === 'cannot_source' ? 'Send & close request' : 'Send to buyer';
   $('compose-status').textContent = 'Drafting…'; $('compose-status').classList.remove('err');
   $('compose-to').value = ''; $('compose-subject').value = ''; $('compose-body').value = '';
   $('compose-mb').classList.add('show');
@@ -859,7 +551,8 @@ async function openComposer(id, type, extra) {
     const d = await api('/draft-email', { method: 'POST', body: JSON.stringify({ rfq_id: id, type }) });
     $('compose-to').value = d.to || ''; $('compose-subject').value = d.subject || '';
     let body = d.body || '';
-    if (extra) { const cut = body.lastIndexOf('\n\n'); body = cut > 0 ? body.slice(0, cut) + extra + body.slice(cut) : body + extra; }
+    if (type === 'custom') body = body.replace('[Your message here]', extra.trim());
+    else if (extra) { const cut = body.lastIndexOf('\n\n'); body = cut > 0 ? body.slice(0, cut) + extra + body.slice(cut) : body + extra; }
     $('compose-body').value = body;
     $('compose-status').textContent = 'Check it, edit anything, then send.';
   } catch (e) { $('compose-status').textContent = "Couldn't draft: " + e.message; $('compose-status').classList.add('err'); }
@@ -873,16 +566,14 @@ $('compose-send').addEventListener('click', async () => {
     await api('/send-email', { method: 'POST', body: JSON.stringify({ rfq_id: id, type, subject, body }) });
     const r = rfqs.find(x => x.id === id);
     if (r) { r.last_email_type = type; r.last_email_sent_at = new Date().toISOString(); if (type === 'cannot_source') r.status = 'unable_to_source'; }
-    toast('Email sent', type === 'cannot_source' ? 'RFQ closed' : 'Quote is with the buyer');
-    closeModal('compose-mb'); renderAll();
+    toast('Email sent', type === 'cannot_source' ? 'Request closed' : type === 'custom' ? 'Update is with the buyer' : 'Quote is with the buyer');
+    closeModal('compose-mb'); render();
   } catch (e) { $('compose-status').textContent = 'Send failed: ' + e.message; $('compose-status').classList.add('err'); }
   finally { b.disabled = false; }
 });
-
-// ---------------- approvals actions ----------------
 async function taskAct(action, id, extra) {
-  try { await agent(Object.assign({ action, task_id: id }, extra || {})); const tl = await agent({ action: 'list_tasks' }); tasks = tl.tasks || []; renderAll(); }
-  catch (e) { toast('That didn\'t work', e.message); }
+  try { await agent(Object.assign({ action, task_id: id }, extra || {})); const tl = await agent({ action: 'list_tasks' }); tasks = tl.tasks || []; render(); }
+  catch (e) { toast("That didn't work", e.message); render(); }
 }
 
 // ---------------- settings ----------------
@@ -907,72 +598,68 @@ $('s-save').addEventListener('click', async () => {
 // ---------------- events ----------------
 function closeModal(id) { $(id).classList.remove('show'); if (id === 'compose-mb') composeCtx = null; }
 document.addEventListener('click', async (e) => {
-  const t = e.target.closest('button, .item, [data-close]'); if (!t) return;
-  const d = t.dataset;
+  if (e.target.closest('a')) return;
+  const row = e.target.closest('tr.row[data-open]');
+  if (row) return window.open('#rfq=' + row.dataset.open, '_blank', 'noopener');
+  const lr = e.target.closest('tr.row[data-line]');
+  if (lr && !e.target.closest('button, input')) { const n = Number(lr.dataset.line); expanded.has(n) ? expanded.delete(n) : expanded.add(n); return render(); }
+  const t = e.target.closest('button, [data-close], input[data-pick]'); if (!t) return;
+  const d = t.dataset, plan = full[route.id];
   if (d.close) return closeModal(d.close);
-  if (t.classList.contains('item')) return openRfq(d.id);
-  if (d.b) { bucket = d.b; return renderInbox(); }
-  if (d.view) return switchView(d.view);
-  if (d.goto) return switchView(d.goto);
-  if (d.back !== undefined) { selId = null; clearInterval(planPoll); return renderAll(); }
   if (d.run) return runSonar(d.run, !!d.cont);
-  if (d.jump) return $(d.jump) && $(d.jump).scrollIntoView({ behavior: 'smooth', block: 'start' });
   if (d.quote) return sendQuote(d.quote);
+  if (d.interim) return openComposer(d.interim, 'custom', interimText(rfqs.find(x => x.id === d.interim), plan));
   if (d.cant) return openComposer(d.cant, 'cannot_source', '');
-  if (d.margin) return decide('margin', Number(d.margin));
-  if (d.lf) { lineFilter = d.lf; return renderWorkspace(); }
-  if (d.toggleLines !== undefined) { showAllLines = !showAllLines; return renderWorkspace(); }
-  if (d.dec) {
-    const n = Number(d.dec), v = d.v, cur = (full[selId].decisions || {})[String(n)];
-    if (v === 'manual') { full[selId]._manualOpen = n; return renderWorkspace(); }
-    full[selId]._manualOpen = null;
-    if (cur === v) return decide(n, null);   // click again to undo
-    if (v === 'ask_brokers') {
-      try { await agent({ action: 'broker_draft', rfq_id: selId, lines: [n] }); const tl = await agent({ action: 'list_tasks' }); tasks = tl.tasks || []; toast('Broker inquiry drafted', 'Add the broker\'s email in Approvals, then send.'); }
-      catch (err) { return toast("Couldn't draft the inquiry", err.message); }
-    }
-    return decide(n, v);
+  if (d.pick) { if ((plan.decisions || {})[d.pick] === 'leave_out') await decide(d.pick, null); return decide('p' + d.pick, Number(d.i)); }
+  if (d.leave) { const out = (plan.decisions || {})[d.leave] === 'leave_out'; return decide(d.leave, out ? null : 'leave_out'); }
+  if (d.add) { adding = Number(d.add); render(); const f = $('af-source'); if (f) f.focus(); return; }
+  if (d.addcancel !== undefined) { adding = null; return render(); }
+  if (d.addsave) {
+    const n = d.addsave, v = (k) => ($('af-' + k) || {}).value || '';
+    const o = { source: v('source').trim(), tier: v('tier'), from: v('from').trim() || '—', unit: parseFloat(v('unit')), stock: v('stock') ? parseInt(v('stock'), 10) : null, days: parseInt(v('days') || '0', 10) || 0, added: today(), dc: v('dc').trim() || '—', docs: v('docs'), risk: v('risk') };
+    if (!o.source) return toast('Name the source', 'Distributor or broker name.');
+    if (!(o.unit > 0)) return toast('Enter the unit cost', 'Delivered price per piece in USD.');
+    const list = ((plan.decisions || {})['o' + n] || []).concat([o]);
+    adding = null; await decide('o' + n, list);
+    const l = plan.lines.find(x => String(x.n) === n); return decide('p' + n, offersOf(l, plan).length - 1);
   }
-  if (d.manual) {
-    const n = Number(d.manual), unit = parseFloat($('mu-' + n).value), days = parseInt($('md-' + n).value || '0', 10);
-    if (!(unit > 0)) return toast('Enter a unit price', 'Price per piece in USD, delivered.');
-    full[selId]._manualOpen = null; return decide(n, { unit, days: isFinite(days) ? days : 0 });
+  if (d.delo) { const list = ((plan.decisions || {})['o' + d.delo] || []).filter((_, i) => i !== Number(d.i)); await decide('p' + d.delo, null); return decide('o' + d.delo, list.length ? list : null); }
+  if (d.broker) {
+    try { await agent({ action: 'broker_draft', rfq_id: route.id, lines: [Number(d.broker)] }); const tl = await agent({ action: 'list_tasks' }); tasks = tl.tasks || []; render(); toast('Broker inquiry drafted', 'It\'s under "Emails waiting for your OK" below. Add the broker\'s address and send.'); }
+    catch (err) { toast("Couldn't draft the inquiry", err.message); }
+    return;
   }
   if (d.del) {
-    if (!confirm('Delete this RFQ permanently? This cannot be undone.')) return;
-    try { await api('/rfq?id=' + d.del, { method: 'DELETE' }); rfqs = rfqs.filter(r => r.id !== d.del); selId = null; renderAll(); toast('RFQ deleted', ''); }
+    if (!confirm('Delete this request permanently? This cannot be undone.')) return;
+    try { await api('/rfq?id=' + d.del, { method: 'DELETE' }); rfqs = rfqs.filter(r => r.id !== d.del); location.hash = '#tab=' + route.tab; toast('Request deleted', ''); }
     catch (err) { toast('Delete failed', err.message); }
     return;
   }
   if (d.tsend) {
-    const tile = t.closest('.task'), to = tile.querySelector('.t-to').value.trim();
+    const tile = t.closest('.draft'), to = tile.querySelector('.t-to').value.trim();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) return toast('Add a recipient', 'Enter one valid email address in To.');
     t.disabled = true; t.textContent = 'Sending…';
     return taskAct('send_task', d.tsend, { to, subject: tile.querySelector('.t-subj').value.trim(), body: tile.querySelector('.t-body').value });
   }
-  if (d.tapprove) return taskAct('approve_task', d.tapprove);
-  if (d.tdecline) return taskAct('decline_task', d.tdecline);
   if (d.tdel) { if (!confirm('Delete this draft?')) return; return taskAct('delete_task', d.tdel); }
 });
 document.addEventListener('change', async (e) => {
-  if (e.target.id !== 'status-sel' || !selId) return;
-  const v = e.target.value, r = rfqs.find(x => x.id === selId);
-  try { await api('/update?id=' + selId, { method: 'PATCH', body: JSON.stringify({ status: v }) }); r.status = v; renderAll(); toast('Status updated', ''); }
-  catch (err) { toast('Update failed', err.message); renderWorkspace(); }
+  if (e.target.id === 'margin-sel') return decide('margin', Number(e.target.value));
+  if (e.target.id !== 'status-sel' || !route.id) return;
+  const v = e.target.value, r = rfqs.find(x => x.id === route.id);
+  try { await api('/update?id=' + route.id, { method: 'PATCH', body: JSON.stringify({ status: v }) }); r.status = v; e.target.blur(); render(); toast('Status updated', ''); }
+  catch (err) { toast('Update failed', err.message); render(); }
 });
+// Chrome can autofill the saved login into the search box: only accept what you type.
 let typed = false;
-$('search').addEventListener('keydown', () => { typed = true; });
-$('search').addEventListener('input', (e) => { if (!typed) { e.target.value = ''; return; } query = e.target.value.trim(); renderInbox(); });
+document.addEventListener('keydown', (e) => { if (e.target.id === 'search') typed = true; if (e.key === 'Escape') document.querySelectorAll('.mb.show').forEach(m => closeModal(m.id)); });
+document.addEventListener('input', (e) => {
+  if (e.target.id !== 'search') return;
+  if (!typed) { e.target.value = ''; return; }
+  query = e.target.value.trim(); const pos = e.target.selectionStart; render(); const s = $('search'); s.focus(); s.setSelectionRange(pos, pos);
+});
 $('settings-btn').addEventListener('click', openSettings);
 $('logout-btn').addEventListener('click', logout);
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.mb.show').forEach(m => closeModal(m.id)); });
-
-function switchView(v) {
-  view = v;
-  document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('on', b.dataset.view === v));
-  $('view-rfqs').classList.toggle('hidden', v !== 'rfqs'); $('view-approvals').classList.toggle('hidden', v !== 'approvals'); $('view-insights').classList.toggle('hidden', v !== 'insights');
-  renderAll();
-}
 function toast(title, sub, urgent) {
   const el = document.createElement('div'); el.className = 'toast' + (urgent ? ' urg' : '');
   el.innerHTML = `<div>${urgent ? '⚡ ' : ''}${esc(title)}</div>${sub ? `<div class="s">${esc(sub)}</div>` : ''}`;
@@ -1018,7 +705,7 @@ $('pwd-in').addEventListener('keydown', e => { if (e.key === 'Enter') $('submit-
 $('pwd-in-2').addEventListener('keydown', e => { if (e.key === 'Enter') $('submit-btn').click(); });
 async function start() {
   $('login-view').classList.add('hidden'); $('app-view').classList.remove('hidden');
-  $('list').innerHTML = '<div class="empty">Loading…</div>';
+  $('app').innerHTML = '<div class="empty">Loading…</div>';
   await loadAll(true);
   clearInterval(pollTimer); pollTimer = setInterval(() => loadAll(false), POLL_MS);
 }
