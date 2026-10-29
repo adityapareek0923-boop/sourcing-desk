@@ -178,7 +178,7 @@ pre { margin:0; white-space:pre-wrap; font-family:var(--mono); font-size:12px; b
     <hr style="border:none;border-top:1px solid var(--line);margin:18px 0">
     <div class="dim" style="margin-bottom:8px">Bot access. A bot can read open sourcing requests (never the buyer's name or email), add sources and log supplier outreach. It can't send quotes, change margins, delete or touch payments.</div>
     <div id="b-list" class="dim">Loading…</div>
-    <label>New bot key</label><div style="display:flex;gap:8px"><input id="b-name" placeholder="tiger" autocomplete="off"><button class="btn" data-botnew>Create key</button></div>
+    <label>New bot key</label><div style="display:flex;gap:8px"><input id="b-name" value="tiger" autocomplete="off"><button class="btn" data-botnew>Create key</button></div>
     <div id="b-keyrow" class="hidden"><label>Copy now: it's shown only once</label><div style="display:flex;gap:8px"><input id="b-key" readonly><button class="btn" data-botcopy>Copy</button></div></div>
     <div class="dim" id="b-msg"></div>
   </div>
@@ -701,7 +701,7 @@ document.addEventListener('click', async (e) => {
     catch (err) { toast("Couldn't save that", err.message); }
     return render();
   }
-  if (d.botnew) {
+  if (d.botnew !== undefined) {   // empty data attribute, so test presence not truthiness
     const name = ($('b-name').value || '').trim().toLowerCase();
     try { const k = await botApi({ action: 'key_create', bot_id: name }); $('b-key').value = k.key; $('b-keyrow').classList.remove('hidden'); loadBots(); }
     catch (err) { $('b-msg').textContent = err.message; }
