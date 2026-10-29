@@ -34,14 +34,14 @@
 
 <header class="cs-hero" style="padding-bottom:24px"><div class="cs-wrap">
   <h1 class="cs-display" style="max-width:14ch">Your AI box, built from a parts list you control.</h1>
-  <p class="cs-lead">Pick what it needs to run. Swap any part, remove what you already own, and watch the estimate change. We source every line through the GPU and memory shortage.</p>
+  <p class="cs-lead">Pick what it needs to run. Swap any part and remove what you already own. Your quote prices the exact build. We source every line through the GPU and memory shortage.</p>
 </div></header>
 
 <section style="padding-bottom:96px"><div class="cs-wrap">
   <div class="cs-seg" role="group" aria-label="What the box needs to run">
-    <button type="button" data-tier="agent" aria-pressed="true"><strong>AI agents</strong><span>Agents on cloud models, running 24/7</span></button>
+    <button type="button" data-tier="agent" aria-pressed="true"><strong>AI agents</strong><span>Agents on cloud models, running around the clock</span></button>
     <button type="button" data-tier="pro" aria-pressed="false"><strong>Local models up to 30B</strong><span>Private models on a 24 GB GPU</span></button>
-    <button type="button" data-tier="max" aria-pressed="false"><strong>Local 70B-class models</strong><span>Two GPUs, 64 GB of VRAM</span></button>
+    <button type="button" data-tier="max" aria-pressed="false"><strong>Local 70B-class models</strong><span>One 96 GB GPU, or two 32 GB GPUs</span></button>
   </div>
 
   <div class="cs-explode" id="explode" data-cs-in>
@@ -55,11 +55,11 @@
       <div>
         <div class="cs-small" id="core-name">Agent box</div>
         <div class="cs-total"><span class="cs-num" id="total" style="font-family:var(--cs-serif)">$0</span></div>
-        <div class="cs-small"><span id="count">0</span> parts · estimate</div>
+        <div class="cs-small"><span id="count">0</span> parts · starting price</div>
       </div>
     </div>
   </div>
-  <p class="cs-explode-note" id="note" aria-live="polite">Estimates in USD. Your quote confirms every line, held for 48 hours.</p>
+  <p class="cs-explode-note" id="note" aria-live="polite">Starting price in USD for the cheapest build in this tier. Your quote prices the exact parts you pick; GPU, memory and SSD prices are held for 48 hours.</p>
   <div class="cs-actions" style="margin-top:20px">
     <a class="cs-btn" href="#request">Source this build</a>
     <button class="cs-btn cs-ghost" type="button" id="reset">Reset to recommended</button>
@@ -183,22 +183,23 @@
 <script src="cs.js"></script>
 <script>
 (function () {
-  // Estimates in USD [low, high]. First option is the recommended one. off:true = optional, starts removed.
+  // Part options; the [low, high] numbers are internal and are not shown. "from" = starting price of the cheapest build in the tier (parts cost + 19% minimum margin, Oct 29 2026).
+  // First option is the recommended one. off:true = optional, starts removed.
   const TIERS = {
-    agent: { name: "Agent box", parts: [
-      { cat: "Compute", name: "Mini PC", opts: [["Ryzen 5 7530U class", 210, 260], ["Ryzen 7 8845HS class", 380, 450], ["Intel N305, low power", 150, 190]] },
-      { cat: "Memory", name: "RAM", opts: [["16 GB DDR5 SO-DIMM", 60, 90], ["32 GB DDR5 SO-DIMM", 120, 170], ["64 GB DDR5 SO-DIMM", 260, 340]] },
+    agent: { name: "Agent box", from: 1249, parts: [
+      { cat: "Compute", name: "Mini PC", opts: [["Ryzen 5 7530U class", 210, 260], ["Intel Core Ultra 7 155H class", 380, 450]] },
+      { cat: "Memory", name: "RAM", opts: [["16 GB DDR4 SO-DIMM", 60, 90], ["32 GB DDR5 SO-DIMM", 120, 170], ["64 GB DDR5 SO-DIMM", 260, 340]] },
       { cat: "Storage", name: "NVMe SSD", opts: [["512 GB", 45, 60], ["1 TB", 70, 95], ["2 TB", 130, 170]] },
-      { cat: "Power", name: "UPS", opts: [["600–800 VA", 45, 60], ["1000 VA", 75, 100]] },
+      { cat: "Power", name: "UPS", opts: [["600–800 VA", 45, 60], ["1000 VA", 75, 100], ["1500 VA", 180, 240]] },
       { cat: "Power", name: "Surge protector", opts: [["4 socket", 8, 14]] },
       { cat: "Network", name: "Ethernet cable", opts: [["Cat6, 1.5 m", 3, 5]] },
       { cat: "Network", name: "4G / 5G failover", off: true, opts: [["USB LTE modem", 30, 45]] },
       { cat: "Backup", name: "External SSD", off: true, opts: [["1 TB USB", 60, 80]] },
-      { cat: "Recovery", name: "Recovery drive", opts: [["32 GB USB, preloaded", 6, 10]] },
+      { cat: "Recovery", name: "Recovery drive", opts: [["64 GB USB, preloaded", 8, 14]] },
       { cat: "Service", name: "Setup and burn-in", opts: [["Golden image, 24 h test", 150, 250]] },
     ]},
-    pro: { name: "Local AI, up to 30B", parts: [
-      { cat: "GPU", name: "Graphics card", opts: [["RTX 4090 24 GB, used and tested", 1500, 1900], ["RTX 3090 24 GB, used and tested", 750, 950], ["RTX 5080 16 GB, new", 1200, 1500]] },
+    pro: { name: "Local AI, up to 30B", from: 5176, parts: [
+      { cat: "GPU", name: "Graphics card", opts: [["RTX 4090 24 GB, used and tested", 1500, 1900], ["RTX 3090 24 GB, used and tested", 750, 950], ["RTX 5070 Ti 16 GB, new", 900, 1100]] },
       { cat: "CPU", name: "Processor", opts: [["Ryzen 7 9700X", 280, 330], ["Ryzen 9 9900X", 380, 450]] },
       { cat: "Board", name: "Motherboard", opts: [["B650 ATX", 160, 220], ["X870 ATX", 280, 360]] },
       { cat: "Memory", name: "RAM", opts: [["64 GB DDR5 (2×32)", 450, 550], ["32 GB DDR5", 230, 290], ["128 GB DDR5", 900, 1100]] },
@@ -209,14 +210,14 @@
       { cat: "Power", name: "UPS", opts: [["1500 VA", 180, 240]] },
       { cat: "Service", name: "Setup and burn-in", opts: [["Ubuntu, Ollama, 24 h test", 250, 400]] },
     ]},
-    max: { name: "Local AI, 70B-class", parts: [
-      { cat: "GPU", name: "Graphics card 1", opts: [["RTX 5090 32 GB", 2800, 3600], ["RTX Pro 6000 96 GB", 8000, 9500]] },
-      { cat: "GPU", name: "Graphics card 2", opts: [["RTX 5090 32 GB", 2800, 3600]] },
+    max: { name: "Local AI, 70B-class", from: 19778, parts: [
+      { cat: "GPU", name: "Graphics card 1", opts: [["RTX PRO 6000 96 GB", 8000, 9500], ["RTX PRO 4500 32 GB", 4600, 5100]] },
+      { cat: "GPU", name: "Graphics card 2", off: true, opts: [["RTX PRO 4500 32 GB", 4600, 5100]] },
       { cat: "CPU", name: "Processor", opts: [["Ryzen 9 9950X", 520, 600], ["Threadripper 7960X", 1400, 1600]] },
       { cat: "Board", name: "Motherboard", opts: [["X870E, two x8 GPU slots", 380, 480], ["TRX50 workstation", 750, 900]] },
-      { cat: "Memory", name: "RAM", opts: [["128 GB DDR5", 1000, 1250], ["256 GB DDR5 (Threadripper)", 2200, 2700]] },
+      { cat: "Memory", name: "RAM", opts: [["128 GB DDR5", 1000, 1250], ["256 GB DDR5 ECC RDIMM (4×64, Threadripper)", 2200, 2700]] },
       { cat: "Storage", name: "NVMe SSD", opts: [["4 TB Gen4", 280, 360], ["8 TB Gen4", 600, 750]] },
-      { cat: "Power", name: "Power supply", opts: [["1600 W Platinum", 400, 500]] },
+      { cat: "Power", name: "Power supply", opts: [["1600 W Platinum", 400, 560], ["1200 W Platinum", 250, 300]] },
       { cat: "Case", name: "Case and cooling", opts: [["Full tower, 360 mm liquid", 320, 450]] },
       { cat: "Power", name: "UPS", opts: [["2200 VA", 380, 500]] },
       { cat: "Service", name: "Setup and burn-in", opts: [["Multi-GPU setup, 48 h test", 400, 600]] },
@@ -226,7 +227,7 @@
   const box = document.getElementById("explode"), wires = document.getElementById("wires");
   const core = box.querySelector(".cs-core"), note = document.getElementById("note");
   const reduce = CS.reduce;
-  let tier = "agent", state = [], shownTotal = [0, 0], demoTimers = [], revealed = false;
+  let tier = "agent", state = [], demoTimers = [], revealed = false;
   const usd = (n) => "$" + Math.round(n).toLocaleString("en-US");
 
   function fresh(t) { return TIERS[t].parts.map((p) => ({ on: !p.off, pick: 0 })); }
@@ -245,8 +246,7 @@
         `<strong>${p.name}</strong>` +
         (p.opts.length > 1
           ? `<select aria-label="${p.name} option">${p.opts.map((o, k) => `<option value="${k}"${k === s.pick ? " selected" : ""}>${o[0]}</option>`).join("")}</select>`
-          : `<span class="cs-small">${p.opts[0][0]}</span>`) +
-        `<span class="cs-price-line">${usd(p.opts[s.pick][1])}–${usd(p.opts[s.pick][2])}</span>`;
+          : `<span class="cs-small">${p.opts[0][0]}</span>`);
       box.appendChild(el);
     });
     document.getElementById("core-name").textContent = TIERS[tier].name;
@@ -293,23 +293,16 @@
   }
 
   // Total counts from the old value to the new one so the change is visible.
+  // Shows the tier's starting price; the exact price for the chosen parts comes on the quote.
   function total() {
-    const { lo, hi, n } = sums(), from = shownTotal.slice(), el = document.getElementById("total");
-    document.getElementById("count").textContent = n;
-    if (reduce || !revealed) { shownTotal = [lo, hi]; el.textContent = `${usd(lo)}–${usd(hi)}`; return; }
-    const t0 = performance.now();
-    (function step(t) {
-      const p = Math.min(1, (t - t0) / 500), e = 1 - Math.pow(1 - p, 3);
-      el.textContent = `${usd(from[0] + (lo - from[0]) * e)}–${usd(from[1] + (hi - from[1]) * e)}`;
-      if (p < 1) requestAnimationFrame(step);
-    })(t0);
-    shownTotal = [lo, hi];
+    document.getElementById("count").textContent = sums().n;
+    document.getElementById("total").textContent = "From " + usd(TIERS[tier].from);
   }
 
   function summary() {
     const parts = TIERS[tier].parts;
     document.getElementById("sum-tier").textContent = TIERS[tier].name;
-    document.getElementById("sum-lines").textContent = parts.map((p, i) => state[i].on ? `${p.name}: ${p.opts[state[i].pick][0]}` : null).filter(Boolean).join("; ") + `. Estimate ${usd(sums().lo)}–${usd(sums().hi)}`;
+    document.getElementById("sum-lines").textContent = parts.map((p, i) => state[i].on ? `${p.name}: ${p.opts[state[i].pick][0]}` : null).filter(Boolean).join("; ") + `. Starting price for this tier: ${usd(TIERS[tier].from)}; your quote prices this exact build.`;
   }
 
   function update(i, patch) {
@@ -318,7 +311,6 @@
     el.classList.toggle("cs-off", !s.on);
     const x = el.querySelector(".cs-x");
     x.textContent = s.on ? "×" : "+"; x.title = s.on ? "Remove" : "Add back"; x.setAttribute("aria-label", `${s.on ? "Remove" : "Add back"} ${p.name}`);
-    el.querySelector(".cs-price-line").textContent = `${usd(p.opts[s.pick][1])}–${usd(p.opts[s.pick][2])}`;
     const sel = el.querySelector("select"); if (sel) sel.value = s.pick;
     const path = wires.children[i]; if (path) path.setAttribute("class", s.on ? "cs-live" : "");
     total(); summary();
@@ -359,7 +351,7 @@
     document.querySelectorAll("[data-tier]").forEach((x) => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
     state = fresh(tier);
     render(revealed ? "fly" : "packed");
-    note.textContent = "Estimates in USD. Your quote confirms every line, held for 48 hours.";
+    note.textContent = "Starting price in USD for the cheapest build in this tier. Your quote prices the exact parts you pick; GPU, memory and SSD prices are held for 48 hours.";
   }));
   document.getElementById("reset").addEventListener("click", () => { stopDemo(); state = fresh(tier); render("static"); });
 
@@ -371,14 +363,14 @@
   csForm(document.getElementById("f"), {
     type: "ai_box",
     build: (fd) => {
-      const parts = TIERS[tier].parts, { lo, hi } = sums();
-      const items = parts.map((p, i) => state[i].on ? { cat: p.cat, part: p.name, choice: p.opts[state[i].pick][0], est_low: p.opts[state[i].pick][1], est_high: p.opts[state[i].pick][2] } : null).filter(Boolean);
+      const parts = TIERS[tier].parts;
+      const items = parts.map((p, i) => state[i].on ? { cat: p.cat, part: p.name, choice: p.opts[state[i].pick][0] } : null).filter(Boolean);
       const lines = items.map((it) => `${it.part} | ${it.choice} | Qty: ${fd.get("qty") || 1}`).join("\n");
       return {
         mpn: `AI box — ${TIERS[tier].name}\n${lines}`,
         qty: fd.get("qty"),
-        notes: [fd.get("workload") ? "Workload: " + fd.get("workload") : "", "Build: " + (fd.get("build") === "assembled" ? "assembled and burn-in tested" : "parts only"), `Estimate shown: ${usd(lo)}–${usd(hi)} per box`].filter(Boolean).join("\n"),
-        meta: { tier, items, build: fd.get("build"), estimate: { low: lo, high: hi }, workload: fd.get("workload") || null },
+        notes: [fd.get("workload") ? "Workload: " + fd.get("workload") : "", "Build: " + (fd.get("build") === "assembled" ? "assembled and burn-in tested" : "parts only"), `Starting price shown: ${usd(TIERS[tier].from)} per box`].filter(Boolean).join("\n"),
+        meta: { tier, items, build: fd.get("build"), from_price: TIERS[tier].from, workload: fd.get("workload") || null },
       };
     },
   });
