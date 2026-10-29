@@ -175,6 +175,12 @@ pre { margin:0; white-space:pre-wrap; font-family:var(--mono); font-size:12px; b
     <div id="s-baseurl-row"><label>Base URL</label><input id="s-baseurl" placeholder="https://api.groq.com/openai/v1"></div>
     <label>Model</label><input id="s-model" placeholder="openai/gpt-oss-120b">
     <label>API key <span id="s-keystate" class="dim"></span></label><input id="s-apikey" type="password" placeholder="Leave blank to keep the current key" autocomplete="new-password">
+    <hr style="border:none;border-top:1px solid var(--line);margin:18px 0">
+    <div class="dim" style="margin-bottom:8px">Bot access. A bot can read open sourcing requests (never the buyer's name or email), add sources and log supplier outreach. It can't send quotes, change margins, delete or touch payments.</div>
+    <div id="b-list" class="dim">Loading…</div>
+    <label>New bot key</label><div style="display:flex;gap:8px"><input id="b-name" placeholder="tiger" autocomplete="off"><button class="btn" data-botnew>Create key</button></div>
+    <div id="b-keyrow" class="hidden"><label>Copy now: it's shown only once</label><div style="display:flex;gap:8px"><input id="b-key" readonly><button class="btn" data-botcopy>Copy</button></div></div>
+    <div class="dim" id="b-msg"></div>
   </div>
   <div class="mf"><span class="status" id="s-msg"></span><button class="btn" data-close="settings-mb">Close</button><button class="btn p" id="s-save">Save</button></div>
 </div></div>
@@ -189,14 +195,17 @@ const TOKEN_KEY = "chipshark_admin_token_v1";
 const POLL_MS = 10000;
 const PLANNABLE = ['part', 'shortage', 'bom_check'];
 // One tab per service on the website. Hire us is a sales pipeline, so it's a board.
-const TABS = [['part', 'Find a part'], ['shortage', 'Shortage'], ['ai', 'AI boxes'], ['hire', 'Hire us']];
-const tabOf = (r) => ({ shortage: 'shortage', ai_box: 'ai', retainer: 'hire', bom_check: 'hire' }[r.type] || 'part');
+const TABS = [['part', 'Sourcing'], ['ai', 'AI systems'], ['hire', 'Procurement'], ['ok', 'Needs you']];
+const tabOf = (r) => ({ ai_box: 'ai', retainer: 'hire', bom_check: 'hire' }[r.type] || 'part');
+const BOT_API = "https://dgpdfponhxbnhfhmbmjb.supabase.co/functions/v1/bot-api";
 const STEPS = {
   part: ['Received', 'Shortlist sources', 'Quote sent', 'Paid', 'POs placed', 'Shipped'],
   shortage: ['Received', 'Verify stock', 'Quote sent (48h hold)', 'Paid', 'Shipped'],
   ai: ['Received', 'Source the build', 'Quote sent', 'Paid', 'Assembled', 'Shipped'],
   hire: ['Lead', 'Proposal sent', 'Active client'],
 };
+// Standard terms on every quote (sourcing model: buyer prepays, we buy, supplier ships direct).
+const QUOTE_TERMS = `\n\nTerms: this quote is valid for 48 hours. Payment is in advance; we place the order with the supplier once it clears and the parts ship straight to you. If the supplier's price changes before we buy, you approve the new price or receive a full refund. Lines marked NCNR can't be cancelled or returned once ordered. Returns follow the supplier's policy.`;
 const STAGES = [['new', 'Open'], ['quoted', 'Quote sent'], ['won', 'Won · paid'], ['lost', 'Lost'], ['unable_to_source', "Couldn't source"]];
 const TIERS = ['Franchise', 'Factory direct', 'Authorized EOL', 'OEM excess', 'Independent'];
 const $ = (id) => document.getElementById(id);
@@ -237,7 +246,7 @@ function ago(iso) {
   if (m < 1) return 'just now'; if (m < 60) return m + 'm ago'; if (m < 1440) return Math.round(m / 60) + 'h ago';
   return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 }
-const isUrgent = (r) => /urgent|line down|critical/i.test(r.urgency || '');
+const isUrgent = (r) => /urgent|line.down|critical/i.test(((r.meta && r.meta.priority) || '') + ' ' + (r.urgency || ''));
 const firstLine = (s) => String(s || '').split('\n').map(x => x.trim()).filter(Boolean);
 function whatOf(r) {
   const ls = firstLine(r.mpn);
@@ -266,10 +275,23 @@ function offersOf(l, plan) {
   for (const o of dec['o' + l.n] || []) out.push(Object.assign({}, o, { arrive: addDays(o.added || plan.ctx.today, Number(o.days) || 0), lead: (o.days || 0) + ' days' }));   // days count from when you added it
   return out;
 }
+const usable = (o) => o && !o.declined && !(o.needs_ok && !o.ok);
 function pickOf(l, plan, offers) {
   const p = (plan.decisions || {})['p' + l.n];
-  if (p != null && offers[p]) return p;
-  return offers.length ? 0 : null;
+  if (p != null && usable(offers[p])) return p;
+  const i = offers.findIndex(usable);
+  return i < 0 ? null : i;
+}
+const outreachOf = (l, plan) => ((plan.decisions || {})['r' + l.n] || []);
+// Non-franchised sources a bot found, waiting for your OK, across every open request.
+function pendingOks() {
+  const out = [];
+  for (const r of rfqs) {
+    if (['won', 'lost', 'unable_to_source'].includes(r.status)) continue;
+    const p = full[r.id] || plans[r.id]; if (!p || !p.lines) continue;
+    for (const l of p.lines) ((p.decisions || {})['o' + l.n] || []).forEach((o, i) => { if (o.needs_ok && !o.ok && !o.declined) out.push({ r, l, o, i }); });
+  }
+  return out;
 }
 // Why a line has no source yet, and where to look next. Never a dead end.
 const MFR_STORE = [[/^STMicro/i, 'ST eStore'], [/^Texas Instruments/i, 'TI.com'], [/^Microchip|^Atmel/i, 'Microchip Direct'], [/^Analog Devices|^Linear Tech|^Maxim/i, 'ADI store'], [/^NXP/i, 'NXP store'], [/^Infineon|^Cypress/i, 'Infineon store']];
@@ -299,7 +321,7 @@ function quoteOf(r, plan) {
 // #tab=part shows a list; #rfq=<id> shows one request. Rows open in a new browser tab.
 function readRoute() {
   const h = new URLSearchParams(location.hash.slice(1));
-  route = { tab: h.get('tab') || 'part', id: h.get('rfq') };
+  route = { tab: ({ shortage: 'part' })[h.get('tab')] || h.get('tab') || 'part', id: h.get('rfq') };
   if (route.id) { const r = rfqs.find(x => x.id === route.id); if (r) route.tab = tabOf(r); }
 }
 window.addEventListener('hashchange', () => { readRoute(); expanded.clear(); adding = null; if (route.id) openRfq(route.id); else render(); });
@@ -307,9 +329,10 @@ window.addEventListener('hashchange', () => { readRoute(); expanded.clear(); add
 // ---------------- render ----------------
 function render() {
   const counts = {}; for (const r of rfqs) if (!['won', 'lost', 'unable_to_source'].includes(r.status)) counts[tabOf(r)] = (counts[tabOf(r)] || 0) + 1;
+  counts.ok = pendingOks().length;
   $('tabs').innerHTML = TABS.map(([k, t]) => `<a href="#tab=${k}" class="${k === route.tab ? 'on' : ''}">${t}<b>${counts[k] || 0}</b></a>`).join('');
   const r = route.id && rfqs.find(x => x.id === route.id);
-  $('app').innerHTML = r ? page(r) : route.id ? '<div class="empty">This request no longer exists.</div>' : route.tab === 'hire' ? board() : list();
+  $('app').innerHTML = r ? page(r) : route.id ? '<div class="empty">This request no longer exists.</div>' : route.tab === 'hire' ? board() : route.tab === 'ok' ? needsYou() : list();
 }
 function list() {
   const q = query.toLowerCase(), closed = (r) => ['won', 'lost', 'unable_to_source'].includes(r.status);
@@ -323,6 +346,16 @@ function list() {
       <td>${esc(whatOf(r))}</td><td>${fmtD(r.needed_by)}</td><td>${stepPill(r)}</td>
       <td class="n" style="${h != null && h < 4 ? 'color:var(--bad);font-weight:600' : ''}">${dueText(h)}</td><td class="n">${valueOf(r)}</td></tr>`; }).join('')}
     </table>${rows.length ? '' : '<div class="empty">Nothing here yet.</div>'}</div>`;
+}
+function needsYou() {
+  const ps = pendingOks();
+  return `<h1>Needs you</h1><div class="sub">Broker and open-market sources a bot found. Nothing here can be quoted until you approve it; ask for testing when in doubt.</div>
+    <div class="card wrap"><table><tr><th>Request</th><th>Part</th><th>Source</th><th>Ships from</th><th class="n">Landed unit</th><th class="n">Stock</th><th>Date code</th><th>Found</th><th></th></tr>
+    ${ps.map(({ r, l, o, i }) => `<tr><td><a class="rlink" href="#rfq=${r.id}" target="_blank" rel="noopener">${esc(r.company || r.name)}</a></td><td><span class="mono">${esc(l.mpn)}</span> × ${Number(l.qty).toLocaleString('en-US')}</td>
+      <td><b>${esc(o.source)}</b><div class="dim">${esc(o.tier)}${o.note ? ' · ' + esc(o.note) : ''}</div></td><td>${esc(o.from)}</td><td class="n">${money(o.unit, o.unit < 1 ? 4 : 2)}</td>
+      <td class="n">${o.stock != null ? Number(o.stock).toLocaleString('en-US') : '—'}</td><td>${esc(o.dc || '—')}</td><td>${esc(o.by || '')}${o.seen_at ? ' · ' + ago(o.seen_at) : ''}<div><a href="${esc(o.link)}" target="_blank" rel="noopener">Listing ↗</a></div></td>
+      <td><button class="btn sm p" data-okay="${r.id}|${l.n}|${i}">Approve</button> <button class="btn sm" data-nok="${r.id}|${l.n}|${i}">Decline</button></td></tr>`).join('')}
+    </table>${ps.length ? '' : '<div class="empty">Nothing waiting for you.</div>'}</div>`;
 }
 function stepIdx(r) {
   const st = r.status || 'new', t = tabOf(r);
@@ -380,7 +413,8 @@ function sonarBanner(r, plan) {
 function linesTable(r, plan, q) {
   const rows = q.rows.map(({ l, offers, pi, o, out }) => {
     const sell = o ? o.unit * (1 + q.margin / 100) : null;
-    const status = out ? '<span class="pill gray">Left out</span>' : o ? '<span class="pill ok">Quoted</span>' : '<span class="pill warn">Open</span>';
+    const ow = outreachOf(l, plan), waiting = offers.some(x => x.needs_ok && !x.ok && !x.declined);
+    const status = out ? '<span class="pill gray">Left out</span>' : o ? '<span class="pill ok">Quoted</span>' : waiting ? '<span class="pill warn">Needs you</span>' : ow.length ? `<span class="pill blue">Outreach · ${ow.length}</span>` : '<span class="pill warn">Open</span>';
     const main = `<tr class="row${out ? ' out' : ''}" data-line="${l.n}"><td class="dim">${l.n}</td><td><span class="mono">${esc(l.mpn)}</span>${l.manufacturer ? `<div class="dim">${esc(l.manufacturer)}</div>` : ''}</td>
       <td class="n">${Number(l.qty).toLocaleString('en-US')}</td>
       <td class="src">${o ? `<b>${esc(o.source)}</b><div class="dim">${esc(o.tier)} · ${esc(o.from)}${offers.length > 1 ? ` · ${offers.length} sources` : ''}</div>` : `<div class="hint">${esc(hintOf(l))}</div>`}</td>
@@ -390,9 +424,10 @@ function linesTable(r, plan, q) {
     if (!expanded.has(l.n)) return main;
     const late = (o) => r.needed_by && o.arrive && o.arrive > r.needed_by;
     const otab = offers.length ? `<table><tr><th></th><th>Source</th><th>Tier</th><th>From</th><th class="n">Unit cost</th><th class="n">Stock</th><th>Arrives</th><th>Date code</th><th>Docs</th><th>Risk</th><th></th></tr>
-      ${offers.map((x, i) => `<tr><td><input type="radio" name="pick${l.n}" data-pick="${l.n}" data-i="${i}" ${pi === i && !out ? 'checked' : ''} aria-label="Use ${esc(x.source)}"></td><td><b>${esc(x.source)}</b></td><td>${esc(x.tier)}</td><td>${esc(x.from)}</td>
+      ${offers.map((x, i) => { const di = i - offers.filter(y => y.auto || y.source === 'Your price').length;
+        return `<tr style="${x.declined ? 'opacity:.45;text-decoration:line-through' : ''}"><td>${usable(x) ? `<input type="radio" name="pick${l.n}" data-pick="${l.n}" data-i="${i}" ${pi === i && !out ? 'checked' : ''} aria-label="Use ${esc(x.source)}">` : ''}</td><td><b>${esc(x.source)}</b>${x.by ? `<div class="dim">${esc(x.by)}${x.seen_at ? ' · seen ' + ago(x.seen_at) : ''}${x.moq ? ' · MOQ ' + Number(x.moq).toLocaleString('en-US') : ''}</div>` : ''}${x.needs_ok && !x.ok && !x.declined ? `<div><button class="btn sm p" data-okay="${route.id}|${l.n}|${di}">Approve</button> <button class="btn sm" data-nok="${route.id}|${l.n}|${di}">Decline</button></div>` : ''}</td><td>${esc(x.tier)}</td><td>${esc(x.from)}</td>
         <td class="n">${money(x.unit, x.unit < 1 ? 4 : 2)}</td><td class="n">${x.stock != null && x.stock !== '' ? Number(x.stock).toLocaleString('en-US') : '—'}</td><td style="${late(x) ? 'color:var(--bad)' : ''}">${fmtD(x.arrive)}</td><td>${esc(x.dc || '—')}</td><td>${esc(x.docs || '—')}</td><td>${esc(x.risk || '—')}</td>
-        <td>${x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">Listing ↗</a>` : x.auto ? '' : `<button class="link" data-delo="${l.n}" data-i="${i - offers.filter(y => y.auto || y.source === 'Your price').length}">Remove</button>`}</td></tr>`).join('')}</table>`
+        <td>${x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">Listing ↗</a>` : x.auto ? '' : `<button class="link" data-delo="${l.n}" data-i="${di}">Remove</button>`}</td></tr>`; }).join('')}</table>`
       : `<div class="dim">No source yet. ${esc(hintOf(l))}.</div>`;
     const form = adding === l.n ? `<div class="addf" id="addf">
       <div><label>Source</label><input id="af-source" placeholder="e.g. Arrow, broker name"></div>
@@ -405,7 +440,10 @@ function linesTable(r, plan, q) {
       <div><label>Docs</label><select id="af-docs"><option>Mfr CoC</option><option>Supplier traceability</option><option>None</option></select></div>
       <div><label>Risk</label><select id="af-risk"><option>Low</option><option>Medium</option><option>High</option></select></div>
       <div class="full"><button class="btn sm" data-addcancel>Cancel</button><button class="btn sm p" data-addsave="${l.n}">Add source</button></div></div>` : '';
-    return main + `<tr class="exp"><td colspan="11"><div class="offers">${otab}${form}
+    const otr = ow.length ? `<div class="dim" style="margin:12px 0 4px">Supplier outreach</div><table><tr><th>Supplier</th><th>Contact</th><th>Sent</th><th>Follow-ups</th><th>Next</th><th>Status</th><th>Reply</th></tr>
+      ${ow.map(w => `<tr><td><b>${esc(w.supplier)}</b>${w.by ? `<div class="dim">${esc(w.by)}</div>` : ''}</td><td>${esc(w.contact || '—')}</td><td>${ago(w.sent_at)}</td><td class="n">${Number(w.followups || 0)}</td>
+        <td style="${w.next_followup && w.next_followup < today() && !['closed', 'no_stock'].includes(w.status) ? 'color:var(--bad)' : ''}">${w.next_followup ? fmtD(w.next_followup) : '—'}</td><td>${esc(w.status || 'sent')}</td><td>${esc(w.reply || '')}</td></tr>`).join('')}</table>` : '';
+    return main + `<tr class="exp"><td colspan="11"><div class="offers">${otab}${otr}${form}
       <div class="acts">${adding === l.n ? '' : `<button class="btn sm" data-add="${l.n}">+ Add a source</button>`}<button class="btn sm" data-broker="${l.n}">Ask brokers</button>
       <button class="btn sm" data-leave="${l.n}">${out ? 'Put back in quote' : 'Leave out of quote'}</button></div></div></td></tr>`;
   }).join('');
@@ -439,7 +477,9 @@ function draftsFor(r) {
 function requestCard(r) {
   const src = r.meta && r.meta.source ? [r.meta.source.channel, r.meta.source.utm_campaign, r.meta.source.utm_term && '“' + r.meta.source.utm_term + '”'].filter(Boolean).join(' · ') : '';
   const rows = [['Buyer', esc(`${r.name || ''}${r.company ? ' · ' + r.company : ''}`)], ['Email', r.email ? `<a href="mailto:${esc(r.email)}">${esc(r.email)}</a>` : ''], ['Phone', r.phone ? `<a href="tel:${esc(String(r.phone).replace(/[^0-9+]/g, ''))}">${esc(r.phone)}</a>` : ''],
-    ['Ship to', esc([r.drop_off_location, r.country].filter(Boolean).join(', '))], ['Urgency', esc(r.urgency || '')], ['Target price', esc(r.target || '')], ['Came from', esc(src)],
+    ['Ship to', esc([r.drop_off_location, r.country].filter(Boolean).join(', '))], ['Urgency', esc((r.meta && r.meta.priority) || r.urgency || '')], ['Target price', esc(r.target || '')],
+    ['Alternates', esc(r.meta && r.meta.alternates != null ? (r.meta.alternates ? 'Allowed' : 'Not allowed') : '')], ['Date code', esc((r.meta && r.meta.date_code) || '')],
+    ['Packaging', esc((r.meta && r.meta.packaging) || '')], ['Documents', esc((r.meta && r.meta.docs) || '')], ['Came from', esc(src)],
     ['Notes', r.notes ? `<pre>${esc(r.notes)}</pre>` : ''], ['As submitted', `<pre>${esc(r.mpn || '')}</pre>`], ['Received', esc(new Date(r.created_at).toLocaleString())]].filter(x => x[1]);
   return `<div class="section"><h2>Request details</h2><div class="card"><dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
     <div class="bar" style="justify-content:flex-end"><button class="btn sm" data-cant="${r.id}">Tell buyer we can't source it</button><button class="btn sm danger" data-del="${r.id}">Delete request</button></div></div></div>`;
@@ -522,7 +562,7 @@ async function sendQuote(id) {
   try {
     const res = await api('/update?id=' + id, { method: 'PATCH', body: JSON.stringify({ quote_amount_cents: Math.round(amount * 100), quote_currency: 'USD', status: 'quoted' }) });
     Object.assign(r, res.rfq || { quote_amount_cents: Math.round(amount * 100), status: 'quoted' });
-    await openComposer(id, 'quote_ready', planned ? quoteLines(r, plan) : '');
+    await openComposer(id, 'quote_ready', (planned ? quoteLines(r, plan) : '') + QUOTE_TERMS);
   } catch (e) { toast("Couldn't save the quote", e.message); }
   finally { render(); }
 }
@@ -577,8 +617,19 @@ async function taskAct(action, id, extra) {
 }
 
 // ---------------- settings ----------------
+async function botApi(body) {
+  const r = await fetch(BOT_API, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-token': token }, body: JSON.stringify(body) });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
+  return data;
+}
+async function loadBots() {
+  try { const { keys } = await botApi({ action: 'keys_list' });
+    $('b-list').innerHTML = keys.length ? keys.map(k => `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0"><span><b>${esc(k.bot_id)}</b> · ${k.last_used_at ? 'last used ' + ago(k.last_used_at) : 'never used'}</span><button class="btn sm danger" data-botdel="${esc(k.bot_id)}">Remove</button></div>`).join('') : 'No bots have access yet.'; }
+  catch (e) { $('b-list').textContent = "Couldn't load bots: " + e.message; }
+}
 async function openSettings() {
-  $('settings-mb').classList.add('show'); $('s-msg').textContent = 'Loading…';
+  $('settings-mb').classList.add('show'); $('s-msg').textContent = 'Loading…'; $('b-keyrow').classList.add('hidden'); $('b-key').value = ''; $('b-msg').textContent = ''; loadBots();
   try {
     const c = await api('/sonar-config');
     $('s-provider').value = c.provider || 'openai_compat'; $('s-baseurl').value = c.base_url || ''; $('s-model').value = c.model || '';
@@ -642,6 +693,22 @@ document.addEventListener('click', async (e) => {
     return taskAct('send_task', d.tsend, { to, subject: tile.querySelector('.t-subj').value.trim(), body: tile.querySelector('.t-body').value });
   }
   if (d.tdel) { if (!confirm('Delete this draft?')) return; return taskAct('delete_task', d.tdel); }
+  if (d.okay || d.nok) {
+    const [id, n, i] = (d.okay || d.nok).split('|'), p = full[id] || plans[id];
+    const list = (((p || {}).decisions || {})['o' + n] || []).map((o, j) => j === Number(i) ? Object.assign({}, o, d.okay ? { ok: true, ok_at: new Date().toISOString() } : { declined: true }) : o);
+    t.disabled = true;
+    try { await agent({ action: 'plan_decide', rfq_id: id, n: 'o' + n, choice: list }); if (p) p.decisions = Object.assign({}, p.decisions, { ['o' + n]: list }); toast(d.okay ? 'Source approved' : 'Source declined', ''); }
+    catch (err) { toast("Couldn't save that", err.message); }
+    return render();
+  }
+  if (d.botnew) {
+    const name = ($('b-name').value || '').trim().toLowerCase();
+    try { const k = await botApi({ action: 'key_create', bot_id: name }); $('b-key').value = k.key; $('b-keyrow').classList.remove('hidden'); loadBots(); }
+    catch (err) { $('b-msg').textContent = err.message; }
+    return;
+  }
+  if (d.botdel) { if (!confirm(`Remove ${d.botdel}'s key? The bot loses access immediately.`)) return; try { await botApi({ action: 'key_delete', bot_id: d.botdel }); loadBots(); } catch (err) { $('b-msg').textContent = err.message; } return; }
+  if (d.botcopy !== undefined) { try { await navigator.clipboard.writeText($('b-key').value); toast('Key copied', 'Paste it into the bot\'s settings, never into a chat or file.'); } catch (e) { $('b-key').select(); } return; }
 });
 document.addEventListener('change', async (e) => {
   if (e.target.id === 'margin-sel') return decide('margin', Number(e.target.value));

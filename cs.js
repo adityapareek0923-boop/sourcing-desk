@@ -169,7 +169,7 @@
     const a = e.target.closest("[data-cs-urgent]");
     if (!a) return;
     document.querySelectorAll('select[name="urgency"]').forEach((s) => {
-      const opt = [...s.options].find((o) => /urgent/i.test(o.text));
+      const opt = [...s.options].find((o) => /urgent|line down/i.test(o.text + " " + o.value));
       if (opt) s.value = opt.value || opt.text;
     });
   });

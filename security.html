@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How we protect your BOM — ChipShark</title>
+<meta name="description" content="How ChipShark handles BOMs and part data: need-to-know sourcing, NDAs, private storage, deletion on request, and what we decline.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='0' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
+<style>
+  :root{--bg:#fff;--surface-2:#f5f5f7;--ink:#1d1d1f;--ink-2:#424245;--ink-3:#86868b;--line:#d2d2d7;--accent:#0071e3}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{font-family:"Inter", "-apple-system", BlinkMacSystemFont, Helvetica, Arial, sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px}
+  nav{position:sticky;top:0;z-index:10;backdrop-filter:saturate(180%) blur(20px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:48px;font-size:14px}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:600;letter-spacing:-0.01em;color:var(--ink);text-decoration:none}
+  .brand-mark svg{width:26px;height:26px;display:block}
+  .links a{color:var(--ink-2);text-decoration:none;margin-left:20px;font-size:13px}
+  main{padding:80px 0 56px}
+  h1{font-size:clamp(36px,5vw,56px);letter-spacing:-0.035em;font-weight:600;margin:0 0 10px;line-height:1.07}
+  h2{font-size:22px;letter-spacing:-0.02em;font-weight:600;margin:40px 0 12px}
+  .lede{color:var(--ink-3);font-size:17px;margin:0 0 44px;letter-spacing:-0.012em}
+  p,li{color:var(--ink-2);font-size:16px}
+  a{color:var(--accent);text-decoration:none}
+  .updated{font-size:13px;color:var(--ink-3);margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+  footer{border-top:1px solid var(--line);padding:40px 0;margin-top:60px;font-size:13px;color:var(--ink-3)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer a{color:var(--ink-3);margin-right:16px}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+<a href="/" class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg></span>ChipShark</a>
+<div class="links"><a href="/">Home</a><a href="/#rfq">New RFQ</a></div>
+</div></nav>
+<main class="wrap">
+<h1>How we protect your BOM</h1>
+<p class="lede">Your BOM is your product. Here is exactly what happens to it when you send it to us.</p>
+
+<h2>Suppliers see one line at a time</h2>
+<p>When we source, a supplier sees one part number and the quantity. They never see your name, your company, your product, the rest of your BOM or where it ships, until we place an order with them. Shipments are blind drop-shipped: no supplier invoice or pricing in the box.</p>
+
+<h2>NDA on request</h2>
+<p>Ask and we sign your NDA, or send you our mutual NDA, before you share the BOM.</p>
+
+<h2>Private storage</h2>
+<ul>
+<li>Your files are kept in storage only ChipShark can reach.</li>
+<li>Data is encrypted in transit (HTTPS) and at rest.</li>
+<li>Changes to your request are logged.</li>
+<li>One customer's data is never shared with another customer.</li>
+</ul>
+
+<h2>Deletion</h2>
+<p>Ask and we delete your BOM and files. Order records and invoices are kept as long as tax law requires; see our <a href="privacy.html">privacy policy</a>.</p>
+
+<h2>What we decline</h2>
+<p>We don't accept ITAR-controlled items, Controlled Unclassified Information (CUI) or anything that requires CMMC. If a request includes any of these, we decline it and delete the files. We also decline orders for sanctioned destinations or parties.</p>
+
+<h2>Questions</h2>
+<p>Write to <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a>. We answer security questionnaires for procurement and supplier-onboarding reviews.</p>
+<p class="updated">Last updated 30 October 2026.</p>
+</main>
+<footer><div class="wrap">
+<span>© 2026 ChipShark · Hard-to-find electronic components</span>
+<div><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/refund.html">Refund</a><a href="/counterfeit-policy.html">Counterfeit policy</a></div>
+</div></footer>
+</body>
+</html>

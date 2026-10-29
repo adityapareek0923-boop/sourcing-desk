@@ -24,10 +24,10 @@
 <nav class="cs-nav"><div class="cs-wrap">
   <a class="cs-brand" href="index.html"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg>ChipShark</a>
   <div class="cs-nav-links">
-    <a href="index.html">Find a part</a>
-    <a href="shortage.html">Shortage desk</a>
-    <a href="ai-box.html" aria-current="page">AI boxes</a>
-    <a href="services.html">Hire us</a>
+    <a href="index.html#rfq">Sourcing</a>
+    <a href="ai-box.html" aria-current="page">AI systems</a>
+    <a href="services.html">Procurement</a>
+    <a href="security.html">Security</a>
     <a class="cs-btn cs-sm" href="#request">Source this build</a>
   </div>
 </div></nav>
@@ -156,6 +156,23 @@
       </label>
       <label>How many boxes?<input name="qty" required value="1" inputmode="numeric"></label>
     </div>
+    <div class="cs-row">
+      <label>How many people will use it?
+        <select name="users"><option>Just me</option><option>2 to 10</option><option>10 to 50</option><option>More than 50</option></select>
+      </label>
+      <label>Power where it will sit
+        <select name="power"><option value="outlet">Normal wall outlet (120V US)</option><option value="dedicated">240V or a dedicated circuit</option><option value="datacenter">Datacenter or server room</option></select>
+      </label>
+    </div>
+    <div class="cs-row">
+      <label>Support after delivery
+        <select name="support"><option value="setup">Remote setup only</option><option value="none">None, we'll run it</option><option value="plan">Ongoing support plan</option></select>
+      </label>
+      <label>Quiet room?
+        <select name="noise"><option value="no">No, noise is fine</option><option value="yes">Yes, it sits in an office</option></select>
+      </label>
+    </div>
+    <p class="cs-small" style="margin:0 0 12px">Assembled systems are built, burn-in tested and shipped by our US build partner. Multi-GPU builds can draw more than one normal outlet supplies; we check your power before quoting. GPU prices move fast, so quotes are valid 48 hours.</p>
     <label>What will it run? (optional)<textarea name="workload" placeholder="e.g. Five browser agents for lead research, or Llama 70B for contract review"></textarea></label>
     <div class="cs-row">
       <label>Your name<input name="name" required autocomplete="name"></label>
@@ -177,7 +194,7 @@
 
 <footer class="cs-footer"><div class="cs-wrap">
   <span>© 2026 ChipShark · Independent components sourcing</span>
-  <span><a href="index.html">Find a part</a><a href="shortage.html">Shortage desk</a><a href="services.html">Hire us</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span>
+  <span><a href="index.html#rfq">Sourcing</a><a href="services.html">Procurement</a><a href="security.html">Security</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span>
 </div></footer>
 
 <script src="cs.js"></script>
@@ -189,7 +206,7 @@
     agent: { name: "Agent box", from: 1249, parts: [
       { cat: "Compute", name: "Mini PC", opts: [["Ryzen 5 7530U class", 210, 260], ["Intel Core Ultra 7 155H class", 380, 450]] },
       { cat: "Memory", name: "RAM", opts: [["16 GB DDR4 SO-DIMM", 60, 90], ["32 GB DDR5 SO-DIMM", 120, 170], ["64 GB DDR5 SO-DIMM", 260, 340]] },
-      { cat: "Storage", name: "NVMe SSD", opts: [["512 GB", 45, 60], ["1 TB", 70, 95], ["2 TB", 130, 170]] },
+      { cat: "Storage", name: "NVMe SSD", opts: [["512 GB", 45, 60], ["1 TB", 70, 95], ["2 TB", 130, 170], ["4 TB", 280, 360]] },
       { cat: "Power", name: "UPS", opts: [["600–800 VA", 45, 60], ["1000 VA", 75, 100], ["1500 VA", 180, 240]] },
       { cat: "Power", name: "Surge protector", opts: [["4 socket", 8, 14]] },
       { cat: "Network", name: "Ethernet cable", opts: [["Cat6, 1.5 m", 3, 5]] },
@@ -203,7 +220,8 @@
       { cat: "CPU", name: "Processor", opts: [["Ryzen 7 9700X", 280, 330], ["Ryzen 9 9900X", 380, 450]] },
       { cat: "Board", name: "Motherboard", opts: [["B650 ATX", 160, 220], ["X870 ATX", 280, 360]] },
       { cat: "Memory", name: "RAM", opts: [["64 GB DDR5 (2×32)", 450, 550], ["32 GB DDR5", 230, 290], ["128 GB DDR5", 900, 1100]] },
-      { cat: "Storage", name: "NVMe SSD", opts: [["2 TB Gen4", 140, 190], ["4 TB Gen4", 280, 360]] },
+      { cat: "Storage", name: "NVMe SSD", opts: [["2 TB Gen4", 140, 190], ["1 TB", 70, 95], ["4 TB Gen4", 280, 360], ["8 TB Gen4", 600, 750]] },
+      { cat: "Storage", name: "Second NVMe SSD", off: true, opts: [["2 TB Gen4", 140, 190], ["4 TB Gen4", 280, 360]] },
       { cat: "Power", name: "Power supply", opts: [["1000 W Gold", 140, 180], ["1200 W Platinum", 220, 280]] },
       { cat: "Case", name: "Case", opts: [["Mid tower, high airflow", 100, 150]] },
       { cat: "Cooling", name: "CPU cooler", opts: [["240 mm liquid", 90, 130], ["Air tower", 40, 70]] },
@@ -216,7 +234,8 @@
       { cat: "CPU", name: "Processor", opts: [["Ryzen 9 9950X", 520, 600], ["Threadripper 7960X", 1400, 1600]] },
       { cat: "Board", name: "Motherboard", opts: [["X870E, two x8 GPU slots", 380, 480], ["TRX50 workstation", 750, 900]] },
       { cat: "Memory", name: "RAM", opts: [["128 GB DDR5", 1000, 1250], ["256 GB DDR5 ECC RDIMM (4×64, Threadripper)", 2200, 2700]] },
-      { cat: "Storage", name: "NVMe SSD", opts: [["4 TB Gen4", 280, 360], ["8 TB Gen4", 600, 750]] },
+      { cat: "Storage", name: "NVMe SSD", opts: [["4 TB Gen4", 280, 360], ["2 TB Gen4", 140, 190], ["8 TB Gen4", 600, 750]] },
+      { cat: "Storage", name: "Second NVMe SSD", off: true, opts: [["4 TB Gen4", 280, 360], ["8 TB Gen4", 600, 750]] },
       { cat: "Power", name: "Power supply", opts: [["1600 W Platinum", 400, 560], ["1200 W Platinum", 250, 300]] },
       { cat: "Case", name: "Case and cooling", opts: [["Full tower, 360 mm liquid", 320, 450]] },
       { cat: "Power", name: "UPS", opts: [["2200 VA", 380, 500]] },
@@ -369,8 +388,9 @@
       return {
         mpn: `AI box — ${TIERS[tier].name}\n${lines}`,
         qty: fd.get("qty"),
-        notes: [fd.get("workload") ? "Workload: " + fd.get("workload") : "", "Build: " + (fd.get("build") === "assembled" ? "assembled and burn-in tested" : "parts only"), `Starting price shown: ${usd(TIERS[tier].from)} per box`].filter(Boolean).join("\n"),
-        meta: { tier, items, build: fd.get("build"), from_price: TIERS[tier].from, workload: fd.get("workload") || null },
+        notes: [fd.get("workload") ? "Workload: " + fd.get("workload") : "", `Users: ${fd.get("users")} · Power: ${fd.get("power")} · Support: ${fd.get("support")} · Quiet room: ${fd.get("noise")}`, "Build: " + (fd.get("build") === "assembled" ? "assembled and burn-in tested" : "parts only"), `Starting price shown: ${usd(TIERS[tier].from)} per box`].filter(Boolean).join("\n"),
+        meta: { tier, items, build: fd.get("build"), from_price: TIERS[tier].from, workload: fd.get("workload") || null,
+                users: fd.get("users"), power: fd.get("power"), support: fd.get("support"), quiet_room: fd.get("noise") === "yes" },
       };
     },
   });
