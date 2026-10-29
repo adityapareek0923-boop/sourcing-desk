@@ -806,7 +806,7 @@
 
     <label for="mpn">Manufacturer part number(s) *</label>
     <div class="mpn-wrap">
-      <textarea id="mpn" name="mpn" required placeholder="Start typing a part number — e.g. STM32F407, LM358DR&#10;One per line if multiple" autocomplete="off" spellcheck="false"></textarea>
+      <textarea id="mpn" name="mpn" required placeholder="Start typing a part number — e.g. STM32F407, LM358DR&#10;Several parts: one per line with its quantity, e.g. LM358DR x2000" autocomplete="off" spellcheck="false"></textarea>
       <div class="suggestions" id="mpn-suggestions" role="listbox"></div>
     </div>
     <label class="bom-upload" id="bom-drop">
@@ -961,6 +961,15 @@
   const ok = document.getElementById('ok');
   const submitBtn = form.querySelector('button[type=submit]');
 
+  // "LM358DR x2000", "LM358DR, 2000" or "LM358DR 2000 pcs" becomes "LM358DR | Qty: 2000" so each BOM line keeps its own quantity.
+  function perLineQty(t) {
+    return String(t || '').split('\n').map((s) => {
+      s = s.trim();
+      if (!s || /qty/i.test(s)) return s;
+      const m = s.match(/^(.*?)[\s,;\t]+(?:[x×]\s*)?([\d,]+)\s*(?:pcs|pc|units)?$/i);
+      return m && /[A-Za-z]/.test(m[1]) ? `${m[1].trim()} | Qty: ${m[2].replace(/,/g, '')}` : s;
+    }).join('\n');
+  }
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
@@ -974,7 +983,7 @@
       company: fd.get('company'),
       email: fd.get('email'),
       phone: fd.get('phone') || null,
-      mpn: fd.get('mpn'),
+      mpn: perLineQty(fd.get('mpn')),
       qty: fd.get('qty') || null,
       target: fd.get('target') || null,
       needed_by: fd.get('needed') || null,
@@ -1037,7 +1046,8 @@
   }
   function replaceLastLine(withText) {
     const lines = mpnEl.value.split('\n');
-    lines[lines.length - 1] = withText;
+    const qty = (lines[lines.length - 1].match(/[\s,;]+(?:[x×]\s*)?[\d,]+\s*$/i) || [''])[0];   // keep a typed quantity
+    lines[lines.length - 1] = withText + qty;
     mpnEl.value = lines.join('\n') + '\n';
   }
 
