@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Counterfeit-parts policy — ChipShark</title>
 <meta name="description" content="How we vet stock, what we document, and what we do if a counterfeit slips through.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='0' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='0' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='9' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='15' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='28' y='21' width='4' height='2.5' rx='0.5' fill='%231d1d1f'/%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%230071e3'/%3E%3C/svg%3E">
 <style>
   :root{--bg:#fff;--surface-2:#f5f5f7;--ink:#1d1d1f;--ink-2:#424245;--ink-3:#86868b;--line:#d2d2d7;--accent:#0071e3}
   *{box-sizing:border-box}html,body{margin:0;padding:0}
@@ -28,10 +28,11 @@
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   footer a{color:var(--ink-3);margin-right:16px}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 <nav><div class="wrap">
-<a href="/" class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg></span>ChipShark</a>
+<a href="/" class="brand"><svg viewBox="0 0 32 32" aria-hidden="true" style="width:9px;height:9px"><circle cx="16" cy="16" r="16" fill="var(--accent, var(--cs-blue, #0071e3))"/></svg><span style="font-family:'Geist Mono',ui-monospace,'SF Mono',Menlo,monospace;font-weight:600;font-size:14px;letter-spacing:.22em">CHIPSHARK</span></a>
 <div class="links"><a href="/">Home</a><a href="/#rfq">New RFQ</a></div>
 </div></nav>
 <main class="wrap">
@@ -40,9 +41,9 @@
 
 <h2>Three-tier vetting</h2>
 <ol>
-<li><strong>Supplier screening.</strong> We buy only from stock partners that pass our vetting (business registration, trade references, prior lot history, published returns policy).</li>
-<li><strong>Document check.</strong> Every lot ships with a Certificate of Conformance from the supplier and, where available, upstream traceability to the manufacturer or franchised distributor.</li>
-<li><strong>Physical inspection.</strong> We apply the inspection level stated on your quote: visual + mark-permanency on all orders by default; electrical, decap, or X-ray on request. Inspection photos are included with the shipment.</li>
+<li><strong>Supplier screening.</strong> We buy only from suppliers that pass our screening: business registration and a published returns policy, checked before we quote their stock.</li>
+<li><strong>Document check.</strong> We pass through the supplier's Certificate of Conformance where the source provides one and, where available, upstream traceability to the manufacturer or franchised distributor.</li>
+<li><strong>Inspection.</strong> Parts ship direct from the source, so we do not inspect them ourselves. Source-provided date-code photos are available on request before you pay. For regulated or safety-critical builds we can route a sample lot through an independent test lab at buyer cost, quoted per job.</li>
 </ol>
 <h2>What counts as counterfeit here</h2>
 <p>Parts whose manufacturer, part number, lot code, or specification does not match what the manufacturer actually produced; parts remarked, reconditioned, or sold as new when they are not; parts failing basic authenticity tests (acetone/mark permanency, X-ray of lead frame, decap of die).</p>
@@ -51,7 +52,6 @@
 <li>Full refund within 10 business days of our confirmation.</li>
 <li>We cover return shipping (or you destroy the parts and we accept photo evidence).</li>
 <li>We blacklist the supplier that provided the lot and refund you from our own operating funds, not the supplier.</li>
-<li>We file a report with ERAI (Electronic Resellers Association International) within 15 business days.</li>
 </ul>
 <h2>How to claim</h2>
 <p>Email <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a> with your RFQ ID, inspection evidence (test report, photos, decap results), and the sequence of events. We acknowledge within 2 business days.</p>

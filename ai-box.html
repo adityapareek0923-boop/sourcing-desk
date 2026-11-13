@@ -9,9 +9,9 @@
 <meta property="og:title" content="AI boxes, built from a parts list you control — ChipShark">
 <meta property="og:description" content="Pick a workload, swap or remove any part, and we source it through the GPU and memory shortage.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="cs.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='5' width='24' height='22' rx='4' fill='%231d1d1f'/%3E%3Ccircle cx='9' cy='10' r='2' fill='white'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%230071e3'/%3E%3C/svg%3E">
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="cs">
@@ -22,7 +22,7 @@
 </div></div>
 
 <nav class="cs-nav"><div class="cs-wrap">
-  <a class="cs-brand" href="index.html"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><rect x="0" y="9" width="4" height="2.5" rx="0.5"/><rect x="0" y="15" width="4" height="2.5" rx="0.5"/><rect x="0" y="21" width="4" height="2.5" rx="0.5"/><rect x="28" y="9" width="4" height="2.5" rx="0.5"/><rect x="28" y="15" width="4" height="2.5" rx="0.5"/><rect x="28" y="21" width="4" height="2.5" rx="0.5"/><rect x="4" y="5" width="24" height="22" rx="4"/><circle cx="9" cy="10" r="2" fill="#fff"/></svg>ChipShark</a>
+  <a class="cs-brand" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true" style="width:9px;height:9px"><circle cx="16" cy="16" r="16" fill="var(--accent, var(--cs-blue, #0071e3))"/></svg><span style="font-family:'Geist Mono',ui-monospace,'SF Mono',Menlo,monospace;font-weight:600;font-size:14px;letter-spacing:.22em">CHIPSHARK</span></a>
   <div class="cs-nav-links">
     <a href="index.html#rfq">Sourcing</a>
     <a href="ai-box.html" aria-current="page">AI systems</a>
@@ -119,13 +119,13 @@
         <g font-family="Inter, sans-serif" font-size="12">
           <rect x="10" y="14" width="200" height="28" rx="8" fill="#fdecee"/><text x="22" y="32" fill="#d70015">GPU · shortage</text>
           <rect x="10" y="50" width="200" height="28" rx="8" fill="#fdecee"/><text x="22" y="68" fill="#d70015">DDR5 · shortage</text>
-          <rect x="230" y="14" width="200" height="28" rx="8" fill="#e9f6ec"/><text x="242" y="32" fill="#248a3d">Verified stock, price held</text>
-          <rect x="230" y="50" width="200" height="28" rx="8" fill="#e9f6ec"/><text x="242" y="68" fill="#248a3d">Verified stock, price held</text>
+          <rect x="230" y="14" width="200" height="28" rx="8" fill="#e9f6ec"/><text x="242" y="32" fill="#248a3d">Confirmed stock, price held</text>
+          <rect x="230" y="50" width="200" height="28" rx="8" fill="#e9f6ec"/><text x="242" y="68" fill="#248a3d">Confirmed stock, price held</text>
           <text x="220" y="100" text-anchor="middle" fill="#6e6e73">We find the stock before you pay</text>
         </g>
       </svg>
       <h3 class="cs-h3">Shortage parts, found for you</h3>
-      <p>GPUs and DDR5 are the hard lines. We source them like any other shortage order: verified stock first, then you pay.</p>
+      <p>GPUs and DDR5 are the hard lines. We source them like any other shortage order: stock confirmed with the source first, then you pay.</p>
     </div>
   </div>
 </div></section>
@@ -134,7 +134,7 @@
   <h2 class="cs-h2">From parts list to your desk</h2>
   <div class="cs-steps cs-four">
     <div class="cs-step"><h3 class="cs-h3">Configure</h3><p>Pick the workload, swap or remove parts, send the list.</p></div>
-    <div class="cs-step"><h3 class="cs-h3">We source</h3><p>Every line priced and verified, with the quote held for 48 hours.</p></div>
+    <div class="cs-step"><h3 class="cs-h3">We source</h3><p>Every line priced and confirmed with the source, with the quote held for 48 hours.</p></div>
     <div class="cs-step"><h3 class="cs-h3">Assemble or not</h3><p>Take the parts and build it yourself, or ask for assembly and a burn-in test, quoted separately.</p></div>
     <div class="cs-step"><h3 class="cs-h3">Ships ready</h3><p>Preloaded setup, recovery drive and a five-step start card.</p></div>
   </div>
@@ -142,17 +142,17 @@
 
 <section class="cs-section cs-tint" id="request"><div class="cs-narrow">
   <h2 class="cs-h2">Source this build</h2>
-  <p class="cs-lead">We'll quote every line within 24 business hours.</p>
+  <p class="cs-lead">We'll quote every line by email.</p>
   <div class="cs-panel" style="background:#fff;margin-bottom:20px">
     <p style="margin:0 0 6px;font-weight:600">Your build: <span id="sum-tier"></span></p>
     <p class="cs-small" id="sum-lines" style="margin:0"></p>
   </div>
-  <div class="cs-done" id="cs-done"><h3>Build sent.</h3><p>We'll email a line-by-line quote within 24 business hours. Questions? <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a></p></div>
+  <div class="cs-done" id="cs-done"><h3>Build sent.</h3><p>We'll email a line-by-line quote. Questions? <a href="mailto:hello@chipsharksupply.com">hello@chipsharksupply.com</a></p></div>
   <form class="cs-form" id="f">
     <input class="cs-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
     <div class="cs-row">
       <label>How should it arrive?
-        <select name="build"><option value="parts_only">Parts only, I'll assemble</option><option value="assembled">Assembled and burn-in tested</option></select>
+        <select name="build"><option value="parts_only">Parts only, I'll assemble</option><option value="assembled">Assembled, with burn-in test (quoted separately)</option></select>
       </label>
       <label>How many boxes?<input name="qty" required value="1" inputmode="numeric"></label>
     </div>
@@ -172,7 +172,7 @@
         <select name="noise"><option value="no">No, noise is fine</option><option value="yes">Yes, it sits in an office</option></select>
       </label>
     </div>
-    <p class="cs-small" style="margin:0 0 12px">Assembled systems are built, burn-in tested and shipped by our US build partner. Multi-GPU builds can draw more than one normal outlet supplies; we check your power before quoting. GPU prices move fast, so quotes are valid 48 hours.</p>
+    <p class="cs-small" style="margin:0 0 12px">Assembly and burn-in are quoted separately and confirmed on your quote. Multi-GPU builds can draw more than one normal outlet supplies; we check your power before quoting. GPU prices move fast, so quotes are valid 48 hours.</p>
     <label>What will it run? (optional)<textarea name="workload" placeholder="e.g. Five browser agents for lead research, or Llama 70B for contract review"></textarea></label>
     <div class="cs-row">
       <label>Your name<input name="name" required autocomplete="name"></label>
@@ -184,7 +184,7 @@
     </div>
     <div class="cs-row">
       <label>Ship-to country<select name="country" required data-cs-countries></select></label>
-      <label>Drop-off: city, ZIP or port<input name="drop_off" required placeholder="e.g. Jaipur 302021 · 94107 San Francisco"></label>
+      <label>Drop-off: city, ZIP or port<input name="drop_off" required placeholder="e.g. 94107 San Francisco · Port of Oakland"></label>
     </div>
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAFPyjK0P_am6Bifm" data-size="flexible"></div>
     <p class="cs-err" role="alert"></p>
